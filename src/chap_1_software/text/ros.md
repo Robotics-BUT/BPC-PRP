@@ -68,12 +68,6 @@ Samotný ROS nainstalujeme příkazem. Trvá cca 10 min.
 sudo apt install ros-noetic-desktop-full
 ```
 
-Po zdárné instalaci nainicializujeme závislosti ROSu.
-```
-sudo rosdep init
-rosdep update
-```
-
 A na závěr si do souboru ~/.bashrc přídáme záznam o náčítání ROSu do proměnného prostředí, kdykoliv zapneme terminál.
 ```
 echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
