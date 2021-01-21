@@ -1,0 +1,674 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Robotic Operating System - BPC-PRP</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../title-page.html">O textu</a></li><li class="chapter-item expanded affix "><a href="../../uvod.html">Uvod</a></li><li class="chapter-item expanded "><a href="../../chap_1_software/text/intro.html"><strong aria-hidden="true">1.</strong> Softwarové vybavení</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../chap_1_software/text/linux.html"><strong aria-hidden="true">1.1.</strong> Linux a příkazová řádka</a></li><li class="chapter-item expanded "><a href="../../chap_1_software/text/git.html"><strong aria-hidden="true">1.2.</strong> Git - Verzovací systému</a></li><li class="chapter-item expanded "><a href="../../chap_1_software/text/clion.html"><strong aria-hidden="true">1.3.</strong> CLion IDE</a></li><li class="chapter-item expanded "><a href="../../chap_1_software/text/ros.html" class="active"><strong aria-hidden="true">1.4.</strong> Robotic Operating System</a></li><li class="chapter-item expanded "><a href="../../chap_1_software/text/vb.linux_installation.html"><strong aria-hidden="true">1.5.</strong> Příprava prostředí</a></li></ol></li><li class="chapter-item expanded "><a href="../../cpp.html"><strong aria-hidden="true">2.</strong> Programovaci jazyk C++</a></li><li class="chapter-item expanded "><a href="../../cviceni_uvod.html"><strong aria-hidden="true">3.</strong> Cviceni</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../cviceni_01.html"><strong aria-hidden="true">3.1.</strong> Uvodni cviceni, bezpecnost</a></li></ol></li><li class="chapter-item expanded "><a href="../../nepovinne.html"><strong aria-hidden="true">4.</strong> Nepovinne kapitoly</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../ros.html"><strong aria-hidden="true">4.1.</strong> ROS</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">BPC-PRP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#robotic-operating-system" id="robotic-operating-system">Robotic Operating System</a></h1>
+<p>Název &quot;Robot Operating System&quot; poněkud klame svým zněním. Nejedná se o samostaný operační sýstém, nýbrž spíše o middle-ware, tedy softwarový nástroj (knihovnu), který pomáha propojit dílčí programy do komplexnejšího celku. V praxi si to můžem představit tak, že máme jednoduchou aplikaci pro robota jezdícího po čáre, kterou realizujeme pomoci 3 navzájem spolupracujících programů (příklad funguje jako ilustrační; takového robota samozřejmě můžeme naprogramovat pomocí jednoho programu; ilustrujeme tím ale komplexnější problém). První program vyčítá data ze snímače a provádí jednoduchou filtraci dat. Druhý program je mozkem celého řešení a rozhoduje o pohybu robota. Třetí program pak přijímá řídicí pokyny a na jejich základě ovládá motory.</p>
+<p><img src="../images/robot_scheme.png" alt="Rviz" /></p>
+<p>Obr: Schéma fungování pomyslého line-tracking robota na platformě Rapserry Pi s pouřitím ROSu.</p>
+<p>V případě absence ROSu bychom museli vymyslet způsob jak tyto tři programy spolu budou komunikovat. Mohli bychom sdílet paměť, pipovat, posílat si IP zprávy, používat DBus, etc. Všechny tyto techniky fungují, ale vyžadují určitý programátorský um. My se těmito nízkouúrovňovými problémy nechceme zabývat a proto použijeme ROS.</p>
+<p>V praxi si pak můžeme říct, že ROS komunikuje mezi procesy právě pomocí posílání UDP paketů. To umožňuje také komunikovat procesům, které běží na různých počítačích. Tomu říkáme distribuovaný systém.</p>
+<p>Celý ROS je postaven na 4 stavebních kamenech.</p>
+<ul>
+<li>ROS Core</li>
+<li>ROS Node</li>
+<li>ROS Topic</li>
+<li>ROS Message</li>
+</ul>
+<p>ROS Core - Zjednodušeně řečeno se jedná o IP server, který zajištujě propojení programů (Nodů), které si chtějí vyměnovat data (Message) . Core nativně otevře port 11311 na localhostu a čeká na příchozí komunikaci.</p>
+<p>ROS Node - Nodem je myšlený každý program do kterého přídáme klinetskou knihovnu ROSu. Naučíme tedy program používat funkce ROSu.</p>
+<p>ROS Topic - Doména, ve které se posílá specifický okruh ROS Messagů.</p>
+<p>ROS Message - Jedna instance odeslané zprávy. V rámci ROSu je možné posílat jenom zprávy, které jsou striktně zadefinovány a mají svůj jasně daný formát. Často obsahují také časovou značku, kdy byly odeslány.</p>
+<p>Dále si zadefinujme dva typy postavení ROS Nodů při komunikaci.</p>
+<p>Subscriber - ROS Node, který přijímá všechny zprávy v rámci daného ROS Topicku.</p>
+<p>Publisher - ROS Node, který vytváří a odesíla zprávy v rámci daného ROS Topicku.</p>
+<p>Náš robot-sledující-čáru příklad si pak můžem ilustrovat takto:</p>
+<p><img src="../images/ros_com_scheme.png" alt="Rviz" /></p>
+<p>Nejprve zapneme ROS Core, tedy server, který začte poslouchat příchozí komunikaci. Dále si napíšeme zmíněne 3 programy. Jeden pro čtení dat ze snímače, druhý pro rozhodování, jak se pohybovat a třetí pro ovládání motorů. První program (Node) se přihlásí k serveru, jako publisher pro topick &quot;SensorData&quot;. Druhý se přihlásí serveru, jako subscriber v tomtéž topicku. Server si tyto dva nody poznamená a publisherovi odešle informaci, že je v sídi na dané adrese a portu připravený subscriber, který si vyžádal data z topicku, který oba nody sdílí. Když pak první program přečte data ze snímače, vyfiltruje je a vytvoří z nich message, kterou pošle na dříve obdrženou adresu a port, aby data obdržel subscriber. Obdobným způsobem se vymění data i mezi druhým a třetím programem, pouze pod hlavičkou jiného topicku.</p>
+<p>Nyní máme vytvořené všechny tři programy. Ty spolu komunikují, ale robot přesto nefunguje podle přestav. Tušíme, že chyba je v tom, jak druhý program převádí data ze snímače na pohyb kol. Proto si napíšeme 4. program, který bude poslouchat veškerou komunikaci a bude ji logovat do souboru. Náš nový program tedy bude subscriberem pro oba dříve zavedené topicky &quot;SensorData&quot; a &quot;MotorControl&quot;. V okamžiku kdy tento program zapneme, tak se ohlásí serveru a od tohoto okamžiku všechny zprávy odeslané v topicích &quot;SensorData&quot; a &quot;MotorControl&quot; budo poslány také našemu logovcímu programu. Ten zprávy přijíme a jejich obsach včetně časové značky vytiskne do souboru. Když se pak do souboru podíváme, zjistíme, že plánovací program vatváří akční zásah vždy s opačným znaménkem, proto přídáme &quot;-&quot; do výpočtu akčního zásahu a vše začne fungovat.</p>
+<h2><a class="header" href="#instalace-rosu" id="instalace-rosu">Instalace ROSu</a></h2>
+<p>Tento návod je pouze českým přepisem oficiální dokumentace (Instalace pro Ubuntu)[http://wiki.ros.org/noetic/Installation/Ubuntu]. Prim8rn2 prosím používejte oficiální verzi. Tento návod je pouze doprovodný.</p>
+<p>Instalace je doporučená na distribuci Ubuntu 20.04 LTS (long term stable). Instalovat budeme verzi ROSu z roku 2020, Noetic.</p>
+<p>Přidáme do Linuxu repozitáře (servery) ze kterých je možné stáhnout ROS.</p>
+<pre><code>sudo sh -c 'echo &quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot; &gt; /etc/apt/sources.list.d/ros-latest.list'
+</code></pre>
+<p>Přidáme do systému klíč pro zabezpečenou komunikace s repozitářem.</p>
+<pre><code>sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+</code></pre>
+<p>Necháme baličkovací systém načíst nově přidaná data.</p>
+<pre><code>sudo apt update
+</code></pre>
+<p>Samotný ROS nainstalujeme příkazem. Trvá cca 10 min.</p>
+<pre><code>sudo apt install ros-noetic-desktop-full
+</code></pre>
+<p>A na závěr si do souboru ~/.bashrc přídáme záznam o náčítání ROSu do proměnného prostředí, kdykoliv zapneme terminál.</p>
+<pre><code>echo &quot;source /opt/ros/noetic/setup.bash&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+<h2><a class="header" href="#tvorba-vlastního-nodu" id="tvorba-vlastního-nodu">Tvorba vlastního nodu</a></h2>
+<p>Vytvoříme si jednoduchou aplikaci, kte jeden node bude odesílat zprávu s pořadovým číslem a časovou značkou a druhý node zprávu přijíme, vypíše a zjisti, s jakým zpožděním zpráva došla.</p>
+<p>Nejprve si vytvoříme tzv workspace pro náš projekt. Workspacem se myslí speciálně uspořádaná složka.</p>
+<pre><code>cd ~/
+mkdir ros_ws
+cd ros_ws
+mkdir src
+cd src
+</code></pre>
+<h3><a class="header" href="#c-node" id="c-node">C++ Node</a></h3>
+<p>Dále si pomocí catkinu (balíčkovací nástroj pro ROS) necháme vztgenerovat nový balíček (package).</p>
+<pre><code>catkin_create_pkg cpp_publisher std_msgs roscpp
+</code></pre>
+<p>Příkaz nám říká, že budeme volat program catkin_create_pkg a chceme po něm, aby nám vytvořil balíček cpp_publisher a připojil k němu knihovny std_msgs, která obsahuje základní sadu ROS zpráv a taktéž knihovnu roscpp, což je základní knihovana pro implementaci ROS Nodu v C++.</p>
+<p>Nyní se náš balíček skládá z několika následujícíh souborů</p>
+<pre><code>~/ros_ws/src/cpp_publisher/
+    include/
+    src/
+    CMakeLists.txt
+    package.xml
+</code></pre>
+<p>Do adresářů include a src budeme ukládat naše zdrojové kódy a soubory CMakeLists.txt a package.xml slouží ke kompilaci balíčku.</p>
+<p>CMakeLists.txt a package.xml obsahují velké množství předpřipravených direktiv, které slouží složitějším příkladům. Pro naše potřeby si můžeme tyto dva soubory smazat.</p>
+<pre><code>cd ~/ros_ws/src/cpp_publisher/
+rm CMakeLists.txt
+rm package.xml
+</code></pre>
+<p>Pomocí programu nano, nebo vim si oba soubory znovu vytvoříme tak a přidáme následující obsah.</p>
+<pre><code>nano CMakeLists.txt
+</code></pre>
+<pre><code>cmake_minimum_required(VERSION 2.8.3)
+project(cpp_publisher)
+
+## Find catkin and any catkin packages
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs)
+
+
+## Declare a catkin package
+catkin_package()
+
+## Build talker and listener
+include_directories(include ${catkin_INCLUDE_DIRS})
+
+add_executable(cpp_publisher src/main.cpp)
+target_link_libraries(cpp_publisher ${catkin_LIBRARIES})
+</code></pre>
+<p>a</p>
+<pre><code>nano package.xml
+</code></pre>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;package format=&quot;2&quot;&gt;
+  &lt;name&gt;cpp_publisher&lt;/name&gt;
+  &lt;version&gt;0.0.0&lt;/version&gt;
+  &lt;description&gt;The cpp_publisher package&lt;/description&gt;
+
+  &lt;maintainer email=&quot;my@email.todo&quot;&gt;adash&lt;/maintainer&gt;
+
+  &lt;license&gt;TODO&lt;/license&gt;
+
+  &lt;buildtool_depend&gt;catkin&lt;/buildtool_depend&gt;
+  &lt;build_depend&gt;roscpp&lt;/build_depend&gt;
+  &lt;build_depend&gt;std_msgs&lt;/build_depend&gt;
+  &lt;build_export_depend&gt;roscpp&lt;/build_export_depend&gt;
+  &lt;build_export_depend&gt;std_msgs&lt;/build_export_depend&gt;
+  &lt;exec_depend&gt;roscpp&lt;/exec_depend&gt;
+  &lt;exec_depend&gt;std_msgs&lt;/exec_depend&gt;
+
+  &lt;export&gt;
+
+  &lt;/export&gt;
+&lt;/package&gt;
+</code></pre>
+<p>Nyní si můžeme vytvořit soubor main.cpp ve složce src a do něj napíšeme vlastní program</p>
+<pre><code>nano src/main.cpp
+</code></pre>
+<pre><code>#include &lt;sstream&gt;
+
+#include &quot;ros/ros.h&quot;
+#include &quot;std_msgs/Header.h&quot;
+
+int main(int argc, char **argv) {
+    ros::init(argc, argv, &quot;cpp_publisher&quot;);
+    ros::NodeHandle n;
+
+    ros::Publisher publisher = n.advertise&lt;std_msgs::Header&gt;(&quot;/my_topic&quot;, 1);
+    ros::Rate loop_rate(10);
+
+    int count = 0;
+    while (ros::ok()) {
+
+        std_msgs::Header msg;
+        msg.stamp = ros::Time::now();
+        msg.seq = count++;
+        msg.frame_id = &quot;origin&quot;;
+
+        publisher.publish(msg);
+
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
+
+    return 0;
+}
+</code></pre>
+<p>Nyní se vrátíme do kořene našeho workspacu a zavoláme příkaz pro build celého workspacu.</p>
+<pre><code>cd ~/ros_ws
+catkin_make
+</code></pre>
+<p>Pokud se nevypíše žádná chyba, máme hotový publisher, který je uložený v  ~/ros_ws/devel/lib/cpp_publisher.</p>
+<p>Aby si Linux načetl nově zkompilované programy z našeho ros_ws přidámi si tento workspace do systémového prostředí (environmentu).</p>
+<pre><code>source ~/ros_ws/devel/setup.bash
+</code></pre>
+<p>Abychom tuto akci již nemuseli opakovat přidáme si tento řádek také do ~/.bashrc</p>
+<pre><code>echo &quot;source ~/ros_ws/devel/setup.bash&quot; &gt;&gt; ~/.bashrc
+</code></pre>
+<p>Nyní si otevřeme další 2 terminály tak, abychom celkem měli 3 okna terminálu. V jednom aktivujeme roscore</p>
+<pre><code>roscore
+</code></pre>
+<p>Ve druhém námi vytvořený publisher.</p>
+<pre><code>rosrun cpp_publisher cpp_publisher
+</code></pre>
+<p>A ve třetím si poslechneme zprávy na topicku /my_topic</p>
+<pre><code>rostopic echo /my_topic
+</code></pre>
+<p>Pokud vidíte v terminále výpis zpráv, vše pracuje, jak má.</p>
+<h3><a class="header" href="#python-node" id="python-node">Python Node</a></h3>
+<p>Vytvoříme si další balíček pomocí</p>
+<pre><code>cd ~/ros_ws/src/
+catkin_create_pkg python_subscriber std_msgs rospy
+</code></pre>
+<p>a upravíme si strukturu balíčku tak, aby vypadala následovně.</p>
+<pre><code>~/ros_ws/src/python_subscriber/
+    bin/
+        python_subscriber.py
+    include/
+    src/
+    setup.py
+    CMakeLists.txt
+    package.xml
+</code></pre>
+<p>Složka bin bude soužit k uložení hlavního skriptu python_subscriber.py, include a src pro další zdrojové kódy, které ale dneska nevyužijeme a CMakeLists.txt a package.xml obdobně jako pro C++ příklad. setup.py slouží k instalaci pythoniho balíčku do workspacu.</p>
+<p>Zmíněné soubory si pak upravíme následovně.</p>
+<pre><code>cmake_minimum_required(VERSION 2.8.3)
+project(python_subscriber)
+
+find_package(catkin REQUIRED COMPONENTS
+  rospy
+  std_msgs
+)
+
+catkin_package()
+
+catkin_python_setup()
+</code></pre>
+<p>dále</p>
+<pre><code>nano package.xml
+</code></pre>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;package format=&quot;2&quot;&gt;
+  &lt;name&gt;python_subscriber&lt;/name&gt;
+  &lt;version&gt;0.0.0&lt;/version&gt;
+  &lt;description&gt;The python_subscriber package&lt;/description&gt;
+
+  &lt;maintainer email=&quot;my@email.todo&quot;&gt;adash&lt;/maintainer&gt;
+
+  &lt;license&gt;TODO&lt;/license&gt;
+
+  &lt;buildtool_depend&gt;catkin&lt;/buildtool_depend&gt;
+  &lt;build_depend&gt;rospy&lt;/build_depend&gt;
+  &lt;build_depend&gt;std_msgs&lt;/build_depend&gt;
+  &lt;build_export_depend&gt;rospy&lt;/build_export_depend&gt;
+  &lt;build_export_depend&gt;std_msgs&lt;/build_export_depend&gt;
+  &lt;exec_depend&gt;rospy&lt;/exec_depend&gt;
+  &lt;exec_depend&gt;std_msgs&lt;/exec_depend&gt;
+
+  &lt;export&gt;
+
+  &lt;/export&gt;
+&lt;/package&gt;
+</code></pre>
+<p>pak</p>
+<pre><code>nano setup.py
+</code></pre>
+<pre><code>## ! DO NOT MANUALLY INVOKE THIS setup.py, USE CATKIN INSTEAD
+
+from distutils.core import setup
+from catkin_pkg.python_setup import generate_distutils_setup
+
+# fetch values from package.xml
+setup_args = generate_distutils_setup(
+    packages=['python_subscriber'],
+    package_dir={'': 'src'},
+)
+
+setup(**setup_args)
+</code></pre>
+<p>a finálně</p>
+<pre><code>nano python_subscriber.py
+</code></pre>
+<pre><code>#!/usr/bin/env python
+import rospy
+from std_msgs.msg import Header
+
+def callback(message):
+
+    now = rospy.Time.now()
+    delta_t = (now.secs - message.stamp.secs)*1000000000 + (now.nsecs - message.stamp.nsecs)
+
+    print('seq: ' + str(message.seq))
+    print('frame id: ' + message.frame_id)
+    print('send time: ' + str(message.stamp.secs) + '.' + str(message.stamp.nsecs).zfill(9) + 's')
+    print('receive time: ' + str(now.secs) + '.' + str(now.nsecs).zfill(9) + 's')
+    print('delay [ns]: ' + str(delta_t))
+    print(30*'*')
+
+def listener():
+
+    rospy.init_node('listener', anonymous=True)
+
+    rospy.Subscriber(&quot;/my_topic&quot;, Header, callback)
+
+    # spin() simply keeps python from exiting until this node is stopped
+    rospy.spin()
+
+if __name__ == '__main__':
+    listener()
+</code></pre>
+<p>a přídáme souboru python_subscriber.py flag pro spouštění, aby bylo možné zapnout skript.</p>
+<pre><code>chmod +x ~/ros_ws/src/python_subscriber/bin/python_subscriber.py
+</code></pre>
+<p>Nyní se můžeme vrátit do kořene workspacu a vše ykompilovat.</p>
+<pre><code>cd ~/ros_ws/
+catkin_make
+</code></pre>
+<p>Zaktualizujeme si proměné prostředí.</p>
+<pre><code>source ~/ros_ws/devel/setup.bash
+</code></pre>
+<p>Pokud máme aktivní roscore i cpp_publisher, pak zampene node pomocí</p>
+<pre><code>rosrun python_subscriber python_subscriber
+</code></pre>
+<p>a vidíme výpis přijímaných zpráv.</p>
+<p>Pomocí programu rqt_graph si můžeme prohlédnout aktuální stav propojení nodů.</p>
+<pre><code>rosrun rqt_graph rqt_graph
+</code></pre>
+<p><img src="../images/rqt_graph.png" alt="rqt_graph" /></p>
+<p>Obr: vizualizace komunikace mezi nody pomocí rqt_graph</p>
+<h2><a class="header" href="#rviz" id="rviz">Rviz</a></h2>
+<p>Rviz je vizualizační nástroj, který je dodáván jako součást ROSu. Jedná se o aplikaci, která dokáže poslouchat širokou paletu předdefinovaných ROS zpráv a vizualizovat je v 3D grafickém prostředí.</p>
+<p>Obvzkle Rviz používáme pro vizualizaci pointcloudů (mrařna bodů z LIDARu), obrázků z kamery, vykreslování geometrických primitiv v prostoru, vizualizace occupancy grid map, atd.</p>
+<p>Pokud nám již běži roscore, rviz aktivujeme pomocí</p>
+<pre><code>rosrun rviz rviz
+</code></pre>
+<p>Vizualizaci konkrétního topicku pak aktivujeme pomocí</p>
+<p>Add -&gt; By topic -&gt; [náš topick]</p>
+<p>V sekci</p>
+<p>Add -&gt; By display type</p>
+<p>vidíme všechny podporované typy zpráv (viz online dokumentace ROSu).</p>
+<p><img src="../images/rviz.png" alt="rqt_graph" />
+Obr: příklad vizualizace pointcloudu a kamery v Rvizu</p>
+<p>Nyní si skusme vytvořit vlastní Node, který bude vykreslovat geometrické primitivum do RVizu. Vyjděme z příkladu cpp_ros_publishera a vytvořné následujicí program.</p>
+<pre><code>cd ~/ros_ws/src
+catkin_create_pkg cpp_rviz_publisher std_msgs visualization_msgs roscpp
+</code></pre>
+<p>CMakeLists.txt</p>
+<pre><code>cmake_minimum_required(VERSION 2.8.3)
+project(cpp_rviz_publisher)
+
+## Find catkin and any catkin packages
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs visualization_msgs)
+
+
+## Declare a catkin package
+catkin_package()
+
+## Build talker and listener
+include_directories(include ${catkin_INCLUDE_DIRS})
+
+add_executable(cpp_rviz_publisher src/main.cpp)
+target_link_libraries(cpp_rviz_publisher ${catkin_LIBRARIES})
+</code></pre>
+<p>package.xml</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;package format=&quot;2&quot;&gt;
+  &lt;name&gt;cpp_rviz_publisher&lt;/name&gt;
+  &lt;version&gt;0.0.0&lt;/version&gt;
+  &lt;description&gt;The cpp_rviz_publisher package&lt;/description&gt;
+
+  &lt;maintainer email=&quot;my@email.todo&quot;&gt;adash&lt;/maintainer&gt;
+
+  &lt;license&gt;TODO&lt;/license&gt;
+
+  &lt;buildtool_depend&gt;catkin&lt;/buildtool_depend&gt;
+  &lt;build_depend&gt;roscpp&lt;/build_depend&gt;
+  &lt;build_depend&gt;std_msgs&lt;/build_depend&gt;
+  &lt;build_depend&gt;visualization_msgs&lt;/build_depend&gt;
+  &lt;build_export_depend&gt;roscpp&lt;/build_export_depend&gt;
+  &lt;build_export_depend&gt;std_msgs&lt;/build_export_depend&gt;
+  &lt;build_export_depend&gt;visualization_msgs&lt;/build_export_depend&gt;
+  &lt;exec_depend&gt;roscpp&lt;/exec_depend&gt;
+  &lt;exec_depend&gt;std_msgs&lt;/exec_depend&gt;
+  &lt;exec_depend&gt;visualization_msgs&lt;/exec_depend&gt;
+
+  &lt;export&gt;
+
+  &lt;/export&gt;
+&lt;/package&gt;
+</code></pre>
+<p>src/main.cpp</p>
+<pre><code>#include &lt;sstream&gt;
+#include &lt;ros/ros.h&gt;
+#include &lt;visualization_msgs/Marker.h&gt;
+
+visualization_msgs::Marker createCuteCube(float pose) {
+
+    visualization_msgs::Marker marker;
+    marker.header.frame_id = &quot;map&quot;;
+    marker.header.stamp = ros::Time();
+    marker.ns = &quot;cube&quot;;
+
+    marker.id = 0;
+    marker.type = visualization_msgs::Marker::CUBE;
+    marker.action = visualization_msgs::Marker::ADD;
+
+    marker.pose.position.x = sin(pose);
+    marker.pose.position.y = cos(pose);
+    marker.pose.position.z = 0.1*sin(5*pose);
+
+    marker.pose.orientation.x = 0.0;
+    marker.pose.orientation.y = 0.0;
+    marker.pose.orientation.z = 0.0;
+    marker.pose.orientation.w = 1.0;
+
+    marker.scale.x = 0.1;
+    marker.scale.y = 0.1;
+    marker.scale.z = 0.1;
+
+    marker.color.a = 1.0;
+    marker.color.r = 0.0;
+    marker.color.g = 1.0;
+    marker.color.b = 0.0;
+
+    return marker;
+}
+
+
+int main(int argc, char **argv) {
+
+    ros::init(argc, argv, &quot;cpp_rviz_publisher&quot;);
+    ros::NodeHandle n;
+
+    ros::Publisher vis_pub = n.advertise&lt;visualization_msgs::Marker&gt;( &quot;/cute_cube&quot;, 0 );
+    ros::Rate loop_rate(100);
+
+    float pose = 0;
+    while (ros::ok()) {
+        visualization_msgs::Marker cube = createCuteCube(pose);
+        vis_pub.publish( cube );
+        pose += 0.01;
+
+        ros::spinOnce();
+        loop_rate.sleep();
+    }
+
+    return 0;
+}
+</code></pre>
+<p>V Rvizu si pak otevřeme topic /cute_cube .</p>
+<h2><a class="header" href="#distribuovaný-ros" id="distribuovaný-ros">Distribuovaný ROS</a></h2>
+<p>Tím, že calý backend ROS-ové komunikace je postaven na IP komunikaci (UDP protokolu), je možné snadno komunikaci mezi Nody přenést i na jiné počítače v dostupné síti. Po nainstalování je ROS nakonfigurován tak, že veškerá komunikace s Corem probíha na adrese http://localhost:11311, a Nody si bindují dostupné volné UDP porty a skrze něj komunikují mezi sebou. Pokud ale nastavíme na lokálním stroji proměnnou ROS_MASTER_URI na jinou IP adresu, bude každý nově nastartovaný Node hledat svůj ROS Core na adrese uvedené v ROS_MASTER_URI.</p>
+<p>Spojme si 2 počitáče skrze IP síť a ověřme, že na seba navzájem vidí příkazem PING.</p>
+<pre><code>ping xxx.yyy.zzz.qqq
+</code></pre>
+<p>Pokud oba počítače na sebe navzájem vidí, můžeme na počítači, kde chceme provozovat ROS Core nastavit proměnné, a aktivovat Core.</p>
+<pre><code>export ROS_MASTER_URI=http://localhost:11311
+export ROS_IP=&lt;ip_adresa_pocitace&gt;
+roscore
+</code></pre>
+<p>Na 2. počítači, kde poběží nody musíme nastavit prostředí tak aby dokázalo najít ROS Core v síti.</p>
+<pre><code>export ROS_MASTER_URI=http://&lt;ip_adresa_coru&gt;:&lt;port_coru&gt;
+export ROS_IP=&lt;ip_adresa_pocitace&gt;
+</code></pre>
+<p>Ověřit nastavení proměnných můžeme příkazy</p>
+<pre><code>echo $ROS_MASTER_URI
+echo $ROS_IP
+</code></pre>
+<p>Nyní, pokud aktivujeme publisher a subscriber na libovolném počítači v takto nastavené ROS síti, budou nody spolu komunikovat.</p>
+<p><img src="../images/ros_distributed.png" alt="rqt_graph" />
+Obr: příklad konfigurace ROSu na dvou počítačích.</p>
+<h2><a class="header" href="#kam-dál" id="kam-dál">Kam dál?</a></h2>
+<p>Tento tutoriál je popisuje pouze malý zlomek všech možných funkcionalit této obšírné platformy.</p>
+<p>Oficiální web [1] - http://www.ros.org/</p>
+<p>Oficiální tutoriály [2] - http://wiki.ros.org/ROS/Tutorials</p>
+<p>Naučit se používat ROS Services [6]</p>
+<p>Seznamy několika předdefinovaných ROS Messagů - [4] [5]</p>
+<p>Pro zdatné ROSáky je možnost se posunout na další kvalitativní level, a totiž ROS 2 [3]. Druhá verze robotického operačního systému je již koncipováná jako real-time middleware s podporou QoS a širokou paletou služeb, které ocení zejména vývojáři sofistikovaných robotických řešení, na která bude kladeny řádově vyžší kvalitativní nároky.</p>
+<p>Pro reálnou práci se zdrojovými kódy je vhodné použít nějaké IDE. V případě Linuxu vřele doporučuji programy od  JetBrains, CLion pro vývoj C++ a Pycharm pro práci s pythonem. Oba programy jsou pro studenty VUT zdarma.</p>
+<h2><a class="header" href="#reference" id="reference">Reference</a></h2>
+<p>[1] http://www.ros.org/</p>
+<p>[2] http://wiki.ros.org/ROS/Tutorials</p>
+<p>[3] https://github.com/ros2/ros2/wiki</p>
+<p>[4] http://wiki.ros.org/std_msgs</p>
+<p>[5] http://wiki.ros.org/sensor_msgs</p>
+<p>[6] http://wiki.ros.org/Services</p>
+<p>[7] https://www.computerhope.com/unix/uchmod.htm</p>
+<p>[8] http://wiki.ros.org/ROS/Installation</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../chap_1_software/text/clion.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../chap_1_software/text/vb.linux_installation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../../chap_1_software/text/clion.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../../chap_1_software/text/vb.linux_installation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
