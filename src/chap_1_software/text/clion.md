@@ -83,19 +83,19 @@ Po stažení instalačního balíčku provedeme instalaci standardním způsobem
 Nejprve vytvoříme jednoduchý HelloWorld projekt, ve kterém se seznámíme s procesem vytvoření projektu, prostředím a vývojem na lokálním počítači. 
 Po spuštění CLion nás přivítá úvodní obrazovka se seznamem naposledy otevřených projektů, kde klikneme na tlačítko "New Project".
 
-OBRAZEK
+![uvodni obrazovka](../images/clion/clion1.png)
 
 Po kliknutí se nám otevře okno s konfigurací nového projektu, kde nastavíme cestu, kde chceme mít projekt vytvořený a standard jazyka C++, v našempřípadě C++17.
 
-OBR
+![vytvareni projektu](../images/clion/clion2.png)
 
-Po kliknutí na "Create"nás přivítá samotné vývojové prostředí tak jak je zobrazeno na obrazku.
+Po kliknutí na "Create" nás přivítá samotné vývojové prostředí tak jak je zobrazeno na obrazku.
 
-OBR
+![IDE](../images/clion/clion3.png)
 
 Pojďme se nyní podívat, co se na obrazovce nachází.
 
-OBR
+![IDE popis](../images/clion/clion4.png)
 
 1. podokno s aktuálně editovaným zdrojovým kódem
 2. aktuálně otevřené soubory
@@ -114,19 +114,19 @@ add_executable(HelloWorld  main.cpp)
 
 Nyní klikneme na tlačítko pro kompilaci a spuštění, kdy se nám nejprve ve spodní části obrazovky zobrazí okno s průběhem kompilace a následně s konzolí spuštěného programu:
 
-OBR
+![Run](../images/clion/clion5.png)
 
 Při debugování se breakpointy přidávají kliknutím vedle čísla řádku. 
 Po přidání breakpointu je nutné program spustit v debug módu v horní části okna. 
 Po kompilacise ve spodní části zobrazí okno debuggeru. 
 Navigace v debuggovaném kódu probíhá pomocí šipek v debuggovacím okně.
 
-OBR
+![Debug](../images/clion/clion6.png)
 
 Pro přidání nové třídy do projektu klikneme v podokně se soubory projektu na náš projekt pravým tlačítkem, najedeme na "New" a tam zvolíme "C/C++ Class", jak je zobrazeno na obrázku. 
 Při přidávání a odebírání souborů je nutné, aby všechny `.cpp` soubory byly uvedeny v CMakeLists.txt.
 
-OBR
+![new class](../images/clion/clion7.png)
 
 CLion obsahuje spoustu funkcí a možností, jejichž popsání je zcela nad rámec tohoto návodu, doporučuji tedy si s ním pohrát a vyzkoušet, co všechno se v něm dá dělat a jak efektivně. 
 Dobré je rovněž si všímat toho, když je řádek označený žlutě, většinou se jedná o CLion doporučující nějaké zlepšení kódu.
@@ -142,40 +142,48 @@ Pro nakonfigurování vzdáleného vývoje je nutné nejprve přejít do nastave
 Zde ve stromu vybereme "Build, Execution, Deployment" a položku "Toolchains" viz obrazek. 
 Dále klikneme na tlačítko "+".
 
-OBR
+![toolchain](../images/clion/clion8.png)
 
 Následně vyplníme jméno toolchainu a volbu "System" přepneme na "RemoteHost" tak, jak je to zobrazeno na obrazku. 
-Následně klepneme na ikonu složky upoložky "Credentials"a nastavíme je podle konfigurace našeho robotu. 
+Následně klepneme na ikonu složky upoložky "Credentials" a nastavíme je podle konfigurace našeho robotu. 
 Pokud konfigurace Raspberry Pi nebyla měněna, lze použít hodnoty uvedené v tabulce a zobrazené na obrázku.
 Na Raspberry Pi musí být povoleno SSH.
 
-OBR
-OBR
-TAB
+![toolchain](../images/clion/clion9.png)
+![toolchain](../images/clion/clion10.png)
+
+| parametr | hodnota |
+| -------- | ------- |
+| Host | raspberrypi.local |
+| Port | 22 |
+| User name | pi |
+| Password | raspberry |
 
 Po kliknutí na OK, se CLion pokusí připojit k danému Raspberry Pi a zkontroluje,zda jsou všechny potřebné programy k dispozici. 
 Připojování je vidět na obrazku a úspěšné připojení je vidět na dalsim obrazku.
 
-OBR
-OBR
+![toolchain](../images/clion/clion11.png)
+![toolchain](../images/clion/clion12.png)
 
 Dalším důležitým krokem je konfigurace CMake, ta se provádí rovněž v okně Preferences tak jak je zobrazeno na obrazku.
 
-OBR
+![toolchain](../images/clion/clion13.png)
 Po kliknutí na "+" nakonfigurujeme CMake tak aby používal náš nový toolchain,tak jak je to zobrazeno na obrázku a klikneme na OK.
 
-OBR
+![toolchain](../images/clion/clion14.png)
 
 Po kliknutí na OK proběhne upload souborů na Raspberry Pi, po uploadu je nutné přepnout konfiguraci CMake na naši nově vytvořenou jak je zobrazenona obrazku.
 
-OBR
-OBR
+![toolchain](../images/clion/clion15.png)
+![toolchain](../images/clion/clion16.png)
 
 Poté následuje reload konfigurace jak je zobrazeno na obrazku.
 
-OBR
+![toolchain](../images/clion/clion17.png)
 
 Po kliknutí na tlačítko kompilace a spuštění se náš firmware zkompiluje naRaspberry Pi a spustí se, tak jak je vidět na obrazku, kdy úspěch poznáme podle toho, že se spustitelný soubor spouští z adresáře tmp.
+
+![toolchain](../images/clion/clion18.png)
 
 Vzdálený vývoj je nyní nakonfigurován a měl by fungovat téměř bez problémů, častým problémům je věnována kapitola Troubleshooting.
 
@@ -190,5 +198,7 @@ Po kliknuti na slozku projektu v levem panelu, kliknete na "Deployment", "Upload
 
 ### Ultimátní řešení problémů
 Zkontrolujte, jestli v CMakeLists.txt jsou uvedeny všechny soubory, které se mají kompilovat. 
-Zkuste v podokně CMake provést reload. 
+Zkuste v podokně CMake provést reload, jak je zobrazeno na obrazku. 
 Pokud to nepomůže, přes SSH se připojte k Raspberry Pi, v /tmp smažte momentálně používanou složku pro vzdálený vývoj, restartujte CLion.
+
+![toolchain](../images/clion/clion19.png)
