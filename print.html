@@ -427,7 +427,149 @@ git stash pop      ...      Vytáhne změny uložené ze zásobníku a aplikuje 
 <p><a href="https://atlassian.com">Tutoriál Atlassianu</a></p>
 <p><a href="https://git.com">Oficiální dokumentace Gitu</a></p>
 <p><a href="https://ohshithit.com/cs">Užitečný rádce při potížích s Gitem (cs)</a></p>
-<p>Lorem Ipsum</p>
+<h1><a class="header" href="#remote-development-v-prostredi-clion" id="remote-development-v-prostredi-clion">Remote development v prostredi CLion</a></h1>
+<p>Clion je integrované vývojové prostředí vyvíjené firmou JetBrains. Jedná se o zajímavou alternativu ke konvenčním prostředím jako je například Eclipse nebo NetBeans.
+Oproti těmto uvedeným prostředím Clion vyčnívá zejména kvůli své rychlosti, přehlednosti a modernosti. 
+Díky napojení na ekosystém firmy JetBrains je možné do studia doinstalovat spoustu rozšiřujících pluginů přinášejících podporu pro nové jazyky, vývojářské nástroje atp. 
+Velkou výhodou může být i integrovaná práce s Gitem.</p>
+<p>V tomto manuálu bude rozebráno použití prostředí Clion v předmětu BPC-PRP tedy jako nástroje pro vývoj firmware mobilního robotu založeného na platformě KAMBot. 
+Nejprve bude stručně rozebrán build system CMake.
+Poté se manuál již bude věnovat CLionu a to zejména jeho instalaci, vytvoření jednoduchého projektu typu Hello World a jeho zprovoznení. 
+Dále je popsána stěžejní kapitola tohoto manuálu, a to vzdálený vývoj umožňující vzdálené programování Raspberry Pi pomocí standardního počítače. Na konci je popsán jednoduchý projekt blikání LEDkou a kapitola zabývající se odstraňováním nejčastějších problémů se vzdáleným vývojem.</p>
+<p>Příklady v tomto manuálu byly zpracovány ve verzi Clion 2018.3, je tedy možné, že se v budoucnosti některé postupy budou měnit.</p>
+<h2><a class="header" href="#build-system-cmake" id="build-system-cmake">Build system CMake</a></h2>
+<p>CMake je soubor nástrojů, které zjednodušují kompilaci projektů a knihoven takovým
+způsobem, aby byly nezávislé na operačním systému a kompilátoru. Funguje tak,
+že pomocí jednotného konfiguračního souboru CMakeLists.txt vygeneruje Makefile
+pro UNIX-like systémy a pro Windows generuje MSVC pracovní prostory. Velkou
+výhodou CMake je správa závislostí - aplikace si mohou definovat na jakých knihovnách
+jsou závislé, přičemž CMake kontroluje, jestli jsou tyto knihovny dostupné a navíc v
+požadované verzi. Další velkou výhodou je možnost vytvářet jak spustitelné soubory
+tak knihovny pomocí jedné jednoduché konfigurace umístěné v CMakeLists.txt.</p>
+<p>Ukázkový soubor CMakeLists.txt pro aplikaci:</p>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.7)
+project(MyCoolRobot)
+
+set(CMAKE_CXX_STANDARD 17) 
+
+add_executable(MyCoolRobot main.cpp)
+</code></pre>
+<p>Ukázkový soubor CMakeLists.txt pro knihovnu:</p>
+<pre><code class="language-cmake">cmake_minimum_required (VERSION 3.7)
+project (MyCoolLibrary VERSION 0.1 LANGUAGES CXX )
+
+include(GNUInstallDirs)
+set (CMAKE_CXX_STANDARD 17)
+file (GLOB SOURCES src/*.cpp )
+
+file (GLOB HEADERS include/*.h)
+
+add_library(libmycoollibrary ${SOURCES})
+
+target_include_directories(libmycoollibrary PUBLIC
+    $&lt;BUILD_INTERFACE : ${CMAKE_CURRENT_SOURCE_DIR}/include&gt; 
+    $&lt;INSTALL_INTERFACE : include&gt;
+    PRIVATE src)
+
+install (TARGETS libmycoollibrary EXPORT MyCoolLibraryConfig
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+install(DIRECTORY include/DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+
+install(EXPORT RoboUtilsConfig DESTINATION share/MyCoolLibrary/cmake)
+
+export(TARGETS libroboutils FILE MyCoolLibraryConfig.cmake)
+</code></pre>
+<p>V případě, že máme nějaký projekt, který používá CMake a chceme jej spustit,
+provedeme to pomocí příkazů:</p>
+<pre><code class="language-shell">cd MyCoolRobot
+cmake . 
+make
+./MyCoolRobot
+</code></pre>
+<h2><a class="header" href="#instalace-clion" id="instalace-clion">Instalace CLion</a></h2>
+<p>Instalace CLion probíhá pomocí stažení instalačního balíčku ze stránky <a href="https://www.jetbrains.com/clion/">https://www.jetbrains.com/clion/</a> po kliknutí na &quot;GET FREE 30 DAY TRIAL&quot;.
+Studenti mají nárok na bezplatné využívání plné verze po dobu studia, což se ostatně týká všech produktů firmy JetBrains. 
+Získání plné verze je možné pomocí postupu na stránce <a href="https://www.jetbrains.com/student/">https://www.jetbrains.com/student/</a>.
+Po stažení instalačního balíčku provedeme instalaci standardním způsobem podle zvyklostí jednotlivých operačních systémů.</p>
+<h2><a class="header" href="#hello-world-projekt" id="hello-world-projekt">Hello World Projekt</a></h2>
+<p>Nejprve vytvoříme jednoduchý HelloWorld projekt, ve kterém se seznámíme s procesem vytvoření projektu, prostředím a vývojem na lokálním počítači. 
+Po spuštění CLion nás přivítá úvodní obrazovka se seznamem naposledy otevřených projektů, kde klikneme na tlačítko &quot;New Project&quot;.</p>
+<p>OBRAZEK</p>
+<p>Po kliknutí se nám otevře okno s konfigurací nového projektu, kde nastavíme cestu, kde chceme mít projekt vytvořený a standard jazyka C++, v našempřípadě C++17.</p>
+<p>OBR</p>
+<p>Po kliknutí na &quot;Create&quot;nás přivítá samotné vývojové prostředí tak jak je zobrazeno na obrazku.</p>
+<p>OBR</p>
+<p>Pojďme se nyní podívat, co se na obrazovce nachází.</p>
+<p>OBR</p>
+<ol>
+<li>podokno s aktuálně editovaným zdrojovým kódem</li>
+<li>aktuálně otevřené soubory</li>
+<li>soubory v projektu</li>
+<li>zleva: kompilace projektu, výběr targetu, kompilace a spuštění, kompilace aspuštění v debug módu</li>
+</ol>
+<p>Verze CMake dodávaná v Raspbianu je bohužel relativně stará, zatím co CLion předpokládá použití relativně novou verzi, pro vyřešení tohoto problému je nutné změnit v souboru CMakeLists.txt verzi CMake z 3.12 na 3.7 tak jak je zobrazeno ve výpisu:</p>
+<p>NOTE: Dnes jiz pravdepodobne neplati a Raspbian obsahuje znatelne novejsi verzi CMake.</p>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION  3.7)
+project(HelloWorld)
+set(CMAKE_CXX_STANDARD  14)
+add_executable(HelloWorld  main.cpp)
+</code></pre>
+<p>Nyní klikneme na tlačítko pro kompilaci a spuštění, kdy se nám nejprve ve spodní části obrazovky zobrazí okno s průběhem kompilace a následně s konzolí spuštěného programu:</p>
+<p>OBR</p>
+<p>Při debugování se breakpointy přidávají kliknutím vedle čísla řádku. 
+Po přidání breakpointu je nutné program spustit v debug módu v horní části okna. 
+Po kompilacise ve spodní části zobrazí okno debuggeru. 
+Navigace v debuggovaném kódu probíhá pomocí šipek v debuggovacím okně.</p>
+<p>OBR</p>
+<p>Pro přidání nové třídy do projektu klikneme v podokně se soubory projektu na náš projekt pravým tlačítkem, najedeme na &quot;New&quot; a tam zvolíme &quot;C/C++ Class&quot;, jak je zobrazeno na obrázku. 
+Při přidávání a odebírání souborů je nutné, aby všechny <code>.cpp</code> soubory byly uvedeny v CMakeLists.txt.</p>
+<p>OBR</p>
+<p>CLion obsahuje spoustu funkcí a možností, jejichž popsání je zcela nad rámec tohoto návodu, doporučuji tedy si s ním pohrát a vyzkoušet, co všechno se v něm dá dělat a jak efektivně. 
+Dobré je rovněž si všímat toho, když je řádek označený žlutě, většinou se jedná o CLion doporučující nějaké zlepšení kódu.</p>
+<h2><a class="header" href="#vzdálený-vývoj" id="vzdálený-vývoj">Vzdálený vývoj</a></h2>
+<p>Vzdálený vývoj (remote development) znamená, že výpočetně náročné vývojové prostředí běží na běžném počítači, zatímco kompilace a spouštění programu probíhána cílovém počítači. 
+Tímto způsobem lze například velmi pohodlně programovat embedded hardware případně servery. 
+Velká výhoda je, že například jde z Windows nebo MacOS programovat aplikace pro Linux, což nemusí vždy být možné kvůli chybějícím knihovnám napřiklad i2c-dev. 
+Funkcionalita vzdáleného vývoje byla doprostředí CLion přidána ve verzi 2018.3.</p>
+<p>Pro nakonfigurování vzdáleného vývoje je nutné nejprve přejít do nastaveníprostředí CLion (Preferences). 
+Zde ve stromu vybereme &quot;Build, Execution, Deployment&quot; a položku &quot;Toolchains&quot; viz obrazek. 
+Dále klikneme na tlačítko &quot;+&quot;.</p>
+<p>OBR</p>
+<p>Následně vyplníme jméno toolchainu a volbu &quot;System&quot; přepneme na &quot;RemoteHost&quot; tak, jak je to zobrazeno na obrazku. 
+Následně klepneme na ikonu složky upoložky &quot;Credentials&quot;a nastavíme je podle konfigurace našeho robotu. 
+Pokud konfigurace Raspberry Pi nebyla měněna, lze použít hodnoty uvedené v tabulce a zobrazené na obrázku.
+Na Raspberry Pi musí být povoleno SSH.</p>
+<p>OBR
+OBR
+TAB</p>
+<p>Po kliknutí na OK, se CLion pokusí připojit k danému Raspberry Pi a zkontroluje,zda jsou všechny potřebné programy k dispozici. 
+Připojování je vidět na obrazku a úspěšné připojení je vidět na dalsim obrazku.</p>
+<p>OBR
+OBR</p>
+<p>Dalším důležitým krokem je konfigurace CMake, ta se provádí rovněž v okně Preferences tak jak je zobrazeno na obrazku.</p>
+<p>OBR
+Po kliknutí na &quot;+&quot; nakonfigurujeme CMake tak aby používal náš nový toolchain,tak jak je to zobrazeno na obrázku a klikneme na OK.</p>
+<p>OBR</p>
+<p>Po kliknutí na OK proběhne upload souborů na Raspberry Pi, po uploadu je nutné přepnout konfiguraci CMake na naši nově vytvořenou jak je zobrazenona obrazku.</p>
+<p>OBR
+OBR</p>
+<p>Poté následuje reload konfigurace jak je zobrazeno na obrazku.</p>
+<p>OBR</p>
+<p>Po kliknutí na tlačítko kompilace a spuštění se náš firmware zkompiluje naRaspberry Pi a spustí se, tak jak je vidět na obrazku, kdy úspěch poznáme podle toho, že se spustitelný soubor spouští z adresáře tmp.</p>
+<p>Vzdálený vývoj je nyní nakonfigurován a měl by fungovat téměř bez problémů, častým problémům je věnována kapitola Troubleshooting.</p>
+<h2><a class="header" href="#troubleshooting" id="troubleshooting">Troubleshooting</a></h2>
+<p>V této kapitole bude rozebráno řešení problémů vznikajících při použití vzdáleného vývoje.</p>
+<h3><a class="header" href="#cmake-312-is-required-you-are-running-version-372" id="cmake-312-is-required-you-are-running-version-372">CMake 3.12 is required. You are running version 3.7.2</a></h3>
+<p>Problém je ve vašem CMakeLists.txt, změňte parametr &quot;cmake_minimum_required&quot;.</p>
+<h3><a class="header" href="#v-raspberry-pi-chybí-požadované-soubory" id="v-raspberry-pi-chybí-požadované-soubory">V Raspberry Pi chybí požadované soubory</a></h3>
+<p>Po kliknuti na slozku projektu v levem panelu, kliknete na &quot;Deployment&quot;, &quot;Upload to&quot; a vyberte Raspberry Pi.</p>
+<h3><a class="header" href="#ultimátní-řešení-problémů" id="ultimátní-řešení-problémů">Ultimátní řešení problémů</a></h3>
+<p>Zkontrolujte, jestli v CMakeLists.txt jsou uvedeny všechny soubory, které se mají kompilovat. 
+Zkuste v podokně CMake provést reload. 
+Pokud to nepomůže, přes SSH se připojte k Raspberry Pi, v /tmp smažte momentálně používanou složku pro vzdálený vývoj, restartujte CLion.</p>
 <h1><a class="header" href="#robotic-operating-system" id="robotic-operating-system">Robotic Operating System</a></h1>
 <p>Název &quot;Robot Operating System&quot; poněkud klame svým zněním. Nejedná se o samostaný operační sýstém, nýbrž spíše o middle-ware, tedy softwarový nástroj (knihovnu), který pomáha propojit dílčí programy do komplexnejšího celku. V praxi si to můžem představit tak, že máme jednoduchou aplikaci pro robota jezdícího po čáre, kterou realizujeme pomoci 3 navzájem spolupracujících programů (příklad funguje jako ilustrační; takového robota samozřejmě můžeme naprogramovat pomocí jednoho programu; ilustrujeme tím ale komplexnější problém). První program vyčítá data ze snímače a provádí jednoduchou filtraci dat. Druhý program je mozkem celého řešení a rozhoduje o pohybu robota. Třetí program pak přijímá řídicí pokyny a na jejich základě ovládá motory.</p>
 <p><img src="chap_1_software/text/../images/robot_scheme.png" alt="Rviz" /></p>
