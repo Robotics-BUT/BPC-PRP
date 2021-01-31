@@ -14,6 +14,7 @@
 
 - [Cviceni](./cviceni_uvod.md)
     - [Uvodni cviceni, bezpecnost](./cviceni_01.md)
+    - [Řízení motorů](./cviceni_motory.md)
 
 - [Nepovinne kapitoly](./nepovinne.md)
     - [ROS](./ros.md)
