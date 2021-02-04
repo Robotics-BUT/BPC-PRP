@@ -59,6 +59,7 @@ Zvolme si tedy, že požadovaným vstupem do našeho softwareového driveru moto
     float speedInMicrosteps = targetSpeed * microstepsPerRevolution
 </details>
 <br/><br/>
+
 ### Posílaní řídicích zpráv
 Nezbytnou teorii máme za sebou, pusťme se tedy do samotného programování. 
 Z tabulky výše víme, že příkaz pro nastavení rychlosti levého motoru je `LSPEED`.
