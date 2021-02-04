@@ -91,7 +91,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">O textu</a></li><li class="chapter-item expanded affix "><a href="uvod.html">Uvod</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/intro.html"><strong aria-hidden="true">1.</strong> Softwarové vybavení</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chap_1_software/text/linux.html"><strong aria-hidden="true">1.1.</strong> Linux a příkazová řádka</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/git.html"><strong aria-hidden="true">1.2.</strong> Git - Verzovací systému</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/clion.html"><strong aria-hidden="true">1.3.</strong> CLion IDE</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/ros.html"><strong aria-hidden="true">1.4.</strong> Robotic Operating System</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/vb.linux_installation.html"><strong aria-hidden="true">1.5.</strong> Příprava prostředí</a></li></ol></li><li class="chapter-item expanded "><a href="cpp.html"><strong aria-hidden="true">2.</strong> Programovaci jazyk C++</a></li><li class="chapter-item expanded "><a href="cviceni_uvod.html"><strong aria-hidden="true">3.</strong> Cviceni</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cviceni_01.html"><strong aria-hidden="true">3.1.</strong> Uvodni cviceni, bezpecnost</a></li></ol></li><li class="chapter-item expanded "><a href="nepovinne.html"><strong aria-hidden="true">4.</strong> Nepovinne kapitoly</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ros.html"><strong aria-hidden="true">4.1.</strong> ROS</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">O textu</a></li><li class="chapter-item expanded affix "><a href="uvod.html">Uvod</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/intro.html"><strong aria-hidden="true">1.</strong> Softwarové vybavení</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chap_1_software/text/linux.html"><strong aria-hidden="true">1.1.</strong> Linux a příkazová řádka</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/git.html"><strong aria-hidden="true">1.2.</strong> Git - Verzovací systému</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/clion.html"><strong aria-hidden="true">1.3.</strong> CLion IDE</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/ros.html"><strong aria-hidden="true">1.4.</strong> Robotic Operating System</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/vb.linux_installation.html"><strong aria-hidden="true">1.5.</strong> Příprava prostředí</a></li></ol></li><li class="chapter-item expanded "><a href="cpp.html"><strong aria-hidden="true">2.</strong> Programovaci jazyk C++</a></li><li class="chapter-item expanded "><a href="cviceni_uvod.html"><strong aria-hidden="true">3.</strong> Cviceni</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cviceni_01.html"><strong aria-hidden="true">3.1.</strong> Uvodni cviceni, bezpecnost</a></li><li class="chapter-item expanded "><a href="cviceni_motory.html"><strong aria-hidden="true">3.2.</strong> Řízení motorů</a></li></ol></li><li class="chapter-item expanded "><a href="nepovinne.html"><strong aria-hidden="true">4.</strong> Nepovinne kapitoly</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ros.html"><strong aria-hidden="true">4.1.</strong> ROS</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -1061,6 +1061,85 @@ Obr: příklad konfigurace ROSu na dvou počítačích.</p>
 <h1><a class="header" href="#programovaci-jazyk-c" id="programovaci-jazyk-c">Programovaci jazyk C++</a></h1>
 <h1><a class="header" href="#cviceni" id="cviceni">Cviceni</a></h1>
 <h1><a class="header" href="#cviceni-1---uvod-do-predmetu-bezpecnost" id="cviceni-1---uvod-do-predmetu-bezpecnost">Cviceni 1 - Uvod do predmetu, bezpecnost</a></h1>
+<h1><a class="header" href="#Řízení-motorů" id="Řízení-motorů">Řízení motorů</a></h1>
+<p>Cvičící: Bc. Matouš Hýbl, Ing. Lukáš Kopečný Ph.D.</p>
+<h2><a class="header" href="#cile" id="cile">Cile</a></h2>
+<ul>
+<li>Rozpohybovat kola simulovaneho robota tak, aby bylo mozne ridit jeho pohyb pomoci kinematiky.</li>
+<li>Zprovoznit cteni ujete drahy jednotlivych motoru.</li>
+</ul>
+<h2><a class="header" href="#prerekvizity" id="prerekvizity">Prerekvizity</a></h2>
+<ul>
+<li>Funkční komunikace se simulátorem (ověřit pomocí zprávy <code>PING</code>)</li>
+<li>Funkční parsování NMEA řetězců
+&gt;</li>
+</ul>
+<h2><a class="header" href="#reset-simulátoru" id="reset-simulátoru">RESET simulátoru</a></h2>
+<p>V tomto cvičení již budete ovládat robota v simulátoru, je tedy nutné pravidelně navracet simulátor do výchozího stavu.
+Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho programu, lze to ale řešit přímočařeji, a to tak, že při startu vašeho programu simulátoru pošlete NMEA zprávu pro reset, tedy <code>$RESET,*CHKSUM</code>.</p>
+<p>✅ Po odeslání resetu byste měli přijmout NMEA zprávu začínající slovy <code>$RESET,DONE</code>.</p>
+<h2><a class="header" href="#ovladání-motorů-v-simulátoru" id="ovladání-motorů-v-simulátoru">Ovladání motorů v simulátoru</a></h2>
+<p>Simulátor simuluje chování dvou krokových motorů, na které jsou namonotována kola uživatelsky definovaného průměru.
+Motory jsou řízeny každý separátně pomocí NMEA zpráv posílaných simulátoru.</p>
+<p>Zprávy, kterými lze řídit motory jsou následující:</p>
+<table><thead><tr><th>příkaz</th><th>parametr</th><th>význam</th></tr></thead><tbody>
+<tr><td>LSPEED</td><td>float rychlost levého motoru v microstepech za sekundu</td><td>nastaví rychlost levého kola na požadovanou hodnotu</td></tr>
+<tr><td>RSPEED</td><td>float rychlost pravého motoru v microstepech za sekundu</td><td>nastaví rychlost pravého kola na požadovanou hodnotu</td></tr>
+<tr><td>LODO</td><td>-</td><td>posílá požadavek na zjištění ujeté vzdálenosti levého motoru v microstepech od posledního zavolání tohoto příkazu, hodnota je interně ukládána jako 64b int</td></tr>
+<tr><td>RODO</td><td>-</td><td>posílá požadavek na zjištění ujeté vzdálenosti pravého motoru v microstepech od posledního zavolání tohoto příkazu, hodnota je interně ukládána jako 64b int</td></tr>
+</tbody></table>
+<p>Zde stojí za zmínku podivné nastavování rychlosti v microstepech za sekundu. 
+Jak jistě víte krokový motor se s každým impulzem na vinutích posunuje o 1 krok (step).</p>
+<p>✅ Počet kroků na otáčku je vlastností daného krokového motoru.</p>
+<p>Tyto kroky je ale možné interpolovat, každý krok se tedy rozdělí na X tzv. mikrokroků (microstepů).</p>
+<p>✅ Mikrostepování a množství jeho úrovní je vlastností použitého driveru motorů.
+<br/><br/><br/>
+✅ Z datasheetu motoru byste zjistili, že rozměr kroku je 1.8°, na plnou otáčku tedy připadá kolik kroků?</p>
+<details>
+    <summary>Odpověď</summary>
+    360 / 1.8 = 200
+</details>
+<br/><br/><br/>
+✅ Zadaný driver motorů má interpoluje krok do 32 mikrokroků, kolik mikrokroků připadá na celou otáčku?
+<details>
+    <summary>Odpověď</summary>
+    200 * 32 = 6400 
+</details>
+<br/><br/>
+Pokud řídíme reálné fyzikální systémy je vhodné programova pomocí reálných fyzikálních jednotek a vždy to dodržovat, nestane se nám tak, že nebudeme vědět jaký rozměr má nějaká proměnná.
+<p>Zvolme si tedy, že požadovaným vstupem do našeho softwareového driveru motorů bude úhlová rychlost zadaná v otáčkách za sekundu a tuto rychlost máme převést na microstepy za sekundu. Jak to provedeme?</p>
+<details>
+    <summary>Odpověď</summary>
+    float speedInMicrosteps = targetSpeed * microstepsPerRevolution
+</details>
+<br/><br/>
+### Posílaní řídicích zpráv
+Nezbytnou teorii máme za sebou, pusťme se tedy do samotného programování. 
+Z tabulky výše víme, že příkaz pro nastavení rychlosti levého motoru je `LSPEED`.
+Pošleme tedy tento příkaz simulátoru s nějakou malou rychlostí, třeba 0.05 otáčky za sekundu. 
+<p>✅ Pokud nám vše správně funguje, měl by se robot v simulátoru začít pomalu otáčet.</p>
+<p>Nyní zkusme nastavit rychlost motoru na nějakou velkou rychlost, třeba 1 otáčku za sekundu. Co se stane?</p>
+<details>
+    <summary>Odpověď</summary>
+    Robot stojí na místě. Je to proto, že tímto simulujeme reálnou vlastnost mechanických systémů a zvláště krokových motorů, které mají nízký kroutící moment ve vysokých otáčkách, ale vysoký v nízkých.
+    Tento problém je nutné řešit takzvaným generátorem ramp, který zajistí, že zrychlování/zpomalování motoru bude probíhat postupně po definovaných přírustcích rychlosti.
+</details>
+<h3><a class="header" href="#generování-ramp" id="generování-ramp">Generování ramp</a></h3>
+<p>Jak jsme si ukázali v minulé části, s krokovým motorem nelze zrychlovat s neomezenou akcelerací, je teda nutné zrychlovat postupně s konstantním malým zrychlením.</p>
+<p>Implementací tohoto postupuje takzvané generování ramp, které v průběhu času generuje z požadované rychlosti a diference rychlosti v každém kroku momentální rychlost motoru. V tomto cvičení budeme implementovat jednoduchý generátor trapézoidních ramp.</p>
+<p>✅ Algoritmus takového generátoru je prostý. V každém kroku k momentální rychlosti motoru přičteme požadovanou diferenci rychlosti se stejným znaménkem jako má rozdíl <code>požadovaná rychlost - momentální rychlost</code>.</p>
+<p>Toto opakujeme ve smyčce s frekvencí která odpovídá tomu jak rychle chceme provádět zrychlování na požadovanou hodnotu.</p>
+<p>✅ Pro programování separátních smyček pro generování ramp lze s výhodou použít separátní vlákno, je ale nutné pamatovat na správnou synchronizaci přístupu ke sdíleným prostředkům - není například možné, aby dvě vlákna současně posílala příkazy simulátoru.</p>
+<p>✅ Maximální rychlost motorů je zasaturována v simulátoru, pokuste se najít maximální rychlost, které jste schopni dosáhnout.</p>
+<h2><a class="header" href="#Čtení-ujeté-vzdálenosti" id="Čtení-ujeté-vzdálenosti">Čtení ujeté vzdálenosti</a></h2>
+<p>Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné si to již teď připravit.
+Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazů <code>LODO</code> a <code>RODO</code>. Tyto příkazy spůsobí, že nám simulátor pošle ujetou vzdálenost v mikrostepech a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.</p>
+<p>✅ Vyzkoušejte si čtení ujeté vzdálenosti jednotlivých a jejich přepočet na metry.</p>
+<p>✅ Vyzkoušejte si, že se hodnota ujeté vzdálenosti opravdu nuluje.</p>
+<h2><a class="header" href="#očekávané-výstupy-práce-v-tomto-cvičení" id="očekávané-výstupy-práce-v-tomto-cvičení">Očekávané výstupy práce v tomto cvičení</a></h2>
+<p>✅ Jste schopni ovládat oba motory simulovaného robota v plném rozsahu rychlostí.</p>
+<p>✅ Máte naimplementováno generování ramp pro oba motory.</p>
+<p>✅ Jste schopni ze simulátoru získávat data o ujeté vzdálenosti pro oba motory.</p>
 <h1><a class="header" href="#nepovinne-kapitoly" id="nepovinne-kapitoly">Nepovinne kapitoly</a></h1>
 <h1><a class="header" href="#robot-operating-system" id="robot-operating-system">Robot Operating System</a></h1>
 

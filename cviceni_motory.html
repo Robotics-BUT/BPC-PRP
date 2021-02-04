@@ -1,0 +1,305 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Řízení motorů - BPC-PRP</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">O textu</a></li><li class="chapter-item expanded affix "><a href="uvod.html">Uvod</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/intro.html"><strong aria-hidden="true">1.</strong> Softwarové vybavení</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chap_1_software/text/linux.html"><strong aria-hidden="true">1.1.</strong> Linux a příkazová řádka</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/git.html"><strong aria-hidden="true">1.2.</strong> Git - Verzovací systému</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/clion.html"><strong aria-hidden="true">1.3.</strong> CLion IDE</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/ros.html"><strong aria-hidden="true">1.4.</strong> Robotic Operating System</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/vb.linux_installation.html"><strong aria-hidden="true">1.5.</strong> Příprava prostředí</a></li></ol></li><li class="chapter-item expanded "><a href="cpp.html"><strong aria-hidden="true">2.</strong> Programovaci jazyk C++</a></li><li class="chapter-item expanded "><a href="cviceni_uvod.html"><strong aria-hidden="true">3.</strong> Cviceni</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cviceni_01.html"><strong aria-hidden="true">3.1.</strong> Uvodni cviceni, bezpecnost</a></li><li class="chapter-item expanded "><a href="cviceni_motory.html" class="active"><strong aria-hidden="true">3.2.</strong> Řízení motorů</a></li></ol></li><li class="chapter-item expanded "><a href="nepovinne.html"><strong aria-hidden="true">4.</strong> Nepovinne kapitoly</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ros.html"><strong aria-hidden="true">4.1.</strong> ROS</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">BPC-PRP</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#Řízení-motorů" id="Řízení-motorů">Řízení motorů</a></h1>
+<p>Cvičící: Bc. Matouš Hýbl, Ing. Lukáš Kopečný Ph.D.</p>
+<h2><a class="header" href="#cile" id="cile">Cile</a></h2>
+<ul>
+<li>Rozpohybovat kola simulovaneho robota tak, aby bylo mozne ridit jeho pohyb pomoci kinematiky.</li>
+<li>Zprovoznit cteni ujete drahy jednotlivych motoru.</li>
+</ul>
+<h2><a class="header" href="#prerekvizity" id="prerekvizity">Prerekvizity</a></h2>
+<ul>
+<li>Funkční komunikace se simulátorem (ověřit pomocí zprávy <code>PING</code>)</li>
+<li>Funkční parsování NMEA řetězců
+&gt;</li>
+</ul>
+<h2><a class="header" href="#reset-simulátoru" id="reset-simulátoru">RESET simulátoru</a></h2>
+<p>V tomto cvičení již budete ovládat robota v simulátoru, je tedy nutné pravidelně navracet simulátor do výchozího stavu.
+Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho programu, lze to ale řešit přímočařeji, a to tak, že při startu vašeho programu simulátoru pošlete NMEA zprávu pro reset, tedy <code>$RESET,*CHKSUM</code>.</p>
+<p>✅ Po odeslání resetu byste měli přijmout NMEA zprávu začínající slovy <code>$RESET,DONE</code>.</p>
+<h2><a class="header" href="#ovladání-motorů-v-simulátoru" id="ovladání-motorů-v-simulátoru">Ovladání motorů v simulátoru</a></h2>
+<p>Simulátor simuluje chování dvou krokových motorů, na které jsou namonotována kola uživatelsky definovaného průměru.
+Motory jsou řízeny každý separátně pomocí NMEA zpráv posílaných simulátoru.</p>
+<p>Zprávy, kterými lze řídit motory jsou následující:</p>
+<table><thead><tr><th>příkaz</th><th>parametr</th><th>význam</th></tr></thead><tbody>
+<tr><td>LSPEED</td><td>float rychlost levého motoru v microstepech za sekundu</td><td>nastaví rychlost levého kola na požadovanou hodnotu</td></tr>
+<tr><td>RSPEED</td><td>float rychlost pravého motoru v microstepech za sekundu</td><td>nastaví rychlost pravého kola na požadovanou hodnotu</td></tr>
+<tr><td>LODO</td><td>-</td><td>posílá požadavek na zjištění ujeté vzdálenosti levého motoru v microstepech od posledního zavolání tohoto příkazu, hodnota je interně ukládána jako 64b int</td></tr>
+<tr><td>RODO</td><td>-</td><td>posílá požadavek na zjištění ujeté vzdálenosti pravého motoru v microstepech od posledního zavolání tohoto příkazu, hodnota je interně ukládána jako 64b int</td></tr>
+</tbody></table>
+<p>Zde stojí za zmínku podivné nastavování rychlosti v microstepech za sekundu. 
+Jak jistě víte krokový motor se s každým impulzem na vinutích posunuje o 1 krok (step).</p>
+<p>✅ Počet kroků na otáčku je vlastností daného krokového motoru.</p>
+<p>Tyto kroky je ale možné interpolovat, každý krok se tedy rozdělí na X tzv. mikrokroků (microstepů).</p>
+<p>✅ Mikrostepování a množství jeho úrovní je vlastností použitého driveru motorů.
+<br/><br/><br/>
+✅ Z datasheetu motoru byste zjistili, že rozměr kroku je 1.8°, na plnou otáčku tedy připadá kolik kroků?</p>
+<details>
+    <summary>Odpověď</summary>
+    360 / 1.8 = 200
+</details>
+<br/><br/><br/>
+✅ Zadaný driver motorů má interpoluje krok do 32 mikrokroků, kolik mikrokroků připadá na celou otáčku?
+<details>
+    <summary>Odpověď</summary>
+    200 * 32 = 6400 
+</details>
+<br/><br/>
+Pokud řídíme reálné fyzikální systémy je vhodné programova pomocí reálných fyzikálních jednotek a vždy to dodržovat, nestane se nám tak, že nebudeme vědět jaký rozměr má nějaká proměnná.
+<p>Zvolme si tedy, že požadovaným vstupem do našeho softwareového driveru motorů bude úhlová rychlost zadaná v otáčkách za sekundu a tuto rychlost máme převést na microstepy za sekundu. Jak to provedeme?</p>
+<details>
+    <summary>Odpověď</summary>
+    float speedInMicrosteps = targetSpeed * microstepsPerRevolution
+</details>
+<br/><br/>
+### Posílaní řídicích zpráv
+Nezbytnou teorii máme za sebou, pusťme se tedy do samotného programování. 
+Z tabulky výše víme, že příkaz pro nastavení rychlosti levého motoru je `LSPEED`.
+Pošleme tedy tento příkaz simulátoru s nějakou malou rychlostí, třeba 0.05 otáčky za sekundu. 
+<p>✅ Pokud nám vše správně funguje, měl by se robot v simulátoru začít pomalu otáčet.</p>
+<p>Nyní zkusme nastavit rychlost motoru na nějakou velkou rychlost, třeba 1 otáčku za sekundu. Co se stane?</p>
+<details>
+    <summary>Odpověď</summary>
+    Robot stojí na místě. Je to proto, že tímto simulujeme reálnou vlastnost mechanických systémů a zvláště krokových motorů, které mají nízký kroutící moment ve vysokých otáčkách, ale vysoký v nízkých.
+    Tento problém je nutné řešit takzvaným generátorem ramp, který zajistí, že zrychlování/zpomalování motoru bude probíhat postupně po definovaných přírustcích rychlosti.
+</details>
+<h3><a class="header" href="#generování-ramp" id="generování-ramp">Generování ramp</a></h3>
+<p>Jak jsme si ukázali v minulé části, s krokovým motorem nelze zrychlovat s neomezenou akcelerací, je teda nutné zrychlovat postupně s konstantním malým zrychlením.</p>
+<p>Implementací tohoto postupuje takzvané generování ramp, které v průběhu času generuje z požadované rychlosti a diference rychlosti v každém kroku momentální rychlost motoru. V tomto cvičení budeme implementovat jednoduchý generátor trapézoidních ramp.</p>
+<p>✅ Algoritmus takového generátoru je prostý. V každém kroku k momentální rychlosti motoru přičteme požadovanou diferenci rychlosti se stejným znaménkem jako má rozdíl <code>požadovaná rychlost - momentální rychlost</code>.</p>
+<p>Toto opakujeme ve smyčce s frekvencí která odpovídá tomu jak rychle chceme provádět zrychlování na požadovanou hodnotu.</p>
+<p>✅ Pro programování separátních smyček pro generování ramp lze s výhodou použít separátní vlákno, je ale nutné pamatovat na správnou synchronizaci přístupu ke sdíleným prostředkům - není například možné, aby dvě vlákna současně posílala příkazy simulátoru.</p>
+<p>✅ Maximální rychlost motorů je zasaturována v simulátoru, pokuste se najít maximální rychlost, které jste schopni dosáhnout.</p>
+<h2><a class="header" href="#Čtení-ujeté-vzdálenosti" id="Čtení-ujeté-vzdálenosti">Čtení ujeté vzdálenosti</a></h2>
+<p>Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné si to již teď připravit.
+Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazů <code>LODO</code> a <code>RODO</code>. Tyto příkazy spůsobí, že nám simulátor pošle ujetou vzdálenost v mikrostepech a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.</p>
+<p>✅ Vyzkoušejte si čtení ujeté vzdálenosti jednotlivých a jejich přepočet na metry.</p>
+<p>✅ Vyzkoušejte si, že se hodnota ujeté vzdálenosti opravdu nuluje.</p>
+<h2><a class="header" href="#očekávané-výstupy-práce-v-tomto-cvičení" id="očekávané-výstupy-práce-v-tomto-cvičení">Očekávané výstupy práce v tomto cvičení</a></h2>
+<p>✅ Jste schopni ovládat oba motory simulovaného robota v plném rozsahu rychlostí.</p>
+<p>✅ Máte naimplementováno generování ramp pro oba motory.</p>
+<p>✅ Jste schopni ze simulátoru získávat data o ujeté vzdálenosti pro oba motory.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="cviceni_01.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="nepovinne.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="cviceni_01.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="nepovinne.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
