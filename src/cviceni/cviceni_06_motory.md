@@ -29,7 +29,7 @@ Zprávy, kterými lze řídit motory jsou následující:
 | LODO | - | posílá požadavek na zjištění ujeté vzdálenosti levého motoru v microstepech od posledního zavolání tohoto příkazu, hodnota je interně ukládána jako 64b int |
 | RODO | - | posílá požadavek na zjištění ujeté vzdálenosti pravého motoru v microstepech od posledního zavolání tohoto příkazu, hodnota je interně ukládána jako 64b int |
 
-Zde stojí za zmínku podivné nastavování rychlosti v microstepech za sekundu. 
+Zde stojí za zmínku podivné nastavování rychlosti v microstepech za sekundu.
 Jak jistě víte krokový motor se s každým impulzem na vinutích posunuje o 1 krok (step).
 
 ✅ Počet kroků na otáčku je vlastností daného krokového motoru.
@@ -47,7 +47,7 @@ Tyto kroky je ale možné interpolovat, každý krok se tedy rozdělí na X tzv.
 ✅ Zadaný driver motorů má interpoluje krok do 32 mikrokroků, kolik mikrokroků připadá na celou otáčku?
 <details>
     <summary>Odpověď</summary>
-    200 * 32 = 6400 
+    200 * 32 = 6400
 </details>
 <br/><br/>
 Pokud řídíme reálné fyzikální systémy je vhodné programova pomocí reálných fyzikálních jednotek a vždy to dodržovat, nestane se nám tak, že nebudeme vědět jaký rozměr má nějaká proměnná.
@@ -61,9 +61,9 @@ Zvolme si tedy, že požadovaným vstupem do našeho softwareového driveru moto
 <br/><br/>
 
 ### Posílaní řídicích zpráv
-Nezbytnou teorii máme za sebou, pusťme se tedy do samotného programování. 
+Nezbytnou teorii máme za sebou, pusťme se tedy do samotného programování.
 Z tabulky výše víme, že příkaz pro nastavení rychlosti levého motoru je `LSPEED`.
-Pošleme tedy tento příkaz simulátoru s nějakou malou rychlostí, třeba 0.05 otáčky za sekundu. 
+Pošleme tedy tento příkaz simulátoru s nějakou malou rychlostí, třeba 0.05 otáčky za sekundu.
 
 ✅ Pokud nám vše správně funguje, měl by se robot v simulátoru začít pomalu otáčet.
 
