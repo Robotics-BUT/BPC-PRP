@@ -67,6 +67,10 @@ Pošleme tedy tento příkaz simulátoru s nějakou malou rychlostí, třeba 0.0
 
 ✅ Pokud nám vše správně funguje, měl by se robot v simulátoru začít pomalu otáčet.
 
+Motor se po asi 1 s otáčení zastaví, toto je bezpečnostní funkce, která je implementována v našich reálných driverech. 
+V případě softwareové chyby, kdy by spadl řídicí program, by se totiž robot mohl nekontrolovatelně rozjet. 
+Je tedy nutné řídicí příkazy posílat pořád.
+
 Nyní zkusme nastavit rychlost motoru na nějakou velkou rychlost, třeba 1 otáčku za sekundu. Co se stane?
 <details>
     <summary>Odpověď</summary>
@@ -81,7 +85,12 @@ Implementací tohoto postupuje takzvané generování ramp, které v průběhu �
 
 ✅ Algoritmus takového generátoru je prostý. V každém kroku k momentální rychlosti motoru přičteme požadovanou diferenci rychlosti se stejným znaménkem jako má rozdíl `požadovaná rychlost - momentální rychlost`.
 
+Pro implementaci lze jako návod použít následující modelovací schéma.
+![Generator Ramp](images/ramp_gen.jpg)
+
 Toto opakujeme ve smyčce s frekvencí která odpovídá tomu jak rychle chceme provádět zrychlování na požadovanou hodnotu.
+
+Generátor rampy, který běží periodicky pořád, nám efektivně řeší problém s opakováním řídicích zpráv pro motory, stačí periodicky získávat novou hodnotu rychlosti z generátoru ramp a tu posílat simulátoru.
 
 ✅ Pro programování separátních smyček pro generování ramp lze s výhodou použít separátní vlákno, je ale nutné pamatovat na správnou synchronizaci přístupu ke sdíleným prostředkům - není například možné, aby dvě vlákna současně posílala příkazy simulátoru.
 
