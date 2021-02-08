@@ -1,1 +1,0 @@
-# Uvod do predmetu, bezpecnost
