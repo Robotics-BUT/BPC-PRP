@@ -18,7 +18,7 @@ Návod naleznete zde [Příprava prostředí](../chap_1_software/text/vb.linux_i
 <details>
     <summary>Nainstaloval jsem si vim a omylem jej zapnul. Co teď?</summary>
 
-Vim vypnete touto sekvencí: stiskněte ESC, pak jej pusťte, přidržte LSHITF a zdakrát klávesa 'Z'
+Vim vypnete touto sekvencí: stiskněte ESC, pak jej pusťte, přidržte LSHITF a dakrát klávesu 'Z'.
     
 Pro zájemce, tutorilál práce s vim: [zde](https://www.openvim.com/)
 </details>

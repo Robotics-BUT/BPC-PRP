@@ -1,0 +1,29 @@
+line_file_path: "/home/default_user/Developer/bpc-prp-project/resources/route_1.yaml"
+
+simulation:
+  port_in: 8080
+  port_out: 8081
+  simulation_period: 0.01
+  visualization_period: 0.02
+
+robot:
+  pose:
+    x: 0.0
+    y: 0.0
+  orientation_deg: 0.0
+
+  wheel_radius: 0.02
+  chassis_base: 0.24
+
+  width: 0.20
+  length: 0.08
+  height: 0.02
+
+  body_offset:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+
+  line_sensors:
+    - [0.00,  0.00, 0.00]
+
