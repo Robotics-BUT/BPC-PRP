@@ -1189,7 +1189,7 @@ Obr: příklad konfigurace ROSu na dvou počítačích.</p>
 <p>✅ Pomocí balíčkovacího manažeru si nainstalujte git, midnight commander (mc). Pro odvážné také textový editor vim</p>
 <details>
     <summary>Nainstaloval jsem si vim a omylem jej zapnul. Co teď?</summary>
-<p>Vim vypnete touto sekvencí: stiskněte ESC, pak jej pusťte, přidržte LSHITF a zdakrát klávesa 'Z'</p>
+<p>Vim vypnete touto sekvencí: stiskněte ESC, pak jej pusťte, přidržte LSHITF a dakrát klávesu 'Z'.</p>
 <p>Pro zájemce, tutorilál práce s vim: <a href="https://www.openvim.com/">zde</a></p>
 </details>
 <h2><a class="header" href="#instalace-ros-cca-45min" id="instalace-ros-cca-45min">Instalace ROS (cca 45min)</a></h2>
@@ -1204,6 +1204,65 @@ Obr: příklad konfigurace ROSu na dvou počítačích.</p>
 <p>✅ Tentýž hello world program realizujte ve vývojovém prostředí CLion. Zkompilujte jej a ověřte jeho funkčnost.</p>
 <p>✅ Diskutujte výhody práce s IDE oproti kompilaci v příkazovém řádku.</p>
 <h1><a class="header" href="#git-simulátor" id="git-simulátor">GIT, simulátor</a></h1>
+<p>Cvičící: Ing. Adam Ligocki</p>
+<h2><a class="header" href="#git-cca-1-hod" id="git-cca-1-hod">GIT (cca 1 hod)</a></h2>
+<p>Zaregistrujte se na studentském <a href="https://student.robotika.ceitec.vutbr.cz/">GitLab serveru</a></p>
+<p>Tento server bude po zbytek kurzu BPC-PRP Vás tzv. &quot;origin&quot;, tedy vzdálené repozitář.</p>
+<p>Vyučující mají náhled do všech Vaších repozitářů, včetně jejich historii a mohou přůběžně sledovat Vaší práci, případně kdo, kdy a jak intenzivně &quot;commitoval&quot;.</p>
+<p>Na serveru si vytvořte repozitář, ve kterém budete udržovat kód po zbytek kurzu.</p>
+<p>V rámci týmu si vyzkoušejte následujicí cvičení.</p>
+<p>✅ Jeden člen vytvoří repozitář na serveru.</p>
+<p>✅ Všichni členové si naklonují repozitár k sobě na PC.</p>
+<p>✅ Jeden člen týmu vytvoří na lokále hello world program a &quot;commitne&quot; jej, a &quot;pushne&quot; jej na origin.</p>
+<p>✅ Zbytek týmu si &quot;pullne&quot; změny k sobě na lokál.</p>
+<p>✅ Dva členové týmu si skusí vyrobit konflikt tak, že zároveň změní stejný řádek v kódu a pokusí se jej pushnout na server. Druhému v pořádí, který se pokusí o push, git zahlásí chybu.</p>
+<p>✅ Nešťastný člen týmu, který má nahlášený konflikt, se pokusí o jeho &quot;fix&quot; a opravenou verzi pushne na origin.</p>
+<p>✅ Všichni členové týmu si pullnou aktuální verzi repozitáře. A každý člen týmu si vyrobí vlastní .h soubor a v něm funkci, která vytiskne jeho jméno. Všichni pushnou změny na server.</p>
+<p>✅ Jeden člen týmu si pullne nově vytvořené .h soubory a upraví hello world program tak aby využíval všechen nově vytvořený kód. Změny pushne na origin.</p>
+<p>✅ Všichni si pullnou aktuální stav repozitáře.</p>
+<h2><a class="header" href="#simulátor-cca-30-min" id="simulátor-cca-30-min">Simulátor (cca 30 min)</a></h2>
+<p>Ze <a href="https://github.com/Robotics-BUT/BPC-PRP">stránek kurzu</a> si pullněte aktuální stav repozitáře.</p>
+<p>Repozitář obsahuje ve složce &quot;bin/&quot; skompilovanou binárku simulátoru nazvanou &quot;simulator&quot;. Pokud máte korektně nainstalovaný ROS, otevřete si 3 terminály</p>
+<details>
+    <summary>Tip pro práci s více terminály</summary>
+<br>
+Pro práci s více okny terminálů je dobré si nainstalovat pomocí balíčkovacího manažeru program "terminator". Ten Vám umožní v jednom okně mít otevřených více terminálu.
+</details>
+<br>
+<details>
+    <summary>Vím jak se pracuje s balíčkovacím manažerem, jen potřebuji osvěžit paměť.</summary>
+<br>
+sudo apt install terminator
+</details>
+<br>
+<p>Ve složce &quot;resources/&quot; naleznete soubor config.yaml. Z něj si bude simulátor načítat hodnoty pro Vaší simulaci, mezi jinými nastavení síťové komunikace, simulované rozměry robota, parametry podvozku, rozmístění snímačů, a hlavně cestu k mapě, se kterou bude simulátor pracovat. Tu si upravte pro svůj vlastní souborový systém.</p>
+<p>Dále se ve slořce serources nachází také jedna vzorová mapa. Nahlédněté do ní a všiměnte si struktury YAML dat. Nachází se zde informace o šířce čáry a následně je zde pole úseček definovaných vždy [box1_x, box1_y, box2_x, box2_y]. V budoucnu si budete vytvářet taky vlastní mapy.</p>
+<p>✅ Nastavte si v souboru config.yaml validní cestu k mapě route_1.yaml.</p>
+<p>✅ Po změně obsahu souboru si vyzkoušejte validitu yamlu souboru v <a href="http://www.yamllint.com/">online nástroji</a>.</p>
+<p>Nyní zbývá si vyzkoušet oživit celý systém.</p>
+<p>✅ V 1. terminále zapněte roscore</p>
+<p>✅ V 2. terminále spusťte binárku simulátoru, jako argument programu přidejte absolutní cestu ke konfiguračnímu souboru, který jste dříve editovali.</p>
+<p>✅ V 3. terminále zapněte rviz a přidejte si vizualizaci topicků </p>
+<h3><a class="header" href="#konfigurace-rvizu" id="konfigurace-rvizu">Konfigurace RVizu</a></h3>
+<p><img src="cviceni/../images/rviz_1.jpg" alt="empty RViz" /></p>
+<p>Pokud běží simulátor, v levé dolní sekci tlačítkem &quot;ADD&quot; otevřete okno pro přidání vizualizací.</p>
+<p><img src="cviceni/../images/rviz_2.jpg" alt="RViz add topic by display type" /></p>
+<p>V záložce &quot;By Display Type&quot; vyberte položku &quot;TF&quot; a dvojitým polikem jí přidejte do zobrazení. Dále v levé horní části v záložce &quot;Global Options&quot; nastavte položku &quot;Fixed Frame&quot; na hodnotu &quot;origin&quot;. Tímto jsme RVizu řekli, že má zobrazovat souřadný systém &quot;origin&quot; a vůči němu vykreslovat všechny ostatní souřadné systémy, se kterými simulátor pracuje.</p>
+<p>Opětovně otevřete okno pro přidání vizualizací a přejděte do záložky &quot;By Topic&quot;. </p>
+<p><img src="cviceni/../images/rviz_3.jpg" alt="RViz add topic by topic" /></p>
+<p>Postupně si přidejte všenchy vizualizace markerů pod topicky:</p>
+<ul>
+<li>/bpc_prp/line</li>
+<li>/bpc_prp/robot_body</li>
+<li>/bpc_prp/sensors</li>
+<li>/bpc_prp/wheels/left</li>
+<li>/bpc_prp/wheels/right</li>
+</ul>
+<p>Ihned po přidání nové vizualizace si jí můžete přejmenovat použitím tlačítka &quot;Rename&quot; na penelu vlevo dole.</p>
+<p>✅ Výsledek by měl vypadat následovně:</p>
+<p><img src="cviceni/../images/prp_1.jpg" alt="RViz Ready" /></p>
+<p>Současné nastavení RVizu uložíte klávesovou zkratkou CTRL+S</p>
+<p>✅ Prozkoumejte další možnosti nastavení vizualizací v RVizu, jako velikost mříždy, průhlednost, barva pozadí, atd.</p>
 <h1><a class="header" href="#udp-komunikace" id="udp-komunikace">UDP komunikace</a></h1>
 <h1><a class="header" href="#Řízení-motorů" id="Řízení-motorů">Řízení motorů</a></h1>
 <p>Cvičící: Bc. Matouš Hýbl, Ing. Lukáš Kopečný Ph.D.</p>
