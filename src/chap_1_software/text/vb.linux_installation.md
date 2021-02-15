@@ -62,6 +62,3 @@ Instalaci ROSu na nově nainstalovaný Linux proveďte pomocí návodu popsanéh
 
 CLion si do nově nainstalovaného systému stáhněte z oficiálních stránek (viz [CLion](clion.md))
 
-## Stažení projektu z Git repozitáře
-
-DOPLNIT GIT

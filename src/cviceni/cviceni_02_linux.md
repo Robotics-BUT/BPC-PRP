@@ -45,4 +45,10 @@ Z [oficiálního webu](https://www.jetbrains.com/clion/) si stáhněte IDE CLion
 
 ✅ Diskutujte výhody práce s IDE oproti kompilaci v příkazovém řádku.
 
+### Záložní plán
+
+Předinstalovaný obraz Ubuntu 20.04 s ROSem pro VB
+
+https://drive.google.com/file/d/1_wCduSS30O7lHB2oYQVEErgrPAWc1ALR/view?usp=sharing
+
 

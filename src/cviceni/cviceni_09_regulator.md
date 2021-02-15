@@ -1,1 +1,1 @@
-# Nívrh regulátoru
+# Návrh regulátoru
