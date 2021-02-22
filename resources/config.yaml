@@ -1,4 +1,6 @@
 line_file_path: "/home/default_user/Developer/bpc-prp-project/resources/route_1.yaml"
+#line_file_path: "/home/default_user/Developer/bpc-prp-project/resources/route_2.yaml"
+#line_file_path: "/home/default_user/Developer/bpc-prp-project/resources/route_3.yaml"
 
 simulation:
   port_in: 8080
@@ -13,17 +15,18 @@ robot:
   orientation_deg: 0.0
 
   wheel_radius: 0.02
-  chassis_base: 0.24
+  chassis_base: 0.12
 
-  width: 0.20
-  length: 0.08
-  height: 0.02
+  width: 0.1
+  length: 0.1
+  height: 0.1
 
   body_offset:
     x: 0.0
     y: 0.0
-    z: 0.0
+    z: 0.01
 
   line_sensors:
-    - [0.00,  0.00, 0.00]
-
+    - [0.00, -0.01, 0.01]
+    - [0.00,  0.00, 0.01]
+    - [0.00,  0.01, 0.01]
