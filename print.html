@@ -1265,6 +1265,143 @@ sudo apt install terminator
 <p>Současné nastavení RVizu uložíte klávesovou zkratkou CTRL+S</p>
 <p>✅ Prozkoumejte další možnosti nastavení vizualizací v RVizu, jako velikost mříždy, průhlednost, barva pozadí, atd.</p>
 <h1><a class="header" href="#udp-komunikace" id="udp-komunikace">UDP komunikace</a></h1>
+<p>Cvičící: Ing. Tomáš Lázna</p>
+<h2><a class="header" href="#založení-projektu-cca-10-minut" id="založení-projektu-cca-10-minut">Založení projektu (cca 10 minut)</a></h2>
+<p>Zapněte CLion a vytvořte nový projekt (File &gt; New Project) typu <em>C++ Executable</em>. Zvolte umístění a název svého projektu (např. jméno týmu) a <em>Language standard</em> nastavte na <em>C++17</em>.</p>
+<p>CLion by vám měl generovat prázdnou šablonu C++ aplikace. V prvé řadě budeme editovat soubor <em>CMakeLists.txt</em>, abychom kompilátoru řekli, kde má hledat hlavičkové a zdrojové soubory. 
+Doporučuji su v adresářové struktuře projektu vytvořit složku <em>include</em> pro umístění .h souborů a složku <em>src</em> pro .cpp soubory (včetně <code>main.cpp</code>, který je defaultě v rootu projektu). 
+Zároveň si k projektu přilinkujeme knihovny pro práci s YAML soubory pro načítání konfiguračních souborů (volitelné) a pro práci s vlákny (rovněž volitelné). Soubor by měl mít následující strukturu:</p>
+<pre><code>cmake_minimum_required(VERSION 3.17)
+project(bpc_prp_cool_name)
+
+set(CMAKE_CXX_STANDARD 17)
+
+find_package(Yaml-cpp)
+find_package(Threads REQUIRED)
+
+include_directories(include)
+
+set(SOURCES
+        src/main.cpp
+        src/cool_code.cpp
+        src/another_source_file.cpp)
+
+add_executable(bpc_prp_cool_name ${SOURCES})
+target_link_libraries(bpc_prp_cool_name yaml-cpp Threads::Threads) 
+</code></pre>
+<p>Pokud CMake nereloaduje konfiguraci automaticky, v CLionu vám vyskočí panel <em>CMake project needs to be reloaded</em>, kliknete na tlačítko <em>Reload changes</em>.</p>
+<h2><a class="header" href="#zpracování-nmea-zpráv-cca-1-hodina" id="zpracování-nmea-zpráv-cca-1-hodina">Zpracování NMEA zpráv (cca 1 hodina)</a></h2>
+<p>Komunikace se simulátorem probíhá formou NMEA zpráv posílaných přes UDP protokol. Pro sestavení, kontrolu a parsování NMEA zpráv je výhodné si vytvořit sadu utilitárních metod a zabalit je do třídy. Přikládám návrh deklarace
+4 metod, kterým se můžete (ale nemusíte) inspirovat, pozornost jmenujte zejména vstupním a návratovým typům:</p>
+<pre><code>std::string string_to_nmea_message(const std::string&amp; message);
+uint16_t get_message_checksum(const std::string&amp; message);
+std::string extract_nmea_message_content(const std::string&amp; nmea_message);
+bool is_nmea_message_valid(const std::string&amp; nmea_message);
+</code></pre>
+<p>Metody můžete definovat jako statické, tj. pro jejich volání nebude nutné vytvářet instanci třídy.</p>
+<p>Pozn. Struktura NMEA zprávy je následující:</p>
+<pre><code>$MESSAGE_TYPE,PARAMETERS,SEPARATED,BY,COMMAS*checksum
+</code></pre>
+<p>Checksum je dvoučíslicové hexadecimální číslo (tj. v rozsahu 0-255), které vznikte jako bitová nonekvivalence (XOR) ASCII kódů všech znaků mezi $ a * (ty nejsou zahrnuty).</p>
+<p>Následuje příklad volání jednotlivých metod s očekávanými výstupy tak, abyste si mohli ověřit správnost své implementace.</p>
+<pre><code>string_to_nmea_message(&quot;PING,HELLO&quot;) -&gt; &quot;$PING,HELLO*7E&quot;
+get_message_checksum(&quot;RESET,&quot;) -&gt; 126 (=7E v hexa)
+extract_nmea_message_content(&quot;$PONG,HELLO*78&quot;) -&gt; &quot;PONG,HELLO&quot;
+is_nmea_message_valid(&quot;$PONG,HELLO*78&quot;) -&gt; true
+is_nmea_message_valid(&quot;$PONG,HELLO*AA&quot;) -&gt; false
+</code></pre>
+<p>Pozn. Pro sestavování a parsování C++ řetězců (<code>std::string</code>) doporučuji využít třídu <code>std::stringstream</code> ze standardní knihovny <code>&lt;stringstream&gt;</code>.</p>
+<p>Úspěšná implementace metod pro práci s NMEA zprávami je nutnou podmínkou pro úspěšnou komunikaci se simulátorem v dalším kroku.</p>
+<h2><a class="header" href="#udp-komunikace-přes-socket-api-cca-40-minut" id="udp-komunikace-přes-socket-api-cca-40-minut">UDP komunikace přes socket API (cca 40 minut)</a></h2>
+<p>Komunikace se simulátorem je realizována ve formě UDP paketů, které budeme odesílat a přijímat pomocí socket API, které je k dispozici ve standardních C knihovnách.</p>
+<p>Pro úspěšné fungování je nutné includovat několik hlavičkových souborů:</p>
+<pre><code>#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;netinet/in.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;unistd.h&gt;
+</code></pre>
+<p>Pro inicializaci socketu zavoláme funkci <code>socket</code>, která má následující předpis:</p>
+<pre><code>int fd = socket(int domain, int type, int protocol);
+</code></pre>
+<p>Ve filosofii jazyka C se se sockety pracuje jako se soubory (lze do nich zapisovat a číst z nich), proto funkce vrací celé číslo <em>file descriptor</em>, pomocí kterého se daný socket referencuje dále v kódu.</p>
+<p>Nápovědu k tomu, s jakými parametry socket inicializovat naleznete v dokumentaci funkce <code>socket</code> - budeme pracovat v doméně IPv4 a typem bude UDP (připomeňte si, co tato zkratka znamená). 
+V běžných případech (jako i tento) je protokol již definován prostřednictvím typu, třetí parametr tedy může být nastaven na 0.</p>
+<h3><a class="header" href="#odesílání-zpráv" id="odesílání-zpráv">Odesílání zpráv</a></h3>
+<p>Existují v zásadě dvě varianty, jak odesílat UDP zprávy. </p>
+<ol>
+<li>Datagramy je možné posílat i přes tzv. nepojmenované sockety (nemají přiřazenou žádnou adresu a port), přičemž adresát je specifikován ve volání funkce <code>sendto</code>. 
+Pro pojmenování příjemce využijeme strukturu <code>sockaddr_in</code>, a to následujícím způsobem:</li>
+</ol>
+<pre><code>struct sockaddr_in addr;
+addr.sin_family = AF_INET;
+addr.sin_addr.s_addr = inet_addr(&quot;ip.adresa.pri.jemce&quot;);
+addr.sin_port = htons(11111);
+</code></pre>
+<p>Odeslání zprávy je realizováno následujícím voláním:</p>
+<pre><code>std::string msg = &quot;message&quot;;
+ssize_t no_of_sent_bytes = sendto(fd, msg.c_str(), msg.length(), 0, (struct sockaddr *) &amp;addr, sizeof(addr));
+</code></pre>
+<p>Funkci jsou předány tyto parametry: deskriptor socketu, obsah zprávy (typ char* = řetězec v C), délka zprávy, příznaky (flags), struktura s popisem adresáta, velikost této struktury. Vrácen je počet odeslaných bytů.</p>
+<ol start="2">
+<li>Pokud komunikuji opakovaně se stejným příjemcem, je možné socket tzv. pojmenovat a odesílání realizovat funkcí <code>send</code>, která nevyžaduje strukturu s adresátem (tato informace bude již předána přes deskriptor socketu).
+Způsob pojmenování závisí na tom, zda je vaše aplikace klientem (aktivně se připojuje k jinému socketu) nebo serverem (naopak čeká, než se jiný socket připojí k vašemu). Pro variantu klienta použijeme funkci <code>connect</code>:</li>
+</ol>
+<pre><code>int res = connect(fd, (struct sockaddr *) &amp;addr, sizeof(addr));
+</code></pre>
+<p>Funkci jsou předány tyto parametry: deskriptor socketu, struktura s popisem serveru, velikost této struktury. V případě úspěchu je vrácena 0, při chybě -1.</p>
+<p>Varianta serveru bude popsána později v sekci Přijímání zpráv, využívá se funkce <code>bind</code>.</p>
+<p>K odeslání zprávy slouží následující volání:</p>
+<pre><code>std::string msg = &quot;message&quot;;
+ssize_t no_of_sent_bytes = send(fd, msg.c_str(), msg.length(), 0);
+</code></pre>
+<p>Parametry a návratová hodnota jsou analogické s funkcí <code>sendto</code>.</p>
+<h3><a class="header" href="#přijímání-zpráv" id="přijímání-zpráv">Přijímání zpráv</a></h3>
+<p>Obdobně jako v případě odesílání zpráv máme k dispozici dvě alternativy, jak zprávy přijímat.</p>
+<ol>
+<li>Datagramy lze přijímat i přes tzv. nepojmenované sockety (nemají přiřazenou adresu a port), přičemž rozhraní, ze kterého zprávu přijímáme, je specifikováno ve volání funkce <code>recvfrom</code>.
+Pro pojmenování rozhraní využijeme opět strukturu <code>sockaddr_in</code>, a to následujícím způsobem:</li>
+</ol>
+<pre><code>struct sockaddr_in addr;
+addr.sin_family = AF_INET;
+addr.sin_addr.s_addr = htonl(INADDR_ANY);
+addr.sin_port = htons(22222);
+</code></pre>
+<p>Všimněte si rozdílu na 3. řádku, kdy tentokrát nespecifikujeme konkrétní adresu, ale pomocí INADDR_ANY říkáme, že chceme přijímat zprávy přes libovolné místní síťové rozhraní.</p>
+<p>Příjem zprávy je poté realizován následujícím voláním:</p>
+<pre><code>unsigned char buffer[100];
+socklen_t senderlen = sizeof(addr);
+
+ssize_t no_of_received_bytes = recvfrom(fd, buffer, sizeof(buffer), 0, (struct sockaddr *) &amp;addr, &amp;senderlen);
+std::string received_message(buffer, buffer + no_of_received_bytes);
+</code></pre>
+<p>Funkci jsou předány tyto parametry: deskriptor socketu, buffer pro příjem, délka bufferu, příznaky (flags), struktura s popisem rozhraní, <em>reference</em> na velikost této struktury. Vrácen je počet přijatých bytů. 
+Volání je obdobné jako v případě <code>sendto</code>, všimněte si ale, že tentokrát předáváme referenci na délku struktury, ne přímo délku; to proto, že funkce <code>recvfrom</code> do struktury zapisuje údaje o odesilateli zprávy 
+a může její délku změnit.</p>
+<ol start="2">
+<li>Pokud komunikuji opakovaně se stejným odesilatelem, je možné socket tzv. pojmenovat a odesílání realizovat funkcí <code>recv</code>, která nevyžaduje strukturu s popisem rozhraní (tato informace bude již předána přes deskriptor socketu).
+Způsob pojmenování závisí na tom, zda je vaše aplikace klientem (aktivně se připojuje k jinému socketu) nebo serverem (naopak čeká, než se jiný socket připojí k vašemu). Varianta s klientem byla popsána výše. 
+Pro variantu serveru použijeme funkci <code>bind</code>:</li>
+</ol>
+<pre><code>int res = bind(fd, (struct sockaddr *) &amp;addr, sizeof(addr));
+</code></pre>
+<p>Můžete si povšimnout, že volání je stejné jako v případě funkce <code>connect</code>. V případě úspěchu je vrácena 0, při chybě -1.</p>
+<p>K příjmu zprávy poté slouží následující volání:</p>
+<pre><code>ssize_t no_of_received_bytes = recv(fd, buffer, sizeof(buffer), 0);
+</code></pre>
+<p>Parametry a návratová hodnota jsou analogické s funkcí <code>recvfrom</code>.</p>
+<h2><a class="header" href="#testování-komunikace-se-simulátorem-cca-10-minut" id="testování-komunikace-se-simulátorem-cca-10-minut">Testování komunikace se simulátorem (cca 10 minut)</a></h2>
+<p>Jak již bylo řečeno, se simulátorem komunikujeme UDP protokolem pomocí NMEA zpráv. V případě, že simulátor máte spuštěný na stejném stroji jako svůj program (což vřele doporučuji), budete zprávy odesílat na adresu <em>localhostu</em> 
+(127.0.0.1). Simulátor komunikuje na portech specifikovaných v souboru <code>config.yaml</code>, vypíše je do konzole po spuštění. Všimněte se, že příjem a odesílání dat probíhá na jiných portech, budete tedy potřebovat dva sockety.</p>
+<p>Základní fungování komunikace můžete ověřit pomocí zprávy <code>PING,&lt;dalsi-parametry&gt;</code>. Po přijetí vám simulátor vrátí zprávu <code>PONG,&lt;dalsi-parametry&gt;</code>.</p>
+<p>Pozn. Simulátor očekává, že všechny příchozí zprávy mají minimálně dva segmenty (tj. minimálně jednu čárku), proto nestačí poslat pouze <code>PING</code>.</p>
+<p>✅ Na konci cvičení musíte být schopní odeslat do simulátoru zprávu Ping a vypsat do konzole odpověď extrahovanou z NMEA zprávy (tj. bez znaků $, * a checksumu).</p>
+<p>Doporučujeme, abyste dbali na kulturu kódu a používali třídy. Komunikace bude fungovat i pokud veškerý potřebný kód zahrnete do souboru <code>main.cpp</code>, ale s tímto přístupem by v brzké budoucnosti funkce <code>main</code> rychle nabobtnala
+a stala se těžko přehlednou. Pokud se budete řídit příklady dobré praxe od počátku projektu, bude vás to na začátku stát více času, ale v pozdějších fázích jej naopak budete šetřit.</p>
+<h2><a class="header" href="#bonus-vyčtení-dat-ze-senzorů" id="bonus-vyčtení-dat-ze-senzorů">Bonus: vyčtení dat ze senzorů</a></h2>
+<p>Vyzkoušejte další zprávy pro komunikaci se simulátorem, které vrací hodnoty ze senzorů:</p>
+<p>✅ Zpráva <code>SENSOR,&lt;id&gt;</code> posílá požadavec na měření senzoru číslo <code>&lt;id&gt;</code> (indexováno od nuly).
+✅ Zprávy <code>LODO</code> a <code>RODO</code> posílají požadavek na zjištění ujeté vzdálenost levého, resp. pravého motoru.</p>
 <h1><a class="header" href="#Řízení-motorů" id="Řízení-motorů">Řízení motorů</a></h1>
 <p>Cvičící: Bc. Matouš Hýbl, Ing. Lukáš Kopečný Ph.D.</p>
 <h2><a class="header" href="#cile" id="cile">Cile</a></h2>
