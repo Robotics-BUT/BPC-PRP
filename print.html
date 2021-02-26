@@ -1269,7 +1269,7 @@ sudo apt install terminator
 <h2><a class="header" href="#založení-projektu-cca-10-minut" id="založení-projektu-cca-10-minut">Založení projektu (cca 10 minut)</a></h2>
 <p>Zapněte CLion a vytvořte nový projekt (File &gt; New Project) typu <em>C++ Executable</em>. Zvolte umístění a název svého projektu (např. jméno týmu) a <em>Language standard</em> nastavte na <em>C++17</em>.</p>
 <p>CLion by vám měl generovat prázdnou šablonu C++ aplikace. V prvé řadě budeme editovat soubor <em>CMakeLists.txt</em>, abychom kompilátoru řekli, kde má hledat hlavičkové a zdrojové soubory. 
-Doporučuji su v adresářové struktuře projektu vytvořit složku <em>include</em> pro umístění .h souborů a složku <em>src</em> pro .cpp soubory (včetně <code>main.cpp</code>, který je defaultě v rootu projektu). 
+Doporučuji si v adresářové struktuře projektu vytvořit složku <em>include</em> pro umístění .h souborů a složku <em>src</em> pro .cpp soubory (včetně <code>main.cpp</code>, který je defaultně v rootu projektu). 
 Zároveň si k projektu přilinkujeme knihovny pro práci s YAML soubory pro načítání konfiguračních souborů (volitelné) a pro práci s vlákny (rovněž volitelné). Soubor by měl mít následující strukturu:</p>
 <pre><code>cmake_minimum_required(VERSION 3.17)
 project(bpc_prp_cool_name)
@@ -1292,12 +1292,14 @@ target_link_libraries(bpc_prp_cool_name yaml-cpp Threads::Threads)
 <p>Pokud CMake nereloaduje konfiguraci automaticky, v CLionu vám vyskočí panel <em>CMake project needs to be reloaded</em>, kliknete na tlačítko <em>Reload changes</em>.</p>
 <h2><a class="header" href="#zpracování-nmea-zpráv-cca-1-hodina" id="zpracování-nmea-zpráv-cca-1-hodina">Zpracování NMEA zpráv (cca 1 hodina)</a></h2>
 <p>Komunikace se simulátorem probíhá formou NMEA zpráv posílaných přes UDP protokol. Pro sestavení, kontrolu a parsování NMEA zpráv je výhodné si vytvořit sadu utilitárních metod a zabalit je do třídy. Přikládám návrh deklarace
-4 metod, kterým se můžete (ale nemusíte) inspirovat, pozornost jmenujte zejména vstupním a návratovým typům:</p>
+4 metod, kterým se můžete (ale nemusíte) inspirovat, pozornost věnujte zejména vstupním a návratovým typům:</p>
 <pre><code>std::string string_to_nmea_message(const std::string&amp; message);
 uint16_t get_message_checksum(const std::string&amp; message);
 std::string extract_nmea_message_content(const std::string&amp; nmea_message);
 bool is_nmea_message_valid(const std::string&amp; nmea_message);
 </code></pre>
+<p>Obecně je v C++ dobrým nápadem předávat metodám objekty, které nechcete modifikovat, jako konstantní reference (const type&amp;), tím pádem se funkci předá jen odkaz na daný objekt (nemusí se kopírovat) 
+a přitom se (díky const) chráníte před tím, abyste omylem objekt modifikovali.</p>
 <p>Metody můžete definovat jako statické, tj. pro jejich volání nebude nutné vytvářet instanci třídy.</p>
 <p>Pozn. Struktura NMEA zprávy je následující:</p>
 <pre><code>$MESSAGE_TYPE,PARAMETERS,SEPARATED,BY,COMMAS*checksum
@@ -1305,7 +1307,7 @@ bool is_nmea_message_valid(const std::string&amp; nmea_message);
 <p>Checksum je dvoučíslicové hexadecimální číslo (tj. v rozsahu 0-255), které vznikte jako bitová nonekvivalence (XOR) ASCII kódů všech znaků mezi $ a * (ty nejsou zahrnuty).</p>
 <p>Následuje příklad volání jednotlivých metod s očekávanými výstupy tak, abyste si mohli ověřit správnost své implementace.</p>
 <pre><code>string_to_nmea_message(&quot;PING,HELLO&quot;) -&gt; &quot;$PING,HELLO*7E&quot;
-get_message_checksum(&quot;RESET,&quot;) -&gt; 126 (=7E v hexa)
+get_message_checksum(&quot;RESET,&quot;) -&gt; 126 (= 7E v hexa)
 extract_nmea_message_content(&quot;$PONG,HELLO*78&quot;) -&gt; &quot;PONG,HELLO&quot;
 is_nmea_message_valid(&quot;$PONG,HELLO*78&quot;) -&gt; true
 is_nmea_message_valid(&quot;$PONG,HELLO*AA&quot;) -&gt; false
@@ -1327,6 +1329,9 @@ is_nmea_message_valid(&quot;$PONG,HELLO*AA&quot;) -&gt; false
 <p>Ve filosofii jazyka C se se sockety pracuje jako se soubory (lze do nich zapisovat a číst z nich), proto funkce vrací celé číslo <em>file descriptor</em>, pomocí kterého se daný socket referencuje dále v kódu.</p>
 <p>Nápovědu k tomu, s jakými parametry socket inicializovat naleznete v dokumentaci funkce <code>socket</code> - budeme pracovat v doméně IPv4 a typem bude UDP (připomeňte si, co tato zkratka znamená). 
 V běžných případech (jako i tento) je protokol již definován prostřednictvím typu, třetí parametr tedy může být nastaven na 0.</p>
+<p>Korektní je po skončení práce se socketem jej uzavřít pomocí volání:</p>
+<pre><code>close(fd)
+</code></pre>
 <h3><a class="header" href="#odesílání-zpráv" id="odesílání-zpráv">Odesílání zpráv</a></h3>
 <p>Existují v zásadě dvě varianty, jak odesílat UDP zprávy. </p>
 <ol>
@@ -1356,6 +1361,7 @@ Způsob pojmenování závisí na tom, zda je vaše aplikace klientem (aktivně 
 ssize_t no_of_sent_bytes = send(fd, msg.c_str(), msg.length(), 0);
 </code></pre>
 <p>Parametry a návratová hodnota jsou analogické s funkcí <code>sendto</code>.</p>
+<p>Při využití pojmenovaného socketu může nastat situace, kdy se spojení přeruší, v takovém případě je nutné jej obnovit opětovným voláním funkce <code>connect</code>. </p>
 <h3><a class="header" href="#přijímání-zpráv" id="přijímání-zpráv">Přijímání zpráv</a></h3>
 <p>Obdobně jako v případě odesílání zpráv máme k dispozici dvě alternativy, jak zprávy přijímat.</p>
 <ol>
@@ -1367,7 +1373,7 @@ addr.sin_family = AF_INET;
 addr.sin_addr.s_addr = htonl(INADDR_ANY);
 addr.sin_port = htons(22222);
 </code></pre>
-<p>Všimněte si rozdílu na 3. řádku, kdy tentokrát nespecifikujeme konkrétní adresu, ale pomocí INADDR_ANY říkáme, že chceme přijímat zprávy přes libovolné místní síťové rozhraní.</p>
+<p>Všimněte si rozdílu na 3. řádku, kdy tentokrát nespecifikujeme konkrétní adresu, ale pomocí <code>INADDR_ANY</code> říkáme, že chceme přijímat zprávy přes libovolné místní síťové rozhraní.</p>
 <p>Příjem zprávy je poté realizován následujícím voláním:</p>
 <pre><code>unsigned char buffer[100];
 socklen_t senderlen = sizeof(addr);
@@ -1400,8 +1406,9 @@ Pro variantu serveru použijeme funkci <code>bind</code>:</li>
 a stala se těžko přehlednou. Pokud se budete řídit příklady dobré praxe od počátku projektu, bude vás to na začátku stát více času, ale v pozdějších fázích jej naopak budete šetřit.</p>
 <h2><a class="header" href="#bonus-vyčtení-dat-ze-senzorů" id="bonus-vyčtení-dat-ze-senzorů">Bonus: vyčtení dat ze senzorů</a></h2>
 <p>Vyzkoušejte další zprávy pro komunikaci se simulátorem, které vrací hodnoty ze senzorů:</p>
-<p>✅ Zpráva <code>SENSOR,&lt;id&gt;</code> posílá požadavec na měření senzoru číslo <code>&lt;id&gt;</code> (indexováno od nuly).
-✅ Zprávy <code>LODO</code> a <code>RODO</code> posílají požadavek na zjištění ujeté vzdálenost levého, resp. pravého motoru.</p>
+<p>✅ Zpráva <code>SENSOR,&lt;id&gt;</code> posílá požadavec na měření senzoru číslo <code>&lt;id&gt;</code> (indexováno od nuly).</p>
+<p>✅ Zprávy <code>LODO</code> a <code>RODO</code> posílají požadavek na zjištění ujeté vzdálenost levého, resp. pravého motoru.</p>
+<p>✅ Ve zbývajícím čase můžete začít pracovat na funkci, která rozdělí příchozí zprávu na segmenty (oddělené čárkou) a převede texty na čísla (v závislosti na typu zprávy).</p>
 <h1><a class="header" href="#Řízení-motorů" id="Řízení-motorů">Řízení motorů</a></h1>
 <p>Cvičící: Bc. Matouš Hýbl, Ing. Lukáš Kopečný Ph.D.</p>
 <h2><a class="header" href="#cile" id="cile">Cile</a></h2>
