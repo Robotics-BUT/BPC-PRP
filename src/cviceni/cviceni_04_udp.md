@@ -61,7 +61,7 @@ Následuje příklad volání jednotlivých metod s očekávanými výstupy tak,
 
 ```
 string_to_nmea_message("PING,HELLO") -> "$PING,HELLO*7E"
-get_message_checksum("RESET,") -> 126 (= 7E v hexa)
+get_message_checksum("RESET,") -> 121 (= 79 v hexa)
 extract_nmea_message_content("$PONG,HELLO*78") -> "PONG,HELLO"
 is_nmea_message_valid("$PONG,HELLO*78") -> true
 is_nmea_message_valid("$PONG,HELLO*AA") -> false
