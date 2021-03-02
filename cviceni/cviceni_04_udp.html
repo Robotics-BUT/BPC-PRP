@@ -198,7 +198,7 @@ a přitom se (díky const) chráníte před tím, abyste omylem objekt modifikov
 <p>Checksum je dvoučíslicové hexadecimální číslo (tj. v rozsahu 0-255), které vznikte jako bitová nonekvivalence (XOR) ASCII kódů všech znaků mezi $ a * (ty nejsou zahrnuty).</p>
 <p>Následuje příklad volání jednotlivých metod s očekávanými výstupy tak, abyste si mohli ověřit správnost své implementace.</p>
 <pre><code>string_to_nmea_message(&quot;PING,HELLO&quot;) -&gt; &quot;$PING,HELLO*7E&quot;
-get_message_checksum(&quot;RESET,&quot;) -&gt; 126 (= 7E v hexa)
+get_message_checksum(&quot;RESET,&quot;) -&gt; 121 (= 79 v hexa)
 extract_nmea_message_content(&quot;$PONG,HELLO*78&quot;) -&gt; &quot;PONG,HELLO&quot;
 is_nmea_message_valid(&quot;$PONG,HELLO*78&quot;) -&gt; true
 is_nmea_message_valid(&quot;$PONG,HELLO*AA&quot;) -&gt; false
