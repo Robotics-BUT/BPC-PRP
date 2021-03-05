@@ -1363,11 +1363,11 @@ ssize_t no_of_sent_bytes = send(fd, msg.c_str(), msg.length(), 0);
 <p>Parametry a návratová hodnota jsou analogické s funkcí <code>sendto</code>.</p>
 <p>Při využití pojmenovaného socketu může nastat situace, kdy se spojení přeruší, v takovém případě je nutné jej obnovit opětovným voláním funkce <code>connect</code>. </p>
 <h3><a class="header" href="#přijímání-zpráv" id="přijímání-zpráv">Přijímání zpráv</a></h3>
-<p>Obdobně jako v případě odesílání zpráv máme k dispozici dvě alternativy, jak zprávy přijímat.</p>
-<ol>
-<li>Datagramy lze přijímat i přes tzv. nepojmenované sockety (nemají přiřazenou adresu a port), přičemž rozhraní, ze kterého zprávu přijímáme, je specifikováno ve volání funkce <code>recvfrom</code>.
-Pro pojmenování rozhraní využijeme opět strukturu <code>sockaddr_in</code>, a to následujícím způsobem:</li>
-</ol>
+<p>Socket je před přijímáním zpráv nutné pojmenovat, a to pomocí funkce <code>bind</code>, kterou socketu sdělíme, přes jaké rozhraní má komunikovat: </p>
+<pre><code>int res = bind(fd, (struct sockaddr *) &amp;addr, sizeof(addr));
+</code></pre>
+<p>Můžete si povšimnout, že volání je stejné jako v případě funkce <code>connect</code>. V případě úspěchu je vrácena 0, při chybě -1.</p>
+<p>Pro pojmenování rozhraní využijeme opět strukturu <code>sockaddr_in</code>, a to následujícím způsobem:</p>
 <pre><code>struct sockaddr_in addr;
 addr.sin_family = AF_INET;
 addr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -1381,18 +1381,11 @@ socklen_t senderlen = sizeof(addr);
 ssize_t no_of_received_bytes = recvfrom(fd, buffer, sizeof(buffer), 0, (struct sockaddr *) &amp;addr, &amp;senderlen);
 std::string received_message(buffer, buffer + no_of_received_bytes);
 </code></pre>
-<p>Funkci jsou předány tyto parametry: deskriptor socketu, buffer pro příjem, délka bufferu, příznaky (flags), struktura s popisem rozhraní, <em>reference</em> na velikost této struktury. Vrácen je počet přijatých bytů. 
+<p>Funkci jsou předány tyto parametry: deskriptor socketu, buffer pro příjem, délka bufferu, příznaky (flags), struktura s popisem rozhraní, <em>ukazatel</em> na velikost této struktury. Vrácen je počet přijatých bytů. 
 Volání je obdobné jako v případě <code>sendto</code>, všimněte si ale, že tentokrát předáváme referenci na délku struktury, ne přímo délku; to proto, že funkce <code>recvfrom</code> do struktury zapisuje údaje o odesilateli zprávy 
 a může její délku změnit.</p>
-<ol start="2">
-<li>Pokud komunikuji opakovaně se stejným odesilatelem, je možné socket tzv. pojmenovat a odesílání realizovat funkcí <code>recv</code>, která nevyžaduje strukturu s popisem rozhraní (tato informace bude již předána přes deskriptor socketu).
-Způsob pojmenování závisí na tom, zda je vaše aplikace klientem (aktivně se připojuje k jinému socketu) nebo serverem (naopak čeká, než se jiný socket připojí k vašemu). Varianta s klientem byla popsána výše. 
-Pro variantu serveru použijeme funkci <code>bind</code>:</li>
-</ol>
-<pre><code>int res = bind(fd, (struct sockaddr *) &amp;addr, sizeof(addr));
-</code></pre>
-<p>Můžete si povšimnout, že volání je stejné jako v případě funkce <code>connect</code>. V případě úspěchu je vrácena 0, při chybě -1.</p>
-<p>K příjmu zprávy poté slouží následující volání:</p>
+<p>Je-li socket správně nabindován/připojen a neřešíme konflikt s více odesilateli, které bychom potřebovali rozlišit pomocí struktury <code>sockaddr_in</code>, můžeme přijímat zjednodušeným způsobem pomocí funkce <code>recv</code>. 
+K příjmu zprávy poté slouží následující volání:</p>
 <pre><code>ssize_t no_of_received_bytes = recv(fd, buffer, sizeof(buffer), 0);
 </code></pre>
 <p>Parametry a návratová hodnota jsou analogické s funkcí <code>recvfrom</code>.</p>
