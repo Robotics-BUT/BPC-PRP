@@ -86,7 +86,7 @@ Implementací tohoto postupuje takzvané generování ramp, které v průběhu �
 ✅ Algoritmus takového generátoru je prostý. V každém kroku k momentální rychlosti motoru přičteme požadovanou diferenci rychlosti se stejným znaménkem jako má rozdíl `požadovaná rychlost - momentální rychlost`.
 
 Pro implementaci lze jako návod použít následující modelovací schéma.
-![Generator Ramp](images/ramp_gen.jpg)
+![Generator Ramp](../images/ramp_gen.jpg)
 
 Toto opakujeme ve smyčce s frekvencí která odpovídá tomu jak rychle chceme provádět zrychlování na požadovanou hodnotu.
 
