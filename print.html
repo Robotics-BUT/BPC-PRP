@@ -1487,7 +1487,30 @@ Je tedy nutné řídicí příkazy posílat pořád.</p>
 <p>✅ Jste schopni ovládat oba motory simulovaného robota v plném rozsahu rychlostí.</p>
 <p>✅ Máte naimplementováno generování ramp pro oba motory.</p>
 <p>✅ Jste schopni ze simulátoru získávat data o ujeté vzdálenosti pro oba motory.</p>
-<h1><a class="header" href="#snímání-čáry" id="snímání-čáry">Snímání čáry</a></h1>
+<p>﻿# Snímání čáry
+Cvičící: Ing. Tomáš Jílek, Ph.D.</p>
+<h2><a class="header" href="#cíle" id="cíle">Cíle</a></h2>
+<ul>
+<li>Realizovat zpracování signálu z emulovaného optočlenu CNY70.</li>
+<li>Implementovat výpočet pozice/orientace čáry vzhledem k ose jízdy robotu s využitím jednoho nebo více emulovaných optočlenů CNY70.</li>
+</ul>
+<h2><a class="header" href="#prerekvizity-1" id="prerekvizity-1">Prerekvizity</a></h2>
+<ul>
+<li>Funkční komunikace se simulátorem (ověřit pomocí zprávy <code>PING</code>).</li>
+<li>Funkční parsování NMEA řetězců.</li>
+<li>Funkční ovládání motorů.</li>
+<li>Funkční vyčítání dat z emulovaného KM2 pro výpočet odometrie.</li>
+<li>znalost práce s daty v MATLABu/GNU Octave/Excelu nebo jiném SW pro analýzu dat.</li>
+</ul>
+<h2><a class="header" href="#výstupy" id="výstupy">Výstupy</a></h2>
+<ul>
+<li>Spolehlivě fungující měření pozice vodicí čáry vzhledem k ose jízdy robotu s jedním optočlenem CNY70,</li>
+<li>Základní verze měřicího systému složeného z více optočlenů CNY70 (např. diferenční zapojení se 2 ks CNY70).</li>
+</ul>
+<h2><a class="header" href="#Úkol-č-1-realizace-měření-převodní-charakteristiky-senzoru-cny70" id="Úkol-č-1-realizace-měření-převodní-charakteristiky-senzoru-cny70">Úkol č. 1: Realizace měření převodní charakteristiky senzoru CNY70</a></h2>
+<p>Proveďte implementaci automatizovaného měření převodní charakteristiky emulovaného senzoru CNY70. Jedná se o závislost <code>u_raw=f(dD)</code> nebo <code>u_raw=f(dA)</code>, kde <code>u_raw</code> je celočíselná hodnota reprezentující měřené napětí, která je získána z AD převodníku s 12 bitovým registrem pro uložení výsledku AD převodu. Veličina <code>dD</code> odpovídá délkové odchylce senzoru od vodicí čáry. Veličina <code>dA</code> odpovídá úhlové odchylce senzoru od vodicí čáry.</p>
+<h3><a class="header" href="#možný-způsob-řešení-nápověda" id="možný-způsob-řešení-nápověda">Možný způsob řešení (nápověda)</a></h3>
+<p>Charakteristiku <code>u_raw=f(dD)</code> můžete získat např. tak, že robotem nakolmo přejedete čáru a uložíte si změřené hodnoty <code>u_raw</code>, <code>dGamma1</code> a <code>dGamma2</code>. <code>dGamma1</code> a <code>dGamma2</code> jsou počty mikrokroků ujeté každým kolem během příslušné periody vzorkování. Charakteristiku <code>u_raw=f(dA)</code> můžete získat obdobným způsobem, t.j. robot stojí na místě a otáčí se kolem své osy.</p>
 <h1><a class="header" href="#návrh-regulátoru" id="návrh-regulátoru">Návrh regulátoru</a></h1>
 <h1><a class="header" href="#telemetrie-a-vizualizace" id="telemetrie-a-vizualizace">Telemetrie a vizualizace</a></h1>
 
