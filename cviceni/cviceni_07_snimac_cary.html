@@ -172,12 +172,12 @@ Cvičící: Ing. Tomáš Jílek, Ph.D.</p>
 </ul>
 <h2><a class="header" href="#výstupy" id="výstupy">Výstupy</a></h2>
 <ul>
-<li>Spolehlivě fungující měření pozice vodicí čáry vzhledem k ose jízdy robotu s jedním optočlenem CNY70,</li>
+<li>Spolehlivě fungující měření pozice vodicí čáry vzhledem k ose jízdy robotu s jedním optočlenem CNY70.</li>
 <li>Základní verze měřicího systému složeného z více optočlenů CNY70 (např. diferenční zapojení se 2 ks CNY70).</li>
 </ul>
 <h2><a class="header" href="#Úkol-č-1-realizace-měření-převodní-charakteristiky-senzoru-cny70" id="Úkol-č-1-realizace-měření-převodní-charakteristiky-senzoru-cny70">Úkol č. 1: Realizace měření převodní charakteristiky senzoru CNY70</a></h2>
 <p>Proveďte implementaci automatizovaného měření převodní charakteristiky emulovaného senzoru CNY70. Jedná se o závislost <code>u_raw=f(dD)</code> nebo <code>u_raw=f(dA)</code>, kde <code>u_raw</code> je celočíselná hodnota reprezentující měřené napětí, která je získána z AD převodníku s 12 bitovým registrem pro uložení výsledku AD převodu. Veličina <code>dD</code> odpovídá délkové odchylce senzoru od vodicí čáry. Veličina <code>dA</code> odpovídá úhlové odchylce senzoru od vodicí čáry.</p>
-<p>Hodnotu, která je výsledkem A/D převodu, získáte pomocí NMEA zprávy <code>SENSOR</code>, která je ve formátu: <code>$SENSOR,&lt;id&gt;*&lt;chksum&gt;</code>, kde <code>id</code> odpovídá pořadovému číslu senzoru, který je součástí robotu. Senzory jsou číslované od nuly. Registr, ze kterého jsou data čteny, je 12bitový. Skutečné rozlišení převodníku je ale pouze 10bitové, spodní 2 bity jsou tedy vždy nulové.</p>
+<p>Hodnotu, která je výsledkem A/D převodu, získáte pomocí NMEA zprávy <code>SENSOR</code>, která je ve formátu: <code>$SENSOR,&lt;id&gt;*&lt;chksum&gt;</code>, kde <code>id</code> odpovídá pořadovému číslu senzoru, který je součástí robotu. Senzory jsou indexované od nuly. Registr, ze kterého jsou data čteny, je 12bitový. Skutečné rozlišení převodníku je ale pouze 10bitové, spodní 2 bity jsou tedy vždy nulové. Emulátor navrací zprávu <code>$SENSOR,&lt;id&gt;,&lt;value&gt;*&lt;chksum&gt;</code>, kde <code>value</code> je celočíselná hodnota, která je výsledkem A/D převodu.</p>
 <h3><a class="header" href="#možný-způsob-řešení-nápověda" id="možný-způsob-řešení-nápověda">Možný způsob řešení (nápověda)</a></h3>
 <p>Charakteristiku <code>u_raw=f(dD)</code> můžete získat např. tak, že robotem nakolmo přejedete čáru a uložíte si změřené hodnoty <code>u_raw</code>, <code>dGamma1</code> a <code>dGamma2</code>. <code>dGamma1</code> a <code>dGamma2</code> jsou počty mikrokroků ujeté každým kolem během příslušné periody vzorkování. Charakteristiku <code>u_raw=f(dA)</code> můžete získat obdobným způsobem, t.j. robot stojí na místě a otáčí se kolem své osy.</p>
 <h2><a class="header" href="#Úkol-č-2-návrh-detekčního-systému-s-jedním-optočlenem-cny70-pro-měření-pozice-čáry-vzhledem-k-ose-jízdy-robotu" id="Úkol-č-2-návrh-detekčního-systému-s-jedním-optočlenem-cny70-pro-měření-pozice-čáry-vzhledem-k-ose-jízdy-robotu">Úkol č. 2: Návrh detekčního systému s jedním optočlenem CNY70 pro měření pozice čáry vzhledem k ose jízdy robotu</a></h2>
@@ -190,7 +190,7 @@ Cvičící: Ing. Tomáš Jílek, Ph.D.</p>
 <li>prostorové rozmístění optočlenů CNY70 (jejich souřadnice <code>x</code>, <code>y</code>, <code>z</code> v souřadnicovém systému robotu),</li>
 <li>linearizace převodní charakteristiky jednotlivých optočlenů/celého detekčního systému,</li>
 <li>kalibrace jednotlivých optočlenů (statická - po zapnutí / dynamická - po celou dobu jízdy),</li>
-<li>způsob vyhodnocení dat ze senzoru - charakter výstupní veličiny (počet diskrétních stavů - 2 a nebo více),</li>
+<li>způsob vyhodnocení dat ze senzoru - charakter výstupní veličiny (počet diskrétních stavů - 2 a nebo více).</li>
 </ul>
 <h2><a class="header" href="#nápověda-č-1-zápis-naměřených-dat-do-souboru" id="nápověda-č-1-zápis-naměřených-dat-do-souboru">Nápověda č. 1: Zápis naměřených dat do souboru</a></h2>
 <p>Naměřená data je doporučeno prozatím logovat do souborů. Kdo zvládne logovat přes síť, může použít i tento způsob. Real-time sběr telemetrie bude náplní jednoho z dalších cvičení.</p>
