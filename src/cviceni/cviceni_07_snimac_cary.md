@@ -16,6 +16,12 @@ Cvičící: Ing. Tomáš Jílek, Ph.D.
 * Spolehlivě fungující měření pozice vodicí čáry vzhledem k ose jízdy robotu s jedním optočlenem CNY70.
 * Základní verze měřicího systému složeného z více optočlenů CNY70 (např. diferenční zapojení se 2 ks CNY70).
 
+## Odevzdání výsledku řešení cvičení (do pátku 2. dubna 2021)
+* Do 'odevzdávací' složky v repozitáři Vašeho projektu uložte:
+  - graf změřené převodní charakteristiky samotného senzoru bez jakéhokoliv zpracování,
+  - graf převodní charakteristiky senzoru po Vašem zpracování,
+  - textový soubor formátovaný v jazyce Markdown, který krátce popisuje Vámi zvolený způsob zpracování dat ze senzoru a odkazuje se na dva předchozí grafy (krátká technická zpráva, rozsah postačí ekv. 1/2 A4, mnohem důležitější je úroveň obsahu, než množství textu).
+
 ## Úkol č. 1: Realizace měření převodní charakteristiky senzoru CNY70
 Proveďte implementaci automatizovaného měření převodní charakteristiky emulovaného senzoru CNY70. Jedná se o závislost `u_raw=f(dD)` nebo `u_raw=f(dA)`, kde `u_raw` je celočíselná hodnota reprezentující měřené napětí, která je získána z AD převodníku s 12 bitovým registrem pro uložení výsledku AD převodu. Veličina `dD` odpovídá délkové odchylce senzoru od vodicí čáry. Veličina `dA` odpovídá úhlové odchylce senzoru od vodicí čáry.
 
