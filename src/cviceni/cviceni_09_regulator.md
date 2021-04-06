@@ -1,9 +1,10 @@
 ﻿# Návrh regulátoru
+
 Cvičící: Ing. Tomáš Jílek, Ph.D.
 
 ## Cíle
-* Implementovat ovládání a měření pozice+orientace pro diferenciálně řízený podvozek
-* Navrhnout a implementovat spolehlivý regulátor pro sledování trajektorie
+* Implementovat ovládání a měření pozice+orientace pro diferenciálně řízený podvozek.
+* Navrhnout a implementovat spolehlivý regulátor pro sledování trajektorie.
 
 ## Prerekvizity
 * Funkční komunikace se simulátorem - ovládání motorů + čtení stavu senzorů.
@@ -22,7 +23,23 @@ Cvičící: Ing. Tomáš Jílek, Ph.D.
 
 ## Úkol č. 1: Implementace ovládání diferenciálně řízeného podvozku
 
+Implementujte inverzní kinematiku pro diferenciálně řízený podvozek. Identifikujte hodnoty konstant, které jsou k výpočtu potřeba.
 
+    motor_left_speed  = (robot_linear_speed + 0.5 * C_TW * robot_angular_speed) * C_L
+    motor_right_speed = (robot_linear_speed - 0.5 * C_TW * robot_angular_speed) * C_R
+
+V proměnných `left_motor_speed` a `right_motor_speed` jsou již přímo hodnoty, které je třeba zapsat do příslušných registrů modulu KM2. Fyzikální rozměr těchto veličin je [microstep/(10*0xFFF microsecond)], to znamená, že do registrů se zapisuje počet mikrokroků za 40,96 milisekund) - viz dokumentace k modulu KM2. Konstanta `C_TW` je rozteč kol (šířka nápravy) [m]. Konstanty C_L a C_R jsou v jednotkách `[100000/4096 microstep/m]`, konstanty tedy vyjadřují počet 24.4140625mikrokroku na 1 metr.
+
+Parametry použitých komponent
+
+                 Wheel: wheel_diameter * pi [m/turn]
+         Stepper motor: 200 [step/turn]
+          Motor driver: 32 [microstep/step]
+    KM2 speed register: [microstep/(10*0xFFF microsecond)] -> 4096 [microstep/(10*0xFFF microsecond)] ~ 10^5 [microstep/s]
+
+### Postup výpočtu
+
+    ROBOT(v [m/s], omega [rad/s]) -> WHEEL(v_left, v_right [m/s]) -> MOTOR(omega_left, omega_right [microstep/s]) -> KM2_SPEED_REGISTERS(reg_left, reg_right [microstep/(40.96*milisecond)])
 
 ## Úkol č. 2: Ověření správnosti implementace z přechozího bodu
 
