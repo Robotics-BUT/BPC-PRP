@@ -1487,7 +1487,7 @@ Je tedy nutné řídicí příkazy posílat pořád.</p>
 <p>✅ Jste schopni ovládat oba motory simulovaného robota v plném rozsahu rychlostí.</p>
 <p>✅ Máte naimplementováno generování ramp pro oba motory.</p>
 <p>✅ Jste schopni ze simulátoru získávat data o ujeté vzdálenosti pro oba motory.</p>
-<p>﻿# Snímání čáry</p>
+<h1><a class="header" href="#snímání-čáry" id="snímání-čáry">Snímání čáry</a></h1>
 <p>Cvičící: Ing. Tomáš Jílek, Ph.D.</p>
 <h2><a class="header" href="#cíle" id="cíle">Cíle</a></h2>
 <ul>
@@ -1594,12 +1594,12 @@ const char *graf(char* buffer, int nchars, float value)
 
 printf(&quot;%d %%: %s&quot;, value, graf(buffer, 20, value));
 </code></pre>
-<p>﻿# Návrh regulátoru</p>
+<h1><a class="header" href="#návrh-regulátoru" id="návrh-regulátoru">Návrh regulátoru</a></h1>
 <p>Cvičící: Ing. Tomáš Jílek, Ph.D.</p>
 <h2><a class="header" href="#cíle-1" id="cíle-1">Cíle</a></h2>
 <ul>
-<li>Implementovat ovládání a měření pozice+orientace pro diferenciálně řízený podvozek.</li>
-<li>Navrhnout a implementovat spolehlivý regulátor pro sledování trajektorie.</li>
+<li>Implementovat ovládání diferenciálně řízeného podvozku.</li>
+<li>Navrhnout a implementovat spolehlivý regulátor pro sledování trasy.</li>
 </ul>
 <h2><a class="header" href="#prerekvizity-2" id="prerekvizity-2">Prerekvizity</a></h2>
 <ul>
@@ -1616,12 +1616,12 @@ printf(&quot;%d %%: %s&quot;, value, graf(buffer, 20, value));
 <ul>
 <li>3 grafy časového vývoje regulační odchylky + akčních zásahů při:
 <ul>
-<li>jízdě po přímé trajektorii,</li>
-<li>jízdě po kruhovém oblouku o poloměru 20 cm,</li>
-<li>jízdě po kruhévém oblouku o poloměru 10 cm.</li>
+<li>sledování přímé trasy,</li>
+<li>sledování trasy reprezentované kruhovým obloukem o poloměru 20 cm,</li>
+<li>sledování trasy reprezentované kruhovým obloukem o poloměru 10 cm.</li>
 </ul>
 </li>
-<li>textový soubor formátovaný v jazyce Markdown, který krátce popisuje vaše zvolené a implementované řešení včetně postupu nalezení konstant regulátoru.</li>
+<li>textový soubor formátovaný v jazyce Markdown, který krátce popisuje zvolené a implementované řešení včetně postupu nalezení konstant regulátoru.</li>
 </ul>
 </li>
 </ul>
@@ -1630,24 +1630,44 @@ printf(&quot;%d %%: %s&quot;, value, graf(buffer, 20, value));
 <pre><code>motor_left_speed  = (robot_linear_speed + 0.5 * C_TW * robot_angular_speed) * C_L
 motor_right_speed = (robot_linear_speed - 0.5 * C_TW * robot_angular_speed) * C_R
 </code></pre>
-<p>V proměnných <code>left_motor_speed</code> a <code>right_motor_speed</code> jsou již přímo hodnoty, které je třeba zapsat do příslušných registrů modulu KM2. Fyzikální rozměr těchto veličin je [microstep/(10*0xFFF microsecond)], to znamená, že do registrů se zapisuje počet mikrokroků za 40,96 milisekund) - viz dokumentace k modulu KM2. Konstanta <code>C_TW</code> je rozteč kol (šířka nápravy) [m]. Konstanty C_L a C_R jsou v jednotkách <code>[100000/4096 microstep/m]</code>, konstanty tedy vyjadřují počet 24.4140625mikrokroku na 1 metr.</p>
+<p>V proměnných <code>left_motor_speed</code> a <code>right_motor_speed</code> jsou již přímo hodnoty, které je třeba zapsat do emulovaného ovladače krokových motorů. Konstanta <code>C_TW</code> je rozteč kol (šířka nápravy) [m]. Konstanty C_L a C_R jsou v jednotkách <code>[microstep/m]</code>, konstanty tedy vyjadřují potřebný počet mikrokroků na 1 metr ujeté vzdálenosti daným kolem.</p>
 <p>Parametry použitých komponent</p>
 <pre><code>             Wheel: wheel_diameter * pi [m/turn]
      Stepper motor: 200 [step/turn]
       Motor driver: 32 [microstep/step]
-KM2 speed register: [microstep/(10*0xFFF microsecond)] -&gt; 4096 [microstep/(10*0xFFF microsecond)] ~ 10^5 [microstep/s]
 </code></pre>
 <h3><a class="header" href="#postup-výpočtu" id="postup-výpočtu">Postup výpočtu</a></h3>
-<pre><code>ROBOT(v [m/s], omega [rad/s]) -&gt; WHEEL(v_left, v_right [m/s]) -&gt; MOTOR(omega_left, omega_right [microstep/s]) -&gt; KM2_SPEED_REGISTERS(reg_left, reg_right [microstep/(40.96*milisecond)])
+<pre><code>ROBOT(v [m/s], omega [rad/s]) -&gt; WHEEL(v_left, v_right [m/s]) -&gt; MOTOR(omega_left, omega_right [microstep/s])
 </code></pre>
-<h2><a class="header" href="#Úkol-č-2-ověření-správnosti-implementace-z-přechozího-bodu" id="Úkol-č-2-ověření-správnosti-implementace-z-přechozího-bodu">Úkol č. 2: Ověření správnosti implementace z přechozího bodu</a></h2>
+<h2><a class="header" href="#Úkol-č-2-ověření-správnosti-implementace-řešené-v-předchzím-bodu" id="Úkol-č-2-ověření-správnosti-implementace-řešené-v-předchzím-bodu">Úkol č. 2: Ověření správnosti implementace řešené v předchzím bodu.</a></h2>
+<p>Než přistoupíte k testování regulátoru, je vhodné ověřit, že robot opravdu vykonává pohyb, který je od něho očekáván. Správnou funkčnost je možné ověřit např. na těchto pohybech:</p>
+<ul>
+<li>jízda po přímce (<code>v</code> je nenulové, <code>omega = 0</code>)
+<ul>
+<li>např. při <code>v = 1 cm/s</code> by měl robot za 10 sekund ujet vzdálenost 10 cm</li>
+</ul>
+</li>
+<li>otáčení na místě (<code>v = 0</code>, <code>omega</code> je nenulová)
+<ul>
+<li>např. při <code>omega = 36 deg/s</code> by se robot měl za 10 sekund otočit kolem své osy o 360 deg, tj. dostat se do výchozí orientace</li>
+</ul>
+</li>
+<li>jízda po kruhovém oblouku (<code>v</code> i <code>omega</code> jsou nenulové)
+<ul>
+<li>např. při <code>v = 1 cm/s</code> a <code>omega = 36 deg/s</code> by trajektorie robotu měla být kružnice o poloměru cca 1,6 cm (změna ujeté vzdálenosti bude 10 cm, změna orientace bude 360 deg)</li>
+</ul>
+</li>
+</ul>
 <h2><a class="header" href="#Úkol-č-3-návrh-a-implementace-regulátoru-pro-sledování-trajektorie" id="Úkol-č-3-návrh-a-implementace-regulátoru-pro-sledování-trajektorie">Úkol č. 3: Návrh a implementace regulátoru pro sledování trajektorie</a></h2>
 <p>Navrhněte a implementujte regulační strukturu tak, aby robot spolehlivě sledoval trajektorii (nikdy z ní nesjel) a současně byla rychlost sledování trajektorie maximální možná.</p>
-<p>Pro ty, kteří zatím netuší, jak postupovat, zde je malý návod, co vyzkoušet:</p>
+<p>Pro ty, kteří zatím netuší, jak postupovat, je zde malý návod, co vyzkoušet:</p>
 <ul>
 <li>Lineární rychlost pohybu robotu nastavte na pevnou hodnotu (nižší jednotky cm/s, např. 2 cm/s). Pro regulaci úhlové rychlosti pohybu robotu použijte P regulátor. Zesílení P složky postupně zvyšujte od nulové hodnoty.</li>
 <li>Přidejte sumační a diferenční složku do regulátoru. Nastavte konstanty PSD regulátoru.</li>
-<li>Implementujte ovládání/regulaci lineární složky pohybu robotu (tj. tento akční zásah již nebude konstantní)</li>
+<li>Implementujte ovládání/regulaci lineární složky pohybu robotu (tj. tento akční zásah již nebude konstantní).</li>
+<li>Vyhodnoťte, které složky (P/S/D) jsou v regulátoru potřeba a jak pozitivně/negativně ovlivňují regulační děj (sledování trasy).</li>
+<li>Zkuste se trochu hlouběji zamyslet, jaký má vliv umístění senzorického systému na průběh regulačního děje, příp. jak ovlivňuje potřebnou strukturu regulačního obvodu a požadavky na regulátor.</li>
+<li>Na základě zjištěných informací se pokuste navrhnout vlastní regulační schéma pro dosažení co nejlepších výsledků sledování trasy.</li>
 </ul>
 <h1><a class="header" href="#telemetrie-a-vizualizace" id="telemetrie-a-vizualizace">Telemetrie a vizualizace</a></h1>
 
