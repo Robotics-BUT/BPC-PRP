@@ -155,12 +155,12 @@
 
                 <div id="content" class="content">
                     <main>
-                        <p>﻿# Návrh regulátoru
-Cvičící: Ing. Tomáš Jílek, Ph.D.</p>
+                        <p>﻿# Návrh regulátoru</p>
+<p>Cvičící: Ing. Tomáš Jílek, Ph.D.</p>
 <h2><a class="header" href="#cíle" id="cíle">Cíle</a></h2>
 <ul>
-<li>Implementovat ovládání a měření pozice+orientace pro diferenciálně řízený podvozek</li>
-<li>Navrhnout a implementovat spolehlivý regulátor pro sledování trajektorie</li>
+<li>Implementovat ovládání a měření pozice+orientace pro diferenciálně řízený podvozek.</li>
+<li>Navrhnout a implementovat spolehlivý regulátor pro sledování trajektorie.</li>
 </ul>
 <h2><a class="header" href="#prerekvizity" id="prerekvizity">Prerekvizity</a></h2>
 <ul>
@@ -187,6 +187,20 @@ Cvičící: Ing. Tomáš Jílek, Ph.D.</p>
 </li>
 </ul>
 <h2><a class="header" href="#Úkol-č-1-implementace-ovládání-diferenciálně-řízeného-podvozku" id="Úkol-č-1-implementace-ovládání-diferenciálně-řízeného-podvozku">Úkol č. 1: Implementace ovládání diferenciálně řízeného podvozku</a></h2>
+<p>Implementujte inverzní kinematiku pro diferenciálně řízený podvozek. Identifikujte hodnoty konstant, které jsou k výpočtu potřeba.</p>
+<pre><code>motor_left_speed  = (robot_linear_speed + 0.5 * C_TW * robot_angular_speed) * C_L
+motor_right_speed = (robot_linear_speed - 0.5 * C_TW * robot_angular_speed) * C_R
+</code></pre>
+<p>V proměnných <code>left_motor_speed</code> a <code>right_motor_speed</code> jsou již přímo hodnoty, které je třeba zapsat do příslušných registrů modulu KM2. Fyzikální rozměr těchto veličin je [microstep/(10*0xFFF microsecond)], to znamená, že do registrů se zapisuje počet mikrokroků za 40,96 milisekund) - viz dokumentace k modulu KM2. Konstanta <code>C_TW</code> je rozteč kol (šířka nápravy) [m]. Konstanty C_L a C_R jsou v jednotkách <code>[100000/4096 microstep/m]</code>, konstanty tedy vyjadřují počet 24.4140625mikrokroku na 1 metr.</p>
+<p>Parametry použitých komponent</p>
+<pre><code>             Wheel: wheel_diameter * pi [m/turn]
+     Stepper motor: 200 [step/turn]
+      Motor driver: 32 [microstep/step]
+KM2 speed register: [microstep/(10*0xFFF microsecond)] -&gt; 4096 [microstep/(10*0xFFF microsecond)] ~ 10^5 [microstep/s]
+</code></pre>
+<h3><a class="header" href="#postup-výpočtu" id="postup-výpočtu">Postup výpočtu</a></h3>
+<pre><code>ROBOT(v [m/s], omega [rad/s]) -&gt; WHEEL(v_left, v_right [m/s]) -&gt; MOTOR(omega_left, omega_right [microstep/s]) -&gt; KM2_SPEED_REGISTERS(reg_left, reg_right [microstep/(40.96*milisecond)])
+</code></pre>
 <h2><a class="header" href="#Úkol-č-2-ověření-správnosti-implementace-z-přechozího-bodu" id="Úkol-č-2-ověření-správnosti-implementace-z-přechozího-bodu">Úkol č. 2: Ověření správnosti implementace z přechozího bodu</a></h2>
 <h2><a class="header" href="#Úkol-č-3-návrh-a-implementace-regulátoru-pro-sledování-trajektorie" id="Úkol-č-3-návrh-a-implementace-regulátoru-pro-sledování-trajektorie">Úkol č. 3: Návrh a implementace regulátoru pro sledování trajektorie</a></h2>
 <p>Navrhněte a implementujte regulační strukturu tak, aby robot spolehlivě sledoval trajektorii (nikdy z ní nesjel) a současně byla rychlost sledování trajektorie maximální možná.</p>
