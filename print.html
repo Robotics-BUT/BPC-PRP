@@ -1594,7 +1594,47 @@ const char *graf(char* buffer, int nchars, float value)
 
 printf(&quot;%d %%: %s&quot;, value, graf(buffer, 20, value));
 </code></pre>
-<h1><a class="header" href="#návrh-regulátoru" id="návrh-regulátoru">Návrh regulátoru</a></h1>
+<p>﻿# Návrh regulátoru
+Cvičící: Ing. Tomáš Jílek, Ph.D.</p>
+<h2><a class="header" href="#cíle-1" id="cíle-1">Cíle</a></h2>
+<ul>
+<li>Implementovat ovládání a měření pozice+orientace pro diferenciálně řízený podvozek</li>
+<li>Navrhnout a implementovat spolehlivý regulátor pro sledování trajektorie</li>
+</ul>
+<h2><a class="header" href="#prerekvizity-2" id="prerekvizity-2">Prerekvizity</a></h2>
+<ul>
+<li>Funkční komunikace se simulátorem - ovládání motorů + čtení stavu senzorů.</li>
+<li>Funkční měření odchylky robotu od trajektorie.</li>
+</ul>
+<h2><a class="header" href="#výstupy-1" id="výstupy-1">Výstupy</a></h2>
+<ul>
+<li>Spolehlivě fungující implementace sledování trajektorie.</li>
+</ul>
+<h2><a class="header" href="#odevzdání-výsledku-řešení-cvičení-do-pondělí-12-dubna-2021" id="odevzdání-výsledku-řešení-cvičení-do-pondělí-12-dubna-2021">Odevzdání výsledku řešení cvičení (do pondělí 12. dubna 2021)</a></h2>
+<ul>
+<li>Do 'odevzdávací' složky v repozitáři Vašeho projektu uložte:
+<ul>
+<li>3 grafy časového vývoje regulační odchylky + akčních zásahů při:
+<ul>
+<li>jízdě po přímé trajektorii,</li>
+<li>jízdě po kruhovém oblouku o poloměru 20 cm,</li>
+<li>jízdě po kruhévém oblouku o poloměru 10 cm.</li>
+</ul>
+</li>
+<li>textový soubor formátovaný v jazyce Markdown, který krátce popisuje vaše zvolené a implementované řešení včetně postupu nalezení konstant regulátoru.</li>
+</ul>
+</li>
+</ul>
+<h2><a class="header" href="#Úkol-č-1-implementace-ovládání-diferenciálně-řízeného-podvozku" id="Úkol-č-1-implementace-ovládání-diferenciálně-řízeného-podvozku">Úkol č. 1: Implementace ovládání diferenciálně řízeného podvozku</a></h2>
+<h2><a class="header" href="#Úkol-č-2-ověření-správnosti-implementace-z-přechozího-bodu" id="Úkol-č-2-ověření-správnosti-implementace-z-přechozího-bodu">Úkol č. 2: Ověření správnosti implementace z přechozího bodu</a></h2>
+<h2><a class="header" href="#Úkol-č-3-návrh-a-implementace-regulátoru-pro-sledování-trajektorie" id="Úkol-č-3-návrh-a-implementace-regulátoru-pro-sledování-trajektorie">Úkol č. 3: Návrh a implementace regulátoru pro sledování trajektorie</a></h2>
+<p>Navrhněte a implementujte regulační strukturu tak, aby robot spolehlivě sledoval trajektorii (nikdy z ní nesjel) a současně byla rychlost sledování trajektorie maximální možná.</p>
+<p>Pro ty, kteří zatím netuší, jak postupovat, zde je malý návod, co vyzkoušet:</p>
+<ul>
+<li>Lineární rychlost pohybu robotu nastavte na pevnou hodnotu (nižší jednotky cm/s, např. 2 cm/s). Pro regulaci úhlové rychlosti pohybu robotu použijte P regulátor. Zesílení P složky postupně zvyšujte od nulové hodnoty.</li>
+<li>Přidejte sumační a diferenční složku do regulátoru. Nastavte konstanty PSD regulátoru.</li>
+<li>Implementujte ovládání/regulaci lineární složky pohybu robotu (tj. tento akční zásah již nebude konstantní)</li>
+</ul>
 <h1><a class="header" href="#telemetrie-a-vizualizace" id="telemetrie-a-vizualizace">Telemetrie a vizualizace</a></h1>
 
                     </main>
