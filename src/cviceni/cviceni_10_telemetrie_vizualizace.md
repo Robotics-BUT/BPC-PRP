@@ -20,7 +20,7 @@ My si však dnes vytvoříme balíčky ručně a při tom si vysvětlíme jednot
 
 V prvním kroku si vytvoříme na libovolném místě ve file systému složku "ros_ws". Jméno složky však může být libovolné. Je jen dobré zachovávat best practice postupy. Uvnitř právě vytvořené složky "ros_ws" si vyrobíme složku "src". Tímto jsme vytořili ROS workspace.
 
-Nyní se přesuneme do podsložky ros_ws/src/. Nacházíme se v místě, kde se umisťují tzv. ROS balíčky, tedy CMake projekty, které pracují s ROS knihovnou. V našem případě si vytvoříme jeden balíček tak, že vytvoříme složku "my_first_ros_project". Uvnitř této složky pak vytvoříme složky "include" a "src" a soubory "package.xml" a "CMakeLists.txt". Ve složce "src" pak soubor "main.cpp" a ve složce "include" soubor "RosExampleClass".
+Nyní se přesuneme do podsložky ros_ws/src/. Nacházíme se v místě, kde se umisťují tzv. ROS balíčky (package), tedy CMake projekty, které pracují s ROS knihovnou. V našem případě si vytvoříme jeden balíček tak, že vytvoříme složku "my_first_ros_project". Uvnitř této složky pak vytvoříme složky "include" a "src" a soubory "package.xml" a "CMakeLists.txt". Ve složce "src" pak soubor "main.cpp" a ve složce "include" soubor "RosExampleClass".
 
 Struktura celého workspacu bude tedy vypadat následovně.
 
@@ -60,24 +60,17 @@ Dále pak soubor package.xml
 ```
 <?xml version="1.0"?>
 <package format="2">
-  <name>my_first_ros_project</name>
-  <version>0.1.0</version>
-  <description>Example ros c++ publisher project</description>
+    <name>my_first_ros_project</name>
+    <version>0.1.0</version>
+    <description>Example ros c++ publisher project</description>
 
-  <maintainer email="my@email.todo">adash</maintainer>
+    <maintainer email="my@email.todo">adash</maintainer>
 
-  <license>TODO</license>
-
-  <buildtool_depend>catkin</buildtool_depend>
-
-  <build_depend>roscpp</build_depend>
-  <build_depend>std_msgs</build_depend>
-
-  <build_export_depend>roscpp</build_export_depend>
-  <build_export_depend>std_msgs</build_export_depend>
-
-  <exec_depend>roscpp</exec_depend>
-  <exec_depend>std_msgs</exec_depend>
+    <license>TODO</license>
+    <buildtool_depend>catkin</buildtool_depend>
+    <build_depend>roscpp</build_depend>
+    <build_export_depend>roscpp</build_export_depend>
+    <exec_depend>roscpp</exec_depend>
 </package>
 ```
 
@@ -88,10 +81,10 @@ A nyní si niž můžeme projekt otevřít jako CMake projekt v CLionu a napsat 
 #include "RosExampleClass.h"
 
 int main(int argc, char* argv[]) {
-    ros::init(argc, argv, "cpp_ros_example");
-    auto node = ros::NodeHandle();
+    ros::init(argc, argv, "cpp_ros_example");                     // spojení s ros core (master)
+    auto node = ros::NodeHandle();                                // objekt, který poskytuje interakci s ros funkcionalitou
     auto example_class = RosExampleClass(node, "my_topic", 1.0);
-    ros::spin();
+    ros::spin();                                                  // spustí připravené publishery, subscribery a timer (blokujicí funkce) 
     return 0;
 }
 ```
@@ -144,7 +137,7 @@ private:
 
 Nýní můžeme v CLionu projekt zkompilovat a spustit.
 
-Alternativně je možné přejít do kořehe workspacu a zavolat
+Alternativně je možné přejít do kořehe workspacu a zavolat "rosrun <jmeno_balicku> <jmeno_binarky>"
 
 ```
 catkin_make
@@ -285,9 +278,10 @@ private:
 
         // Text
         std::stringstream stream;
-        stream << "x: " << format << pose.x() << std::endl
-               << "y: " << format << pose.y() << std::endl
-               << "z: " << format << pose.z();
+        stream << "* Cool Cube *" << std::endl
+               << "  x: " << format << pose.x() << std::endl
+               << "  y: " << format << pose.y() << std::endl
+               << "  z: " << format << pose.z();
         text.text = stream.str();
 
         // Color
@@ -304,4 +298,8 @@ private:
 };
 ```
 
-Inspirujte se touto třídou a vytvořte v rámci Vašeho BPC-PRP projektu modul, který bude vypisovat nad robotem jeho aktuální rychlost kol a hodnotu ze všech senzorů.
+✅  Inspirujte se touto třídou a vytvořte v rámci Vašeho BPC-PRP projektu modul, který bude vypisovat nad robotem jeho aktuální rychlost kol a hodnotu ze všech senzorů. 
+
+✅  Publikujte do Vámi nazvaného topicu skalár vzdálenosti robota od čáry. Tuto hodnotu vizualizujte v rqt_graph.
+
+✅  Vytvořte krátké video ve kterém ukážete, dvě výše uvedené funkcionality. Video nahrejte na git do složky s odevzdáními.
