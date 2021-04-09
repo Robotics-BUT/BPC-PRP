@@ -20,9 +20,9 @@ Oficiální tutoriály pro práci s CLI:
 
 My si však dnes vytvoříme balíčky ručně a při tom si vysvětlíme jednotlivé kroky, které první způsob automatizuje.
 
-V prvním kroku si vytvoříme na libovolném místě ve file systému složku "ros_ws". Jméno složky však může být libovolné. Je jen dobré zachovávat best practice postupy. Uvnitř právě vytvořené složky "ros_ws" si vyrobíme složku "src". Tímto jsme vytořili ROS workspace.
+V prvním kroku si vytvoříme na libovolném místě ve file systému složku `ros_ws`. Jméno složky však může být libovolné. Je jen dobré zachovávat best practice postupy. Uvnitř právě vytvořené složky `ros_ws` si vyrobíme složku `src`. Tímto jsme vytořili ROS workspace.
 
-Nyní se přesuneme do podsložky ros_ws/src/. Nacházíme se v místě, kde se umisťují tzv. ROS balíčky (package), tedy CMake projekty, které pracují s ROS knihovnou. V našem případě si vytvoříme jeden balíček tak, že vytvoříme složku "my_first_ros_project". Uvnitř této složky pak vytvoříme složky "include" a "src" a soubory "package.xml" a "CMakeLists.txt". Ve složce "src" pak soubor "main.cpp" a ve složce "include" soubor "RosExampleClass".
+Nyní se přesuneme do podsložky `ros_ws/src/`. Nacházíme se v místě, kde se umisťují tzv. ROS balíčky (package), tedy CMake projekty, které pracují s ROS knihovnou. V našem případě si vytvoříme jeden balíček tak, že vytvoříme složku `my_first_ros_project`. Uvnitř této složky pak vytvoříme složky `include` a `src`, a soubory `package.xml` a `CMakeLists.txt`. Ve složce `src` pak soubor `main.cpp` a ve složce `include` soubor `RosExampleClass.h`.
 
 Struktura celého workspacu bude tedy vypadat následovně.
 
@@ -38,9 +38,9 @@ ros_ws/
             └── main.cpp
 ``` 
 
-Nejprvo si napíšeme obsah CMakeLists.txt souboru. Ten bude následovný.
+Nejprvo si napíšeme obsah `CMakeLists.txt` souboru. Ten bude následovný.
 
-```
+```cmake
 cmake_minimum_required(VERSION 3.10.0)
 project(my_first_ros_project)
 
@@ -57,9 +57,9 @@ add_executable(cpp_talker src/main.cpp)
 target_link_libraries(cpp_talker ${catkin_LIBRARIES})
 ```
 
-Dále pak soubor package.xml
+Dále pak soubor `package.xml`
 
-```
+```xml
 <?xml version="1.0"?>
 <package format="2">
     <name>my_first_ros_project</name>
@@ -76,9 +76,9 @@ Dále pak soubor package.xml
 </package>
 ```
 
-A nyní si niž můžeme projekt otevřít jako CMake projekt v CLionu a napsat kód v main.cpp. Pozor, je potřeba otevřít CLIon v termiále, kde máte načtené prostředí ROSu (source /opt/ros/noetic/setup.bash).
+A nyní si niž můžeme projekt otevřít jako CMake projekt v CLionu a napsat kód v `main.cpp`. Pozor, je potřeba otevřít CLion v termiále, kde máte načtené prostředí ROSu (source /opt/ros/noetic/setup.bash).
 
-```
+```cpp
 #include <ros/ros.h>
 #include "RosExampleClass.h"
 #include "RvizExampleClass.h"
@@ -100,9 +100,9 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-Vidíte, že v main includujeme ROSExampleClass a poté vytváříme její instanci. Pojďme tedy tuto třídu vytvořit ve složce "include/"
+Vidíte, že v main includujeme `RosExampleClass.h` a poté vytváříme její instanci. Pojďme tedy tuto třídu vytvořit ve složce `include/`
 
-```
+```cpp
 #pragma once
 
 #include <iostream>
@@ -156,20 +156,22 @@ source devel/setup.bash
 rosrun my_first_ros_project cpp_ros_example 
 ```
 
-Dále se pak můžeme podívat na komunikaci pomocí programu rqt_graph.
+Čímž jsme řekli `catkin_make` - zkompiluj celý ROS workspace, `source devel/setup.bash` - načti právě zkompilované balíčky a `rosrun my_first_ros_project cpp_ros_example` - zapni program `cpp_ros_example` z balíčku `my_first_ros_project`.
 
-```
-rqt_graph
-```
 
-Vypsat si zprávy přímo v terminále
+Dále si pak můžeme vypsat si zprávy přímo v terminále.
 
 ```
 rostopic echo <nazev_topicku>
 ```
 
-Či dokonce vykreslit si časový průběh v programu rqt_plot
+Podívat na komunikaci pomocí programu rqt_graph.
 
+```
+rqt_graph
+```
+
+Či dokonce vykreslit si časový průběh v programu rqt_plot.
 
 ```
 rqt_plot
@@ -179,6 +181,15 @@ rqt_plot
 
 Nyní se pokuste transformovat Váš BPC-PRP projekt tak, aby byl ROS Nodem, podle výše uvedeného návodu a aby Váš projekt byl chopen publishovat ROS zprávy.
 
+POZOR! - Zvažte, zda se vydáte cesout blokujicího `ros::spin()`, v tom případě si zablokujete Vaší main smyčku, nebo se vydáte cestou while smyčky s `ros::spinOnce()`. V tom případě se ale publishery, subscribery a timery přijmou/odešlou zprávu, nebo zavolají timer callback pouze, když se provede řádek `ros::spinOnce()`.
+
+```
+while (ros::ok()) {     // main loop
+    /* your code */
+    ros::spinOnce();    // allows publishers, timers and subscribers to do their job
+}
+```
+
 # Vizualizace v RViz (cca 1h)
 
 Nyní se podíváme, jak vytvářet vizualizace pro RViz.
@@ -187,9 +198,9 @@ Neprve si nastudujte oficiální dokumentaci k [vizualizaci v RViz](http://wiki.
 
 Jedná se o zprávy z ROS knihovny "visualization_msgs". Tyto zprávy umoňují vizualizaci geometrických těles, šipek, úseček, polyúseček, mračna bodů, textu, nebo mesh gridů.
 
-My si nyní napíšeme třídu, která bude vizualizovat krychli, která bude plavat 3D prostředím a vedle ní budem vypisovat její aktuální polohu.
+My si nyní napíšeme třídu, která bude vizualizovat krychli, jenž bude plavat 3D prostředím a vedle ní budem vypisovat její aktuální polohu.
 
-```
+```cpp
 #pragma once
 #include <iostream>
 #include <ros/ros.h>
@@ -308,6 +319,8 @@ private:
     ros::Publisher markers_publisher_;
 };
 ```
+
+Topic na kterém publikujete zprávu si zobrazte v RVizu.
 
 ✅  Inspirujte se touto třídou a vytvořte v rámci Vašeho BPC-PRP projektu modul, který bude vypisovat nad robotem jeho aktuální rychlost kol a hodnotu ze všech senzorů. 
 
