@@ -2,6 +2,8 @@
 
 Cvičící: Ing. Adam Ligocki
 
+Před cvičením si zopakujte návod [ROS](../chap_1_software/text/ros.md) z kapitoly [Softwarové vybavení](../chap_1_software/text/intro.html)
+
 # Tvorba vlastního ROS nodu (cca 1h)
 
 V první fázi cvičení si vytvoříme svůj vlastní ROS workspace (složka, která obsahuje ROS package) a ROS package (CMakeList projekt, který pracuje s ROS knihovnama).
@@ -79,12 +81,21 @@ A nyní si niž můžeme projekt otevřít jako CMake projekt v CLionu a napsat 
 ```
 #include <ros/ros.h>
 #include "RosExampleClass.h"
+#include "RvizExampleClass.h"
 
 int main(int argc, char* argv[]) {
-    ros::init(argc, argv, "cpp_ros_example");                     // spojení s ros core (master)
-    auto node = ros::NodeHandle();                                // objekt, který poskytuje interakci s ros funkcionalitou
+    ros::init(argc, argv, "cpp_ros_example");       // connects node with ros core
+    auto node = ros::NodeHandle();                            // API for ros functionality
+
     auto example_class = RosExampleClass(node, "my_topic", 1.0);
-    ros::spin();                                                  // spustí připravené publishery, subscribery a timer (blokujicí funkce) 
+    auto rviz_visualizer = RvizExampleClass(node, "rviz_topic", 30.0);
+
+    while (ros::ok()) {     // main loop
+        // your main loop
+        ros::spinOnce();    // allows publishers, timers and subscribers to do their job
+    }
+
+    // ros::spin(); blocking alternative of while loop above
     return 0;
 }
 ```
@@ -166,9 +177,9 @@ rqt_plot
 
 # Integrace ROS klientské knihovny do BPC-PRP projektu (cca 30 min)
 
-Nyní se pokuste transformovat Váš BPC-PRP projekt tak, aby byl ROS Nodem, podle výše uvedeného návodu a aby Váš projekt byl chopen publishovat zprávy.
+Nyní se pokuste transformovat Váš BPC-PRP projekt tak, aby byl ROS Nodem, podle výše uvedeného návodu a aby Váš projekt byl chopen publishovat ROS zprávy.
 
-# Vizualizace v RViz
+# Vizualizace v RViz (cca 1h)
 
 Nyní se podíváme, jak vytvářet vizualizace pro RViz.
 
