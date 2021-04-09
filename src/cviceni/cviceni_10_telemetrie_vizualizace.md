@@ -1,1 +1,307 @@
 # Telemetrie a vizualizace
+
+Cvičící: Ing. Adam Ligocki
+
+# Tvorba vlastního ROS nodu (cca 1h)
+
+V první fázi cvičení si vytvoříme svůj vlastní ROS workspace (složka, která obsahuje ROS package) a ROS package (CMakeList projekt, který pracuje s ROS knihovnama).
+
+Přistup je dvojí. Je možné použít příkazy z příkazové řádky (catkin_pkg_create, catkin_make, ...)
+
+Oficiální tutoriály pro práci s CLI:
+
+ - [ROS File Systém](http://wiki.ros.org/ROS/Tutorials/NavigatingTheFilesystem)
+ - [Tvorba balíčku](http://wiki.ros.org/ROS/Tutorials/CreatingPackage)
+ - [Kompilace balíčku](http://wiki.ros.org/ROS/Tutorials/BuildingPackages)
+ - [Vysvětlení ROS nodu](http://wiki.ros.org/ROS/Tutorials/UnderstandingNodes)
+ - [Ostatní tutoriálny](http://wiki.ros.org/ROS/Tutorials)
+
+My si však dnes vytvoříme balíčky ručně a při tom si vysvětlíme jednotlivé kroky, které první způsob automatizuje.
+
+V prvním kroku si vytvoříme na libovolném místě ve file systému složku "ros_ws". Jméno složky však může být libovolné. Je jen dobré zachovávat best practice postupy. Uvnitř právě vytvořené složky "ros_ws" si vyrobíme složku "src". Tímto jsme vytořili ROS workspace.
+
+Nyní se přesuneme do podsložky ros_ws/src/. Nacházíme se v místě, kde se umisťují tzv. ROS balíčky, tedy CMake projekty, které pracují s ROS knihovnou. V našem případě si vytvoříme jeden balíček tak, že vytvoříme složku "my_first_ros_project". Uvnitř této složky pak vytvoříme složky "include" a "src" a soubory "package.xml" a "CMakeLists.txt". Ve složce "src" pak soubor "main.cpp" a ve složce "include" soubor "RosExampleClass".
+
+Struktura celého workspacu bude tedy vypadat následovně.
+
+```
+ros_ws/
+└── src/
+    └── my_first_ros_package/
+        ├── CMakeLists.txt
+        ├── include/
+        │   └── RosExampleClass.h
+        ├── package.xml
+        └── src/
+            └── main.cpp
+``` 
+
+Nejprvo si napíšeme obsah CMakeLists.txt souboru. Ten bude následovný.
+
+```
+cmake_minimum_required(VERSION 3.10.0)
+project(my_first_ros_project)
+
+## Find catkin and any catkin packages (ros client libraries)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs)
+
+## Declare a catkin package (internal catkin macro, process package.xml)
+catkin_package()
+
+## Add our include directory and include directories with ROS headers
+include_directories(include ${catkin_INCLUDE_DIRS})
+
+add_executable(cpp_talker src/main.cpp)
+target_link_libraries(cpp_talker ${catkin_LIBRARIES})
+```
+
+Dále pak soubor package.xml
+
+```
+<?xml version="1.0"?>
+<package format="2">
+  <name>my_first_ros_project</name>
+  <version>0.1.0</version>
+  <description>Example ros c++ publisher project</description>
+
+  <maintainer email="my@email.todo">adash</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+</package>
+```
+
+A nyní si niž můžeme projekt otevřít jako CMake projekt v CLionu a napsat kód v main.cpp. Pozor, je potřeba otevřít CLIon v termiále, kde máte načtené prostředí ROSu (source /opt/ros/noetic/setup.bash).
+
+```
+#include <ros/ros.h>
+#include "RosExampleClass.h"
+
+int main(int argc, char* argv[]) {
+    ros::init(argc, argv, "cpp_ros_example");
+    auto node = ros::NodeHandle();
+    auto example_class = RosExampleClass(node, "my_topic", 1.0);
+    ros::spin();
+    return 0;
+}
+```
+
+Vidíte, že v main includujeme ROSExampleClass a poté vytváříme její instanci. Pojďme tedy tuto třídu vytvořit ve složce "include/"
+
+```
+#pragma once
+
+#include <iostream>
+#include <ros/ros.h>
+#include <std_msgs/Float32.h>
+
+class RosExampleClass {
+
+public:
+    RosExampleClass(ros::NodeHandle& node, const std::string& topic, const float freq) : node_{node} {
+        publisher_ = node.advertise<std_msgs::Float32>(topic, 0);
+        subscriber_ = node.subscribe(topic, 0, &RosExampleClass::subscriber_callback, this);
+        timer_ = node.createTimer(freq, &RosExampleClass::timer_callback, this);
+        start_time_ = ros::Time::now();
+    }
+
+private:
+
+    void timer_callback(const ros::TimerEvent& event) const {
+        std::cout << "Timer callback called" << std::endl;
+        auto uptime = (ros::Time::now() - start_time_).toSec();
+        publish_message(uptime);
+    }
+
+    void subscriber_callback(const std_msgs::Float32 msg) const {
+        std::cout << "Just received: " << msg << std::endl;
+    }
+
+    void publish_message(float value_to_publish) const {
+        std_msgs::Float32 msg;
+        msg.data = value_to_publish;
+        publisher_.publish(msg);
+        std::cout << "Just send: " << msg.data << std::endl;
+    }
+
+    ros::NodeHandle &node_;
+    ros::Publisher publisher_;
+    ros::Subscriber subscriber_;
+    ros::Timer timer_;
+    ros::Time start_time_;
+};
+```
+
+Nýní můžeme v CLionu projekt zkompilovat a spustit.
+
+Alternativně je možné přejít do kořehe workspacu a zavolat
+
+```
+catkin_make
+source devel/setup.bash
+rosrun my_first_ros_project cpp_ros_example 
+```
+
+Dále se pak můžeme podívat na komunikaci pomocí programu rqt_graph.
+
+```
+rqt_graph
+```
+
+Vypsat si zprávy přímo v terminále
+
+```
+rostopic echo <nazev_topicku>
+```
+
+Či dokonce vykreslit si časový průběh v programu rqt_plot
+
+
+```
+rqt_plot
+```
+
+# Integrace ROS klientské knihovny do BPC-PRP projektu (cca 30 min)
+
+Nyní se pokuste transformovat Váš BPC-PRP projekt tak, aby byl ROS Nodem, podle výše uvedeného návodu a aby Váš projekt byl chopen publishovat zprávy.
+
+# Vizualizace v RViz
+
+Nyní se podíváme, jak vytvářet vizualizace pro RViz.
+
+Neprve si nastudujte oficiální dokumentaci k [vizualizaci v RViz](http://wiki.ros.org/rviz), případně tutoriál o tzv. [markerům](http://wiki.ros.org/rviz/DisplayTypes/Marker).
+
+Jedná se o zprávy z ROS knihovny "visualization_msgs". Tyto zprávy umoňují vizualizaci geometrických těles, šipek, úseček, polyúseček, mračna bodů, textu, nebo mesh gridů.
+
+My si nyní napíšeme třídu, která bude vizualizovat krychli, která bude plavat 3D prostředím a vedle ní budem vypisovat její aktuální polohu.
+
+```
+#pragma once
+#include <iostream>
+#include <ros/ros.h>
+#include <visualization_msgs/MarkerArray.h>
+
+#define format std::fixed << std::setw(5) << std::showpos << std::setprecision(2)
+
+class RvizExampleClass {
+
+    class Pose {
+    public:
+        Pose(float x, float y, float z) : x_{x}, y_{y}, z_{z} {}
+        float x() const {return x_;}
+        float y() const {return y_;}
+        float z() const {return z_;}
+    private:
+        const float x_, y_, z_;
+    };
+
+public:
+
+    RvizExampleClass(ros::NodeHandle& node, const std::string& topic, float freq) : node_{node} {
+        timer_ = node.createTimer(freq, &RvizExampleClass::timer_callback, this);
+        markers_publisher_ = node.advertise<visualization_msgs::MarkerArray>(topic, 0);
+    }
+
+private:
+
+    void timer_callback(const ros::TimerEvent& event) {
+        auto time = ros::Time::now().toSec();
+        auto pose = Pose(sin(time), cos(time), 0.5 * sin(time*3));
+
+        visualization_msgs::MarkerArray msg;
+        msg.markers.push_back(make_cube_marker(pose));
+        msg.markers.push_back(make_text_marker(pose));
+        markers_publisher_.publish(msg);
+    }
+
+    visualization_msgs::Marker make_cube_marker(const Pose& pose) {
+        visualization_msgs::Marker cube;
+
+        // Coordination system
+        cube.header.frame_id = "origin";
+
+        // Timestamp
+        cube.header.stamp = ros::Time();
+
+        // Marker Type
+        cube.type = visualization_msgs::Marker::CUBE;
+        cube.action = visualization_msgs::Marker::ADD;
+        cube.id = 0;
+
+        // Position
+        cube.pose.position.x = pose.x();
+        cube.pose.position.y = pose.y();
+        cube.pose.position.z = pose.z();
+
+        // Rotation (quaternion, see https://quaternions.online/)
+        cube.pose.orientation.x = 0.0;
+        cube.pose.orientation.y = 0.0;
+        cube.pose.orientation.z = 0.0;
+        cube.pose.orientation.w = 1.0;
+
+        // Size
+        cube.scale.x = cube.scale.y = cube.scale.z = 0.1;
+
+        // Color
+        cube.color.a = 1.0; // alpha - visibility
+        cube.color.r = 0.0;
+        cube.color.g = 1.0;
+        cube.color.b = 0.0;
+
+        return cube;
+    }
+
+    visualization_msgs::Marker make_text_marker(const Pose& pose) {
+        visualization_msgs::Marker text;
+
+        // Coordination system
+        text.header.frame_id = "origin";
+
+        // Timestamp
+        text.header.stamp = ros::Time();
+
+        // Marker Type
+        text.type = visualization_msgs::Marker::TEXT_VIEW_FACING;
+        text.action = visualization_msgs::Marker::ADD;
+        text.id = 1;
+
+        // Position
+        text.pose.position.x = pose.x();
+        text.pose.position.y = pose.y();
+        text.pose.position.z = pose.z() + 0.2;
+
+        // Size
+        text.scale.z = 0.1;
+
+        // Text
+        std::stringstream stream;
+        stream << "x: " << format << pose.x() << std::endl
+               << "y: " << format << pose.y() << std::endl
+               << "z: " << format << pose.z();
+        text.text = stream.str();
+
+        // Color
+        text.color.a = 1.0; // alpha - visibility
+        text.color.r = 1.0;
+        text.color.g = 1.0;
+        text.color.b = 0.0;
+        return text;
+    }
+
+    ros::NodeHandle& node_;
+    ros::Timer timer_;
+    ros::Publisher markers_publisher_;
+};
+```
+
+Inspirujte se touto třídou a vytvořte v rámci Vašeho BPC-PRP projektu modul, který bude vypisovat nad robotem jeho aktuální rychlost kol a hodnotu ze všech senzorů.
