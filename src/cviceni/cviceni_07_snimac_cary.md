@@ -1,4 +1,4 @@
-﻿# Snímání čáry
+# Snímání čáry
 Cvičící: Ing. Tomáš Jílek, Ph.D.
 
 ## Cíle
