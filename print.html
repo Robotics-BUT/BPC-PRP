@@ -1732,14 +1732,12 @@ target_link_libraries(cpp_talker ${catkin_LIBRARIES})
 <p>A nyní si niž můžeme projekt otevřít jako CMake projekt v CLionu a napsat kód v <code>main.cpp</code>. Pozor, je potřeba otevřít CLion v termiále, kde máte načtené prostředí ROSu (source /opt/ros/noetic/setup.bash).</p>
 <pre><code class="language-cpp">#include &lt;ros/ros.h&gt;
 #include &quot;RosExampleClass.h&quot;
-#include &quot;RvizExampleClass.h&quot;
 
 int main(int argc, char* argv[]) {
     ros::init(argc, argv, &quot;cpp_ros_example&quot;);       // connects node with ros core
     auto node = ros::NodeHandle();                            // API for ros functionality
 
     auto example_class = RosExampleClass(node, &quot;my_topic&quot;, 1.0);
-    auto rviz_visualizer = RvizExampleClass(node, &quot;rviz_topic&quot;, 30.0);
 
     while (ros::ok()) {     // main loop
         // your main loop
@@ -1939,6 +1937,15 @@ private:
     ros::Timer timer_;
     ros::Publisher markers_publisher_;
 };
+
+/*
+ * v souboru main.cpp pak 
+ * 
+ *  #include &quot;RvizExampleClass.h&quot;
+ *  auto rviz_visualizer = RvizExampleClass(node, &quot;rviz_topic&quot;, 30.0);
+ *
+ */
+
 </code></pre>
 <p>Topic na kterém publikujete zprávu si zobrazte v RVizu.</p>
 <p>✅  Inspirujte se touto třídou a vytvořte v rámci Vašeho BPC-PRP projektu modul, který bude vypisovat nad robotem jeho aktuální rychlost kol a hodnotu ze všech senzorů. </p>
