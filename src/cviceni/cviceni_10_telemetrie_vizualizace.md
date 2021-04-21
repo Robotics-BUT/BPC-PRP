@@ -81,14 +81,12 @@ A nyní si niž můžeme projekt otevřít jako CMake projekt v CLionu a napsat 
 ```cpp
 #include <ros/ros.h>
 #include "RosExampleClass.h"
-#include "RvizExampleClass.h"
 
 int main(int argc, char* argv[]) {
     ros::init(argc, argv, "cpp_ros_example");       // connects node with ros core
     auto node = ros::NodeHandle();                            // API for ros functionality
 
     auto example_class = RosExampleClass(node, "my_topic", 1.0);
-    auto rviz_visualizer = RvizExampleClass(node, "rviz_topic", 30.0);
 
     while (ros::ok()) {     // main loop
         // your main loop
@@ -318,12 +316,21 @@ private:
     ros::Timer timer_;
     ros::Publisher markers_publisher_;
 };
+
+/*
+ * v souboru main.cpp pak 
+ * 
+ *  #include "RvizExampleClass.h"
+ *  auto rviz_visualizer = RvizExampleClass(node, "rviz_topic", 30.0);
+ *
+ */
+
 ```
 
 Topic na kterém publikujete zprávu si zobrazte v RVizu.
 
 ✅  Inspirujte se touto třídou a vytvořte v rámci Vašeho BPC-PRP projektu modul, který bude vypisovat nad robotem jeho aktuální rychlost kol a hodnotu ze všech senzorů. 
 
-✅  Publikujte do Vámi nazvaného topicu skalár vzdálenosti robota od čáry. Tuto hodnotu vizualizujte v rqt_graph.
+✅  Publikujte do Vámi nazvaného topicu skalár vzdálenosti robota od čáry. Tuto hodnotu vizualizujte v rqt_plot.
 
 ✅  Vytvořte krátké video ve kterém ukážete, dvě výše uvedené funkcionality. Video nahrejte na git do složky s odevzdáními.

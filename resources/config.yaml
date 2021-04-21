@@ -7,6 +7,7 @@ simulation:
   port_out: 8081
   simulation_period: 0.01
   visualization_period: 0.02
+  verbose: true
 
 robot:
   pose:
