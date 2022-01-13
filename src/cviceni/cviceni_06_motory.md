@@ -1,18 +1,141 @@
 # Řízení motorů
-Cvičící: Bc. Matouš Hýbl, Ing. Lukáš Kopečný Ph.D.
+Cvičící: Ing. František Burian  Ph.D.
 
 ## Cile
-* Rozpohybovat kola simulovaneho robota tak, aby bylo mozne ridit jeho pohyb pomoci kinematiky.
-* Zprovoznit cteni ujete drahy jednotlivych motoru.
+* Vyzkoušet chování reálného krokového motoru v reálných podmínkách
+* Rozpohybovat kola simulovaného robota tak, aby bylo možné řidit jeho pohyb pomocí kinematiky.
+* Zprovoznit čtení ujeté dráhy jednotlivých motorů.
 
 ## Prerekvizity
+* Pro HW část funkční hardware
 * Funkční komunikace se simulátorem (ověřit pomocí zprávy `PING`)
 * Funkční parsování NMEA řetězců
->
 
-## RESET simulátoru
+## Komunikace s reálným budičem krokového motoru
+
+### Řetězec řízení
+
+Raspberry -- I2C -- interpolátor -- budič -- motor -- převodovka -- kolo
+
+### Příklad komunikace s krokovým motorem
+
+Upravte program z předchozího cvičení aby obsahoval tuto smyčku
+
+```
+  using namespace RoboUtils;
+
+  const auto LBUT = Pin::PA7;
+  const auto RBUT = Pin::PA6;
+
+  int main()
+  {
+    I2C i2c{"/dev/i2c-3"};
+    GPIO gpio{&i2c};
+    KM2 km2{&i2c};
+
+    gpio.input(LBUT | RBUT, true);
+
+    int spdl = 2, spdr = 2; // 2 mikrokroky za 1/40kHz
+
+    while (true) {
+      delay(50);                        // zajisteni periody smycky
+      auto [ left, right] = km2.driveodo(spdl,spdr);
+
+      // zde pracujte s odometrií a hodnotami rychlosti motoru
+
+    }
+
+    // dobra aplikace po sobe na konci uklidi
+    km2.drive(0,0);
+  }
+```
+
+Program spusťte, motor by se měl pomalu roztočit. Prozkoumejte API knihovny jakým způsobem to je provedeno.
+
+
+### Motor připojený ke kolu - metrický popis jednotek
+
+Krokový motor se s každým impulzem na vinutích posunuje o 1 krok (step). Tyto kroky je ale možné rozdělit na menší části, mikrokroky.
+
+✅ Počet kroků na otáčku je vlastností daného krokového motoru. Mikrokrok a množství jeho úrovní je vlastností použitého budiče motorů.
+
+✅ Z katalogového listu motoru byste zjistili, že rozměr kroku je 1.8°, na plnou otáčku tedy připadá kolik kroků?
+<details>
+    <summary>Odpověď</summary>
+    360 / 1.8 = 200
+</details>
+
+✅ Zadaný budič motorů rozdělí krok do 32 mikrokroků, kolik mikrokroků připadá na celou otáčku?
+<details>
+    <summary>Odpověď</summary>
+    200 * 32 = 6400
+</details>
+<br/><br/>
+
+Pokud řídíme reálné fyzikální systémy je vhodné programovat pomocí reálných fyzikálních jednotek a vždy to dodržovat, nestane se nám tak, 
+že nebudeme vědět jaký rozměr má nějaká proměnná.
+
+Pro řízení motoru se jeví vhohdná úhlová rychlost zadaná v otáčkách za sekundu a tuto rychlost máme převést na microstepy za sekundu. Jak to provedeme?
+<details>
+    <summary>Odpověď</summary>
+    speedInMicrosteps = targetSpeed * microstepsPerRevolution
+</details>
+
+Naopak, pro popis odometrie, tj ujeté vzdálenosti kolem je vhodné popsat veličinu v jednotkách SI tedy metrech. To samozřejmě ovlivňuje průměr 
+(respektive obvod) kola. Jak to provedeme?
+<details>
+    <summary>Odpověď</summary>
+    targetPosition = positionInMicrosteps * wheelCircumference / microstepsPerRevolution
+</details>
+
+
+### Zjištění maximálních rychlostí reálného motoru
+
+Upravte program v příkladu tak, abyste mohli pomocí tlačítek PB6 a PB7 přidávat a ubírat rychlost, kterou posíláte do motorů. Sledujte vliv 
+této rychlosti na napájecím proudu obou motorů (zdroj DIAMETRAL, měření proudu).
+<details>
+    <summary>Pozorování</summary>
+    Proud, tedy výkon dodávaný do zátěže od určité rychlosti začne klesat !
+</details>
+
+Vysvětlete pozorované chování a zhodnoťte důsledky pro řízení takovéhoto motoru
+<details>
+    <summary>Odpověď</summary>
+    V určitých otáčkách již nevyvineme sílu na pokračování otáčení motorem a motor se zastaví. 
+</details>
+
+Upravte program tak, aby se po stisknutí tlačítka motor rozjel na rychlosti, při které byl naměřen **poloviční** proud v předchozím experimentu. 
+Zkuste zatěžovat (prstem) motor, a pozorujte chování. Zkuste totéž při rychlosti, při které byl proud naměřený na diametralu **maximální**. 
+Pozorujte chování a zhodnoťte pozorování.
+<details>
+    <summary>Odpověď</summary>
+    Při nejvyšším příkonu můžeme vyvinout nejvyšší sílu. Sílu temelínu najdeme v hermelínu. Čím vyšší bude mít robot hmotnost, tím více zatěžujeme motory a tím menší zrychlení utáhne. Problém lze obejít snížením síly potřebné pro otáčení - tj snížením zrychlení.
+</details>
+
+
+### Rampový generátor
+
+Snížení zrychlení lze realizovat různými způsoby (například interpolací po S-křivce). Jednodušší variantou je interpolace po obyčejné rychlostní   
+(někdy též zvané trapézoidní) rampě, která je mnohem jednodušší.
+
+✅ Algoritmus: V každém kroku řízení k momentální rychlosti motoru přičteme požadovanou diferenci rychlosti se stejným znaménkem jako má rozdíl `požadovaná rychlost - momentální rychlost`. Tuto diferenci však saturujeme na maximálních hodnotách.
+
+![Generator Ramp](../images/ramp_gen.jpg)
+
+Generátor rampy, který běží periodicky pořád, nám efektivně řeší problém s opakováním řídicích zpráv pro motory, stačí periodicky získávat novou hodnotu rychlosti z generátoru ramp a tu posílat budiči motoru (simulátoru).
+
+Upravte program tak, aby po stisknutí tlačítka se motor rozjel na hodnotu rychlosti, při které byl naměřen **poloviční** proud v předchozím experimentu a porovnejte výsledky s předchozím měřením
+<details>
+    <summary>Pozorování</summary>
+    Motor se snížením rampy lze zatížit více a tím pádem dosáhnout vyšší rychlosti bez zastavení. Čím pomalejší rampa je, tím více síly motoru zbyde pro udržení rychlosti, ale reakce motoru se notně zpomalí.
+</details>
+
+## Komunikace se simulátorem
+
+### RESET simulátoru
 V tomto cvičení již budete ovládat robota v simulátoru, je tedy nutné pravidelně navracet simulátor do výchozího stavu.
-Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho programu, lze to ale řešit přímočařeji, a to tak, že při startu vašeho programu simulátoru pošlete NMEA zprávu pro reset, tedy `$RESET,*CHKSUM`.
+Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho programu, lze to ale řešit přímočařeji, a to tak, 
+že při startu vašeho programu simulátoru pošlete NMEA zprávu pro reset, tedy `$RESET,*CHKSUM`.
 
 ✅ Po odeslání resetu byste měli přijmout NMEA zprávu začínající slovy `$RESET,DONE`.
 
@@ -29,39 +152,9 @@ Zprávy, kterými lze řídit motory jsou následující:
 | LODO | - | posílá požadavek na zjištění ujeté vzdálenosti levého motoru v microstepech od posledního zavolání tohoto příkazu, hodnota je interně ukládána jako 64b int |
 | RODO | - | posílá požadavek na zjištění ujeté vzdálenosti pravého motoru v microstepech od posledního zavolání tohoto příkazu, hodnota je interně ukládána jako 64b int |
 
-Zde stojí za zmínku podivné nastavování rychlosti v microstepech za sekundu.
-Jak jistě víte krokový motor se s každým impulzem na vinutích posunuje o 1 krok (step).
-
-✅ Počet kroků na otáčku je vlastností daného krokového motoru.
-
-Tyto kroky je ale možné interpolovat, každý krok se tedy rozdělí na X tzv. mikrokroků (microstepů).
-
-✅ Mikrostepování a množství jeho úrovní je vlastností použitého driveru motorů.
-<br/><br/><br/>
-✅ Z datasheetu motoru byste zjistili, že rozměr kroku je 1.8°, na plnou otáčku tedy připadá kolik kroků?
-<details>
-    <summary>Odpověď</summary>
-    360 / 1.8 = 200
-</details>
-<br/><br/><br/>
-✅ Zadaný driver motorů má interpoluje krok do 32 mikrokroků, kolik mikrokroků připadá na celou otáčku?
-<details>
-    <summary>Odpověď</summary>
-    200 * 32 = 6400
-</details>
-<br/><br/>
-Pokud řídíme reálné fyzikální systémy je vhodné programova pomocí reálných fyzikálních jednotek a vždy to dodržovat, nestane se nám tak, že nebudeme vědět jaký rozměr má nějaká proměnná.
-
-
-Zvolme si tedy, že požadovaným vstupem do našeho softwareového driveru motorů bude úhlová rychlost zadaná v otáčkách za sekundu a tuto rychlost máme převést na microstepy za sekundu. Jak to provedeme?
-<details>
-    <summary>Odpověď</summary>
-    float speedInMicrosteps = targetSpeed * microstepsPerRevolution
-</details>
-<br/><br/>
 
 ### Posílaní řídicích zpráv
-Nezbytnou teorii máme za sebou, pusťme se tedy do samotného programování.
+
 Z tabulky výše víme, že příkaz pro nastavení rychlosti levého motoru je `LSPEED`.
 Pošleme tedy tento příkaz simulátoru s nějakou malou rychlostí, třeba 0.05 otáčky za sekundu.
 
@@ -71,30 +164,9 @@ Motor se po asi 1 s otáčení zastaví, toto je bezpečnostní funkce, která j
 V případě softwareové chyby, kdy by spadl řídicí program, by se totiž robot mohl nekontrolovatelně rozjet. 
 Je tedy nutné řídicí příkazy posílat pořád.
 
-Nyní zkusme nastavit rychlost motoru na nějakou velkou rychlost, třeba 1 otáčku za sekundu. Co se stane?
-<details>
-    <summary>Odpověď</summary>
-    Robot stojí na místě. Je to proto, že tímto simulujeme reálnou vlastnost mechanických systémů a zvláště krokových motorů, které mají nízký kroutící moment ve vysokých otáčkách, ale vysoký v nízkých.
-    Tento problém je nutné řešit takzvaným generátorem ramp, který zajistí, že zrychlování/zpomalování motoru bude probíhat postupně po definovaných přírustcích rychlosti.
-</details>
 
-### Generování ramp
-Jak jsme si ukázali v minulé části, s krokovým motorem nelze zrychlovat s neomezenou akcelerací, je teda nutné zrychlovat postupně s konstantním malým zrychlením.
+✅ Pokuste se najít maximální rychlost, které jste schopni v simulátoru bez rampy dosáhnout.
 
-Implementací tohoto postupuje takzvané generování ramp, které v průběhu času generuje z požadované rychlosti a diference rychlosti v každém kroku momentální rychlost motoru. V tomto cvičení budeme implementovat jednoduchý generátor trapézoidních ramp.
-
-✅ Algoritmus takového generátoru je prostý. V každém kroku k momentální rychlosti motoru přičteme požadovanou diferenci rychlosti se stejným znaménkem jako má rozdíl `požadovaná rychlost - momentální rychlost`.
-
-Pro implementaci lze jako návod použít následující modelovací schéma.
-![Generator Ramp](../images/ramp_gen.jpg)
-
-Toto opakujeme ve smyčce s frekvencí která odpovídá tomu jak rychle chceme provádět zrychlování na požadovanou hodnotu.
-
-Generátor rampy, který běží periodicky pořád, nám efektivně řeší problém s opakováním řídicích zpráv pro motory, stačí periodicky získávat novou hodnotu rychlosti z generátoru ramp a tu posílat simulátoru.
-
-✅ Pro programování separátních smyček pro generování ramp lze s výhodou použít separátní vlákno, je ale nutné pamatovat na správnou synchronizaci přístupu ke sdíleným prostředkům - není například možné, aby dvě vlákna současně posílala příkazy simulátoru.
-
-✅ Maximální rychlost motorů je zasaturována v simulátoru, pokuste se najít maximální rychlost, které jste schopni dosáhnout.
 
 ## Čtení ujeté vzdálenosti
 Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné si to již teď připravit.
