@@ -1,8 +1,8 @@
 ## Seznam přednášek
 
 ### 1. Úvodní přednáška
-	Přednášející: Ing Petr Gábrlík
-	Datum: 8.2.
+    Přednášející: Ing. František Burian Ph.D.
+    Datum:
 
 ### 2. Linux, shell, virtual box, CLion
 
@@ -13,7 +13,7 @@
     CLion vývojové prostředí (IDE)
 
     Přednášející: Ing. Adam Ligocki
-    Datum: 15. 2. 2020
+    Datum:
 
 ### 3. GIT, integrace GITu v IDE
 
@@ -23,8 +23,8 @@
     Příklad práce více vývojářů na jednom repozitáři
     Integrace GITu v IDE CLIon a další GUI
 
-    Přednášející: Ing. Adam Ligocki
-    Datum: 22. 2. 2020
+    Přednášející: Ing. Adam Ligocki Ph.D.
+    Datum:
 
 ### 4. TCP-UDP/IP komunikace
 
@@ -39,49 +39,53 @@
     Síťová komunikace z C/C++ aplikace
 
     Přednášející: Ing. Tomáš Jílek, Ph.D.
-    Datum: 1. 3. 2020
+    Datum:
 
-### 5. Výkonová elektronika, pohony
+### 5. Ovládání hardware, I2C, GPIO, ADC
 
-    DC motor, BLDC motor, Krokový motor, synchronní motor.
-    Charakteristiky a odlišnosti konstrukcí motorů
-    Mikrostepping u krokového motoru
+    Popis sběrnice I2C, její vlastnosti a problémy
+    Popis GPIO expanderu
+    Popis A/D převodníku  AD7997
 
-    Přednášející: Ing. Lukáš Kopečný, Ph.D.
-    Datum: 8. 3. 2020
+    Přednášející: Ing. František Burian, Ph.D.
+    Datum:
 
-### 6. Snímání vodicí čáry
+
+### 6. Výkonová elektronika, pohony
+
+    Vybrané druhy motorů a jejich vlastnosti výhodné pro robotiku (DC, BLDC, Krokový, PMSM)
+    Způsoby řízení krokového motoru, mikrostep
+    Kinematika víceosých pohonů, interpolace
+    Úvod do dynamiky pohonů, rampový generátor, S-křivka
+
+    Přednášející: Ing. František Burian, Ph.D.
+    Datum:
+
+### 7. Snímání vodicí čáry
 
     Koncepce a blokové schéma implementace celého projektu
     Optické snímání čáry pomocí optočlenů CNY70
-    A/D převod
-    A/D převodník AD7997
     Zpracování měřených dat
 
     Přednášející: Ing. Tomáš Jílek, Ph.D.
-    Datum: 15. 3. 2020
+    Datum:
 
-### 7. Kinematika a regulace pohybu podvozku robotu
+### 8. Kinematika a regulace pohybu podvozku robotu
 
     Přímá a inverzní kinematická úloha pro diferenciálně řízený podvozek
     Regulace pohybu podvozku
 
     Přednášející: Ing. Tomáš Jílek, Ph.D.
-    Datum: 22. 3. 2020
+    Datum:
 
-### 8. Popis závěrečné soutěže, příklady možných způsobů řešení
+### 9. Popis závěrečné soutěže, příklady možných způsobů řešení
 
     Pravidla soutěže
     Návrh možných způsobů řešení soutěže
-    ÚČAST POVINNÁ
+    ***ÚČAST POVINNÁ***
 
-    Přednášející: Ing. Petr Gábrlík
-    Datum: 29. 3. 2020
-
-### 9. Velikonoční pondělí
-
-    Přednášející: - 
-    Datum: 19. 4. 2020
+    Přednášející: Ing. Tomáš Lázna
+    Datum:
 
 ### 10. Robotic Operating System ROS, Rviz, vizualizace v robotice
 
@@ -90,17 +94,19 @@
     Využití rozhraní ROS
     Vizualizace (RViz)
 
-    Přednášející: Ing. Adam Ligocki
-    Datum: 12. 4. 2020
+    Přednášející: Ing. Adam Ligocki Ph.D.
+    Datum:
 
-### 11. Embedded systémy v robotice
+### 11. Computer Vision v robotice
+
+    Přednášející: Ing. Adam Ligocki Ph.D.
+    Datum:
+
+
+### 12. Embedded systémy v robotice
 
     TODO:
 
-    Přednášející: Bc. Matouš Hýbl
-    Datum: 19. 4. 2020
+    Přednášející: Ing. Matouš Hýbl
+    Datum:
 
-### 12. Samostatná práce na projektu
-
-    Přednášející: -
-    Datum: 26.4.

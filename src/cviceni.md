@@ -2,41 +2,41 @@
 
 ### 1. Osnova projektu, bezpečnost (v rámci přednášky, cvičení se nekoná)
 
-Vyučující: Tomáš Jílek
+Vyučující: František Burian
 
 ### 2. Instalace Virtual Boxu, Linuxu, CLionu
 
-Vyučující: Adam Ligocki
+Vyučující: Tomáš Horeličan
 
 ### 3. Práce s GITem, zprovoznění simulátoru
 
-Vyučující: Adam Ligocki
+Vyučující: Tomáš Horeličan
 
-### 4. UDP komunikace se simulátorem, NEMEA protokol
+### 4. UDP komunikace se simulátorem, NMEA protokol
 
 Vyučující: Tomáš Lázna
 
-### 5. Konzultační týden (samostatná práce)
+### 5. Ovládání hardware - I2C, GPIO, ADC
 
-Vyučující: osobní konzultace s příslušným vyučujícím po předchozí domluvě
+Vyučující: František Burian
 
-### 6. Ovládání motorů simulovaného robota
+### 6. Ovládání motorů reálného i simulovaného robota
 
-Odpovědnost: Matouš Hýbl
+Vyučující: František Burian
 
 ### 7. Snímání čáry v simulátoru
 
 Vyučující: Tomáš Jílek
 
-### 8. Konzultační týden (samostatná práce)
+### 8. Kinematika mobilního robotu
 
-Vyučující: osobní konzultace s příslušným vyučujícím po předchozí domluvě
+Vyučující: Tomáš Jílek
 
 ### 9. Návrh regulátoru pro sledování čáry
 
 Vyučující: Tomáš Jílek
 
-### 10. Telemetrie a vizualizace
+### 10. Telemetrie a vizualizace, ROS
 
 Vyučující: Adam Ligocki
 
@@ -44,7 +44,7 @@ Vyučující: Adam Ligocki
 
 Vyučující: osobní konzultace s příslušným vyučujícím po předchozí domluvě
 
-### 12. Samostatná práce na projektu (samostatná práce)
+### 12. Zápočtový týden
 
-Vyučující: osobní konzultace s příslušným vyučujícím po předchozí domluvě
+Vyučující:
 
