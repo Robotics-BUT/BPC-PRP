@@ -28,16 +28,15 @@ Pro zjištění aktuálního baudrate můžete použít `sudo cat /sys/kernel/de
 [ERRATA](https://elinux.org/BCM2835_datasheet_errata) Je třeba si všimnout že **errata nevydal výrobce čipu**, ten se k
 němu nezná, je to levný výrobce!
 
-**BUG1:** Výrobce čipu implementoval chybně clock stretching, a pomalá periferie kompletně zruší přenos po sběrnici (vymaže
-jeden nebo více CLK pulsů). Sběrnice tedy musí běžet rychlostí podle nejpomalejší periferie.
+**BUG1:**
 
-**BUG2:** Výrobce čipu neimplementoval správně nastavení rychlosti a od RpiV4 prakticky nejde zpomalit rychlost HW I2C
-sběrnice pod určitou mez (cca 100kbps - každé rpi to má jinak), ikdyž je v příkazu viz výše reportovaná hodnota jak byla
-nastavená. 
+Výrobce čipu implementoval chybně clock stretching, a pomalá periferie kompletně zruší přenos po sběrnici (vymaže jeden nebo více CLK pulsů). Sběrnice tedy musí běžet rychlostí podle nejpomalejší periferie.
 
-Díky těmto chybám prakticky nelze použít konfiguraci viz výše a musíme použít softwarově definované I2C, které těmito
-problémy netrpí. Použijte konfiguraci v `/boot/config.txt` (předchozí řádky musí být zakomentované aby se dvě implementace
-nebily):
+**BUG2:**
+
+Výrobce čipu neimplementoval správně nastavení rychlosti a od RpiV4 prakticky nejde zpomalit rychlost HW I2C sběrnice pod určitou mez (cca 100kbps - každé rpi to má jinak), ikdyž je v příkazu viz výše reportovaná hodnota jak byla nastavená. 
+
+Díky těmto chybám prakticky nelze použít konfiguraci viz výše a musíme použít softwarově definované I2C, které těmito problémy netrpí. Použijte konfiguraci v `/boot/config.txt` (předchozí řádky musí být zakomentované aby se dvě implementace nebily):
 
 
 ```
@@ -130,10 +129,10 @@ vstupní s pullupem.
 Po stisknutí tlačítka RBUT ukončete program
 
 Přenastavte výstupní port pro PB5 do režimu "otevřený kolektor",
-duplikujte stav LED1 a diskutujte viditelné rozdíly na pinech   
+duplikujte stav LED1 a diskutujte viditelné rozdíly na pinech
 PB4 a PB5 s použitím osciloskopu.
 
-### ošetření zákmitů tlačítka
+### Ošetření zákmitů tlačítka
 
 Vytvořte si proměnnou value, a inicializujte ji na nulu.
 
@@ -149,13 +148,30 @@ Pozor na zákmity tlačítka !!
 
 ### Stažení vzorového projektu
 
+```cpp
+#include <roboutils/IO/ADC.h>
+
+using namespace RoboUtils;
+
+int main()
+{
+  I2C i2c{"/dev/i2c-3"};
+  ADC adc{&i2c};
+
+  while (true) {
+    delay(100);
+
+  }
+}
+```
+
 ### Princip měření
 
 ### Převod ADC hodnoty na napětí
 
 ### Vliv vstupního děliče
 
-Podívejte se do schematu na dělič napětí na pinu ADC0 a spočítejte převodní konstantu, která
+Podívejte se do schematu od desky MAINBOARD na dělič napětí na pinu ADC0 a spočítejte převodní konstantu, která
 převede změřenou analogovou hodnotu na absolutní hodnotu napětí.
 
 Konstantu implementujte v kódu a porovnejte s údajem zobrazeným na zdroji DIAMETRAL. Diskutujte
@@ -164,7 +180,8 @@ výsledky.
 ### Dosažitelná přesnost měření
 
 Na desku byly osazeny rezistory s tolerancí 5%. Spočítejte, jaká bude tolerance měřeného napětí
-v 10 bitovém, 14bitovém a 18bitovém režimu měření ?
+v 10 bitovém, 14bitovém a 18bitovém režimu měření ? U všech tolerancí počítejte s obdélníkovým   
+tolerančním polem (značně si usnadníte práci)
 
 Odpovídá pozorovaný údaj vypočítané toleranci měření ?
 

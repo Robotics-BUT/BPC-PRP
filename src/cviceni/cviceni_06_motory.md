@@ -21,7 +21,7 @@ Raspberry -- I2C -- interpolátor -- budič -- motor -- převodovka -- kolo
 
 Upravte program z předchozího cvičení aby obsahoval tuto smyčku
 
-```
+```cpp
   using namespace RoboUtils;
 
   const auto LBUT = Pin::PA7;
@@ -72,17 +72,15 @@ Krokový motor se s každým impulzem na vinutích posunuje o 1 krok (step). Tyt
 </details>
 <br/><br/>
 
-Pokud řídíme reálné fyzikální systémy je vhodné programovat pomocí reálných fyzikálních jednotek a vždy to dodržovat, nestane se nám tak, 
-že nebudeme vědět jaký rozměr má nějaká proměnná.
+Pokud řídíme reálné fyzikální systémy je vhodné programovat pomocí reálných fyzikálních jednotek a vždy to dodržovat, nestane se, že nebudeme vědět jaký rozměr má nějaká proměnná.
 
-Pro řízení motoru se jeví vhohdná úhlová rychlost zadaná v otáčkách za sekundu a tuto rychlost máme převést na microstepy za sekundu. Jak to provedeme?
+Pro řízení motoru je vhodná úhlová rychlost zadaná v otáčkách za sekundu a tuto rychlost převeďte mikrokroky za sekundu.
 <details>
     <summary>Odpověď</summary>
     speedInMicrosteps = targetSpeed * microstepsPerRevolution
 </details>
 
-Naopak, pro popis odometrie, tj ujeté vzdálenosti kolem je vhodné popsat veličinu v jednotkách SI tedy metrech. To samozřejmě ovlivňuje průměr 
-(respektive obvod) kola. Jak to provedeme?
+Naopak, pro popis odometrie, tj ujeté vzdálenosti kolem je vhodné popsat veličinu v jednotkách SI tedy metrech. To samozřejmě ovlivňuje průměr (respektive obvod) kola. Jak to provedeme?
 <details>
     <summary>Odpověď</summary>
     targetPosition = positionInMicrosteps * wheelCircumference / microstepsPerRevolution
@@ -91,7 +89,7 @@ Naopak, pro popis odometrie, tj ujeté vzdálenosti kolem je vhodné popsat veli
 
 ### Zjištění maximálních rychlostí reálného motoru
 
-Upravte program v příkladu tak, abyste mohli pomocí tlačítek PB6 a PB7 přidávat a ubírat rychlost, kterou posíláte do motorů. Sledujte vliv 
+Upravte program v příkladu tak, abyste mohli pomocí tlačítek PB6 a PB7 přidávat a ubírat rychlost, kterou posílá do motorů. Sledujte vliv 
 této rychlosti na napájecím proudu obou motorů (zdroj DIAMETRAL, měření proudu).
 <details>
     <summary>Pozorování</summary>
@@ -141,40 +139,49 @@ Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho pr
 
 ## Ovladání motorů v simulátoru
 Simulátor simuluje chování dvou krokových motorů, na které jsou namonotována kola uživatelsky definovaného průměru.
-Motory jsou řízeny každý separátně pomocí NMEA zpráv posílaných simulátoru.
+Motory jsou řízeny pomocí NMEA zpráv posílaných simulátoru.
 
 Zprávy, kterými lze řídit motory jsou následující:
 
-| příkaz | parametr | význam |
-| ------ | -------- | ------ |
-| LSPEED | float rychlost levého motoru v microstepech za sekundu | nastaví rychlost levého kola na požadovanou hodnotu |
-| RSPEED | float rychlost pravého motoru v microstepech za sekundu | nastaví rychlost pravého kola na požadovanou hodnotu |
-| LODO | - | posílá požadavek na zjištění ujeté vzdálenosti levého motoru v microstepech od posledního zavolání tohoto příkazu, hodnota je interně ukládána jako 64b int |
-| RODO | - | posílá požadavek na zjištění ujeté vzdálenosti pravého motoru v microstepech od posledního zavolání tohoto příkazu, hodnota je interně ukládána jako 64b int |
+| směr     | příkaz    | parametr 1 | parametr 2  |
+|----------|---------- | -----------|------------ |
+| vysílání | `SPEED`   | float left | float right |
+| vysílání | `ODO`     |            |             |
+| příjem   | `RODO`    | int64 left | int64 right |
+
+**SPEED**
+
+nastaví rychlost levého i pravého kola v mikrokrocích za sekundu na požadovanou hodnotu. Tato hodnota je držena po dobu 1sec a poté je motor odpojen od napájení (bezpečnost). Je třeba zprávu opakovat pro kontinuální chod.
+
+**ODO**
+
+Požaduje od simulátoru zjištění ujeté vzdálenosti obou motorů v mikrokrocích od posledního zavolání tohoto příkazu, Odpoví zprávou `RODO`
+
 
 
 ### Posílaní řídicích zpráv
 
-Z tabulky výše víme, že příkaz pro nastavení rychlosti levého motoru je `LSPEED`.
-Pošleme tedy tento příkaz simulátoru s nějakou malou rychlostí, třeba 0.05 otáčky za sekundu.
+Z tabulky výše víme, že příkaz pro nastavení rychlosti motoru je `LSPEED`.
+Pošleme tedy tento příkaz simulátoru s nějakou malou rychlostí levého kola, třeba 0.05 otáčky za sekundu a nulovou rychlostí pravého kola.
 
 ✅ Pokud nám vše správně funguje, měl by se robot v simulátoru začít pomalu otáčet.
 
-Motor se po asi 1 s otáčení zastaví, toto je bezpečnostní funkce, která je implementována v našich reálných driverech. 
-V případě softwareové chyby, kdy by spadl řídicí program, by se totiž robot mohl nekontrolovatelně rozjet. 
+Motor se po asi 1 s otáčení zastaví, toto je bezpečnostní funkce, která je implementována v našich reálných budičích motorů. V případě softwarové chyby, kdy by spadl řídicí program, by se totiž robot mohl nekontrolovatelně rozjet.
 Je tedy nutné řídicí příkazy posílat pořád.
-
 
 ✅ Pokuste se najít maximální rychlost, které jste schopni v simulátoru bez rampy dosáhnout.
 
 
 ## Čtení ujeté vzdálenosti
-Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné si to již teď připravit.
-Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazů `LODO` a `RODO`. Tyto příkazy spůsobí, že nám simulátor pošle ujetou vzdálenost v mikrostepech a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.
 
-✅ Vyzkoušejte si čtení ujeté vzdálenosti jednotlivých a jejich přepočet na metry.
+Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné si to již teď připravit.
+Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazů `LODO` a `RODO`. Tyto příkazy způsobí, že nám simulátor pošle ujetou vzdálenost v mikrokrocích a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.
+
+✅ Vyzkoušejte si čtení ujeté vzdálenosti obou motorů a jejich přepočet na ujeté metry.
 
 ✅ Vyzkoušejte si, že se hodnota ujeté vzdálenosti opravdu nuluje.
+
+
 
 ## Očekávané výstupy práce v tomto cvičení
 
