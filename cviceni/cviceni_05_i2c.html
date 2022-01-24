@@ -178,14 +178,11 @@ rebootovat příkazem <code>sudo reboot</code></p>
 <p>Pro zjištění aktuálního baudrate můžete použít <code>sudo cat /sys/kernel/debug/clk/clk_summary</code></p>
 <p><a href="https://elinux.org/BCM2835_datasheet_errata">ERRATA</a> Je třeba si všimnout že <strong>errata nevydal výrobce čipu</strong>, ten se k
 němu nezná, je to levný výrobce!</p>
-<p><strong>BUG1:</strong> Výrobce čipu implementoval chybně clock stretching, a pomalá periferie kompletně zruší přenos po sběrnici (vymaže
-jeden nebo více CLK pulsů). Sběrnice tedy musí běžet rychlostí podle nejpomalejší periferie.</p>
-<p><strong>BUG2:</strong> Výrobce čipu neimplementoval správně nastavení rychlosti a od RpiV4 prakticky nejde zpomalit rychlost HW I2C
-sběrnice pod určitou mez (cca 100kbps - každé rpi to má jinak), ikdyž je v příkazu viz výše reportovaná hodnota jak byla
-nastavená. </p>
-<p>Díky těmto chybám prakticky nelze použít konfiguraci viz výše a musíme použít softwarově definované I2C, které těmito
-problémy netrpí. Použijte konfiguraci v <code>/boot/config.txt</code> (předchozí řádky musí být zakomentované aby se dvě implementace
-nebily):</p>
+<p><strong>BUG1:</strong></p>
+<p>Výrobce čipu implementoval chybně clock stretching, a pomalá periferie kompletně zruší přenos po sběrnici (vymaže jeden nebo více CLK pulsů). Sběrnice tedy musí běžet rychlostí podle nejpomalejší periferie.</p>
+<p><strong>BUG2:</strong></p>
+<p>Výrobce čipu neimplementoval správně nastavení rychlosti a od RpiV4 prakticky nejde zpomalit rychlost HW I2C sběrnice pod určitou mez (cca 100kbps - každé rpi to má jinak), ikdyž je v příkazu viz výše reportovaná hodnota jak byla nastavená. </p>
+<p>Díky těmto chybám prakticky nelze použít konfiguraci viz výše a musíme použít softwarově definované I2C, které těmito problémy netrpí. Použijte konfiguraci v <code>/boot/config.txt</code> (předchozí řádky musí být zakomentované aby se dvě implementace nebily):</p>
 <pre><code>  dtoverlay=i2c-gpio,i2c_gpio_sda=2,i2c_gpio_scl=3,i2c_gpio_delay_us=6,bus=3
 </code></pre>
 <p>Tato konfigurace vytvoří na pinech 2 a 3 sběrnici /dev/i2c-3 s periodou CLK pulsu 12us tj cca 90kHz, ale s výjimkou že bude 
@@ -250,9 +247,9 @@ int main()
 vstupní s pullupem.</p>
 <p>Po stisknutí tlačítka RBUT ukončete program</p>
 <p>Přenastavte výstupní port pro PB5 do režimu &quot;otevřený kolektor&quot;,
-duplikujte stav LED1 a diskutujte viditelné rozdíly na pinech<br />
+duplikujte stav LED1 a diskutujte viditelné rozdíly na pinech
 PB4 a PB5 s použitím osciloskopu.</p>
-<h3><a class="header" href="#ošetření-zákmitů-tlačítka" id="ošetření-zákmitů-tlačítka">ošetření zákmitů tlačítka</a></h3>
+<h3><a class="header" href="#ošetření-zákmitů-tlačítka" id="ošetření-zákmitů-tlačítka">Ošetření zákmitů tlačítka</a></h3>
 <p>Vytvořte si proměnnou value, a inicializujte ji na nulu.</p>
 <p>Vytvořte z portu PB0 - PB5 &quot;bargraf&quot; zobrazující hodnotu value v
 každém cyklu supersmyčky okamžitě, tedy bez zpoždění (odstraňte
@@ -262,16 +259,32 @@ hodnotu value o 1. Volitelně můžete použít i tisk na obrazovku.
 Pozor na zákmity tlačítka !!</p>
 <h2><a class="header" href="#adc-60minut" id="adc-60minut">ADC (60minut)</a></h2>
 <h3><a class="header" href="#stažení-vzorového-projektu-1" id="stažení-vzorového-projektu-1">Stažení vzorového projektu</a></h3>
+<pre><code class="language-cpp">#include &lt;roboutils/IO/ADC.h&gt;
+
+using namespace RoboUtils;
+
+int main()
+{
+  I2C i2c{&quot;/dev/i2c-3&quot;};
+  ADC adc{&amp;i2c};
+
+  while (true) {
+    delay(100);
+
+  }
+}
+</code></pre>
 <h3><a class="header" href="#princip-měření" id="princip-měření">Princip měření</a></h3>
 <h3><a class="header" href="#převod-adc-hodnoty-na-napětí" id="převod-adc-hodnoty-na-napětí">Převod ADC hodnoty na napětí</a></h3>
 <h3><a class="header" href="#vliv-vstupního-děliče" id="vliv-vstupního-děliče">Vliv vstupního děliče</a></h3>
-<p>Podívejte se do schematu na dělič napětí na pinu ADC0 a spočítejte převodní konstantu, která
+<p>Podívejte se do schematu od desky MAINBOARD na dělič napětí na pinu ADC0 a spočítejte převodní konstantu, která
 převede změřenou analogovou hodnotu na absolutní hodnotu napětí.</p>
 <p>Konstantu implementujte v kódu a porovnejte s údajem zobrazeným na zdroji DIAMETRAL. Diskutujte
 výsledky.</p>
 <h3><a class="header" href="#dosažitelná-přesnost-měření" id="dosažitelná-přesnost-měření">Dosažitelná přesnost měření</a></h3>
 <p>Na desku byly osazeny rezistory s tolerancí 5%. Spočítejte, jaká bude tolerance měřeného napětí
-v 10 bitovém, 14bitovém a 18bitovém režimu měření ?</p>
+v 10 bitovém, 14bitovém a 18bitovém režimu měření ? U všech tolerancí počítejte s obdélníkovým<br />
+tolerančním polem (značně si usnadníte práci)</p>
 <p>Odpovídá pozorovaný údaj vypočítané toleranci měření ?</p>
 <h2><a class="header" href="#očekávané-výstupy-práce-v-tomto-cvičení" id="očekávané-výstupy-práce-v-tomto-cvičení">Očekávané výstupy práce v tomto cvičení</a></h2>
 <p>✅ Jste schopni na reálném hardware nastavit I2C sběrnici</p>

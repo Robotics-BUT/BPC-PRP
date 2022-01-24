@@ -174,7 +174,7 @@
 <p>Raspberry -- I2C -- interpolátor -- budič -- motor -- převodovka -- kolo</p>
 <h3><a class="header" href="#příklad-komunikace-s-krokovým-motorem" id="příklad-komunikace-s-krokovým-motorem">Příklad komunikace s krokovým motorem</a></h3>
 <p>Upravte program z předchozího cvičení aby obsahoval tuto smyčku</p>
-<pre><code>  using namespace RoboUtils;
+<pre><code class="language-cpp">  using namespace RoboUtils;
 
   const auto LBUT = Pin::PA7;
   const auto RBUT = Pin::PA6;
@@ -216,21 +216,19 @@
     200 * 32 = 6400
 </details>
 <br/><br/>
-<p>Pokud řídíme reálné fyzikální systémy je vhodné programovat pomocí reálných fyzikálních jednotek a vždy to dodržovat, nestane se nám tak, 
-že nebudeme vědět jaký rozměr má nějaká proměnná.</p>
-<p>Pro řízení motoru se jeví vhohdná úhlová rychlost zadaná v otáčkách za sekundu a tuto rychlost máme převést na microstepy za sekundu. Jak to provedeme?</p>
+<p>Pokud řídíme reálné fyzikální systémy je vhodné programovat pomocí reálných fyzikálních jednotek a vždy to dodržovat, nestane se, že nebudeme vědět jaký rozměr má nějaká proměnná.</p>
+<p>Pro řízení motoru je vhodná úhlová rychlost zadaná v otáčkách za sekundu a tuto rychlost převeďte mikrokroky za sekundu.</p>
 <details>
     <summary>Odpověď</summary>
     speedInMicrosteps = targetSpeed * microstepsPerRevolution
 </details>
-<p>Naopak, pro popis odometrie, tj ujeté vzdálenosti kolem je vhodné popsat veličinu v jednotkách SI tedy metrech. To samozřejmě ovlivňuje průměr 
-(respektive obvod) kola. Jak to provedeme?</p>
+<p>Naopak, pro popis odometrie, tj ujeté vzdálenosti kolem je vhodné popsat veličinu v jednotkách SI tedy metrech. To samozřejmě ovlivňuje průměr (respektive obvod) kola. Jak to provedeme?</p>
 <details>
     <summary>Odpověď</summary>
     targetPosition = positionInMicrosteps * wheelCircumference / microstepsPerRevolution
 </details>
 <h3><a class="header" href="#zjištění-maximálních-rychlostí-reálného-motoru" id="zjištění-maximálních-rychlostí-reálného-motoru">Zjištění maximálních rychlostí reálného motoru</a></h3>
-<p>Upravte program v příkladu tak, abyste mohli pomocí tlačítek PB6 a PB7 přidávat a ubírat rychlost, kterou posíláte do motorů. Sledujte vliv 
+<p>Upravte program v příkladu tak, abyste mohli pomocí tlačítek PB6 a PB7 přidávat a ubírat rychlost, kterou posílá do motorů. Sledujte vliv 
 této rychlosti na napájecím proudu obou motorů (zdroj DIAMETRAL, měření proudu).</p>
 <details>
     <summary>Pozorování</summary>
@@ -267,26 +265,28 @@ Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho pr
 <p>✅ Po odeslání resetu byste měli přijmout NMEA zprávu začínající slovy <code>$RESET,DONE</code>.</p>
 <h2><a class="header" href="#ovladání-motorů-v-simulátoru" id="ovladání-motorů-v-simulátoru">Ovladání motorů v simulátoru</a></h2>
 <p>Simulátor simuluje chování dvou krokových motorů, na které jsou namonotována kola uživatelsky definovaného průměru.
-Motory jsou řízeny každý separátně pomocí NMEA zpráv posílaných simulátoru.</p>
+Motory jsou řízeny pomocí NMEA zpráv posílaných simulátoru.</p>
 <p>Zprávy, kterými lze řídit motory jsou následující:</p>
-<table><thead><tr><th>příkaz</th><th>parametr</th><th>význam</th></tr></thead><tbody>
-<tr><td>LSPEED</td><td>float rychlost levého motoru v microstepech za sekundu</td><td>nastaví rychlost levého kola na požadovanou hodnotu</td></tr>
-<tr><td>RSPEED</td><td>float rychlost pravého motoru v microstepech za sekundu</td><td>nastaví rychlost pravého kola na požadovanou hodnotu</td></tr>
-<tr><td>LODO</td><td>-</td><td>posílá požadavek na zjištění ujeté vzdálenosti levého motoru v microstepech od posledního zavolání tohoto příkazu, hodnota je interně ukládána jako 64b int</td></tr>
-<tr><td>RODO</td><td>-</td><td>posílá požadavek na zjištění ujeté vzdálenosti pravého motoru v microstepech od posledního zavolání tohoto příkazu, hodnota je interně ukládána jako 64b int</td></tr>
+<table><thead><tr><th>směr</th><th>příkaz</th><th>parametr 1</th><th>parametr 2</th></tr></thead><tbody>
+<tr><td>vysílání</td><td><code>SPEED</code></td><td>float left</td><td>float right</td></tr>
+<tr><td>vysílání</td><td><code>ODO</code></td><td></td><td></td></tr>
+<tr><td>příjem</td><td><code>RODO</code></td><td>int64 left</td><td>int64 right</td></tr>
 </tbody></table>
+<p><strong>SPEED</strong></p>
+<p>nastaví rychlost levého i pravého kola v mikrokrocích za sekundu na požadovanou hodnotu. Tato hodnota je držena po dobu 1sec a poté je motor odpojen od napájení (bezpečnost). Je třeba zprávu opakovat pro kontinuální chod.</p>
+<p><strong>ODO</strong></p>
+<p>Požaduje od simulátoru zjištění ujeté vzdálenosti obou motorů v mikrokrocích od posledního zavolání tohoto příkazu, Odpoví zprávou <code>RODO</code></p>
 <h3><a class="header" href="#posílaní-řídicích-zpráv" id="posílaní-řídicích-zpráv">Posílaní řídicích zpráv</a></h3>
-<p>Z tabulky výše víme, že příkaz pro nastavení rychlosti levého motoru je <code>LSPEED</code>.
-Pošleme tedy tento příkaz simulátoru s nějakou malou rychlostí, třeba 0.05 otáčky za sekundu.</p>
+<p>Z tabulky výše víme, že příkaz pro nastavení rychlosti motoru je <code>LSPEED</code>.
+Pošleme tedy tento příkaz simulátoru s nějakou malou rychlostí levého kola, třeba 0.05 otáčky za sekundu a nulovou rychlostí pravého kola.</p>
 <p>✅ Pokud nám vše správně funguje, měl by se robot v simulátoru začít pomalu otáčet.</p>
-<p>Motor se po asi 1 s otáčení zastaví, toto je bezpečnostní funkce, která je implementována v našich reálných driverech. 
-V případě softwareové chyby, kdy by spadl řídicí program, by se totiž robot mohl nekontrolovatelně rozjet. 
+<p>Motor se po asi 1 s otáčení zastaví, toto je bezpečnostní funkce, která je implementována v našich reálných budičích motorů. V případě softwarové chyby, kdy by spadl řídicí program, by se totiž robot mohl nekontrolovatelně rozjet.
 Je tedy nutné řídicí příkazy posílat pořád.</p>
 <p>✅ Pokuste se najít maximální rychlost, které jste schopni v simulátoru bez rampy dosáhnout.</p>
 <h2><a class="header" href="#Čtení-ujeté-vzdálenosti" id="Čtení-ujeté-vzdálenosti">Čtení ujeté vzdálenosti</a></h2>
 <p>Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné si to již teď připravit.
-Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazů <code>LODO</code> a <code>RODO</code>. Tyto příkazy spůsobí, že nám simulátor pošle ujetou vzdálenost v mikrostepech a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.</p>
-<p>✅ Vyzkoušejte si čtení ujeté vzdálenosti jednotlivých a jejich přepočet na metry.</p>
+Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazů <code>LODO</code> a <code>RODO</code>. Tyto příkazy způsobí, že nám simulátor pošle ujetou vzdálenost v mikrokrocích a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.</p>
+<p>✅ Vyzkoušejte si čtení ujeté vzdálenosti obou motorů a jejich přepočet na ujeté metry.</p>
 <p>✅ Vyzkoušejte si, že se hodnota ujeté vzdálenosti opravdu nuluje.</p>
 <h2><a class="header" href="#očekávané-výstupy-práce-v-tomto-cvičení" id="očekávané-výstupy-práce-v-tomto-cvičení">Očekávané výstupy práce v tomto cvičení</a></h2>
 <p>✅ Jste schopni ovládat oba motory simulovaného robota v plném rozsahu rychlostí.</p>
