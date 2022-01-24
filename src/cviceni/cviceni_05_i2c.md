@@ -61,7 +61,7 @@ Vysvětlete z výpisu, a s použitím datasheetů, které čipy máte na sběrni
 
 ### Stažení vzorového projektu
 
-Upravte vzorový projekt tak, aby obsahoval následující kód a spusťte jej:
+Vzorový projekt obsahuje následující kód: 
 
 ```cpp
 #include <roboutils/IO/I2C.h>
@@ -81,7 +81,7 @@ int main()
 }
 ```
 
-Popište jeho funkci, prohlédněte si header, způsob jeho dokumentace a jaké možnosti Vám nabízí.
+spusťte jej, popište jeho funkci, prohlédněte si header, způsob jeho dokumentace a jaké možnosti Vám nabízí.
 
 ### Odchycení zpráv na I2C osciloskopem, identifikace clock stretchingu
 
@@ -94,7 +94,8 @@ Hledejte START, STOP, hodnoty jednotlivých bitů dat i adresy, ACK.
 
 ### Vzorový projekt
 
-Upravte vzorový projekt tak, aby obsahoval následující kód:
+Založte na aktuáním "master" novou větev pojmenovanou "hw-cv5-gpio", přepněte se do ní a upravte kód vzorového projektu tak, 
+aby obsahoval následující kód:
 
 ```cpp
 #include <roboutils/IO/GPIO.h>
@@ -121,6 +122,8 @@ int main()
 
 Popište jeho funkci, a ověřte ji spuštěním. Opět si prohlédněte dokumentaci a nabízené funkce.
 
+COMMIT / PUSH
+
 ### Reakce na tlačítko, ovládání běhu programu pomocí tlačítek
 
 Zadefinujte tlačítka jako proměnné LBUT a RBUT, nastavte je jako
@@ -131,6 +134,8 @@ Po stisknutí tlačítka RBUT ukončete program
 Přenastavte výstupní port pro PB5 do režimu "otevřený kolektor",
 duplikujte stav LED1 a diskutujte viditelné rozdíly na pinech
 PB4 a PB5 s použitím osciloskopu.
+
+COMMIT / PUSH
 
 ### Ošetření zákmitů tlačítka
 
@@ -144,9 +149,18 @@ Upravte program tak, aby tlačítkem při každém **stisknutí** zvýšil
 hodnotu value o 1. Volitelně můžete použít i tisk na obrazovku.
 Pozor na zákmity tlačítka !!
 
+COMMIT / PUSH
+
+### NMEA (simulátor)
+
+Pro obsluhu GPIO v simulátoru jsou vyhrazeny příkazy [BEEP](./../simulator/rozhrani.md#beep), [LED](./../simulator/rozhrani.md#led), [BTN](./../simulator/rozhrani.md#btn), případně nízkoúrovňové [GPIO.GET](./../simulator/rozhrani.md#gpio.get), [GPIO.SET](./../simulator/rozhrani.md#gpio.set), [GPIO.DIR](./../simulator/rozhrani.md#gpio.dir), avšak tyto nejsou nijak simulátorem zpracovávány. Implementujte je do svého programu pouze v okamžiku, pokud budete chtít získat 5b navíc jízdou reálného robotu na konci semestru.
+
 ## ADC (60minut)
 
-### Stažení vzorového projektu
+### Vzorový projekt
+
+Založte na aktuáním "master" novou větev pojmenovanou "hw-cv5-adc", přepněte se do ní a upravte kód vzorového projektu tak, 
+aby obsahoval následující kód:
 
 ```cpp
 #include <roboutils/IO/ADC.h>
@@ -168,6 +182,8 @@ int main()
 
 Popište jeho funkci, a ověřte ji spuštěním. Opět si prohlédněte dokumentaci a nabízené funkce.
 
+COMMIT / PUSH
+
 ### Princip měření
 
 Popište, jak funguje A/D převodník, a jaké hodnoty na svém výstupu dává.
@@ -183,6 +199,8 @@ převede změřenou analogovou hodnotu na absolutní hodnotu napětí.
 Konstantu implementujte v kódu a porovnejte s údajem zobrazeným na zdroji DIAMETRAL. Diskutujte
 výsledky.
 
+COMMIT / PUSH
+
 ### Dosažitelná přesnost měření
 
 Na desku byly osazeny rezistory s tolerancí 5%. Spočítejte, jaká bude tolerance měřeného napětí
@@ -191,9 +209,14 @@ tolerančním polem (značně si usnadníte práci)
 
 Odpovídá pozorovaný údaj vypočítané toleranci měření ?
 
-### Simulátor
+### NMEA (simulátor)
 
-Funkcionalita AD převodníku je v simulátoru integrována přes NMEA zprávu ODO. Reálný program pro robot na ni odpovídá též
+Pro obsluhu analogově/digitálního převodníku v simulátoru je vyhrazen příkaz [SENSOR](./../simulator/rozhrani.md#sensor). 
+Vraťte se tedy ke kódu předchozího cvičení (jiný projekt) a zkuste změřit na reálném robotu (nebo i simulovaném doma) 
+úroveň napájecího napětí, tentokráte s pomocí NMEA zpráv.
+
+(tuto část můžete již dělat na simulátoru doma, nezapomeňte commitovat/ pushovat aby i ostatní změny viděli !)
+
 
 # Očekávané výstupy práce v tomto cvičení
 

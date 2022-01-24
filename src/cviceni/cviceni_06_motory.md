@@ -19,7 +19,7 @@ Raspberry -- I2C -- interpolátor -- budič -- motor -- převodovka -- kolo
 
 ### Příklad komunikace s krokovým motorem
 
-Upravte program z předchozího cvičení aby obsahoval tuto smyčku
+Vraťte se k programu z předchozího cvičení, založte novou větev "hw-cv6-km2" na původním masteru a vložte tento kód:
 
 ```cpp
   using namespace RoboUtils;
@@ -50,12 +50,14 @@ Upravte program z předchozího cvičení aby obsahoval tuto smyčku
   }
 ```
 
+COMMIT / PUSH
+
 Program spusťte, motor by se měl pomalu roztočit. Prozkoumejte API knihovny jakým způsobem to je provedeno.
 
 
 ### Motor připojený ke kolu - metrický popis jednotek
 
-Krokový motor se s každým impulzem na vinutích posunuje o 1 krok (step). Tyto kroky je ale možné rozdělit na menší části, mikrokroky.
+Krokový motor se s každým impulzem na vinutích posunuje o 1 krok (step). Tyto kroky je možné rozdělit na menší části, mikrokroky.
 
 ✅ Počet kroků na otáčku je vlastností daného krokového motoru. Mikrokrok a množství jeho úrovní je vlastností použitého budiče motorů.
 
@@ -96,6 +98,8 @@ této rychlosti na napájecím proudu obou motorů (zdroj DIAMETRAL, měření p
     Proud, tedy výkon dodávaný do zátěže od určité rychlosti začne klesat !
 </details>
 
+COMMIT / PUSH
+
 Vysvětlete pozorované chování a zhodnoťte důsledky pro řízení takovéhoto motoru
 <details>
     <summary>Odpověď</summary>
@@ -110,6 +114,7 @@ Pozorujte chování a zhodnoťte pozorování.
     Při nejvyšším příkonu můžeme vyvinout nejvyšší sílu. Sílu temelínu najdeme v hermelínu. Čím vyšší bude mít robot hmotnost, tím více zatěžujeme motory a tím menší zrychlení utáhne. Problém lze obejít snížením síly potřebné pro otáčení - tj snížením zrychlení.
 </details>
 
+COMMIT / PUSH
 
 ### Rampový generátor
 
@@ -120,65 +125,52 @@ Snížení zrychlení lze realizovat různými způsoby (například interpolac�
 
 ![Generator Ramp](../images/ramp_gen.jpg)
 
-Generátor rampy, který běží periodicky pořád, nám efektivně řeší problém s opakováním řídicích zpráv pro motory, stačí periodicky získávat novou hodnotu rychlosti z generátoru ramp a tu posílat budiči motoru (simulátoru).
+Generátor rampy, který běží periodicky, efektivně řeší problém s opakováním řídicích zpráv pro motory, stačí periodicky získávat novou hodnotu rychlosti z generátoru ramp a tu posílat budiči motoru (simulátoru).
 
-Upravte program tak, aby po stisknutí tlačítka se motor rozjel na hodnotu rychlosti, při které byl naměřen **poloviční** proud v předchozím experimentu a porovnejte výsledky s předchozím měřením
+Upravte program tak, aby se po stisknutí tlačítka motor rozjel na hodnotu rychlosti, při které byl naměřen **poloviční** proud v předchozím experimentu a porovnejte výsledky s předchozím měřením
 <details>
     <summary>Pozorování</summary>
     Motor se snížením rampy lze zatížit více a tím pádem dosáhnout vyšší rychlosti bez zastavení. Čím pomalejší rampa je, tím více síly motoru zbyde pro udržení rychlosti, ale reakce motoru se notně zpomalí.
 </details>
 
-## Komunikace se simulátorem
+COMMIT / PUSH
 
-### RESET simulátoru
+## NMEA protokol
 
-[Zpráva RESET](./../simulator/rozhrani.md#RESET)
+Otevřete si projekt z minulého / předminulého cvičení, kde jste zpracovávali NMEA protokol. Následující body již nemusíte tvořit na cvičení, lze je realizovat i v simulátoru.
 
-V tomto cvičení již budete ovládat robota v simulátoru, je tedy nutné pravidelně navracet simulátor do výchozího stavu.
-Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho programu, lze to ale řešit přímočařeji, a to tak, 
-že při startu vašeho programu simulátoru pošlete NMEA zprávu pro reset, tedy `$RESET,*CHKSUM`.
+V tomto cvičení již budete ovládat robota pomocí NMEA zpráv, je tedy nutné pravidelně navracet simulátor do výchozího stavu.
+Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho programu, lze to ale řešit přímočařeji, a to tak,
+že při startu vašeho programu simulátoru pošlete NMEA zprávu [RESET](./../simulator/rozhrani.md#reset).
 
-✅ Po odeslání resetu byste měli přijmout NMEA zprávu začínající slovy `$RESET,DONE`.
+✅ Po odeslání resetu byste měli přijmout NMEA zprávu `$RESET,DONE`.
 
-## Ovladání motorů v simulátoru
+Pakliže nepřijmete DONE, program ukončete s chybou.
+
 Simulátor simuluje chování dvou krokových motorů, na které jsou namonotována kola uživatelsky definovaného průměru.
-Motory jsou řízeny pomocí NMEA zpráv posílaných simulátoru.
-
-Zprávy, kterými lze řídit motory jsou následující:
-
-| směr     | příkaz    | parametr 1 | parametr 2  |
-|----------|---------- | -----------|------------ |
-| vysílání | `SPEED`   | float left | float right |
-| vysílání | `ODO`     |            |             |
-| příjem   | `ODO`    | int64 left | int64 right |
-
-**SPEED**
-
-nastaví rychlost levého i pravého kola v mikrokrocích za sekundu na požadovanou hodnotu. Tato hodnota je držena po dobu 1sec a poté je motor odpojen od napájení (bezpečnost). Je třeba zprávu opakovat pro kontinuální chod.
-
-**ODO**
-
-Požaduje od simulátoru zjištění ujeté vzdálenosti obou motorů v mikrokrocích od posledního zavolání tohoto příkazu, Odpoví zprávou `RODO`
+Motory jsou řízeny pomocí NMEA zpráv [SPEED](./../simulator/rozhrani.md#speed) a [ODO](./../simulator/rozhrani.md#odo) posílaných simulátoru.
 
 
+### Nastavení rychlosti kol
 
-### Posílaní řídicích zpráv
-
-Z tabulky výše víme, že příkaz pro nastavení rychlosti motoru je `LSPEED`.
-Pošleme tedy tento příkaz simulátoru s nějakou malou rychlostí levého kola, třeba 0.05 otáčky za sekundu a nulovou rychlostí pravého kola.
+Příkaz pro nastavení rychlosti motoru je [SPEED](./../simulator/rozhrani.md#speed). Pošleme tedy tento příkaz simulátoru s nějakou malou 
+rychlostí levého kola, třeba 0.05 otáčky za sekundu a nulovou rychlostí pravého kola.
 
 ✅ Pokud nám vše správně funguje, měl by se robot v simulátoru začít pomalu otáčet.
 
 Motor se po asi 1 s otáčení zastaví, toto je bezpečnostní funkce, která je implementována v našich reálných budičích motorů. V případě softwarové chyby, kdy by spadl řídicí program, by se totiž robot mohl nekontrolovatelně rozjet.
-Je tedy nutné řídicí příkazy posílat pořád.
+Je tedy nutné řídicí příkazy posílat periodicky.
 
 ✅ Pokuste se najít maximální rychlost, které jste schopni v simulátoru bez rampy dosáhnout.
 
+COMMIT / PUSH
 
-## Čtení ujeté vzdálenosti
 
-Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné si to již teď připravit.
-Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazů `LODO` a `RODO`. Tyto příkazy způsobí, že nám simulátor pošle ujetou vzdálenost v mikrokrocích a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.
+### Čtení ujeté vzdálenosti
+
+Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné
+si to již teď připravit. Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazu [ODO](./../simulator/rozhrani.md#odo). Tento příkaz 
+způsobí, že nám simulátor pošle ujetou vzdálenost v mikrokrocích pro obě kola a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.
 
 ✅ Vyzkoušejte si čtení ujeté vzdálenosti obou motorů a jejich přepočet na ujeté metry.
 
