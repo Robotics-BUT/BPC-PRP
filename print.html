@@ -91,7 +91,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Uvod</a></li><li class="chapter-item expanded affix "><a href="prednasky.html">Přednášky</a></li><li class="chapter-item expanded affix "><a href="cviceni.html">Cvičení</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/intro.html"><strong aria-hidden="true">1.</strong> Softwarové vybavení</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chap_1_software/text/linux.html"><strong aria-hidden="true">1.1.</strong> Linux a příkazová řádka</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/git.html"><strong aria-hidden="true">1.2.</strong> Git - Verzovací systému</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/clion.html"><strong aria-hidden="true">1.3.</strong> CLion IDE</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/ros.html"><strong aria-hidden="true">1.4.</strong> Robotic Operating System</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/vb.linux_installation.html"><strong aria-hidden="true">1.5.</strong> Příprava prostředí</a></li></ol></li><li class="chapter-item expanded "><a href="cviceni/cviceni_uvod.html"><strong aria-hidden="true">2.</strong> Cviceni</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cviceni/cviceni_02_linux.html"><strong aria-hidden="true">2.1.</strong> Instalace a seznámení se s prostředím</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_03_git.html"><strong aria-hidden="true">2.2.</strong> GIT, simulátor</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_04_udp.html"><strong aria-hidden="true">2.3.</strong> UDP komunikace</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_06_motory.html"><strong aria-hidden="true">2.4.</strong> Řízení motorů</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_07_snimac_cary.html"><strong aria-hidden="true">2.5.</strong> Snímání čáry</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_09_regulator.html"><strong aria-hidden="true">2.6.</strong> Návrh regulátoru</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_10_telemetrie_vizualizace.html"><strong aria-hidden="true">2.7.</strong> Telemetrie a vizualizace</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Uvod</a></li><li class="chapter-item expanded affix "><a href="prednasky.html">Přednášky</a></li><li class="chapter-item expanded affix "><a href="cviceni.html">Cvičení</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/intro.html"><strong aria-hidden="true">1.</strong> Softwarové vybavení</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="chap_1_software/text/linux.html"><strong aria-hidden="true">1.1.</strong> Linux a příkazová řádka</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/git.html"><strong aria-hidden="true">1.2.</strong> Git - Verzovací systému</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/clion.html"><strong aria-hidden="true">1.3.</strong> CLion IDE</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/ros.html"><strong aria-hidden="true">1.4.</strong> Robotic Operating System</a></li><li class="chapter-item expanded "><a href="chap_1_software/text/vb.linux_installation.html"><strong aria-hidden="true">1.5.</strong> Příprava prostředí</a></li></ol></li><li class="chapter-item expanded "><a href="cviceni/cviceni_uvod.html"><strong aria-hidden="true">2.</strong> Cviceni</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="cviceni/cviceni_02_linux.html"><strong aria-hidden="true">2.1.</strong> Instalace a seznámení se s prostředím</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_03_git.html"><strong aria-hidden="true">2.2.</strong> GIT, simulátor</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_04_udp.html"><strong aria-hidden="true">2.3.</strong> UDP komunikace</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_05_i2c.html"><strong aria-hidden="true">2.4.</strong> Hardware, I2C, ADC</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_06_motory.html"><strong aria-hidden="true">2.5.</strong> Řízení motorů</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_07_snimac_cary.html"><strong aria-hidden="true">2.6.</strong> Snímání čáry</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_09_regulator.html"><strong aria-hidden="true">2.7.</strong> Návrh regulátoru</a></li><li class="chapter-item expanded "><a href="cviceni/cviceni_10_telemetrie_vizualizace.html"><strong aria-hidden="true">2.8.</strong> Telemetrie a vizualizace</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -1405,15 +1405,141 @@ a stala se těžko přehlednou. Pokud se budete řídit příklady dobré praxe 
 <p>✅ Zpráva <code>SENSOR,&lt;id&gt;</code> posílá požadavec na měření senzoru číslo <code>&lt;id&gt;</code> (indexováno od nuly).</p>
 <p>✅ Zprávy <code>LODO</code> a <code>RODO</code> posílají požadavek na zjištění ujeté vzdálenost levého, resp. pravého motoru.</p>
 <p>✅ Ve zbývajícím čase můžete začít pracovat na funkci, která rozdělí příchozí zprávu na segmenty (oddělené čárkou) a převede texty na čísla (v závislosti na typu zprávy).</p>
+<h1><a class="header" href="#přístup-k-hardware---i2c-gpio-adc" id="přístup-k-hardware---i2c-gpio-adc">Přístup k hardware - I2C, GPIO, ADC</a></h1>
+<p>Cvičící: Ing. František Burian Ph.D.</p>
+<h2><a class="header" href="#cile" id="cile">Cile</a></h2>
+<ul>
+<li>Pochopit princip sběrnice I2C která propojuje součásti robotu</li>
+<li>Pochopit činnost GPIO expanderu</li>
+<li>Pochopit činnost A/D převodníku</li>
+</ul>
+<h2><a class="header" href="#prerekvizity" id="prerekvizity">Prerekvizity</a></h2>
+<ul>
+<li>Předinstalované Raspberry PI s HATem v laboratoři</li>
+</ul>
+<h2><a class="header" href="#i2c-30-minut" id="i2c-30-minut">I2C (30 minut)</a></h2>
+<h3><a class="header" href="#aktivace-i2c-hardwarového-softwarového-device-tree-overlay" id="aktivace-i2c-hardwarového-softwarového-device-tree-overlay">Aktivace I2C hardwarového, softwarového, device tree overlay</a></h3>
+<p>Konfigurace device tree overlayů se dělá v <code>/boot/config.txt</code>. Po každé změně tohoto souboru je potřeba rasoberry 
+rebootovat příkazem <code>sudo reboot</code></p>
+<p>Pro aktivaci hardwarového i2c na pinech 2 a 3 platí následující výstřižek v <code>/boot/config.txt</code>:</p>
+<pre><code>  dtparam=i2c_arm=on
+  dtparam=i2c_baudrate=10000
+</code></pre>
+<p>Pro zjištění aktuálního baudrate můžete použít <code>sudo cat /sys/kernel/debug/clk/clk_summary</code></p>
+<p><a href="https://elinux.org/BCM2835_datasheet_errata">ERRATA</a> Je třeba si všimnout že <strong>errata nevydal výrobce čipu</strong>, ten se k<br />
+němu nezná, je to levný výrobce!</p>
+<p><strong>BUG1:</strong> Výrobce čipu implementoval chybně clock stretching, a pomalá periferie kompletně zruší přenos po sběrnici (vymaže<br />
+jeden nebo více CLK pulsů). Sběrnice tedy musí běžet rychlostí podle nejpomalejší periferie.</p>
+<p><strong>BUG2:</strong> Výrobce čipu neimplementoval správně nastavení rychlosti a od RpiV4 prakticky nejde zpomalit rychlost HW I2C<br />
+sběrnice pod určitou mez (cca 100kbps - každé rpi to má jinak), ikdyž je v příkazu viz výše reportovaná hodnota jak byla 
+nastavená. </p>
+<p>Díky těmto chybám prakticky nelze použít konfiguraci viz výše a musíme použít softwarově definované I2C, které těmito
+problémy netrpí. Použijte konfiguraci v <code>/boot/config.txt</code> (předchozí řádky musí být zakomentované aby se dvě implementace 
+nebily):</p>
+<pre><code>  dtoverlay=i2c-gpio,i2c_gpio_sda=2,i2c_gpio_scl=3,i2c_gpio_delay_us=6,bus=3
+</code></pre>
+<p>Tato konfigurace vytvoří na pinech 2 a 3 sběrnici /dev/i2c-3 s periodou CLK pulsu 12us tj cca 90kHz, ale s výjimkou že bude 
+funkční clock stretching, takže si pomalá periferie může sběrnici pozdržet (případ KM2, bude probírán na dalším cvičení)</p>
+<p>Poznámka: Takto je v laboratoři Rpi připraveno, konfiguraci tedy nemusíte měnit, pouze ji zkontrolujte.</p>
+<h3><a class="header" href="#shell-detekce-všech-připojených-zařízení-na-i2c-sběrnici" id="shell-detekce-všech-připojených-zařízení-na-i2c-sběrnici">Shell: Detekce všech připojených zařízení na I2C sběrnici</a></h3>
+<p>Pro rychlé zjištění stavu I2C existuje spousta dobrých nástrojů z balíku <code>i2c-tools</code>. Omezíme se pouze na autodetekci 
+připojených čipů:</p>
+<pre><code class="language-bash">  i2cdetect -y 3
+</code></pre>
+<p>Vysvětlete z výpisu, a s použitím datasheetů, které čipy máte na sběrnici připojené (různé RPI budou mít různé výstupy!)</p>
+<h3><a class="header" href="#stažení-vzorového-projektu" id="stažení-vzorového-projektu">Stažení vzorového projektu</a></h3>
+<p>Upravte vzorový projekt tak, aby obsahoval následující kód a spusťte jej:</p>
+<pre><code class="language-cpp">#include &lt;roboutils/IO/I2C.h&gt;
+
+using namespace RoboUtils;
+
+int main()
+{
+  I2C i2c{&quot;/dev/i2c-3&quot;};
+
+  uint8_t value = 0;
+
+  while (true) {
+    i2c.write(0x20, 0x06, ++value);
+    delay(100);
+  }
+}
+</code></pre>
+<p>Popište jeho funkci, prohlédněte si header, způsob jeho dokumentace a jaké možnosti Vám nabízí.</p>
+<h3><a class="header" href="#odchycení-zpráv-na-i2c-osciloskopem-identifikace-clock-stretchingu" id="odchycení-zpráv-na-i2c-osciloskopem-identifikace-clock-stretchingu">Odchycení zpráv na I2C osciloskopem, identifikace clock stretchingu</a></h3>
+<p>Připojte na osciloskop sběrnici I2C, osciloskop sesynchronizujte tak,
+abyste viděli stabilní průběh jedné úplné zprávy a ten popište.</p>
+<p>Hledejte START, STOP, hodnoty jednotlivých bitů dat i adresy, ACK.</p>
+<h2><a class="header" href="#gpio-60-minut" id="gpio-60-minut">GPIO (60 minut)</a></h2>
+<h3><a class="header" href="#vzorový-projekt" id="vzorový-projekt">Vzorový projekt</a></h3>
+<p>Upravte vzorový projekt tak, aby obsahoval následující kód:</p>
+<pre><code class="language-cpp">#include &lt;roboutils/IO/GPIO.h&gt;
+
+using namespace RoboUtils;
+
+const auto LED1 = Pin::PB4;
+
+int main()
+{
+  I2C i2c{&quot;/dev/i2c-3&quot;};
+  GPIO gpio{&amp;i2c};
+
+  gpio.output(LED1);
+
+  while (true) {
+      gpio.high(LED1);
+      delay(50);
+      gpio.low(LED1);
+      delay(50);
+  }
+}
+</code></pre>
+<p>Popište jeho funkci, a ověřte ji spuštěním. Opět si prohlédněte dokumentaci a nabízené funkce.</p>
+<h3><a class="header" href="#reakce-na-tlačítko-ovládání-běhu-programu-pomocí-tlačítek" id="reakce-na-tlačítko-ovládání-běhu-programu-pomocí-tlačítek">Reakce na tlačítko, ovládání běhu programu pomocí tlačítek</a></h3>
+<p>Zadefinujte tlačítka jako proměnné LBUT a RBUT, nastavte je jako
+vstupní s pullupem.</p>
+<p>Po stisknutí tlačítka RBUT ukončete program</p>
+<p>Přenastavte výstupní port pro PB5 do režimu &quot;otevřený kolektor&quot;,
+duplikujte stav LED1 a diskutujte viditelné rozdíly na pinech<br />
+PB4 a PB5 s použitím osciloskopu.</p>
+<h3><a class="header" href="#ošetření-zákmitů-tlačítka" id="ošetření-zákmitů-tlačítka">ošetření zákmitů tlačítka</a></h3>
+<p>Vytvořte si proměnnou value, a inicializujte ji na nulu.</p>
+<p>Vytvořte z portu PB0 - PB5 &quot;bargraf&quot; zobrazující hodnotu value v
+každém cyklu supersmyčky okamžitě, tedy bez zpoždění (odstraňte
+všechny delaye).</p>
+<p>Upravte program tak, aby tlačítkem při každém <strong>stisknutí</strong> zvýšil
+hodnotu value o 1. Volitelně můžete použít i tisk na obrazovku.
+Pozor na zákmity tlačítka !!</p>
+<h2><a class="header" href="#adc-60minut" id="adc-60minut">ADC (60minut)</a></h2>
+<h3><a class="header" href="#stažení-vzorového-projektu-1" id="stažení-vzorového-projektu-1">Stažení vzorového projektu</a></h3>
+<h3><a class="header" href="#princip-měření" id="princip-měření">Princip měření</a></h3>
+<h3><a class="header" href="#převod-adc-hodnoty-na-napětí" id="převod-adc-hodnoty-na-napětí">Převod ADC hodnoty na napětí</a></h3>
+<h3><a class="header" href="#vliv-vstupního-děliče" id="vliv-vstupního-děliče">Vliv vstupního děliče</a></h3>
+<p>Podívejte se do schematu na dělič napětí na pinu ADC0 a spočítejte převodní konstantu, která
+převede změřenou analogovou hodnotu na absolutní hodnotu napětí.</p>
+<p>Konstantu implementujte v kódu a porovnejte s údajem zobrazeným na zdroji DIAMETRAL. Diskutujte
+výsledky.</p>
+<h3><a class="header" href="#dosažitelná-přesnost-měření" id="dosažitelná-přesnost-měření">Dosažitelná přesnost měření</a></h3>
+<p>Na desku byly osazeny rezistory s tolerancí 5%. Spočítejte, jaká bude tolerance měřeného napětí
+v 10 bitovém, 14bitovém a 18bitovém režimu měření ?</p>
+<p>Odpovídá pozorovaný údaj vypočítané toleranci měření ?</p>
+<h2><a class="header" href="#očekávané-výstupy-práce-v-tomto-cvičení" id="očekávané-výstupy-práce-v-tomto-cvičení">Očekávané výstupy práce v tomto cvičení</a></h2>
+<p>✅ Jste schopni na reálném hardware nastavit I2C sběrnici</p>
+<p>✅ Chápete možné problémy a důsledky použití sběrnice I2C</p>
+<p>✅ Rozumíte obecným GPIO na obvyklých embedded zařízeních</p>
+<p>✅ Dokážete ošetřit jednoduché GPIO periferie (tlačítko, LED)</p>
+<p>✅ Rozumíte principu AD převodníku</p>
+<p>✅ Dokážete binární hodnotu převodníku převést na reálnou měřenou hodnotu dle schematu</p>
+<p>✅ Dokážete diskutovat přesnost měření AD převodníku včetně vlivu měřicího řetězce</p>
 <h1><a class="header" href="#Řízení-motorů" id="Řízení-motorů">Řízení motorů</a></h1>
 <p>Cvičící: Ing. František Burian  Ph.D.</p>
-<h2><a class="header" href="#cile" id="cile">Cile</a></h2>
+<h2><a class="header" href="#cile-1" id="cile-1">Cile</a></h2>
 <ul>
 <li>Vyzkoušet chování reálného krokového motoru v reálných podmínkách</li>
 <li>Rozpohybovat kola simulovaného robota tak, aby bylo možné řidit jeho pohyb pomocí kinematiky.</li>
 <li>Zprovoznit čtení ujeté dráhy jednotlivých motorů.</li>
 </ul>
-<h2><a class="header" href="#prerekvizity" id="prerekvizity">Prerekvizity</a></h2>
+<h2><a class="header" href="#prerekvizity-1" id="prerekvizity-1">Prerekvizity</a></h2>
 <ul>
 <li>Pro HW část funkční hardware</li>
 <li>Funkční komunikace se simulátorem (ověřit pomocí zprávy <code>PING</code>)</li>
@@ -1538,7 +1664,7 @@ Je tedy nutné řídicí příkazy posílat pořád.</p>
 Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazů <code>LODO</code> a <code>RODO</code>. Tyto příkazy spůsobí, že nám simulátor pošle ujetou vzdálenost v mikrostepech a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.</p>
 <p>✅ Vyzkoušejte si čtení ujeté vzdálenosti jednotlivých a jejich přepočet na metry.</p>
 <p>✅ Vyzkoušejte si, že se hodnota ujeté vzdálenosti opravdu nuluje.</p>
-<h2><a class="header" href="#očekávané-výstupy-práce-v-tomto-cvičení" id="očekávané-výstupy-práce-v-tomto-cvičení">Očekávané výstupy práce v tomto cvičení</a></h2>
+<h2><a class="header" href="#očekávané-výstupy-práce-v-tomto-cvičení-1" id="očekávané-výstupy-práce-v-tomto-cvičení-1">Očekávané výstupy práce v tomto cvičení</a></h2>
 <p>✅ Jste schopni ovládat oba motory simulovaného robota v plném rozsahu rychlostí.</p>
 <p>✅ Máte naimplementováno generování ramp pro oba motory.</p>
 <p>✅ Jste schopni ze simulátoru získávat data o ujeté vzdálenosti pro oba motory.</p>
@@ -1549,7 +1675,7 @@ Je tedy nutné řídicí příkazy posílat pořád.</p>
 <li>Realizovat zpracování signálu z emulovaného optočlenu CNY70.</li>
 <li>Implementovat výpočet pozice/orientace čáry vzhledem k ose jízdy robotu s využitím jednoho nebo více emulovaných optočlenů CNY70.</li>
 </ul>
-<h2><a class="header" href="#prerekvizity-1" id="prerekvizity-1">Prerekvizity</a></h2>
+<h2><a class="header" href="#prerekvizity-2" id="prerekvizity-2">Prerekvizity</a></h2>
 <ul>
 <li>Funkční komunikace se simulátorem (ověřit pomocí zprávy <code>PING</code>).</li>
 <li>Funkční parsování NMEA řetězců.</li>
@@ -1656,7 +1782,7 @@ printf(&quot;%d %%: %s&quot;, value, graf(buffer, 20, value));
 <li>Implementovat ovládání diferenciálně řízeného podvozku.</li>
 <li>Navrhnout a implementovat spolehlivý regulátor pro sledování trasy.</li>
 </ul>
-<h2><a class="header" href="#prerekvizity-2" id="prerekvizity-2">Prerekvizity</a></h2>
+<h2><a class="header" href="#prerekvizity-3" id="prerekvizity-3">Prerekvizity</a></h2>
 <ul>
 <li>Funkční komunikace se simulátorem - ovládání motorů + čtení stavu senzorů.</li>
 <li>Funkční měření odchylky robotu od trajektorie.</li>
