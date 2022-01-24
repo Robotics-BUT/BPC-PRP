@@ -176,15 +176,15 @@ rebootovat příkazem <code>sudo reboot</code></p>
   dtparam=i2c_baudrate=10000
 </code></pre>
 <p>Pro zjištění aktuálního baudrate můžete použít <code>sudo cat /sys/kernel/debug/clk/clk_summary</code></p>
-<p><a href="https://elinux.org/BCM2835_datasheet_errata">ERRATA</a> Je třeba si všimnout že <strong>errata nevydal výrobce čipu</strong>, ten se k<br />
+<p><a href="https://elinux.org/BCM2835_datasheet_errata">ERRATA</a> Je třeba si všimnout že <strong>errata nevydal výrobce čipu</strong>, ten se k
 němu nezná, je to levný výrobce!</p>
-<p><strong>BUG1:</strong> Výrobce čipu implementoval chybně clock stretching, a pomalá periferie kompletně zruší přenos po sběrnici (vymaže<br />
+<p><strong>BUG1:</strong> Výrobce čipu implementoval chybně clock stretching, a pomalá periferie kompletně zruší přenos po sběrnici (vymaže
 jeden nebo více CLK pulsů). Sběrnice tedy musí běžet rychlostí podle nejpomalejší periferie.</p>
-<p><strong>BUG2:</strong> Výrobce čipu neimplementoval správně nastavení rychlosti a od RpiV4 prakticky nejde zpomalit rychlost HW I2C<br />
-sběrnice pod určitou mez (cca 100kbps - každé rpi to má jinak), ikdyž je v příkazu viz výše reportovaná hodnota jak byla 
+<p><strong>BUG2:</strong> Výrobce čipu neimplementoval správně nastavení rychlosti a od RpiV4 prakticky nejde zpomalit rychlost HW I2C
+sběrnice pod určitou mez (cca 100kbps - každé rpi to má jinak), ikdyž je v příkazu viz výše reportovaná hodnota jak byla
 nastavená. </p>
 <p>Díky těmto chybám prakticky nelze použít konfiguraci viz výše a musíme použít softwarově definované I2C, které těmito
-problémy netrpí. Použijte konfiguraci v <code>/boot/config.txt</code> (předchozí řádky musí být zakomentované aby se dvě implementace 
+problémy netrpí. Použijte konfiguraci v <code>/boot/config.txt</code> (předchozí řádky musí být zakomentované aby se dvě implementace
 nebily):</p>
 <pre><code>  dtoverlay=i2c-gpio,i2c_gpio_sda=2,i2c_gpio_scl=3,i2c_gpio_delay_us=6,bus=3
 </code></pre>
