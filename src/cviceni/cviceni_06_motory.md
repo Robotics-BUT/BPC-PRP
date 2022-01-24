@@ -131,6 +131,9 @@ Upravte program tak, aby po stisknutí tlačítka se motor rozjel na hodnotu ryc
 ## Komunikace se simulátorem
 
 ### RESET simulátoru
+
+[Zpráva RESET](./../simulator/rozhrani.md#RESET)
+
 V tomto cvičení již budete ovládat robota v simulátoru, je tedy nutné pravidelně navracet simulátor do výchozího stavu.
 Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho programu, lze to ale řešit přímočařeji, a to tak, 
 že při startu vašeho programu simulátoru pošlete NMEA zprávu pro reset, tedy `$RESET,*CHKSUM`.
