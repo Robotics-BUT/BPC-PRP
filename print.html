@@ -1179,17 +1179,20 @@ Obr: příklad konfigurace ROSu na dvou počítačích.</p>
 <h2><a class="header" href="#clion" id="clion">CLion</a></h2>
 <p>CLion si do nově nainstalovaného systému stáhněte z oficiálních stránek (viz <a href="chap_1_software/text/clion.html">CLion</a>)</p>
 <h1><a class="header" href="#simulátor" id="simulátor">Simulátor</a></h1>
-<h1><a class="header" href="#rozhraní-simulátoru" id="rozhraní-simulátoru">Rozhraní simulátoru</a></h1>
-<p>Pro komunikaci se simulátorem je používán protokol NMEA. Reálný robot implementuje<br />
-více příkazů než simulátor z důvodu lepšího ladění na hardware</p>
+<h1><a class="header" href="#rozhraní-simulátoru--robotu" id="rozhraní-simulátoru--robotu">Rozhraní simulátoru / robotu</a></h1>
+<p>Pro komunikaci se simulátorem i robotem je používán protokol NMEA-0183.</p>
+<p>Komunikace pomocí NMEA zpráv je vedena protokolem UDP na jediném portu formou dotaz-odpověď. Simulátor bude v textu značen 
+jako &quot;server&quot; a uživatelský program který mu odesílá dotazy jako &quot;klient&quot;.</p>
+<p>Některé zprávy neobsahují žádnou odpověď serveru. Reálný robot implementuje více příkazů než simulátor z důvodu lepšího<br />
+ladění na hardware. Tyto zprávy jsou simulátorem ignorovány.</p>
 <table><thead><tr><th>SIM</th><th>REAL</th><th>dotaz</th><th>odpověď</th></tr></thead><tbody>
 <tr><td>ANO</td><td>ANO</td><td><code>SPEED,&lt;left&gt;,&lt;right&gt;</code></td><td>-</td></tr>
 <tr><td>ANO</td><td>ANO</td><td><code>ODO</code></td><td><code>ODO,&lt;left&gt;,&lt;right&gt;</code></td></tr>
 <tr><td>ANO</td><td>ANO</td><td><code>SENSOR,&lt;id&gt;</code></td><td><code>SENSOR,&lt;id&gt;,&lt;hodnota&gt;</code></td></tr>
 <tr><td>ANO</td><td>ANO</td><td><code>PING,[&lt;data&gt;]</code></td><td><code>PONG,[&lt;data&gt;]</code></td></tr>
 <tr><td>ANO</td><td>ANO</td><td><code>RESET</code></td><td><code>RESET,DONE</code></td></tr>
-<tr><td></td><td>ANO</td><td><code>KILL</code></td><td></td></tr>
-<tr><td></td><td>ANO</td><td><code>HELP</code></td><td><code>HELP,&lt;cmd1&gt;,...</code></td></tr>
+<tr><td>1.7+</td><td>ANO</td><td><code>KILL</code></td><td></td></tr>
+<tr><td>1.7+</td><td>ANO</td><td><code>HELP</code></td><td><code>HELP,&lt;cmd1&gt;,...</code></td></tr>
 <tr><td></td><td>ANO</td><td><code>BEEP,[&lt;ms&gt;]</code></td><td></td></tr>
 <tr><td></td><td>ANO</td><td><code>LED,[&lt;ms&gt;]</code></td><td></td></tr>
 <tr><td></td><td>ANO</td><td><code>BTN</code></td><td><code>BTN,&lt;left&gt;,&lt;right&gt;</code></td></tr>
@@ -1199,21 +1202,75 @@ více příkazů než simulátor z důvodu lepšího ladění na hardware</p>
 </tbody></table>
 <h1><a class="header" href="#zprávy-ovládání-běhu-a-ladicí" id="zprávy-ovládání-běhu-a-ladicí">Zprávy ovládání běhu a ladicí</a></h1>
 <h2><a class="header" href="#ping" id="ping">PING</a></h2>
+<p>Server odešle odpověď PONG obsahující stejná textová data která byla ve zprávě PING. Slouží k ladění NMEA komunikace, a k 
+ověření Round-Trip-Time (RTT) serveru (časového zpoždění mezi serverem a klientem). Výpočet RTT si musí klient obhospodařit
+sám.</p>
 <h2><a class="header" href="#reset" id="reset">RESET</a></h2>
+<p>Po přijetí této zprávy se server nastaví na výchozí konfiguraci. </p>
+<p>Simulátor:</p>
+<ul>
+<li>pozice</li>
+</ul>
+<p>Robot:</p>
+<ul>
+<li>konfigurace ADC</li>
+<li>konfigurace GPIO</li>
+</ul>
+<p>Po ukončení server odesílá zprávu s parametrem <code>DONE</code> oznamující úspěch</p>
 <h2><a class="header" href="#kill" id="kill">KILL</a></h2>
+<p>Po přijetí této zprávy se server řízeně ukončí a nadále nepřijímá další příkazy.</p>
 <h2><a class="header" href="#help" id="help">HELP</a></h2>
+<p>Po přijetí této zprávy server odpoví seznamem všech podporovaných příkazů, oddělených čárkou</p>
 <h1><a class="header" href="#zprávy-ovládání-robotu" id="zprávy-ovládání-robotu">Zprávy ovládání robotu</a></h1>
 <h2><a class="header" href="#speed" id="speed">SPEED</a></h2>
-<p>nastaví rychlost levého i pravého kola v mikrokrocích za sekundu na požadovanou hodnotu. Tato hodnota je držena po dobu 1sec a poté je motor odpojen od napájení (bezpečnost). Je třeba zprávu opakovat pro kontinuální chod.</p>
-<p>left i right float</p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>float</td><td>left</td><td>ukrok / sec</td></tr>
+<tr><td>2</td><td>float</td><td>right</td><td>ukrok / sec</td></tr>
+</tbody></table>
+<p>Server nastaví rychlost levého i pravého kola v mikrokrocích za sekundu na požadovanou hodnotu. </p>
+<p>Tato hodnota je držena po dobu 1sec a poté je motor odpojen od napájení (bezpečnost). Je třeba zprávu opakovat pro kontinuální chod.</p>
 <h2><a class="header" href="#odo" id="odo">ODO</a></h2>
-<p>Požaduje od simulátoru zjištění ujeté vzdálenosti obou motorů v mikrokrocích od posledního zavolání tohoto příkazu, Odpoví zprávou <code>ODO</code></p>
-<p>left i right int64</p>
+<p>Požaduje od serveru zjištění ujeté vzdálenosti obou motorů v mikrokrocích od posledního zavolání tohoto příkazu, Odpoví zprávou <code>ODO</code><br />
+s následujícími hodnotami:</p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>int64</td><td>left</td><td>ukrok / sec</td></tr>
+<tr><td>2</td><td>int64</td><td>right</td><td>ukrok / sec</td></tr>
+</tbody></table>
+<p>Poznámka: Reálný robot počítá pouze s 32bitovým intem, kdežto simulátor se 64bitovým !</p>
 <h2><a class="header" href="#sensor" id="sensor">SENSOR</a></h2>
+<p>Požaduje od serveru změření hodnoty A/D převodníkem s daným indexem. </p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>int</td><td>index</td><td>0-7 bez rozměru</td></tr>
+</tbody></table>
+<p>Server odpoví zprávou <code>SENSOR</code> s následujícími hodnotami:</p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>int</td><td>index</td><td>0-7 bez rozměru</td></tr>
+<tr><td>2</td><td>int</td><td>value</td><td>bez rozměru</td></tr>
+</tbody></table>
 <h1><a class="header" href="#zprávy-interakce-s-uživatelem" id="zprávy-interakce-s-uživatelem">Zprávy interakce s uživatelem</a></h1>
 <h2><a class="header" href="#beep" id="beep">BEEP</a></h2>
-<h2><a class="header" href="#btn" id="btn">BTN</a></h2>
+<p>Robot pípne pípákem s dobou písknutí stanovenou v milisekundách.</p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>int</td><td>ms</td><td>ms</td></tr>
+</tbody></table>
+<p>Argument není nutné použit, pípák pak pískne s dobou 100ms.</p>
+<p>V okamžiku překrývajících se písknutí se prodlužuje doba písknutí.</p>
 <h2><a class="header" href="#led" id="led">LED</a></h2>
+<p>Robot blikne nakonfigurovanou LED dobou svitu stanovenou v milisekundách.</p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>int</td><td>ms</td><td>ms</td></tr>
+</tbody></table>
+<p>Argument není nutné použit, led pak blikne s dobou 100ms.</p>
+<p>V okamžiku překrývajících se bliknutí se prodlužuje doba svitu o stanovený čas.</p>
+<h2><a class="header" href="#btn" id="btn">BTN</a></h2>
+<p>Robot navrátí stav stisknutí obou tlačítek ve zprávě: </p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>bool</td><td>left</td><td>1=stisknuto</td></tr>
+<tr><td>2</td><td>bool</td><td>right</td><td>1=stisknuto</td></tr>
+</tbody></table>
+<h2><a class="header" href="#gpioget" id="gpioget">GPIO.GET</a></h2>
+<h2><a class="header" href="#gpioset" id="gpioset">GPIO.SET</a></h2>
+<h2><a class="header" href="#gpiodir" id="gpiodir">GPIO.DIR</a></h2>
 <h1><a class="header" href="#nmea---utilita" id="nmea---utilita">nmea - utilita</a></h1>
 <p>slouží pro ověření funkčnosti zpráv (na vyzkoušení že vše funguje jak má</p>
 <h1><a class="header" href="#robot" id="robot">robot</a></h1>
@@ -1485,7 +1542,7 @@ připojených čipů:</p>
 </code></pre>
 <p>Vysvětlete z výpisu, a s použitím datasheetů, které čipy máte na sběrnici připojené (různé RPI budou mít různé výstupy!)</p>
 <h3><a class="header" href="#stažení-vzorového-projektu" id="stažení-vzorového-projektu">Stažení vzorového projektu</a></h3>
-<p>Upravte vzorový projekt tak, aby obsahoval následující kód a spusťte jej:</p>
+<p>Vzorový projekt obsahuje následující kód: </p>
 <pre><code class="language-cpp">#include &lt;roboutils/IO/I2C.h&gt;
 
 using namespace RoboUtils;
@@ -1502,14 +1559,15 @@ int main()
   }
 }
 </code></pre>
-<p>Popište jeho funkci, prohlédněte si header, způsob jeho dokumentace a jaké možnosti Vám nabízí.</p>
+<p>spusťte jej, popište jeho funkci, prohlédněte si header, způsob jeho dokumentace a jaké možnosti Vám nabízí.</p>
 <h3><a class="header" href="#odchycení-zpráv-na-i2c-osciloskopem-identifikace-clock-stretchingu" id="odchycení-zpráv-na-i2c-osciloskopem-identifikace-clock-stretchingu">Odchycení zpráv na I2C osciloskopem, identifikace clock stretchingu</a></h3>
 <p>Připojte na osciloskop sběrnici I2C, osciloskop sesynchronizujte tak,
 abyste viděli stabilní průběh jedné úplné zprávy a ten popište.</p>
 <p>Hledejte START, STOP, hodnoty jednotlivých bitů dat i adresy, ACK.</p>
 <h2><a class="header" href="#gpio-60-minut" id="gpio-60-minut">GPIO (60 minut)</a></h2>
 <h3><a class="header" href="#vzorový-projekt" id="vzorový-projekt">Vzorový projekt</a></h3>
-<p>Upravte vzorový projekt tak, aby obsahoval následující kód:</p>
+<p>Založte na aktuáním &quot;master&quot; novou větev pojmenovanou &quot;hw-cv5-gpio&quot;, přepněte se do ní a upravte kód vzorového projektu tak, 
+aby obsahoval následující kód:</p>
 <pre><code class="language-cpp">#include &lt;roboutils/IO/GPIO.h&gt;
 
 using namespace RoboUtils;
@@ -1532,6 +1590,7 @@ int main()
 }
 </code></pre>
 <p>Popište jeho funkci, a ověřte ji spuštěním. Opět si prohlédněte dokumentaci a nabízené funkce.</p>
+<p>COMMIT / PUSH</p>
 <h3><a class="header" href="#reakce-na-tlačítko-ovládání-běhu-programu-pomocí-tlačítek" id="reakce-na-tlačítko-ovládání-běhu-programu-pomocí-tlačítek">Reakce na tlačítko, ovládání běhu programu pomocí tlačítek</a></h3>
 <p>Zadefinujte tlačítka jako proměnné LBUT a RBUT, nastavte je jako
 vstupní s pullupem.</p>
@@ -1539,6 +1598,7 @@ vstupní s pullupem.</p>
 <p>Přenastavte výstupní port pro PB5 do režimu &quot;otevřený kolektor&quot;,
 duplikujte stav LED1 a diskutujte viditelné rozdíly na pinech
 PB4 a PB5 s použitím osciloskopu.</p>
+<p>COMMIT / PUSH</p>
 <h3><a class="header" href="#ošetření-zákmitů-tlačítka" id="ošetření-zákmitů-tlačítka">Ošetření zákmitů tlačítka</a></h3>
 <p>Vytvořte si proměnnou value, a inicializujte ji na nulu.</p>
 <p>Vytvořte z portu PB0 - PB5 &quot;bargraf&quot; zobrazující hodnotu value v
@@ -1547,8 +1607,13 @@ všechny delaye).</p>
 <p>Upravte program tak, aby tlačítkem při každém <strong>stisknutí</strong> zvýšil
 hodnotu value o 1. Volitelně můžete použít i tisk na obrazovku.
 Pozor na zákmity tlačítka !!</p>
+<p>COMMIT / PUSH</p>
+<h3><a class="header" href="#nmea-simulátor" id="nmea-simulátor">NMEA (simulátor)</a></h3>
+<p>Pro obsluhu GPIO v simulátoru jsou vyhrazeny příkazy <a href="cviceni/./../simulator/rozhrani.html#beep">BEEP</a>, <a href="cviceni/./../simulator/rozhrani.html#led">LED</a>, <a href="cviceni/./../simulator/rozhrani.html#btn">BTN</a>, případně nízkoúrovňové <a href="cviceni/./../simulator/rozhrani.html#gpio.get">GPIO.GET</a>, <a href="cviceni/./../simulator/rozhrani.html#gpio.set">GPIO.SET</a>, <a href="cviceni/./../simulator/rozhrani.html#gpio.dir">GPIO.DIR</a>, avšak tyto nejsou nijak simulátorem zpracovávány. Implementujte je do svého programu pouze v okamžiku, pokud budete chtít získat 5b navíc jízdou reálného robotu na konci semestru.</p>
 <h2><a class="header" href="#adc-60minut" id="adc-60minut">ADC (60minut)</a></h2>
-<h3><a class="header" href="#stažení-vzorového-projektu-1" id="stažení-vzorového-projektu-1">Stažení vzorového projektu</a></h3>
+<h3><a class="header" href="#vzorový-projekt-1" id="vzorový-projekt-1">Vzorový projekt</a></h3>
+<p>Založte na aktuáním &quot;master&quot; novou větev pojmenovanou &quot;hw-cv5-adc&quot;, přepněte se do ní a upravte kód vzorového projektu tak, 
+aby obsahoval následující kód:</p>
 <pre><code class="language-cpp">#include &lt;roboutils/IO/ADC.h&gt;
 
 using namespace RoboUtils;
@@ -1566,6 +1631,7 @@ int main()
 }
 </code></pre>
 <p>Popište jeho funkci, a ověřte ji spuštěním. Opět si prohlédněte dokumentaci a nabízené funkce.</p>
+<p>COMMIT / PUSH</p>
 <h3><a class="header" href="#princip-měření" id="princip-měření">Princip měření</a></h3>
 <p>Popište, jak funguje A/D převodník, a jaké hodnoty na svém výstupu dává.</p>
 <p>S pomocí datasheetu popište, minimální, a maximální čtenou hodnotu na pinu ADC2 a případně chybějící kódy. 
@@ -1575,13 +1641,17 @@ Ověřte na reálném hardware s pomocí dodaného obyčejného potenciometru.</
 převede změřenou analogovou hodnotu na absolutní hodnotu napětí.</p>
 <p>Konstantu implementujte v kódu a porovnejte s údajem zobrazeným na zdroji DIAMETRAL. Diskutujte
 výsledky.</p>
+<p>COMMIT / PUSH</p>
 <h3><a class="header" href="#dosažitelná-přesnost-měření" id="dosažitelná-přesnost-měření">Dosažitelná přesnost měření</a></h3>
 <p>Na desku byly osazeny rezistory s tolerancí 5%. Spočítejte, jaká bude tolerance měřeného napětí
 v 10 bitovém, 14bitovém a 18bitovém režimu měření ? U všech tolerancí počítejte s obdélníkovým
 tolerančním polem (značně si usnadníte práci)</p>
 <p>Odpovídá pozorovaný údaj vypočítané toleranci měření ?</p>
-<h3><a class="header" href="#simulátor-1" id="simulátor-1">Simulátor</a></h3>
-<p>Funkcionalita AD převodníku je v simulátoru integrována přes NMEA zprávu ODO. Reálný program pro robot na ni odpovídá též</p>
+<h3><a class="header" href="#nmea-simulátor-1" id="nmea-simulátor-1">NMEA (simulátor)</a></h3>
+<p>Pro obsluhu analogově/digitálního převodníku v simulátoru je vyhrazen příkaz <a href="cviceni/./../simulator/rozhrani.html#sensor">SENSOR</a>. 
+Vraťte se tedy ke kódu předchozího cvičení (jiný projekt) a zkuste změřit na reálném robotu (nebo i simulovaném doma) 
+úroveň napájecího napětí, tentokráte s pomocí NMEA zpráv.</p>
+<p>(tuto část můžete již dělat na simulátoru doma, nezapomeňte commitovat/ pushovat aby i ostatní změny viděli !)</p>
 <h1><a class="header" href="#očekávané-výstupy-práce-v-tomto-cvičení" id="očekávané-výstupy-práce-v-tomto-cvičení">Očekávané výstupy práce v tomto cvičení</a></h1>
 <p>✅ Jste schopni na reálném hardware nastavit I2C sběrnici</p>
 <p>✅ Chápete možné problémy a důsledky použití sběrnice I2C</p>
@@ -1608,7 +1678,7 @@ tolerančním polem (značně si usnadníte práci)</p>
 <h3><a class="header" href="#Řetězec-řízení" id="Řetězec-řízení">Řetězec řízení</a></h3>
 <p>Raspberry -- I2C -- interpolátor -- budič -- motor -- převodovka -- kolo</p>
 <h3><a class="header" href="#příklad-komunikace-s-krokovým-motorem" id="příklad-komunikace-s-krokovým-motorem">Příklad komunikace s krokovým motorem</a></h3>
-<p>Upravte program z předchozího cvičení aby obsahoval tuto smyčku</p>
+<p>Vraťte se k programu z předchozího cvičení, založte novou větev &quot;hw-cv6-km2&quot; na původním masteru a vložte tento kód:</p>
 <pre><code class="language-cpp">  using namespace RoboUtils;
 
   const auto LBUT = Pin::PA7;
@@ -1636,9 +1706,10 @@ tolerančním polem (značně si usnadníte práci)</p>
     km2.drive(0,0);
   }
 </code></pre>
+<p>COMMIT / PUSH</p>
 <p>Program spusťte, motor by se měl pomalu roztočit. Prozkoumejte API knihovny jakým způsobem to je provedeno.</p>
 <h3><a class="header" href="#motor-připojený-ke-kolu---metrický-popis-jednotek" id="motor-připojený-ke-kolu---metrický-popis-jednotek">Motor připojený ke kolu - metrický popis jednotek</a></h3>
-<p>Krokový motor se s každým impulzem na vinutích posunuje o 1 krok (step). Tyto kroky je ale možné rozdělit na menší části, mikrokroky.</p>
+<p>Krokový motor se s každým impulzem na vinutích posunuje o 1 krok (step). Tyto kroky je možné rozdělit na menší části, mikrokroky.</p>
 <p>✅ Počet kroků na otáčku je vlastností daného krokového motoru. Mikrokrok a množství jeho úrovní je vlastností použitého budiče motorů.</p>
 <p>✅ Z katalogového listu motoru byste zjistili, že rozměr kroku je 1.8°, na plnou otáčku tedy připadá kolik kroků?</p>
 <details>
@@ -1669,6 +1740,7 @@ této rychlosti na napájecím proudu obou motorů (zdroj DIAMETRAL, měření p
     <summary>Pozorování</summary>
     Proud, tedy výkon dodávaný do zátěže od určité rychlosti začne klesat !
 </details>
+<p>COMMIT / PUSH</p>
 <p>Vysvětlete pozorované chování a zhodnoťte důsledky pro řízení takovéhoto motoru</p>
 <details>
     <summary>Odpověď</summary>
@@ -1681,47 +1753,40 @@ Pozorujte chování a zhodnoťte pozorování.</p>
     <summary>Odpověď</summary>
     Při nejvyšším příkonu můžeme vyvinout nejvyšší sílu. Sílu temelínu najdeme v hermelínu. Čím vyšší bude mít robot hmotnost, tím více zatěžujeme motory a tím menší zrychlení utáhne. Problém lze obejít snížením síly potřebné pro otáčení - tj snížením zrychlení.
 </details>
+<p>COMMIT / PUSH</p>
 <h3><a class="header" href="#rampový-generátor" id="rampový-generátor">Rampový generátor</a></h3>
 <p>Snížení zrychlení lze realizovat různými způsoby (například interpolací po S-křivce). Jednodušší variantou je interpolace po obyčejné rychlostní<br />
 (někdy též zvané trapézoidní) rampě, která je mnohem jednodušší.</p>
 <p>✅ Algoritmus: V každém kroku řízení k momentální rychlosti motoru přičteme požadovanou diferenci rychlosti se stejným znaménkem jako má rozdíl <code>požadovaná rychlost - momentální rychlost</code>. Tuto diferenci však saturujeme na maximálních hodnotách.</p>
 <p><img src="cviceni/../images/ramp_gen.jpg" alt="Generator Ramp" /></p>
-<p>Generátor rampy, který běží periodicky pořád, nám efektivně řeší problém s opakováním řídicích zpráv pro motory, stačí periodicky získávat novou hodnotu rychlosti z generátoru ramp a tu posílat budiči motoru (simulátoru).</p>
-<p>Upravte program tak, aby po stisknutí tlačítka se motor rozjel na hodnotu rychlosti, při které byl naměřen <strong>poloviční</strong> proud v předchozím experimentu a porovnejte výsledky s předchozím měřením</p>
+<p>Generátor rampy, který běží periodicky, efektivně řeší problém s opakováním řídicích zpráv pro motory, stačí periodicky získávat novou hodnotu rychlosti z generátoru ramp a tu posílat budiči motoru (simulátoru).</p>
+<p>Upravte program tak, aby se po stisknutí tlačítka motor rozjel na hodnotu rychlosti, při které byl naměřen <strong>poloviční</strong> proud v předchozím experimentu a porovnejte výsledky s předchozím měřením</p>
 <details>
     <summary>Pozorování</summary>
     Motor se snížením rampy lze zatížit více a tím pádem dosáhnout vyšší rychlosti bez zastavení. Čím pomalejší rampa je, tím více síly motoru zbyde pro udržení rychlosti, ale reakce motoru se notně zpomalí.
 </details>
-<h2><a class="header" href="#komunikace-se-simulátorem" id="komunikace-se-simulátorem">Komunikace se simulátorem</a></h2>
-<h3><a class="header" href="#reset-simulátoru" id="reset-simulátoru">RESET simulátoru</a></h3>
-<p><a href="cviceni/./../simulator/rozhrani.html#RESET">Zpráva RESET</a></p>
-<p>V tomto cvičení již budete ovládat robota v simulátoru, je tedy nutné pravidelně navracet simulátor do výchozího stavu.
-Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho programu, lze to ale řešit přímočařeji, a to tak, 
-že při startu vašeho programu simulátoru pošlete NMEA zprávu pro reset, tedy <code>$RESET,*CHKSUM</code>.</p>
-<p>✅ Po odeslání resetu byste měli přijmout NMEA zprávu začínající slovy <code>$RESET,DONE</code>.</p>
-<h2><a class="header" href="#ovladání-motorů-v-simulátoru" id="ovladání-motorů-v-simulátoru">Ovladání motorů v simulátoru</a></h2>
+<p>COMMIT / PUSH</p>
+<h2><a class="header" href="#nmea-protokol" id="nmea-protokol">NMEA protokol</a></h2>
+<p>Otevřete si projekt z minulého / předminulého cvičení, kde jste zpracovávali NMEA protokol. Následující body již nemusíte tvořit na cvičení, lze je realizovat i v simulátoru.</p>
+<p>V tomto cvičení již budete ovládat robota pomocí NMEA zpráv, je tedy nutné pravidelně navracet simulátor do výchozího stavu.
+Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho programu, lze to ale řešit přímočařeji, a to tak,
+že při startu vašeho programu simulátoru pošlete NMEA zprávu <a href="cviceni/./../simulator/rozhrani.html#reset">RESET</a>.</p>
+<p>✅ Po odeslání resetu byste měli přijmout NMEA zprávu <code>$RESET,DONE</code>.</p>
+<p>Pakliže nepřijmete DONE, program ukončete s chybou.</p>
 <p>Simulátor simuluje chování dvou krokových motorů, na které jsou namonotována kola uživatelsky definovaného průměru.
-Motory jsou řízeny pomocí NMEA zpráv posílaných simulátoru.</p>
-<p>Zprávy, kterými lze řídit motory jsou následující:</p>
-<table><thead><tr><th>směr</th><th>příkaz</th><th>parametr 1</th><th>parametr 2</th></tr></thead><tbody>
-<tr><td>vysílání</td><td><code>SPEED</code></td><td>float left</td><td>float right</td></tr>
-<tr><td>vysílání</td><td><code>ODO</code></td><td></td><td></td></tr>
-<tr><td>příjem</td><td><code>ODO</code></td><td>int64 left</td><td>int64 right</td></tr>
-</tbody></table>
-<p><strong>SPEED</strong></p>
-<p>nastaví rychlost levého i pravého kola v mikrokrocích za sekundu na požadovanou hodnotu. Tato hodnota je držena po dobu 1sec a poté je motor odpojen od napájení (bezpečnost). Je třeba zprávu opakovat pro kontinuální chod.</p>
-<p><strong>ODO</strong></p>
-<p>Požaduje od simulátoru zjištění ujeté vzdálenosti obou motorů v mikrokrocích od posledního zavolání tohoto příkazu, Odpoví zprávou <code>RODO</code></p>
-<h3><a class="header" href="#posílaní-řídicích-zpráv" id="posílaní-řídicích-zpráv">Posílaní řídicích zpráv</a></h3>
-<p>Z tabulky výše víme, že příkaz pro nastavení rychlosti motoru je <code>LSPEED</code>.
-Pošleme tedy tento příkaz simulátoru s nějakou malou rychlostí levého kola, třeba 0.05 otáčky za sekundu a nulovou rychlostí pravého kola.</p>
+Motory jsou řízeny pomocí NMEA zpráv <a href="cviceni/./../simulator/rozhrani.html#speed">SPEED</a> a <a href="cviceni/./../simulator/rozhrani.html#odo">ODO</a> posílaných simulátoru.</p>
+<h3><a class="header" href="#nastavení-rychlosti-kol" id="nastavení-rychlosti-kol">Nastavení rychlosti kol</a></h3>
+<p>Příkaz pro nastavení rychlosti motoru je <a href="cviceni/./../simulator/rozhrani.html#speed">SPEED</a>. Pošleme tedy tento příkaz simulátoru s nějakou malou 
+rychlostí levého kola, třeba 0.05 otáčky za sekundu a nulovou rychlostí pravého kola.</p>
 <p>✅ Pokud nám vše správně funguje, měl by se robot v simulátoru začít pomalu otáčet.</p>
 <p>Motor se po asi 1 s otáčení zastaví, toto je bezpečnostní funkce, která je implementována v našich reálných budičích motorů. V případě softwarové chyby, kdy by spadl řídicí program, by se totiž robot mohl nekontrolovatelně rozjet.
-Je tedy nutné řídicí příkazy posílat pořád.</p>
+Je tedy nutné řídicí příkazy posílat periodicky.</p>
 <p>✅ Pokuste se najít maximální rychlost, které jste schopni v simulátoru bez rampy dosáhnout.</p>
-<h2><a class="header" href="#Čtení-ujeté-vzdálenosti" id="Čtení-ujeté-vzdálenosti">Čtení ujeté vzdálenosti</a></h2>
-<p>Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné si to již teď připravit.
-Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazů <code>LODO</code> a <code>RODO</code>. Tyto příkazy způsobí, že nám simulátor pošle ujetou vzdálenost v mikrokrocích a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.</p>
+<p>COMMIT / PUSH</p>
+<h3><a class="header" href="#Čtení-ujeté-vzdálenosti" id="Čtení-ujeté-vzdálenosti">Čtení ujeté vzdálenosti</a></h3>
+<p>Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné
+si to již teď připravit. Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazu <a href="cviceni/./../simulator/rozhrani.html#odo">ODO</a>. Tento příkaz 
+způsobí, že nám simulátor pošle ujetou vzdálenost v mikrokrocích pro obě kola a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.</p>
 <p>✅ Vyzkoušejte si čtení ujeté vzdálenosti obou motorů a jejich přepočet na ujeté metry.</p>
 <p>✅ Vyzkoušejte si, že se hodnota ujeté vzdálenosti opravdu nuluje.</p>
 <h2><a class="header" href="#očekávané-výstupy-práce-v-tomto-cvičení-1" id="očekávané-výstupy-práce-v-tomto-cvičení-1">Očekávané výstupy práce v tomto cvičení</a></h2>

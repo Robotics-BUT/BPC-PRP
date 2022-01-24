@@ -155,17 +155,20 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#rozhraní-simulátoru" id="rozhraní-simulátoru">Rozhraní simulátoru</a></h1>
-<p>Pro komunikaci se simulátorem je používán protokol NMEA. Reálný robot implementuje<br />
-více příkazů než simulátor z důvodu lepšího ladění na hardware</p>
+                        <h1><a class="header" href="#rozhraní-simulátoru--robotu" id="rozhraní-simulátoru--robotu">Rozhraní simulátoru / robotu</a></h1>
+<p>Pro komunikaci se simulátorem i robotem je používán protokol NMEA-0183.</p>
+<p>Komunikace pomocí NMEA zpráv je vedena protokolem UDP na jediném portu formou dotaz-odpověď. Simulátor bude v textu značen 
+jako &quot;server&quot; a uživatelský program který mu odesílá dotazy jako &quot;klient&quot;.</p>
+<p>Některé zprávy neobsahují žádnou odpověď serveru. Reálný robot implementuje více příkazů než simulátor z důvodu lepšího<br />
+ladění na hardware. Tyto zprávy jsou simulátorem ignorovány.</p>
 <table><thead><tr><th>SIM</th><th>REAL</th><th>dotaz</th><th>odpověď</th></tr></thead><tbody>
 <tr><td>ANO</td><td>ANO</td><td><code>SPEED,&lt;left&gt;,&lt;right&gt;</code></td><td>-</td></tr>
 <tr><td>ANO</td><td>ANO</td><td><code>ODO</code></td><td><code>ODO,&lt;left&gt;,&lt;right&gt;</code></td></tr>
 <tr><td>ANO</td><td>ANO</td><td><code>SENSOR,&lt;id&gt;</code></td><td><code>SENSOR,&lt;id&gt;,&lt;hodnota&gt;</code></td></tr>
 <tr><td>ANO</td><td>ANO</td><td><code>PING,[&lt;data&gt;]</code></td><td><code>PONG,[&lt;data&gt;]</code></td></tr>
 <tr><td>ANO</td><td>ANO</td><td><code>RESET</code></td><td><code>RESET,DONE</code></td></tr>
-<tr><td></td><td>ANO</td><td><code>KILL</code></td><td></td></tr>
-<tr><td></td><td>ANO</td><td><code>HELP</code></td><td><code>HELP,&lt;cmd1&gt;,...</code></td></tr>
+<tr><td>1.7+</td><td>ANO</td><td><code>KILL</code></td><td></td></tr>
+<tr><td>1.7+</td><td>ANO</td><td><code>HELP</code></td><td><code>HELP,&lt;cmd1&gt;,...</code></td></tr>
 <tr><td></td><td>ANO</td><td><code>BEEP,[&lt;ms&gt;]</code></td><td></td></tr>
 <tr><td></td><td>ANO</td><td><code>LED,[&lt;ms&gt;]</code></td><td></td></tr>
 <tr><td></td><td>ANO</td><td><code>BTN</code></td><td><code>BTN,&lt;left&gt;,&lt;right&gt;</code></td></tr>
@@ -175,21 +178,75 @@ více příkazů než simulátor z důvodu lepšího ladění na hardware</p>
 </tbody></table>
 <h1><a class="header" href="#zprávy-ovládání-běhu-a-ladicí" id="zprávy-ovládání-běhu-a-ladicí">Zprávy ovládání běhu a ladicí</a></h1>
 <h2><a class="header" href="#ping" id="ping">PING</a></h2>
+<p>Server odešle odpověď PONG obsahující stejná textová data která byla ve zprávě PING. Slouží k ladění NMEA komunikace, a k 
+ověření Round-Trip-Time (RTT) serveru (časového zpoždění mezi serverem a klientem). Výpočet RTT si musí klient obhospodařit
+sám.</p>
 <h2><a class="header" href="#reset" id="reset">RESET</a></h2>
+<p>Po přijetí této zprávy se server nastaví na výchozí konfiguraci. </p>
+<p>Simulátor:</p>
+<ul>
+<li>pozice</li>
+</ul>
+<p>Robot:</p>
+<ul>
+<li>konfigurace ADC</li>
+<li>konfigurace GPIO</li>
+</ul>
+<p>Po ukončení server odesílá zprávu s parametrem <code>DONE</code> oznamující úspěch</p>
 <h2><a class="header" href="#kill" id="kill">KILL</a></h2>
+<p>Po přijetí této zprávy se server řízeně ukončí a nadále nepřijímá další příkazy.</p>
 <h2><a class="header" href="#help" id="help">HELP</a></h2>
+<p>Po přijetí této zprávy server odpoví seznamem všech podporovaných příkazů, oddělených čárkou</p>
 <h1><a class="header" href="#zprávy-ovládání-robotu" id="zprávy-ovládání-robotu">Zprávy ovládání robotu</a></h1>
 <h2><a class="header" href="#speed" id="speed">SPEED</a></h2>
-<p>nastaví rychlost levého i pravého kola v mikrokrocích za sekundu na požadovanou hodnotu. Tato hodnota je držena po dobu 1sec a poté je motor odpojen od napájení (bezpečnost). Je třeba zprávu opakovat pro kontinuální chod.</p>
-<p>left i right float</p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>float</td><td>left</td><td>ukrok / sec</td></tr>
+<tr><td>2</td><td>float</td><td>right</td><td>ukrok / sec</td></tr>
+</tbody></table>
+<p>Server nastaví rychlost levého i pravého kola v mikrokrocích za sekundu na požadovanou hodnotu. </p>
+<p>Tato hodnota je držena po dobu 1sec a poté je motor odpojen od napájení (bezpečnost). Je třeba zprávu opakovat pro kontinuální chod.</p>
 <h2><a class="header" href="#odo" id="odo">ODO</a></h2>
-<p>Požaduje od simulátoru zjištění ujeté vzdálenosti obou motorů v mikrokrocích od posledního zavolání tohoto příkazu, Odpoví zprávou <code>ODO</code></p>
-<p>left i right int64</p>
+<p>Požaduje od serveru zjištění ujeté vzdálenosti obou motorů v mikrokrocích od posledního zavolání tohoto příkazu, Odpoví zprávou <code>ODO</code><br />
+s následujícími hodnotami:</p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>int64</td><td>left</td><td>ukrok / sec</td></tr>
+<tr><td>2</td><td>int64</td><td>right</td><td>ukrok / sec</td></tr>
+</tbody></table>
+<p>Poznámka: Reálný robot počítá pouze s 32bitovým intem, kdežto simulátor se 64bitovým !</p>
 <h2><a class="header" href="#sensor" id="sensor">SENSOR</a></h2>
+<p>Požaduje od serveru změření hodnoty A/D převodníkem s daným indexem. </p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>int</td><td>index</td><td>0-7 bez rozměru</td></tr>
+</tbody></table>
+<p>Server odpoví zprávou <code>SENSOR</code> s následujícími hodnotami:</p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>int</td><td>index</td><td>0-7 bez rozměru</td></tr>
+<tr><td>2</td><td>int</td><td>value</td><td>bez rozměru</td></tr>
+</tbody></table>
 <h1><a class="header" href="#zprávy-interakce-s-uživatelem" id="zprávy-interakce-s-uživatelem">Zprávy interakce s uživatelem</a></h1>
 <h2><a class="header" href="#beep" id="beep">BEEP</a></h2>
-<h2><a class="header" href="#btn" id="btn">BTN</a></h2>
+<p>Robot pípne pípákem s dobou písknutí stanovenou v milisekundách.</p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>int</td><td>ms</td><td>ms</td></tr>
+</tbody></table>
+<p>Argument není nutné použit, pípák pak pískne s dobou 100ms.</p>
+<p>V okamžiku překrývajících se písknutí se prodlužuje doba písknutí.</p>
 <h2><a class="header" href="#led" id="led">LED</a></h2>
+<p>Robot blikne nakonfigurovanou LED dobou svitu stanovenou v milisekundách.</p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>int</td><td>ms</td><td>ms</td></tr>
+</tbody></table>
+<p>Argument není nutné použit, led pak blikne s dobou 100ms.</p>
+<p>V okamžiku překrývajících se bliknutí se prodlužuje doba svitu o stanovený čas.</p>
+<h2><a class="header" href="#btn" id="btn">BTN</a></h2>
+<p>Robot navrátí stav stisknutí obou tlačítek ve zprávě: </p>
+<table><thead><tr><th>argument</th><th>formát</th><th>proměnná</th><th>jednotka</th></tr></thead><tbody>
+<tr><td>1</td><td>bool</td><td>left</td><td>1=stisknuto</td></tr>
+<tr><td>2</td><td>bool</td><td>right</td><td>1=stisknuto</td></tr>
+</tbody></table>
+<h2><a class="header" href="#gpioget" id="gpioget">GPIO.GET</a></h2>
+<h2><a class="header" href="#gpioset" id="gpioset">GPIO.SET</a></h2>
+<h2><a class="header" href="#gpiodir" id="gpiodir">GPIO.DIR</a></h2>
 
                     </main>
 
