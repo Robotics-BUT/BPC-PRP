@@ -16,6 +16,7 @@
     - [Instalace a seznámení se s prostředím](./cviceni/cviceni_02_linux.md)
     - [GIT, simulátor](./cviceni/cviceni_03_git.md)
     - [UDP komunikace](./cviceni/cviceni_04_udp.md)
+    - [Hardware, I2C, ADC](./cviceni/cviceni_05_i2c.md)
     - [Řízení motorů](./cviceni/cviceni_06_motory.md)
     - [Snímání čáry](./cviceni/cviceni_07_snimac_cary.md)
     - [Návrh regulátoru](./cviceni/cviceni_09_regulator.md)
