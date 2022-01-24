@@ -25,18 +25,18 @@ Pro aktivaci hardwarového i2c na pinech 2 a 3 platí následující výstřiže
 
 Pro zjištění aktuálního baudrate můžete použít `sudo cat /sys/kernel/debug/clk/clk_summary`
 
-[ERRATA](https://elinux.org/BCM2835_datasheet_errata) Je třeba si všimnout že **errata nevydal výrobce čipu**, ten se k   
+[ERRATA](https://elinux.org/BCM2835_datasheet_errata) Je třeba si všimnout že **errata nevydal výrobce čipu**, ten se k
 němu nezná, je to levný výrobce!
 
-**BUG1:** Výrobce čipu implementoval chybně clock stretching, a pomalá periferie kompletně zruší přenos po sběrnici (vymaže   
+**BUG1:** Výrobce čipu implementoval chybně clock stretching, a pomalá periferie kompletně zruší přenos po sběrnici (vymaže
 jeden nebo více CLK pulsů). Sběrnice tedy musí běžet rychlostí podle nejpomalejší periferie.
 
-**BUG2:** Výrobce čipu neimplementoval správně nastavení rychlosti a od RpiV4 prakticky nejde zpomalit rychlost HW I2C   
-sběrnice pod určitou mez (cca 100kbps - každé rpi to má jinak), ikdyž je v příkazu viz výše reportovaná hodnota jak byla 
+**BUG2:** Výrobce čipu neimplementoval správně nastavení rychlosti a od RpiV4 prakticky nejde zpomalit rychlost HW I2C
+sběrnice pod určitou mez (cca 100kbps - každé rpi to má jinak), ikdyž je v příkazu viz výše reportovaná hodnota jak byla
 nastavená. 
 
 Díky těmto chybám prakticky nelze použít konfiguraci viz výše a musíme použít softwarově definované I2C, které těmito
-problémy netrpí. Použijte konfiguraci v `/boot/config.txt` (předchozí řádky musí být zakomentované aby se dvě implementace 
+problémy netrpí. Použijte konfiguraci v `/boot/config.txt` (předchozí řádky musí být zakomentované aby se dvě implementace
 nebily):
 
 
