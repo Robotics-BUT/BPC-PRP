@@ -147,7 +147,7 @@ Zprávy, kterými lze řídit motory jsou následující:
 |----------|---------- | -----------|------------ |
 | vysílání | `SPEED`   | float left | float right |
 | vysílání | `ODO`     |            |             |
-| příjem   | `RODO`    | int64 left | int64 right |
+| příjem   | `ODO`    | int64 left | int64 right |
 
 **SPEED**
 

@@ -11,6 +11,9 @@
     - [Robotic Operating System](chap_1_software/text/ros.md)
     - [Příprava prostředí](chap_1_software/text/vb.linux_installation.md)
 
+- [Simulátor](./simulator/intro.md)
+    - [Rozhraní](./simulator/rozhrani.md)
+
 - [Cviceni](./cviceni/cviceni_uvod.md)
 
     - [Instalace a seznámení se s prostředím](./cviceni/cviceni_02_linux.md)

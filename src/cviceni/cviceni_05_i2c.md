@@ -159,15 +159,21 @@ int main()
   ADC adc{&i2c};
 
   while (true) {
+    auto result = adc.Mode2Measure(0);
+    std::cout << result[0] << std::endl;
     delay(100);
-
   }
 }
 ```
 
+Popište jeho funkci, a ověřte ji spuštěním. Opět si prohlédněte dokumentaci a nabízené funkce.
+
 ### Princip měření
 
-### Převod ADC hodnoty na napětí
+Popište, jak funguje A/D převodník, a jaké hodnoty na svém výstupu dává.
+
+S pomocí datasheetu popište, minimální, a maximální čtenou hodnotu na pinu ADC2 a případně chybějící kódy. 
+Ověřte na reálném hardware s pomocí dodaného obyčejného potenciometru.
 
 ### Vliv vstupního děliče
 
@@ -180,12 +186,16 @@ výsledky.
 ### Dosažitelná přesnost měření
 
 Na desku byly osazeny rezistory s tolerancí 5%. Spočítejte, jaká bude tolerance měřeného napětí
-v 10 bitovém, 14bitovém a 18bitovém režimu měření ? U všech tolerancí počítejte s obdélníkovým   
+v 10 bitovém, 14bitovém a 18bitovém režimu měření ? U všech tolerancí počítejte s obdélníkovým
 tolerančním polem (značně si usnadníte práci)
 
 Odpovídá pozorovaný údaj vypočítané toleranci měření ?
 
-## Očekávané výstupy práce v tomto cvičení
+### Simulátor
+
+Funkcionalita AD převodníku je v simulátoru integrována přes NMEA zprávu ODO. Reálný program pro robot na ni odpovídá též
+
+# Očekávané výstupy práce v tomto cvičení
 
 ✅ Jste schopni na reálném hardware nastavit I2C sběrnici
 
