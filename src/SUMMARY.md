@@ -13,6 +13,8 @@
 
 - [Simulátor](./simulator/intro.md)
     - [Rozhraní](./simulator/rozhrani.md)
+    - [Program nmea](./simulator/nmea.md)
+    - [Program robot](./simulator/robot.md)
 
 - [Cviceni](./cviceni/cviceni_uvod.md)
 
