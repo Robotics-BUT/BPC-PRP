@@ -156,7 +156,32 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#nmea---utilita" id="nmea---utilita">nmea - utilita</a></h1>
-<p>slouží pro ověření funkčnosti zpráv (na vyzkoušení že vše funguje jak má</p>
+<p>slouží pro ověření funkčnosti zpráv (na vyzkoušení že vše funguje jak má. Po spuštění v interaktivním režimu je emulována konzole, uživatel může ručně zadat<br />
+NMEA příkaz (bez počátečního $ a části s CRC s hvězdičkou. Program spočítá správné CRC a odešle jej na daný UDP port. (vypíše celou zprávu včetně správného CRC)</p>
+<p>Příkaz slouží zejména pro ověření že správně počítáte CRC a že vám běží server (oddělení chyb špatně spuštěného simulátoru od vaší chyby v programu).</p>
+<p>Příkaz je doporučeno ručně nainstalovat (zkopírovat) do <code>/usr/bin</code> dle platformy. Na platformě raspberry pi si soubor <code>nmea_armhf</code> před zkopírováním do <code>/usr/bin</code> přejmenujte na <code>nmea</code>. identicky pro <code>x86</code> a <code>arm64</code> na osobním počítači</p>
+<h2><a class="header" href="#spouštěcí-argumenty" id="spouštěcí-argumenty">Spouštěcí argumenty</a></h2>
+<pre><code class="language-shell">nmea [--help] [--version] [--local=&lt;udp port&gt;] [--remote=]&lt;ip addr&gt;/&lt;udp port&gt;
+</code></pre>
+<p>Jednotlivé argumenty příkazové řádky:</p>
+<p><code>--help</code> : Vypiš stručnou nápovědu a ukonči se</p>
+<p><code>--version</code> : Vypiš aktuální verzi nástroje a ukonči se.</p>
+<p><code>--local=&lt;udp port&gt;</code> : nastaví lokální číslo UDP portu na kterém má naslouchat (default: 6667). <code>&lt;udp port&gt;</code> musí být celé číslo v rozsahu 1024 - 65535. UDP port nesmí být na lokálním počítači obsazený. Pro použití portu pod <code>1024</code> je potřeba program spustit jako <code>sudo</code>.</p>
+<p><code>--remote=&lt;ip addr&gt;/&lt;udp port&gt;</code> nebo <code>&lt;ip addr&gt;/&lt;udp port&gt;</code> : <strong>povinný parametr</strong>. Nastaví adresu a port vzdáleného počítače. IP adresa musí být specifikovaná číselně v tečkové konvenci (např 127.0.0.1), DNS překlad není podporován. Port musí být celé číslo v rozsahu 1024-65535. Oddělovač adresy a portu je lomítko z důvodu budoucí kompatibility s IPv6 (adresa ipv6 má dvojtečku jako oddělovač částí takže nejde použít pro oddělení části portu od adresy). Adresy IPv6 prozatím nejsou podporovány, ale je na ně příprava. Pro použití portu pod <code>1024</code> je potřeba program spustit jako <code>sudo</code></p>
+<h2><a class="header" href="#příklad-použití" id="příklad-použití">Příklad použití</a></h2>
+<p>V následujícím příkladu se komunikuje s reálným robotem na adrese 10.16.0.247 na portu 6666. uživatel zadal na klávesnici <code>BEEP</code> a stiskl enter, <code>PING</code> a stiskl enter. Je vidět odeslaná zpráva i přijatá zpráva od serveru.</p>
+<pre><code class="language-shell">bufran@pcburian:~$ nmea 10.16.0.247/6666
+NMEA sender v 0.2 (c) 2022 Frantisek Burian
+ communicating with remote 10.16.0.247/6666
+ using local port 6667
+ Press Ctrl-C to exit
+&gt; BEEP                                                   
+[ 10.16.0.247/6666 TX] $BEEP*12
+&gt; PING                                                   
+[ 10.16.0.247/6666 TX] $PING*10
+[ 10.16.0.247/6666 RX] $PONG*16                          
+&gt;                                                        
+</code></pre>
 
                     </main>
 
