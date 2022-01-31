@@ -64,13 +64,16 @@ Vysvětlete z výpisu, a s použitím datasheetů, které čipy máte na sběrni
 Vzorový projekt obsahuje následující kód: 
 
 ```cpp
-#include <roboutils/IO/I2C.h>
+#include <roboutils/io/I2C.h>
+#include <roboutils/util/timing.h>
 
 using namespace RoboUtils;
+using namespace RoboUtils::IO;
 
 int main()
 {
-  I2C i2c{"/dev/i2c-3"};
+  I2C i2c;
+  i2c.open("/dev/i2c-3");
 
   uint8_t value = 0;
 
@@ -98,16 +101,20 @@ Založte na aktuáním "master" novou větev pojmenovanou "hw-cv5-gpio", přepn�
 aby obsahoval následující kód:
 
 ```cpp
-#include <roboutils/IO/GPIO.h>
+#include <roboutils/io/GPIO.h>
+#include <roboutils/util/timing.h>
 
 using namespace RoboUtils;
+using namespace RoboUtils::IO;
 
 const auto LED1 = Pin::PB4;
 
 int main()
 {
-  I2C i2c{"/dev/i2c-3"};
-  GPIO gpio{&i2c};
+  I2C i2c;
+  GPIO gpio{i2c};
+  
+  i2c.open("/dev/i2c-3");
 
   gpio.output(LED1);
 
@@ -163,14 +170,18 @@ Založte na aktuáním "master" novou větev pojmenovanou "hw-cv5-adc", přepně
 aby obsahoval následující kód:
 
 ```cpp
-#include <roboutils/IO/ADC.h>
+#include <roboutils/io/ADC.h>
+#include <roboutils/util/timing.h>
 
 using namespace RoboUtils;
+using namespace RoboUtils::IO;
 
 int main()
 {
-  I2C i2c{"/dev/i2c-3"};
-  ADC adc{&i2c};
+  I2C i2c;
+  ADC adc{i2c};
+  
+  i2c.open("/dev/i2c-3");
 
   while (true) {
     auto result = adc.Mode2Measure(0);
