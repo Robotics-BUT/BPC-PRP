@@ -196,13 +196,16 @@ připojených čipů:</p>
 <p>Vysvětlete z výpisu, a s použitím datasheetů, které čipy máte na sběrnici připojené (různé RPI budou mít různé výstupy!)</p>
 <h3><a class="header" href="#stažení-vzorového-projektu" id="stažení-vzorového-projektu">Stažení vzorového projektu</a></h3>
 <p>Vzorový projekt obsahuje následující kód: </p>
-<pre><code class="language-cpp">#include &lt;roboutils/IO/I2C.h&gt;
+<pre><code class="language-cpp">#include &lt;roboutils/io/I2C.h&gt;
+#include &lt;roboutils/util/timing.h&gt;
 
 using namespace RoboUtils;
+using namespace RoboUtils::IO;
 
 int main()
 {
-  I2C i2c{&quot;/dev/i2c-3&quot;};
+  I2C i2c;
+  i2c.open(&quot;/dev/i2c-3&quot;);
 
   uint8_t value = 0;
 
@@ -221,16 +224,20 @@ abyste viděli stabilní průběh jedné úplné zprávy a ten popište.</p>
 <h3><a class="header" href="#vzorový-projekt" id="vzorový-projekt">Vzorový projekt</a></h3>
 <p>Založte na aktuáním &quot;master&quot; novou větev pojmenovanou &quot;hw-cv5-gpio&quot;, přepněte se do ní a upravte kód vzorového projektu tak, 
 aby obsahoval následující kód:</p>
-<pre><code class="language-cpp">#include &lt;roboutils/IO/GPIO.h&gt;
+<pre><code class="language-cpp">#include &lt;roboutils/io/GPIO.h&gt;
+#include &lt;roboutils/util/timing.h&gt;
 
 using namespace RoboUtils;
+using namespace RoboUtils::IO;
 
 const auto LED1 = Pin::PB4;
 
 int main()
 {
-  I2C i2c{&quot;/dev/i2c-3&quot;};
-  GPIO gpio{&amp;i2c};
+  I2C i2c;
+  GPIO gpio{i2c};
+  
+  i2c.open(&quot;/dev/i2c-3&quot;);
 
   gpio.output(LED1);
 
@@ -267,14 +274,18 @@ Pozor na zákmity tlačítka !!</p>
 <h3><a class="header" href="#vzorový-projekt-1" id="vzorový-projekt-1">Vzorový projekt</a></h3>
 <p>Založte na aktuáním &quot;master&quot; novou větev pojmenovanou &quot;hw-cv5-adc&quot;, přepněte se do ní a upravte kód vzorového projektu tak, 
 aby obsahoval následující kód:</p>
-<pre><code class="language-cpp">#include &lt;roboutils/IO/ADC.h&gt;
+<pre><code class="language-cpp">#include &lt;roboutils/io/ADC.h&gt;
+#include &lt;roboutils/util/timing.h&gt;
 
 using namespace RoboUtils;
+using namespace RoboUtils::IO;
 
 int main()
 {
-  I2C i2c{&quot;/dev/i2c-3&quot;};
-  ADC adc{&amp;i2c};
+  I2C i2c;
+  ADC adc{i2c};
+  
+  i2c.open(&quot;/dev/i2c-3&quot;);
 
   while (true) {
     auto result = adc.Mode2Measure(0);
