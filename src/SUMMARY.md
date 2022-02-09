@@ -18,7 +18,8 @@
 
 - [Cviceni](./cviceni/cviceni_uvod.md)
 
-    - [Instalace a seznámení se s prostředím](./cviceni/cviceni_02_linux.md)
+    - [Instalace a seznámení se s prostředím](./cviceni/cviceni_01_linux_install.md)
+    - [Linux CLI a C++](./cviceni/cviceni_02_linux_cli_cpp.md)
     - [GIT, simulátor](./cviceni/cviceni_03_git.md)
     - [UDP komunikace](./cviceni/cviceni_04_udp.md)
     - [Hardware, I2C, ADC](./cviceni/cviceni_05_i2c.md)
