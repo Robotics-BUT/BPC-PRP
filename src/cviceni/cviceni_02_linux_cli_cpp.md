@@ -393,5 +393,91 @@ int main() {
 }
 ```
 
+### Const
+
+Rychlý přehled užití const v kódu
+
+```cpp
+
+    // Helpre Object
+    class Object {
+    public:
+        void do_non_const_work() {counter++;} // non-const member method
+        void do_const_work() const {std::cout << counter << std::endl;} // const method, can not modify member variables
+    private:
+        int counter = 0;
+    };
+
+
+     // Variables
+     
+    int a = 1; // mutable variable
+    const int b = 2; // non-mutable (const) variable
+    
+    
+    // References
+    
+    int& c = a; // mutable reference to a
+    const int& d = a; // const reference to a
+    
+    
+    // Pointers
+    
+    int* e = &a;    // pointer to a
+    const int* f = &a;  // pointer to constant a (value of a can not be changed)
+    int const* g = &a;  // the same
+    *f = 5; // error
+    f = e;  // ok
+    
+    int *const h = &a;  // non-mutable (const) pointer to mutable variable
+    h = e;  // error
+    *h = 5; // ok
+    
+    const int * const i = &a; // const pointer to const variable
+    *i = 5; // error
+    i = e;  // error
+    
+    
+    // Data Structures
+    
+    std::vector<Object> v1 = {Object{}, Object{}, Object{}};    // Vector of 3 objects
+    const std::vector<Object> v2 = {Object{}, Object{}, Object{}};   // constant vector (can not add or remove values from it); returns const refs to object
+    v2.push_back(Object{}); // error
+    v2.clear(); // error
+    v2.at(0).do_non_const_work(); // error
+    v2.at(0).do_const_work(); // ok
+    
+    
+    // Smart Pointers
+    
+    std::shared_ptr<int> sp1 = std::make_shared<int>(5); // normal shared pointer
+    std::shared_ptr<const int> sp2 = sp1; // shared pointer to const value
+    *sp2 = 5; // error
+    sp2 = sp1; // ok
+    const std::shared_ptr<int> sp3 = sp1;   // constant pointer to mutable value
+    *sp3 = 5; // ok
+    sp3 = sp2; // error
+    const std::shared_ptr<const int> sp4 = sp1;
+    *sp4 = 5; // error
+    sp4 = sp2; // error
+    
+    
+    // Const vs Constexpr vs Define
+    
+    const int x = 5; // this variable can be initialized in runtime (read user input)
+    #define Y = 5 // const defined for preprocessor (non type safe)
+    constexpr int y = 5; // this variable MUST be initialized in compile-time (similar to #define Y 5, but type-safe)
+    
+    
+    // "Rustification"
+    
+    #define let const auto
+    #define mut auto
+    
+    let a = 5;  // cosnt variable
+    mut b = 3;  // mutable variable
+    let& c = a; // const reference
+    mut& d = b; // mutable reference
+```
 
 
