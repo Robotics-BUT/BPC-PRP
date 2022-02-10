@@ -181,14 +181,14 @@ několika cvičnými úlohami:</p>
  |--CMakeLists.txt
  |--include
  | \--MyProject
- |  \--lib.hpp
+ |   \--lib.hpp
  \--src
-  \--main.cpp
+   \--main.cpp
 </code></pre>
 <p>✅ Pomocí textového editoru napište v souboru lib.hpp funkci, která vypíše pozdrav do konzole.</p>
 <p>✅ Pomocí textového editoru napište v souboru lib.hpp funkci, která vypíše pozdrav do konzole.</p>
 <p>✅ Zeditujte CMakeLists.txt na následjící obsah:</p>
-<pre><code>cmake_minimum_required(VERSION 3.10)
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.10)
 project(MyProject)
 set(CMAKE_CXX_STANDARD 17)
 include_directories(include/)
@@ -196,26 +196,267 @@ add_executable(hello_world_program src/main.cpp)
 </code></pre>
 <p>Významem jednotlivých direktiv se budeme zabývat později.</p>
 <p>✅ Nyní se přesuňte do složky &quot;build&quot; a zde zavolejte příkaz</p>
-<pre><code>cmake ..
+<pre><code class="language-shell">cmake ..
 </code></pre>
 <p>CMake si přečte nastavení vašeho projektu, a připraví makefile pro následnou kompilaci.</p>
 <p>✅ Příkazem make zkompilujte program.</p>
 <p>✅ vypište si obsah složky build.</p>
 <p>✅ Pokud kompilace proběhla úspěšně, spustěte program voláním &quot;./hello_world_program&quot;.</p>
 <p>✅ Optional: vyzkoušejte si kompilaci i přímo pomocí volání g++.</p>
-<pre><code>g++ &lt;source1 source2 source3 ...&gt; -I &lt;include_directory&gt; -o &lt;output_binary&gt; 
+<pre><code class="language-shell">g++ &lt;source1 source2 source3 ...&gt; -I &lt;include_directory&gt; -o &lt;output_binary&gt; 
 </code></pre>
 <p>✅ Smažte celou složku s projektem (pozor, složky se mažou rekurzivně).</p>
 <h2><a class="header" href="#clion-a-c-cca-15h" id="clion-a-c-cca-15h">CLion a C++ (cca 1.5h)</a></h2>
 <p>✅ Vytvořte identický CMake projekt z minulého bodu zadání pomocí CLionu. Progam zkompilujte a otestujte.</p>
-<h3><a class="header" href="#oop" id="oop">OOP</a></h3>
-<p>Lorem Ipsum</p>
-<h3><a class="header" href="#reference" id="reference">Reference</a></h3>
-<p>Lorem Ipsum</p>
-<h3><a class="header" href="#smart-pointers" id="smart-pointers">Smart Pointers</a></h3>
-<p>Lorem Ipsum</p>
 <h3><a class="header" href="#stl-structures" id="stl-structures">STL Structures</a></h3>
-<p>Lorem Ipsum</p>
+<p>Součástí jazyka C++ je tzv. Standard Template Library (STL). Ta obsahuje širokou paletu různých datových struktur a naimplementovaných fukncí.
+My se dnes zaměříme na část která implementuje datové konteinery.</p>
+<p>Knihovna obsahuje implementace pro pole, zásobník, vektor, frontu, list, množinu, hash_tabulku (mapu), atd. <a href="https://en.cppreference.com/w/cpp/container">Dokumentace zde</a>.</p>
+<p>My se dnes zamšříme na tři nejčastěji používané struktury std::array, std::vector a std::queue.</p>
+<p>Struktury se mezi sebou liší a každá je vhodná pro jiný účel. std::array je struktura v paměti, která má známou svou velikost již během kompilace.
+Pokusme se nyní takové pole vytvořit, naplnit jej hodnotami a vypočítat průměr.</p>
+<pre><code class="language-cpp">    #include &lt;array&gt;
+
+    auto my_array = std::array&lt;int, 5&gt;{0, 1, 2, 3, 4};
+    int sum = 0;
+    for (const auto&amp; val : my_array) {
+        sum += val; 
+        // sum += my_array.at(i); // equivalent approach
+    }
+    auto avg = sum / my_array.size();
+</code></pre>
+<p>Vektor se od pole liší tím, že má proměnnou velikost. Vždy když se naplní, tak se automaticky naalokuje jednonásobek jeho současné velikosti.</p>
+<p>Vyzkoušíme si naplnit vektor několika hodnotami a najít medián těchto hodnot.</p>
+<pre><code class="language-cpp">    #include &lt;vector&gt;
+    #include &lt;algorithm&gt;
+    
+    auto my_vector = std::vector&lt;float&gt;{};
+    my_vector.push_back(5.4);
+    my_vector.push_back(-3.7);
+    my_vector.push_back(10.9);
+    my_vector.push_back(1.3);
+    my_vector.push_back(-6.5);
+    my_vector.push_back(-7.8);
+    my_vector.push_back(6.4);
+
+    std::sort(my_vector.begin(), my_vector.end());
+    auto med = my_vector.at(my_vector.size()/2);
+    my_vector.clear();
+</code></pre>
+<p>Strukturu fronty využijeme jako buffer v ilustračním scénáří zpracování příchozích dat z UDP.
+Uvažujme multivláknový program. Jedno vlákno přijmá data po UDP a plní frontu. Druhé vlákno pracuje asynchronně a vždy, když přijde na řadu, zpracuje všechny doposud přijaté zprávy v pořadí tak, jak příšly.</p>
+<pre><code class="language-cpp">    #include &lt;queue&gt;
+        
+    // queue shared between threads; Tip: mutex ?!
+    auto my_queue = std::queue&lt;std::string&gt;{};
+    
+    // receive thread filling queue with messages
+    my_queue.push(&quot;Message1&quot;);
+    my_queue.push(&quot;Message2&quot;);
+    my_queue.push(&quot;Message3&quot;);
+
+    // message processing thread
+    while (!my_queue.empty()) {
+        parse_message(my_queue.front());
+        my_queue.pop();
+    }
+</code></pre>
+<h3><a class="header" href="#reference" id="reference">Reference</a></h3>
+<p>Reference, někdy také nazývané &quot;alias&quot;, je datový typ, který směřuje (je aliasem) na již existujicí objekt v paměti. Při kompilaci s ní kompilátor zachází velmi podobně jako s ukazatelem, ale pro programátora se jedná o výrazně bezpečnější formu úschovy dat a objektů.</p>
+<p>Reference se liší od ukazatele v několika vlastnostech:</p>
+<ul>
+<li>Nemůže být NULL, vždy je nainicializovaná</li>
+<li>Reference se nemůže přesměrovat na jiný objekt/data.</li>
+</ul>
+<p>Pozor, nezaměňovat s operátorem reference!</p>
+<pre><code class="language-cpp">    int a = 5;
+    int&amp; b = a;
+    const int&amp; c = a;
+    b = 10;
+    c = 15 // invalid (const ref)
+    std::cout &lt;&lt; a &lt;&lt; std::endl; // a == 10
+</code></pre>
+<p>Reference je často používaná pro předání argumentů fukce bez nutnosti kopírování, či pro sdílení jedněch dat mezi více místy v programu.</p>
+<pre><code class="language-cpp">    class VeryLargeObject {
+    public:
+        VeryLargeObject() {}
+        const std::array&lt;double, 10000&gt;&amp; data() const {return data_;}
+    private:
+        std::array&lt;double, 10000&gt; data_;
+    };
+    
+    void porocess_large_data(const VeryLargeObject&amp; d) {
+        auto&amp; data = d.data(); // const reference
+        auto data = d.data(); // mutable copy
+        // ...
+    }
+    
+    auto vlo = VeryLargeObject{};
+    porocess_large_data(vlo);
+</code></pre>
+<p>Reference je často pužívaná pro vrácení hodnot z funkce skrze argument funkce.</p>
+<pre><code class="language-cpp">    void ops(float a, float b, float&amp; sum, float&amp; sub, float&amp; mul, float&amp; div) {
+        sum = a + b;
+        sub = a - b;
+        mul = a * b;
+        div = a / b;
+    }
+
+    float sum, sub, mul, div;
+    ops(5, 10, sum, sub, mul, div);
+    std::cout &lt;&lt; sum &lt;&lt; &quot; &quot; &lt;&lt; sub &lt;&lt; &quot; &quot; &lt;&lt; mul &lt;&lt; &quot; &quot; &lt;&lt; div &lt;&lt; std::endl;
+</code></pre>
+<h3><a class="header" href="#smart-pointers" id="smart-pointers">Smart Pointers</a></h3>
+<p>Smart pointery jsou náhradou C-čkových ukazatelů. V základu máme 3 typy těchto smart ukazatelů:</p>
+<ul>
+<li>std::unique_ptr&lt;T&gt;</li>
+<li>std::shared_ptr&lt;T&gt;</li>
+<li>std::weak_ptr&lt;T&gt;</li>
+</ul>
+<p>kde T je datový typ ukazatele.</p>
+<p>Vyhodou smart pointerů je, že nemusíme jako programátoři bezprostředně řešit alokaci a zejména uvolnění paměti. 
+Jsou li splněny podmínky, smartpointer během svého zániku zavolá také destruktor objektu, na který ukazoval a uvolní naalokovanou paměť.</p>
+<p>Výsledkem je, že programátoru už nemusí používat klíčová slova new a delete.</p>
+<p>Každý ze smart pointerů se však mírně liší.</p>
+<h4><a class="header" href="#stdunique_ptrt" id="stdunique_ptrt">std::unique_ptr&lt;T&gt;</a></h4>
+<p>std::unique_ptr<T> je nejtriviálnější implementací smart pointeru. Smart pointer je vlastníkem objektu na který ukazuje a 
+neumožní toto vlastnictví (ownership) předat jinému ukazateli. Když unique_ptr zanikne, zavolá destruktor nad vlasněným objektem a dealokuje paměť.</p>
+<h4><a class="header" href="#stdshared_ptrt" id="stdshared_ptrt">std::shared_ptr&lt;T&gt;</a></h4>
+<p>std::shared_ptr<T> je příkladem tzv. Automatic Reference Counter (ACR). Idea je, že při vzniku objektu se vytvoří také čítač, který čítá kolik shared_pointerů na tento objekt ukazuje.
+Když vytvářím nové kopie shared pointeru, čítač roste, když tyto smart pointery zanikají, hodnota čítače klesá.</p>
+<p>Když čítač dosáhne nuly, to znamená, že na objekt už nic neukazuje, je automaticky zavolán destruktor a je uvolněná paměť.</p>
+<p>Pozor, nezaměňovat s Garbage Collectorem (GC), ten funguje výrazně jinak.</p>
+<p>Pozor na cyklické vazby. Pokud dva objekty na sebe navzájem ukazují shared pointerm, ani jeden z objektů nikdy nezanikne. Proto zde máme weak pointery.</p>
+<h4><a class="header" href="#stdweak_ptrt" id="stdweak_ptrt">std::weak_ptr&lt;T&gt;</a></h4>
+<p>Obdoba shared_ptr, ale neinkrementuje čitač, který počítá, kolik je platných ukazatelů na daný objekt. To znamená, že pokud na objekt ukazuje 5 weak_ptr a žáden shared_ptr, objekt zanikne.</p>
+<h3><a class="header" href="#oop" id="oop">OOP</a></h3>
+<p>Naimplementujte příklad pomocí OOP C++. Při implementaci využijte reference, nebo smart pointery.</p>
+<p>Mějme univerzitu. Každá univerzita má 5 ročníků, v každém ročníku je libovolný počet studentů.
+Když studenti nastupují na univerzitu, jsou automaticky zařazeni do 1. ročníku. Vždy, když proběhne rok, 
+tak univerzita prozkouší všechny ročníky a s pravděpodobností 0.9 posune studenta do vyžšího ročníku. Pokud student uspěje v pátem ročníku, 
+univerzita si jej zaznamená jako absolventa.
+Na konci každého roku vytiskněte stav univerzity a všech studentů na ní.</p>
+<p>Tip: Třídy a jejich členské proměnné:</p>
+<pre><code>Trida Student:
+promenne:
+    jmeno, 
+    prijmeni
+metody:
+</code></pre>
+<pre><code>Trida Rocnik:
+proměnné:
+    seznam_vsech_studentu
+metody:
+    pridat_studenta_do_rocniku(student)
+    evaluovat_ročník() -&gt; seznam_uspesnych_studentu
+</code></pre>
+<pre><code>Třída Univezita:
+proměnné:
+    seznam_rocniku
+    seznam absolventu
+metody:
+    vykonat_akademicky_rok()
+    vytisknout_stav_univerzity();
+</code></pre>
+<p>Implementace:</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;array&gt;
+#include &lt;vector&gt;
+#include &lt;memory&gt;
+#include &lt;random&gt;
+
+class Student {
+public:
+    Student(const std::string&amp; first_name, const std::string&amp; surname)
+        : first_name_{first_name}
+        , surname_{surname} {}
+    std::string first_name() const {return first_name_;};
+    std::string surname() const {return surname_;};
+private:
+        const std::string first_name_;
+        const std::string surname_;
+    };
+    
+    
+class Grade {
+        static constexpr float change_of_student_passes_grade = 0.8f;
+public:
+    void add_student(std::shared_ptr&lt;Student&gt; stud) {students_.push_back(stud);}
+    std::vector&lt;std::shared_ptr&lt;Student&gt;&gt; evaluate_year() {
+        std::vector&lt;std::shared_ptr&lt;Student&gt;&gt; successful_students{};
+        std::vector&lt;std::shared_ptr&lt;Student&gt;&gt; failed_students{};
+        for (auto&amp; stud : students_) {
+            auto random_num = get_random_number(0.0f, 1.0f);
+            if (random_num &gt; change_of_student_passes_grade) {
+                failed_students.push_back(stud);
+            }
+            else {
+                successful_students.push_back(stud);
+            }
+        }
+        students_ = failed_students;
+        return successful_students;
+    }
+    std::vector&lt;std::shared_ptr&lt;Student&gt;&gt; students() const {return students_;}
+    float get_random_number(float min, float max) {
+        static std::random_device rd;
+        static std::mt19937 gen(rd());
+        static std::uniform_real_distribution&lt;float&gt; distr(min, max);
+        return distr(gen);
+    }
+private:
+    std::vector&lt;std::shared_ptr&lt;Student&gt;&gt; students_;
+};
+    
+    
+class University {
+    static constexpr size_t no_of_grades = 5;
+public:
+    void add_student(std::shared_ptr&lt;Student&gt; stud) {grades_.at(0).add_student(stud);}
+    void evaluate_year() {
+        for (int i = no_of_grades-1 ; i &gt;= 0 ; i--) {
+            auto successfull_studs = grades_.at(i).evaluate_year();
+            if (i == no_of_grades-1) { // last grade
+                for (auto&amp; stud : successfull_studs) {graduated_.push_back(stud);}
+            } else {
+                for (auto&amp; stud : successfull_studs) {grades_.at(i+1).add_student(stud);}
+            }
+        }
+    }
+    void print_state() {
+        for(size_t i = 0 ; i &lt; no_of_grades ; i++) {
+            std::cout &lt;&lt; &quot;    Grade:&quot; &lt;&lt; i+1 &lt;&lt; std::endl;
+            auto studs = grades_.at(i).students();
+            for (const auto&amp; stud : studs) {
+                std::cout &lt;&lt; &quot;       &quot; &lt;&lt; stud-&gt;first_name() &lt;&lt; &quot; &quot; &lt;&lt; stud-&gt;surname() &lt;&lt; std::endl;
+            }
+        }
+        std::cout &lt;&lt; &quot;    Graduated:&quot; &lt;&lt; std::endl;
+        for (const auto&amp; stud : graduated_) {
+            std::cout &lt;&lt; &quot;       &quot; &lt;&lt; stud-&gt;first_name() &lt;&lt; &quot; &quot; &lt;&lt; stud-&gt;surname() &lt;&lt; std::endl;
+        }
+    }
+private:
+    std::array&lt;Grade, no_of_grades&gt; grades_;
+    std::vector&lt;std::shared_ptr&lt;Student&gt;&gt; graduated_;
+};
+    
+int main() {
+    University Oxenfurt;
+    Oxenfurt.add_student(std::make_shared&lt;Student&gt;(&quot;Triss&quot;, &quot;Merigold&quot;));
+    Oxenfurt.add_student(std::make_shared&lt;Student&gt;(&quot;Geralt&quot;, &quot;of Rivia&quot;));
+    Oxenfurt.add_student(std::make_shared&lt;Student&gt;(&quot;Zoltan&quot;, &quot;Chivay&quot;));
+    Oxenfurt.add_student(std::make_shared&lt;Student&gt;(&quot;Yennefer&quot;, &quot;of Vengerberg&quot;));
+    Oxenfurt.add_student(std::make_shared&lt;Student&gt;(&quot;Cirilla&quot;, &quot;of Cintra&quot;));
+    for (size_t i = 0 ; i &lt; 6 ; i++) {
+        std::cout &lt;&lt; &quot; ---------- &quot; &lt;&lt; std::endl;
+        std::cout &lt;&lt; &quot;Year &quot; &lt;&lt; i+1 &lt;&lt; std::endl;
+        Oxenfurt.evaluate_year();
+        Oxenfurt.print_state();
+    }
+    return 0;
+}
+</code></pre>
 
                     </main>
 
