@@ -1,6 +1,6 @@
 # Telemetrie a vizualizace
 
-Cvičící: Ing. Adam Ligocki
+Cvičící: Ing. Adam Ligocki, Ph.D., Ing. Tomáš Horeličan
 
 Před cvičením si zopakujte návod [ROS](../chap_1_software/text/ros.md) z kapitoly [Softwarové vybavení](../chap_1_software/text/intro.html)
 

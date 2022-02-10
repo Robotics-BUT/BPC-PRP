@@ -88,6 +88,7 @@ g++ <source1 source2 source3 ...> -I <include_directory> -o <output_binary>
 
 ✅ Vytvořte identický CMake projekt z minulého bodu zadání pomocí CLionu. Progam zkompilujte a otestujte.
 
+Detail k CLionu [zde](chap_1_software/text/clion.md).
 
 ### STL Structures
 
@@ -113,7 +114,7 @@ Pokusme se nyní takové pole vytvořit, naplnit jej hodnotami a vypočítat pr�
     auto avg = sum / my_array.size();
 ```
 
-Vektor se od pole liší tím, že má proměnnou velikost. Vždy když se naplní, tak se automaticky naalokuje jednonásobek jeho současné velikosti.
+Vektor se od pole liší tím, že má proměnnou velikost. Vždy když se naplní, tak se automaticky naalokuje navíc jednonásobek jeho současné velikosti.
 
 Vyzkoušíme si naplnit vektor několika hodnotami a najít medián těchto hodnot.
 

@@ -1,6 +1,6 @@
 # GIT, simulátor 
 
-Cvičící: Ing. Adam Ligocki
+Cvičící: Ing. Adam Ligocki, Ph.D., Ing. Tomáš Horeličan
 
 ## GIT (cca 1 hod)
 
