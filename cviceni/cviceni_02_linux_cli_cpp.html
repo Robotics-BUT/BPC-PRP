@@ -458,6 +458,89 @@ int main() {
     return 0;
 }
 </code></pre>
+<h3><a class="header" href="#const" id="const">Const</a></h3>
+<p>Rychlý přehled užití const v kódu</p>
+<pre><code class="language-cpp">
+    // Helpre Object
+    class Object {
+    public:
+        void do_non_const_work() {counter++;} // non-const member method
+        void do_const_work() const {std::cout &lt;&lt; counter &lt;&lt; std::endl;} // const method, can not modify member variables
+    private:
+        int counter = 0;
+    };
+
+
+     // Variables
+     
+    int a = 1; // mutable variable
+    const int b = 2; // non-mutable (const) variable
+    
+    
+    // References
+    
+    int&amp; c = a; // mutable reference to a
+    const int&amp; d = a; // const reference to a
+    
+    
+    // Pointers
+    
+    int* e = &amp;a;    // pointer to a
+    const int* f = &amp;a;  // pointer to constant a (value of a can not be changed)
+    int const* g = &amp;a;  // the same
+    *f = 5; // error
+    f = e;  // ok
+    
+    int *const h = &amp;a;  // non-mutable (const) pointer to mutable variable
+    h = e;  // error
+    *h = 5; // ok
+    
+    const int * const i = &amp;a; // const pointer to const variable
+    *i = 5; // error
+    i = e;  // error
+    
+    
+    // Data Structures
+    
+    std::vector&lt;Object&gt; v1 = {Object{}, Object{}, Object{}};    // Vector of 3 objects
+    const std::vector&lt;Object&gt; v2 = {Object{}, Object{}, Object{}};   // constant vector (can not add or remove values from it); returns const refs to object
+    v2.push_back(Object{}); // error
+    v2.clear(); // error
+    v2.at(0).do_non_const_work(); // error
+    v2.at(0).do_const_work(); // ok
+    
+    
+    // Smart Pointers
+    
+    std::shared_ptr&lt;int&gt; sp1 = std::make_shared&lt;int&gt;(5); // normal shared pointer
+    std::shared_ptr&lt;const int&gt; sp2 = sp1; // shared pointer to const value
+    *sp2 = 5; // error
+    sp2 = sp1; // ok
+    const std::shared_ptr&lt;int&gt; sp3 = sp1;   // constant pointer to mutable value
+    *sp3 = 5; // ok
+    sp3 = sp2; // error
+    const std::shared_ptr&lt;const int&gt; sp4 = sp1;
+    *sp4 = 5; // error
+    sp4 = sp2; // error
+    
+    
+    // Const vs Constexpr vs Define
+    
+    const int x = 5; // this variable can be initialized in runtime (read user input)
+    #define Y = 5 // const defined for preprocessor (non type safe)
+    constexpr int y = 5; // this variable MUST be initialized in compile-time (similar to #define Y 5, but type-safe)
+    
+    
+    // &quot;Rustification&quot;
+    
+    #define let const auto
+    #define mut auto
+    
+    let a = 5;  // cosnt variable
+    mut b = 3;  // mutable variable
+    let&amp; c = a; // const reference
+    mut&amp; d = b; // mutable reference
+</code></pre>
 
                     </main>
 
