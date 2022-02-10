@@ -161,12 +161,12 @@
 <p>Tento text predstavuje online skripta a studijni materialy pro prednasky a cviceni predmetu BPC-PRP - povinneho premetu 3. rocniku bakalarskeho studiniho oboru Automatizacni a merici technika na Fakulte elektrotechniky a komunikacnich technologii Vysokeho Uceni Technickeho v Brne.</p>
 <p>Skripta rovnez obsahuji texty tykajici se dalsich oblasti robotiky, ktere jiz ale nejsou vyzadovany samotnou naplni predmetu.</p>
 <h2><a class="header" href="#autori" id="autori">Autori</a></h2>
-<p>Bc. Matous Hybl</p>
-<p>Ing. Adam Ligocki</p>
+<p>Ing. Adam Ligocki, Ph.D.</p>
 <p>Ing. Tomas Lazna</p>
 <p>Ing. Petr Gabrlik</p>
 <p>Ing. Tomas Jilek, Ph.D.</p>
 <p>Ing. Frantisek Burian, Ph.D.</p>
+<p>Ing. Tomáš Horeličan</p>
 <h2><a class="header" href="#seznam-přednášek" id="seznam-přednášek">Seznam přednášek</a></h2>
 <h3><a class="header" href="#1-Úvodní-přednáška" id="1-Úvodní-přednáška">1. Úvodní přednáška</a></h3>
 <pre><code>Přednášející: Ing. František Burian Ph.D.
@@ -1382,6 +1382,7 @@ add_executable(hello_world_program src/main.cpp)
 <p>✅ Smažte celou složku s projektem (pozor, složky se mažou rekurzivně).</p>
 <h2><a class="header" href="#clion-a-c-cca-15h" id="clion-a-c-cca-15h">CLion a C++ (cca 1.5h)</a></h2>
 <p>✅ Vytvořte identický CMake projekt z minulého bodu zadání pomocí CLionu. Progam zkompilujte a otestujte.</p>
+<p>Detail k CLionu <a href="cviceni/chap_1_software/text/clion.html">zde</a>.</p>
 <h3><a class="header" href="#stl-structures" id="stl-structures">STL Structures</a></h3>
 <p>Součástí jazyka C++ je tzv. Standard Template Library (STL). Ta obsahuje širokou paletu různých datových struktur a naimplementovaných fukncí.
 My se dnes zaměříme na část která implementuje datové konteinery.</p>
@@ -1399,7 +1400,7 @@ Pokusme se nyní takové pole vytvořit, naplnit jej hodnotami a vypočítat pr�
     }
     auto avg = sum / my_array.size();
 </code></pre>
-<p>Vektor se od pole liší tím, že má proměnnou velikost. Vždy když se naplní, tak se automaticky naalokuje jednonásobek jeho současné velikosti.</p>
+<p>Vektor se od pole liší tím, že má proměnnou velikost. Vždy když se naplní, tak se automaticky naalokuje navíc jednonásobek jeho současné velikosti.</p>
 <p>Vyzkoušíme si naplnit vektor několika hodnotami a najít medián těchto hodnot.</p>
 <pre><code class="language-cpp">    #include &lt;vector&gt;
     #include &lt;algorithm&gt;
@@ -1632,7 +1633,7 @@ int main() {
 }
 </code></pre>
 <h1><a class="header" href="#git-simulátor" id="git-simulátor">GIT, simulátor</a></h1>
-<p>Cvičící: Ing. Adam Ligocki</p>
+<p>Cvičící: Ing. Adam Ligocki, Ph.D., Ing. Tomáš Horeličan</p>
 <h2><a class="header" href="#git-cca-1-hod" id="git-cca-1-hod">GIT (cca 1 hod)</a></h2>
 <p>Zaregistrujte se na studentském <a href="https://student.robotika.ceitec.vutbr.cz/">GitLab serveru</a></p>
 <p>Tento server bude po zbytek kurzu BPC-PRP Vás tzv. &quot;origin&quot;, tedy vzdálené repozitář.</p>
@@ -2314,7 +2315,7 @@ motor_right_speed = (robot_linear_speed - 0.5 * C_TW * robot_angular_speed) * C_
 <li>Na základě zjištěných informací se pokuste navrhnout vlastní regulační schéma pro dosažení co nejlepších výsledků sledování trasy.</li>
 </ul>
 <h1><a class="header" href="#telemetrie-a-vizualizace" id="telemetrie-a-vizualizace">Telemetrie a vizualizace</a></h1>
-<p>Cvičící: Ing. Adam Ligocki</p>
+<p>Cvičící: Ing. Adam Ligocki, Ph.D., Ing. Tomáš Horeličan</p>
 <p>Před cvičením si zopakujte návod <a href="cviceni/../chap_1_software/text/ros.html">ROS</a> z kapitoly <a href="cviceni/../chap_1_software/text/intro.html">Softwarové vybavení</a></p>
 <h1><a class="header" href="#tvorba-vlastního-ros-nodu-cca-1h" id="tvorba-vlastního-ros-nodu-cca-1h">Tvorba vlastního ROS nodu (cca 1h)</a></h1>
 <p>V první fázi cvičení si vytvoříme svůj vlastní ROS workspace (složka, která obsahuje ROS package) a ROS package (CMakeList projekt, který pracuje s ROS knihovnama).</p>
