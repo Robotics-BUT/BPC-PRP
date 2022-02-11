@@ -1337,7 +1337,7 @@ několika cvičnými úlohami:</p>
 <p>Tip: při psaní příkazů používejte TAB pro doplnění příkazu a TAB-TAB pro výpis všech možných doplnění příkazů. </p>
 <p>✅ Zjistěte, kde se momentálně necházíte v rámci souborového systému</p>
 <p>✅ Přepněte se do svého domovského adresáře</p>
-<p>✅ Vytvořte si složku ve které buje projekt pro dnešní cvičení</p>
+<p>✅ Vytvořte si složku ve které bude projekt pro dnešní cvičení</p>
 <p>✅ Následně v této složce vytvořte několik podsložek tak, aby struktura vypadala následovně (příkaz tree):</p>
 <pre><code>/MyProject
  |--build
@@ -1359,7 +1359,6 @@ několika cvičnými úlohami:</p>
  \--src
    \--main.cpp
 </code></pre>
-<p>✅ Pomocí textového editoru napište v souboru lib.hpp funkci, která vypíše pozdrav do konzole.</p>
 <p>✅ Pomocí textového editoru napište v souboru lib.hpp funkci, která vypíše pozdrav do konzole.</p>
 <p>✅ Zeditujte CMakeLists.txt na následjící obsah:</p>
 <pre><code class="language-cmake">cmake_minimum_required(VERSION 3.10)
@@ -1386,8 +1385,8 @@ add_executable(hello_world_program src/main.cpp)
 <h3><a class="header" href="#stl-structures" id="stl-structures">STL Structures</a></h3>
 <p>Součástí jazyka C++ je tzv. Standard Template Library (STL). Ta obsahuje širokou paletu různých datových struktur a naimplementovaných fukncí.
 My se dnes zaměříme na část která implementuje datové konteinery.</p>
-<p>Knihovna obsahuje implementace pro pole, zásobník, vektor, frontu, list, množinu, hash_tabulku (mapu), atd. <a href="https://en.cppreference.com/w/cpp/container">Dokumentace zde</a>.</p>
-<p>My se dnes zamšříme na tři nejčastěji používané struktury std::array, std::vector a std::queue.</p>
+<p>Knihovna obsahuje implementace pro pole, zásobník, vektor, frontu, list, množinu, mapu (hash_tabulku/dictionary), atd. <a href="https://en.cppreference.com/w/cpp/container">Dokumentace zde</a>.</p>
+<p>My se dnes zamšříme na tři struktury, a totiž std::array, std::vector a std::queue.</p>
 <p>Struktury se mezi sebou liší a každá je vhodná pro jiný účel. std::array je struktura v paměti, která má známou svou velikost již během kompilace.
 Pokusme se nyní takové pole vytvořit, naplnit jej hodnotami a vypočítat průměr.</p>
 <pre><code class="language-cpp">    #include &lt;array&gt;
@@ -1419,7 +1418,8 @@ Pokusme se nyní takové pole vytvořit, naplnit jej hodnotami a vypočítat pr�
     my_vector.clear();
 </code></pre>
 <p>Strukturu fronty využijeme jako buffer v ilustračním scénáří zpracování příchozích dat z UDP.
-Uvažujme multivláknový program. Jedno vlákno přijmá data po UDP a plní frontu. Druhé vlákno pracuje asynchronně a vždy, když přijde na řadu, zpracuje všechny doposud přijaté zprávy v pořadí tak, jak příšly.</p>
+Uvažujme multivláknový program. Jedno vlákno přijmá data po UDP a plní frontu. Druhé vlákno pracuje asynchronně a vždy,
+když přijde na řadu, zpracuje všechny doposud přijaté zprávy v pořadí tak, jak příšly.</p>
 <pre><code class="language-cpp">    #include &lt;queue&gt;
         
     // queue shared between threads; Tip: mutex ?!
@@ -1437,13 +1437,15 @@ Uvažujme multivláknový program. Jedno vlákno přijmá data po UDP a plní fr
     }
 </code></pre>
 <h3><a class="header" href="#reference-1" id="reference-1">Reference</a></h3>
-<p>Reference, někdy také nazývané &quot;alias&quot;, je datový typ, který směřuje (je aliasem) na již existujicí objekt v paměti. Při kompilaci s ní kompilátor zachází velmi podobně jako s ukazatelem, ale pro programátora se jedná o výrazně bezpečnější formu úschovy dat a objektů.</p>
-<p>Reference se liší od ukazatele v několika vlastnostech:</p>
+<p>Reference, někdy také nazývané &quot;alias&quot;, je datový typ, který směřuje (je aliasem) na již existujicí objekt v paměti. 
+Při kompilaci je reference obvykle nahrazena ukazatelem, ale z pohledu programátora se jedná o výrazně bezpečnější formu
+práce s daty a, či objekty, protože nedovoluje některé nebezpečné operace.</p>
+<p>Reference se liší od ukazatele ve dvou základních vlastnostech:</p>
 <ul>
-<li>Nemůže být NULL, vždy je nainicializovaná</li>
+<li>Nemůže být NULL; reference je vždy nainicializovaná</li>
 <li>Reference se nemůže přesměrovat na jiný objekt/data.</li>
 </ul>
-<p>Pozor, nezaměňovat s operátorem reference!</p>
+<p>Pozor, nezaměňovat datový typ reference &quot;<T>&amp;&quot; s operátorem reference &quot;&amp;variable&quot; !</p>
 <pre><code class="language-cpp">    int a = 5;
     int&amp; b = a;
     const int&amp; c = a;
@@ -1469,7 +1471,9 @@ Uvažujme multivláknový program. Jedno vlákno přijmá data po UDP a plní fr
     auto vlo = VeryLargeObject{};
     porocess_large_data(vlo);
 </code></pre>
-<p>Reference je často pužívaná pro vrácení hodnot z funkce skrze argument funkce.</p>
+<p>Reference je často pužívaná pro vrácení hodnot z funkce skrze argument funkce.
+Nejedná se však o best-practice metodu. Pokud je to jen trochu možné, měla by metoda vracet hodnotu skrze návratovou 
+hodnotu. Pokud je potřeba vrátit více hodnot, použijte strukturu jako návratový typ.</p>
 <pre><code class="language-cpp">    void ops(float a, float b, float&amp; sum, float&amp; sub, float&amp; mul, float&amp; div) {
         sum = a + b;
         sub = a - b;
@@ -1488,10 +1492,10 @@ Uvažujme multivláknový program. Jedno vlákno přijmá data po UDP a plní fr
 <li>std::shared_ptr&lt;T&gt;</li>
 <li>std::weak_ptr&lt;T&gt;</li>
 </ul>
-<p>kde T je datový typ ukazatele.</p>
+<p>kde T je datový typ na který bude ukazatel ukazovat.</p>
 <p>Vyhodou smart pointerů je, že nemusíme jako programátoři bezprostředně řešit alokaci a zejména uvolnění paměti. 
 Jsou li splněny podmínky, smartpointer během svého zániku zavolá také destruktor objektu, na který ukazoval a uvolní naalokovanou paměť.</p>
-<p>Výsledkem je, že programátoru už nemusí používat klíčová slova new a delete.</p>
+<p>Výsledkem je, že programátoru už nemusí používat klíčová slova <code>new</code> a <code>delete</code>.</p>
 <p>Každý ze smart pointerů se však mírně liší.</p>
 <h4><a class="header" href="#stdunique_ptrt" id="stdunique_ptrt">std::unique_ptr&lt;T&gt;</a></h4>
 <p>std::unique_ptr<T> je nejtriviálnější implementací smart pointeru. Smart pointer je vlastníkem objektu na který ukazuje a 
@@ -1501,14 +1505,22 @@ neumožní toto vlastnictví (ownership) předat jinému ukazateli. Když unique
 Když vytvářím nové kopie shared pointeru, čítač roste, když tyto smart pointery zanikají, hodnota čítače klesá.</p>
 <p>Když čítač dosáhne nuly, to znamená, že na objekt už nic neukazuje, je automaticky zavolán destruktor a je uvolněná paměť.</p>
 <p>Pozor, nezaměňovat s Garbage Collectorem (GC), ten funguje výrazně jinak.</p>
-<p>Pozor na cyklické vazby. Pokud dva objekty na sebe navzájem ukazují shared pointerm, ani jeden z objektů nikdy nezanikne. Proto zde máme weak pointery.</p>
+<p>Pozor na cyklické vazby. Pokud dva objekty na sebe navzájem ukazují shared pointerem, ani jeden z objektů nikdy nezanikne. Proto zde máme weak pointery.</p>
 <h4><a class="header" href="#stdweak_ptrt" id="stdweak_ptrt">std::weak_ptr&lt;T&gt;</a></h4>
 <p>Obdoba shared_ptr, ale neinkrementuje čitač, který počítá, kolik je platných ukazatelů na daný objekt. To znamená, že pokud na objekt ukazuje 5 weak_ptr a žáden shared_ptr, objekt zanikne.</p>
 <h3><a class="header" href="#oop" id="oop">OOP</a></h3>
-<p>Naimplementujte příklad pomocí OOP C++. Při implementaci využijte reference, nebo smart pointery.</p>
+<p>Při tvobě Vaších programů se snažte dodržovat OOP paradigma. Přemýšlejte o programu, jako o sadě black-boxů, kdy tyto schránky 
+jsou každá zaměřená na velmi specifický problém. Každou Vaší třídu by měla vystihovat jedna věta. Stejně tak každá funkce
+by měla dělat právě jednu věc a nic víc.</p>
+<p>Zmíněné blackboxy jsou mezi sebou propojeny a navzájem si předávají data.</p>
+<p>Vyhněte se tvorbě &quot;supertříd&quot;, tedy tříd, které řeší &quot;všechno&quot;. Mějte své třídy úzce specializované.</p>
+<p>Běžně by se měla třída vměstnant do 100 řádku. Pokud je třída nad 300 řádků, silně zvažte její rozdělení na více tříd.</p>
+<p>Oddělte data od algoritmů. Vytvořte si oddělené třídy, které v sobě mají uložená data a oddelené třídy, které implementují algoritmy pro zpracování dat.</p>
+<h4><a class="header" href="#příklad" id="příklad">Příklad</a></h4>
+<p>Naimplementujte příklad pomocí OOP C++. Při implementaci využijte reference a smart pointery.</p>
 <p>Mějme univerzitu. Každá univerzita má 5 ročníků, v každém ročníku je libovolný počet studentů.
 Když studenti nastupují na univerzitu, jsou automaticky zařazeni do 1. ročníku. Vždy, když proběhne rok, 
-tak univerzita prozkouší všechny ročníky a s pravděpodobností 0.9 posune studenta do vyžšího ročníku. Pokud student uspěje v pátem ročníku, 
+tak univerzita prozkouší všechny studenty v ročnících a s pravděpodobností 0.9 posune studenta do vyžšího ročníku. Pokud student projde pátý ročníku, 
 univerzita si jej zaznamená jako absolventa.
 Na konci každého roku vytiskněte stav univerzity a všech studentů na ní.</p>
 <p>Tip: Třídy a jejich členské proměnné:</p>
