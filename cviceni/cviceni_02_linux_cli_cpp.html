@@ -326,7 +326,9 @@ Jsou li splněny podmínky, smartpointer během svého zániku zavolá také des
 <h4><a class="header" href="#stdunique_ptrt" id="stdunique_ptrt">std::unique_ptr&lt;T&gt;</a></h4>
 <p>std::unique_ptr<T> je nejtriviálnější implementací smart pointeru. Smart pointer je vlastníkem objektu na který ukazuje a 
 neumožní toto vlastnictví (ownership) předat jinému ukazateli. Když unique_ptr zanikne, zavolá destruktor nad vlasněným objektem a dealokuje paměť.</p>
-<pre><code class="language-cpp">    auto unique_int = std::make_unique&lt;int&gt;(5);
+<pre><code class="language-cpp">    #include &lt;memory&gt;
+
+    auto unique_int = std::make_unique&lt;int&gt;(5);
     std::cout &lt;&lt; *unique_int &lt;&lt; std::endl;
 
     float x = 10;
@@ -341,7 +343,9 @@ Když vytvářím nové kopie shared pointeru, čítač roste, když tyto smart 
 <p>Když čítač dosáhne nuly, to znamená, že na objekt už nic neukazuje, je automaticky zavolán destruktor a je uvolněná paměť.</p>
 <p>Pozor, nezaměňovat s Garbage Collectorem (GC), ten funguje výrazně jinak.</p>
 <p>Pozor na cyklické vazby. Pokud dva objekty na sebe navzájem ukazují shared pointerem, ani jeden z objektů nikdy nezanikne. Proto zde máme weak pointery.</p>
-<pre><code class="language-cpp">    auto shared_int = std::make_shared&lt;int&gt;(10);
+<pre><code class="language-cpp">    #include &lt;memory&gt;
+    
+    auto shared_int = std::make_shared&lt;int&gt;(10);
     std::cout &lt;&lt; *shared_int &lt;&lt; std::endl;
     
     std::shared_ptr&lt;int&gt; x = shared_int;
