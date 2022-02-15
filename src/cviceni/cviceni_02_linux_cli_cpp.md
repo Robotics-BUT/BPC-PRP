@@ -239,6 +239,8 @@ std::unique_ptr<T> je nejtriviálnější implementací smart pointeru. Smart po
 neumožní toto vlastnictví (ownership) předat jinému ukazateli. Když unique_ptr zanikne, zavolá destruktor nad vlasněným objektem a dealokuje paměť.
 
 ```cpp
+    #include <memory>
+
     auto unique_int = std::make_unique<int>(5);
     std::cout << *unique_int << std::endl;
 
@@ -261,6 +263,8 @@ Pozor, nezaměňovat s Garbage Collectorem (GC), ten funguje výrazně jinak.
 Pozor na cyklické vazby. Pokud dva objekty na sebe navzájem ukazují shared pointerem, ani jeden z objektů nikdy nezanikne. Proto zde máme weak pointery.
 
 ```cpp
+    #include <memory>
+    
     auto shared_int = std::make_shared<int>(10);
     std::cout << *shared_int << std::endl;
     
