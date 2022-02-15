@@ -326,16 +326,30 @@ Jsou li splněny podmínky, smartpointer během svého zániku zavolá také des
 <h4><a class="header" href="#stdunique_ptrt" id="stdunique_ptrt">std::unique_ptr&lt;T&gt;</a></h4>
 <p>std::unique_ptr<T> je nejtriviálnější implementací smart pointeru. Smart pointer je vlastníkem objektu na který ukazuje a 
 neumožní toto vlastnictví (ownership) předat jinému ukazateli. Když unique_ptr zanikne, zavolá destruktor nad vlasněným objektem a dealokuje paměť.</p>
+<pre><code class="language-cpp">    auto unique_int = std::make_unique&lt;int&gt;(5);
+    std::cout &lt;&lt; *unique_int &lt;&lt; std::endl;
+
+    float x = 10;
+    auto unique_float = std::make_unique&lt;float&gt;(x);
+    std::cout &lt;&lt; *unique_float &lt;&lt; std::endl;
+
+    std::unique_ptr&lt;float&gt; y = unique_float; // error
+</code></pre>
 <h4><a class="header" href="#stdshared_ptrt" id="stdshared_ptrt">std::shared_ptr&lt;T&gt;</a></h4>
 <p>std::shared_ptr<T> je příkladem tzv. Automatic Reference Counter (ACR). Idea je, že při vzniku objektu se vytvoří také čítač, který čítá kolik shared_pointerů na tento objekt ukazuje.
 Když vytvářím nové kopie shared pointeru, čítač roste, když tyto smart pointery zanikají, hodnota čítače klesá.</p>
 <p>Když čítač dosáhne nuly, to znamená, že na objekt už nic neukazuje, je automaticky zavolán destruktor a je uvolněná paměť.</p>
 <p>Pozor, nezaměňovat s Garbage Collectorem (GC), ten funguje výrazně jinak.</p>
 <p>Pozor na cyklické vazby. Pokud dva objekty na sebe navzájem ukazují shared pointerem, ani jeden z objektů nikdy nezanikne. Proto zde máme weak pointery.</p>
+<pre><code class="language-cpp">    auto shared_int = std::make_shared&lt;int&gt;(10);
+    std::cout &lt;&lt; *shared_int &lt;&lt; std::endl;
+    
+    std::shared_ptr&lt;int&gt; x = shared_int;
+</code></pre>
 <h4><a class="header" href="#stdweak_ptrt" id="stdweak_ptrt">std::weak_ptr&lt;T&gt;</a></h4>
 <p>Obdoba shared_ptr, ale neinkrementuje čitač, který počítá, kolik je platných ukazatelů na daný objekt. To znamená, že pokud na objekt ukazuje 5 weak_ptr a žáden shared_ptr, objekt zanikne.</p>
 <h3><a class="header" href="#oop" id="oop">OOP</a></h3>
-<p>Při tvobě Vaších programů se snažte dodržovat OOP paradigma. Přemýšlejte o programu, jako o sadě black-boxů, kdy tyto schránky 
+<p>Při tvorbě Vaších programů se snažte dodržovat OOP paradigma. Přemýšlejte o programu, jako o sadě black-boxů, kdy tyto schránky 
 jsou každá zaměřená na velmi specifický problém. Každou Vaší třídu by měla vystihovat jedna věta. Stejně tak každá funkce
 by měla dělat právě jednu věc a nic víc.</p>
 <p>Zmíněné blackboxy jsou mezi sebou propojeny a navzájem si předávají data.</p>
