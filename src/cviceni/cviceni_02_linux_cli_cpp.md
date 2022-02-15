@@ -238,6 +238,17 @@ Každý ze smart pointerů se však mírně liší.
 std::unique_ptr<T> je nejtriviálnější implementací smart pointeru. Smart pointer je vlastníkem objektu na který ukazuje a 
 neumožní toto vlastnictví (ownership) předat jinému ukazateli. Když unique_ptr zanikne, zavolá destruktor nad vlasněným objektem a dealokuje paměť.
 
+```cpp
+    auto unique_int = std::make_unique<int>(5);
+    std::cout << *unique_int << std::endl;
+
+    float x = 10;
+    auto unique_float = std::make_unique<float>(x);
+    std::cout << *unique_float << std::endl;
+
+    std::unique_ptr<float> y = unique_float; // error
+```
+
 #### std::shared_ptr\<T>
 
 std::shared_ptr<T> je příkladem tzv. Automatic Reference Counter (ACR). Idea je, že při vzniku objektu se vytvoří také čítač, který čítá kolik shared_pointerů na tento objekt ukazuje.
@@ -249,13 +260,20 @@ Pozor, nezaměňovat s Garbage Collectorem (GC), ten funguje výrazně jinak.
 
 Pozor na cyklické vazby. Pokud dva objekty na sebe navzájem ukazují shared pointerem, ani jeden z objektů nikdy nezanikne. Proto zde máme weak pointery.
 
+```cpp
+    auto shared_int = std::make_shared<int>(10);
+    std::cout << *shared_int << std::endl;
+    
+    std::shared_ptr<int> x = shared_int;
+```
+
 #### std::weak_ptr\<T>
 
 Obdoba shared_ptr, ale neinkrementuje čitač, který počítá, kolik je platných ukazatelů na daný objekt. To znamená, že pokud na objekt ukazuje 5 weak_ptr a žáden shared_ptr, objekt zanikne.
 
 ### OOP
 
-Při tvobě Vaších programů se snažte dodržovat OOP paradigma. Přemýšlejte o programu, jako o sadě black-boxů, kdy tyto schránky 
+Při tvorbě Vaších programů se snažte dodržovat OOP paradigma. Přemýšlejte o programu, jako o sadě black-boxů, kdy tyto schránky 
 jsou každá zaměřená na velmi specifický problém. Každou Vaší třídu by měla vystihovat jedna věta. Stejně tak každá funkce
 by měla dělat právě jednu věc a nic víc.
 
