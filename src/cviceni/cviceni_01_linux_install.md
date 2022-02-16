@@ -37,7 +37,13 @@ Detailní přednáška na práci s ROSem bude v druhé polovině semestru.
 
 ## Instalace CLion (cca 30 min)
 
-Z [oficiálního webu](https://www.jetbrains.com/clion/) si stáhněte IDE CLion a seznamte se s ním (viz [CLion IDE](../chap_1_software/text/clion.md)). Registrací pomocí školního emailu získáte licenci na užití softwaru zdarma.
+Nainstalujte si CLion pomocí balíčkovacího manageru Snap
+
+```shell script
+sudo snap install --classic clion
+```
+
+nebo z [oficiálního webu](https://www.jetbrains.com/clion/) si stáhněte IDE CLion a seznamte se s ním (viz [CLion IDE](../chap_1_software/text/clion.md)). Registrací pomocí školního emailu získáte licenci na užití softwaru zdarma.
 
 ✅ Pouze prací v konzole si vytvořte jednoduchý hello world program a zkompilujte jej pomocí volání g++ kompilátoru. Otestujte funkčnost programu.
 
