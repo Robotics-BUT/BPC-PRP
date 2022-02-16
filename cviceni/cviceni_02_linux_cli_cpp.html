@@ -257,6 +257,10 @@ když přijde na řadu, zpracuje všechny doposud přijaté zprávy v pořadí t
     my_queue.push(&quot;Message3&quot;);
 
     // message processing thread
+    void parse_message(const std::string&amp; s) {
+        std::cout &lt;&lt; &quot;Parsing: &quot; &lt;&lt; s &lt;&lt; std::endl;
+    }
+
     while (!my_queue.empty()) {
         parse_message(my_queue.front());
         my_queue.pop();
