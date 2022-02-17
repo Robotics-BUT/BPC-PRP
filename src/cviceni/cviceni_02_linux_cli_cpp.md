@@ -86,7 +86,7 @@ g++ <source1 source2 source3 ...> -I <include_directory> -o <output_binary>
 
 ✅ Vytvořte identický CMake projekt z minulého bodu zadání pomocí CLionu. Progam zkompilujte a otestujte.
 
-Detail k CLionu [zde](chap_1_software/text/clion.md).
+Detail k CLionu [zde](../chap_1_software/text/clion.md).
 
 ### STL Structures
 
