@@ -1776,7 +1776,7 @@ ale upravit jméno, například takto: <code>/home/&lt;user-name&gt;/.ssh/id_ed2
 <p>Poté (po vyzváni), pokud chcete, zadejte heslo pro zabezpečení klíče. Jinak jen potvrďte stisknutím <code>Enter</code>.</p>
 </li>
 <li>
-<p>Otevřete soubor <code>/home/&lt;user-name&gt;/.ssh/config</code> (například v nano) přidejte následujíci:</p>
+<p>Otevřete soubor <code>/home/&lt;user-name&gt;/.ssh/config</code> (například v nano) a přidejte následujíci:</p>
 </li>
 </ol>
 <pre><code># Student gitlab instance at student.robotika.ceitec.vutbr.cz
@@ -1852,7 +1852,7 @@ Druhému v pořádí, který se pokusí o <code>push</code>, git zahlásí chybu
 <p>Nejprve si <code>&quot;pullnete&quot;</code> aktualni verzi z <code>&quot;originu&quot;</code>. Podívejte se co se stalo s Vaším kódem.
 Upravte ho tak aby v nem bylo vše co požadujete. Opět <code>&quot;commitnete&quot;</code> a zkuste <code>&quot;pushnout&quot;</code>.</p>
 </details>
-<p>✅ Všichni členové týmu si pullnou aktuální verzi repozitáře.</p>
+<p>✅ Všichni členové týmu si <code>&quot;pullnou&quot;</code> aktuální verzi repozitáře.</p>
 <p>✅ Jeden člen týmu vytvoří novej lokálni <code>branch</code>, <code>&quot;checkoutne&quot;</code> se do nej a vyrobí si vlastní <code>.h</code> soubor a v něm funkci, která vytiskne jeho jméno.
 Změny standardně <code>&quot;commitne&quot;</code> a pokusí se <code>&quot;pushnout&quot;</code>.</p>
 <details>
@@ -1866,7 +1866,7 @@ git checkout &lt;name-of-an-existing-branch&gt;
 <p>Co se stalo když ste se pokusili <code>&quot;pushnout&quot;</code> novej branch? Co Vám poradil <code>git</code>?</p>
 </details>
 <p>✅ Všichni si <code>&quot;pullnou&quot;</code> nové zmeny k sobě a <code>&quot;checkoutnou&quot;</code> se na novej branch v <code>&quot;originu&quot;</code>.
-Každý člen týmu si pak vyrobí vlastní .h soubor a v něm taky funkci, která vytiskne jeho jméno.
+Každý člen týmu si pak vyrobí vlastní <code>.h</code> soubor a v něm taky funkci, která vytiskne jeho jméno.
 Všichni <code>&quot;pushnou&quot;</code> své změny na server.</p>
 <details>
     <summary>Tip!</summary>
@@ -1884,7 +1884,7 @@ Přidávejte komentáře a zkuste v nich také vkládat odkazy na <code>&quot;co
 Pokud je <code>log</code> příliž dlouhej, vrátite se zpět stisknutím klávesy <code>q</code>.</p>
 </details>
 <h3><a class="header" href="#integrace-gitu-v-clion-ide" id="integrace-gitu-v-clion-ide">Integrace GITu v Clion IDE</a></h3>
-<p>Všechny operace, které ste právě delali se dají mnohem snadněji a efektivněji udělat i v Clionu.
+<p>Všechny operace, které ste právě dělali se dají mnohem snadněji a efektivněji udělat i v Clionu.
 Dálší část budete delat už přímo v Clionu.</p>
 <p>✅ Všichni si v Clionu otevřou složku se svým repozitářem.</p>
 <details>
@@ -1976,13 +1976,13 @@ Můžete také udělat novej <code>branch</code>, který přímo navazuje na jin
 <p>Když se Vaše klíče vygenerují, pomocí příkazu <code>gpg --list-secret-keys --keyid-format LONG &lt;your-email&gt;</code> si zobrazíte váš privátni klíč.</p>
 </li>
 <li>
-<p>Skopírujte sekvencií znaků (ID Vašeho klíče), která následuje hned po <code>rsa4096/</code>.</p>
+<p>Skopírujte sekvencií znaků (ID Vašeho klíče), která následuje hned po <code>sec rsa4096/</code> v prvním řádku.</p>
 </li>
 <li>
 <p>Pomocí příkazu <code>gpg --armor --export &lt;skopirovane-ID-klice&gt;</code> vygenerujete veřejnou část vašeho páru klíčů.</p>
 </li>
 <li>
-<p>Skopírujte všechno od <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> až po <code>-----END PGP PUBLIC KEY BLOCK-----</code>, včetně.</p>
+<p>Skopírujte všechno od <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> až po <code>-----END PGP PUBLIC KEY BLOCK-----</code>, včetně obou.</p>
 </li>
 <li>
 <p>V gitlabu přejdete do <code>Preferences &gt; GPG Keys</code>,  vložte skopírovanej obsah a potvrďte stlačením <code>Add key</code>.</p>
@@ -1995,37 +1995,46 @@ Můžete také udělat novej <code>branch</code>, který přímo navazuje na jin
     <summary>Tip!</summary>
 <p>Podívejte co se změnilo v souboru <code>.git/config</code>. To samé by se dalo opět dosáhnout editováním tohto souboru, avšak v Clionu je to mnohem jedndušší.</p>
 </details>
+<ol start="13">
+<li>
+<p>Jeden člen týmu zkusí cvične udělat nejakej <code>commit</code> (měl by dostat výzvu na zadáni hesla) a <code>&quot;pushnout&quot;</code>.</p>
+</li>
+<li>
+<p>Pokud všechno probehlo správně měli by ste v gitlabu v historii <code>&quot;commitů&quot;</code> vidět svůj commit označenej jako <code>verified</code>.</p>
+</li>
+</ol>
+<details>
+    <summary>Tip!</summary>
+<p>Pro <code>&quot;commitování&quot;</code> s podpisem přes <code>Bash</code> se používa <code>git commit -S -m &quot;my signed commit&quot;</code></p>
+</details>
+<p><sup>*</sup>Detailnejší návody najdete také na stránkach <a href="https://git.robotika.ceitec.vutbr.cz:2223/help/user/project/repository/gpg_signed_commits/index.md">GitLabu</a> nebo <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification">GitHubu</a>. <br /></p>
 <h2><a class="header" href="#simulátor-cca-30-min" id="simulátor-cca-30-min">Simulátor (cca 30 min)</a></h2>
-<p>Ze <a href="https://github.com/Robotics-BUT/BPC-PRP">stránek kurzu</a> si pullněte aktuální stav repozitáře.</p>
-<p>Repozitář obsahuje ve složce &quot;bin/&quot; skompilovanou binárku simulátoru nazvanou &quot;simulator&quot;. Pokud máte korektně nainstalovaný ROS, otevřete si 3 terminály</p>
+<p>Ze <a href="https://github.com/Robotics-BUT/BPC-PRP">stránek kurzu</a> si <code>&quot;pullněte&quot;</code> aktuální stav repozitáře.</p>
+<p>Repozitář obsahuje ve složce <code>bin/</code> skompilovanou binárku simulátoru nazvanou &quot;simulator&quot;. Pokud máte korektně nainstalovaný ROS, otevřete si 3 terminály</p>
 <details>
     <summary>Tip pro práci s více terminály</summary>
-<br>
-Pro práci s více okny terminálů je dobré si nainstalovat pomocí balíčkovacího manažeru program "terminator" nebo "tilix". Ten Vám umožní v jednom okně mít otevřených více terminálu.
+<p>Pro práci s více okny terminálů je dobré si nainstalovat pomocí balíčkovacího manažeru program &quot;terminator&quot; nebo &quot;tilix&quot;. Ten Vám umožní v jednom okně mít otevřených více terminálu.</p>
 </details>
-<br>
 <details>
     <summary>Vím jak se pracuje s balíčkovacím manažerem, jen potřebuji osvěžit paměť.</summary>
-<br>
-sudo apt install terminator
+<p><code>sudo apt install &lt;package-name&gt;</code></p>
 </details>
-<br>
-<p>Ve složce &quot;resources/&quot; naleznete soubor config.yaml. Z něj si bude simulátor načítat hodnoty pro Vaší simulaci, mezi jinými nastavení síťové komunikace, simulované rozměry robota, parametry podvozku, rozmístění snímačů, a hlavně cestu k mapě, se kterou bude simulátor pracovat. Tu si upravte pro svůj vlastní souborový systém.</p>
-<p>Dále se ve slořce serources nachází také jedna vzorová mapa. Nahlédněté do ní a všiměnte si struktury YAML dat. Nachází se zde informace o šířce čáry a následně je zde pole úseček definovaných vždy [bod1_x, bod1_y, bod2_x, bod2_y]. V budoucnu si budete vytvářet taky vlastní mapy.</p>
-<p>✅ Nastavte si v souboru config.yaml validní cestu k mapě route_1.yaml.</p>
-<p>✅ Po změně obsahu souboru si vyzkoušejte validitu yamlu souboru v <a href="http://www.yamllint.com/">online nástroji</a>.</p>
+<p>Ve složce <code>resources/</code> naleznete soubor <code>config.yaml</code>. Z něj si bude simulátor načítat hodnoty pro Vaší simulaci, mezi jinými nastavení síťové komunikace, simulované rozměry robota, parametry podvozku, rozmístění snímačů, a hlavně cestu k mapě, se kterou bude simulátor pracovat. Tu si upravte pro svůj vlastní souborový systém.</p>
+<p>Dále se ve složce <code>resources/</code> nachází také jedna vzorová mapa. Nahlédněté do ní a všiměnte si struktury YAML dat. Nachází se zde informace o šířce čáry a následně je zde pole úseček definovaných vždy <code>[bod1_x, bod1_y, bod2_x, bod2_y]</code>. V budoucnu si budete vytvářet taky vlastní mapy.</p>
+<p>✅ Nastavte si v souboru <code>config.yaml</code> validní cestu k mapě <code>route_1.yaml</code>.</p>
+<p>✅ Po změně obsahu souboru si vyzkoušejte validitu <code>.yaml</code> souboru v <a href="http://www.yamllint.com/">online nástroji</a>.</p>
 <p>Nyní zbývá si vyzkoušet oživit celý systém.</p>
-<p>✅ V 1. terminále zapněte roscore</p>
+<p>✅ V 1. terminále zapněte <code>roscore</code></p>
 <p>✅ V 2. terminále spusťte binárku simulátoru, jako argument programu přidejte absolutní cestu ke konfiguračnímu souboru, který jste dříve editovali.</p>
 <p>✅ V 3. terminále zapněte rviz a přidejte si vizualizaci topicků </p>
 <h3><a class="header" href="#konfigurace-rvizu" id="konfigurace-rvizu">Konfigurace RVizu</a></h3>
 <p><img src="cviceni/../images/rviz_1.jpg" alt="empty RViz" /></p>
-<p>Pokud běží simulátor, v levé dolní sekci tlačítkem &quot;ADD&quot; otevřete okno pro přidání vizualizací.</p>
+<p>Pokud běží simulátor, v levé dolní sekci tlačítkem <code>Add</code> otevřete okno pro přidání vizualizací.</p>
 <p><img src="cviceni/../images/rviz_2.jpg" alt="RViz add topic by display type" /></p>
-<p>V záložce &quot;By Display Type&quot; vyberte položku &quot;TF&quot; a dvojitým polikem jí přidejte do zobrazení. Dále v levé horní části v záložce &quot;Global Options&quot; nastavte položku &quot;Fixed Frame&quot; na hodnotu &quot;origin&quot;. Tímto jsme RVizu řekli, že má zobrazovat souřadný systém &quot;origin&quot; a vůči němu vykreslovat všechny ostatní souřadné systémy, se kterými simulátor pracuje.</p>
-<p>Opětovně otevřete okno pro přidání vizualizací a přejděte do záložky &quot;By Topic&quot;. </p>
+<p>V záložce <code>By Display Type</code> vyberte položku <code>TF</code> a dvojitým polikem jí přidejte do zobrazení. Dále v levé horní části v záložce <code>Global Options</code> nastavte položku <code>Fixed Frame</code> na hodnotu <code>origin</code>. Tímto jsme RVizu řekli, že má zobrazovat souřadný systém <code>origin</code> a vůči němu vykreslovat všechny ostatní souřadné systémy, se kterými simulátor pracuje.</p>
+<p>Opětovně otevřete okno pro přidání vizualizací a přejděte do záložky <code>By Topic</code>. </p>
 <p><img src="cviceni/../images/rviz_3.jpg" alt="RViz add topic by topic" /></p>
-<p>Postupně si přidejte všenchy vizualizace markerů pod topicky:</p>
+<p>Postupně si přidejte všenchy vizualizace markerů pod topicky (v obdélniku <code>Display Name</code> můžete vizualizaci topicu pojmenovat):</p>
 <ul>
 <li>/bpc_prp/line</li>
 <li>/bpc_prp/robot_body</li>
@@ -2033,7 +2042,7 @@ sudo apt install terminator
 <li>/bpc_prp/wheels/left</li>
 <li>/bpc_prp/wheels/right</li>
 </ul>
-<p>Ihned po přidání nové vizualizace si jí můžete přejmenovat použitím tlačítka &quot;Rename&quot; na penelu vlevo dole.</p>
+<p>Ihned po přidání nové vizualizace si jí můžete také přejmenovat použitím tlačítka <code>Rename</code> na penelu vlevo dole.</p>
 <p>✅ Výsledek by měl vypadat následovně:</p>
 <p><img src="cviceni/../images/prp_1.jpg" alt="RViz Ready" /></p>
 <p>Současné nastavení RVizu uložíte klávesovou zkratkou CTRL+S</p>
