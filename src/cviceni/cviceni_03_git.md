@@ -25,7 +25,7 @@ ale upravit jméno, například takto: `/home/<user-name>/.ssh/id_ed25519_gitlab
 
 3. Poté (po vyzváni), pokud chcete, zadejte heslo pro zabezpečení klíče. Jinak jen potvrďte stisknutím `Enter`.
 
-4. Otevřete soubor `/home/<user-name>/.ssh/config` (například v nano) přidejte následujíci:
+4. Otevřete soubor `/home/<user-name>/.ssh/config` (například v nano) a přidejte následujíci:
 ```
 # Student gitlab instance at student.robotika.ceitec.vutbr.cz
 Host student.robotika.ceitec.vutbr.cz
@@ -116,7 +116,7 @@ Nejprve si `"pullnete"` aktualni verzi z `"originu"`. Podívejte se co se stalo 
 Upravte ho tak aby v nem bylo vše co požadujete. Opět `"commitnete"` a zkuste `"pushnout"`.
 </details>
 
-✅ Všichni členové týmu si pullnou aktuální verzi repozitáře.
+✅ Všichni členové týmu si `"pullnou"` aktuální verzi repozitáře.
 
 ✅ Jeden člen týmu vytvoří novej lokálni `branch`, `"checkoutne"` se do nej a vyrobí si vlastní `.h` soubor a v něm funkci, která vytiskne jeho jméno.
 Změny standardně `"commitne"` a pokusí se `"pushnout"`.
@@ -135,7 +135,7 @@ Co se stalo když ste se pokusili `"pushnout"` novej branch? Co Vám poradil `gi
 </details>
 
 ✅ Všichni si `"pullnou"` nové zmeny k sobě a `"checkoutnou"` se na novej branch v `"originu"`.
-Každý člen týmu si pak vyrobí vlastní .h soubor a v něm taky funkci, která vytiskne jeho jméno.
+Každý člen týmu si pak vyrobí vlastní `.h` soubor a v něm taky funkci, která vytiskne jeho jméno.
 Všichni `"pushnou"` své změny na server.
 
 <details>
@@ -163,7 +163,7 @@ Pokud je `log` příliž dlouhej, vrátite se zpět stisknutím klávesy `q`.
 
 ### Integrace GITu v Clion IDE
 
-Všechny operace, které ste právě delali se dají mnohem snadněji a efektivněji udělat i v Clionu.
+Všechny operace, které ste právě dělali se dají mnohem snadněji a efektivněji udělat i v Clionu.
 Dálší část budete delat už přímo v Clionu.
 
 ✅ Všichni si v Clionu otevřou složku se svým repozitářem.
@@ -269,11 +269,11 @@ Balíček `gpg` nainstalujete standardně příkazem `sudo apt install gpg`
 
 7. Když se Vaše klíče vygenerují, pomocí příkazu `gpg --list-secret-keys --keyid-format LONG <your-email>` si zobrazíte váš privátni klíč.
 
-8. Skopírujte sekvencií znaků (ID Vašeho klíče), která následuje hned po `rsa4096/`.
+8. Skopírujte sekvencií znaků (ID Vašeho klíče), která následuje hned po `sec rsa4096/` v prvním řádku.
 
 9. Pomocí příkazu `gpg --armor --export <skopirovane-ID-klice>` vygenerujete veřejnou část vašeho páru klíčů.
 
-10. Skopírujte všechno od `-----BEGIN PGP PUBLIC KEY BLOCK-----` až po `-----END PGP PUBLIC KEY BLOCK-----`, včetně.
+10. Skopírujte všechno od `-----BEGIN PGP PUBLIC KEY BLOCK-----` až po `-----END PGP PUBLIC KEY BLOCK-----`, včetně obou.
 
 11. V gitlabu přejdete do `Preferences > GPG Keys`,  vložte skopírovanej obsah a potvrďte stlačením `Add key`.
 
@@ -285,38 +285,48 @@ Balíček `gpg` nainstalujete standardně příkazem `sudo apt install gpg`
 Podívejte co se změnilo v souboru `.git/config`. To samé by se dalo opět dosáhnout editováním tohto souboru, avšak v Clionu je to mnohem jedndušší.
 </details>
 
+13. Jeden člen týmu zkusí cvične udělat nejakej `commit` (měl by dostat výzvu na zadáni hesla) a `"pushnout"`.
+
+14. Pokud všechno probehlo správně měli by ste v gitlabu v historii `"commitů"` vidět svůj commit označenej jako `verified`.
+
+<details>
+    <summary>Tip!</summary>
+
+Pro `"commitování"` s podpisem přes `Bash` se používa `git commit -S -m "my signed commit"`
+</details>
+
+<sup>*</sup>Detailnejší návody najdete také na stránkach [GitLabu](https://git.robotika.ceitec.vutbr.cz:2223/help/user/project/repository/gpg_signed_commits/index.md) nebo [GitHubu](https://docs.github.com/en/authentication/managing-commit-signature-verification). <br />
+
 
 ## Simulátor (cca 30 min)
 
-Ze [stránek kurzu](https://github.com/Robotics-BUT/BPC-PRP) si pullněte aktuální stav repozitáře.
+Ze [stránek kurzu](https://github.com/Robotics-BUT/BPC-PRP) si `"pullněte"` aktuální stav repozitáře.
 
-Repozitář obsahuje ve složce "bin/" skompilovanou binárku simulátoru nazvanou "simulator". Pokud máte korektně nainstalovaný ROS, otevřete si 3 terminály
+Repozitář obsahuje ve složce `bin/` skompilovanou binárku simulátoru nazvanou "simulator". Pokud máte korektně nainstalovaný ROS, otevřete si 3 terminály
 
 <details>
     <summary>Tip pro práci s více terminály</summary>
-<br>
+
 Pro práci s více okny terminálů je dobré si nainstalovat pomocí balíčkovacího manažeru program "terminator" nebo "tilix". Ten Vám umožní v jednom okně mít otevřených více terminálu.
 </details>
-<br>
 
 <details>
     <summary>Vím jak se pracuje s balíčkovacím manažerem, jen potřebuji osvěžit paměť.</summary>
-<br>
-sudo apt install terminator
+
+`sudo apt install <package-name>`
 </details>
-<br>
 
-Ve složce "resources/" naleznete soubor config.yaml. Z něj si bude simulátor načítat hodnoty pro Vaší simulaci, mezi jinými nastavení síťové komunikace, simulované rozměry robota, parametry podvozku, rozmístění snímačů, a hlavně cestu k mapě, se kterou bude simulátor pracovat. Tu si upravte pro svůj vlastní souborový systém.
+Ve složce `resources/` naleznete soubor `config.yaml`. Z něj si bude simulátor načítat hodnoty pro Vaší simulaci, mezi jinými nastavení síťové komunikace, simulované rozměry robota, parametry podvozku, rozmístění snímačů, a hlavně cestu k mapě, se kterou bude simulátor pracovat. Tu si upravte pro svůj vlastní souborový systém.
 
-Dále se ve slořce serources nachází také jedna vzorová mapa. Nahlédněté do ní a všiměnte si struktury YAML dat. Nachází se zde informace o šířce čáry a následně je zde pole úseček definovaných vždy [bod1_x, bod1_y, bod2_x, bod2_y]. V budoucnu si budete vytvářet taky vlastní mapy.
+Dále se ve složce `resources/` nachází také jedna vzorová mapa. Nahlédněté do ní a všiměnte si struktury YAML dat. Nachází se zde informace o šířce čáry a následně je zde pole úseček definovaných vždy `[bod1_x, bod1_y, bod2_x, bod2_y]`. V budoucnu si budete vytvářet taky vlastní mapy.
 
-✅ Nastavte si v souboru config.yaml validní cestu k mapě route_1.yaml.
+✅ Nastavte si v souboru `config.yaml` validní cestu k mapě `route_1.yaml`.
 
-✅ Po změně obsahu souboru si vyzkoušejte validitu yamlu souboru v [online nástroji](http://www.yamllint.com/).
+✅ Po změně obsahu souboru si vyzkoušejte validitu `.yaml` souboru v [online nástroji](http://www.yamllint.com/).
 
 Nyní zbývá si vyzkoušet oživit celý systém.
 
-✅ V 1. terminále zapněte roscore
+✅ V 1. terminále zapněte `roscore`
 
 ✅ V 2. terminále spusťte binárku simulátoru, jako argument programu přidejte absolutní cestu ke konfiguračnímu souboru, který jste dříve editovali.
 
@@ -326,24 +336,24 @@ Nyní zbývá si vyzkoušet oživit celý systém.
 
 ![empty RViz](../images/rviz_1.jpg)
 
-Pokud běží simulátor, v levé dolní sekci tlačítkem "ADD" otevřete okno pro přidání vizualizací.
+Pokud běží simulátor, v levé dolní sekci tlačítkem `Add` otevřete okno pro přidání vizualizací.
 
 ![RViz add topic by display type](../images/rviz_2.jpg)
 
-V záložce "By Display Type" vyberte položku "TF" a dvojitým polikem jí přidejte do zobrazení. Dále v levé horní části v záložce "Global Options" nastavte položku "Fixed Frame" na hodnotu "origin". Tímto jsme RVizu řekli, že má zobrazovat souřadný systém "origin" a vůči němu vykreslovat všechny ostatní souřadné systémy, se kterými simulátor pracuje.
+V záložce `By Display Type` vyberte položku `TF` a dvojitým polikem jí přidejte do zobrazení. Dále v levé horní části v záložce `Global Options` nastavte položku `Fixed Frame` na hodnotu `origin`. Tímto jsme RVizu řekli, že má zobrazovat souřadný systém `origin` a vůči němu vykreslovat všechny ostatní souřadné systémy, se kterými simulátor pracuje.
 
-Opětovně otevřete okno pro přidání vizualizací a přejděte do záložky "By Topic". 
+Opětovně otevřete okno pro přidání vizualizací a přejděte do záložky `By Topic`. 
 
 ![RViz add topic by topic](../images/rviz_3.jpg)
 
-Postupně si přidejte všenchy vizualizace markerů pod topicky:
+Postupně si přidejte všenchy vizualizace markerů pod topicky (v obdélniku `Display Name` můžete vizualizaci topicu pojmenovat):
   - /bpc_prp/line
   - /bpc_prp/robot_body
   - /bpc_prp/sensors
   - /bpc_prp/wheels/left
   - /bpc_prp/wheels/right
 
-Ihned po přidání nové vizualizace si jí můžete přejmenovat použitím tlačítka "Rename" na penelu vlevo dole.
+Ihned po přidání nové vizualizace si jí můžete také přejmenovat použitím tlačítka `Rename` na penelu vlevo dole.
 
 ✅ Výsledek by měl vypadat následovně:
 
