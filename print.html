@@ -1755,27 +1755,253 @@ int main() {
 <h1><a class="header" href="#git-simulátor" id="git-simulátor">GIT, simulátor</a></h1>
 <p>Cvičící: Ing. Adam Ligocki, Ph.D., Ing. Tomáš Horeličan</p>
 <h2><a class="header" href="#git-cca-1-hod" id="git-cca-1-hod">GIT (cca 1 hod)</a></h2>
-<p>Zaregistrujte se na studentském <a href="https://student.robotika.ceitec.vutbr.cz/">GitLab serveru</a></p>
-<p>Tento server bude po zbytek kurzu BPC-PRP Vás tzv. &quot;origin&quot;, tedy vzdálené repozitář.</p>
+<p>Zaregistrujte se na studentském <a href="https://student.robotika.ceitec.vutbr.cz/">GitLab serveru</a>. Doporučuji také verifikovat emailovou adresu, bude se Vám to hodiť při některých operacích.</p>
+<p>Tento server bude po zbytek kurzu BPC-PRP Vás tzv. <code>origin</code>, tedy vzdálené repozitář.</p>
 <p>Vyučující mají náhled do všech Vaších repozitářů, včetně jejich historii a mohou přůběžně sledovat Vaší práci, případně kdo, kdy a jak intenzivně &quot;commitoval&quot;.</p>
-<p>Na serveru si vytvořte repozitář, ve kterém budete udržovat kód po zbytek kurzu.</p>
-<p>V rámci týmu si vyzkoušejte následujicí cvičení.</p>
+<p>Na serveru si můžete vytvořit repozitář, ve kterém budete následne udržovat kód po zbytek kurzu.</p>
+<h3><a class="header" href="#vytvoření-ssh-klíčů-pro-přístup-k-repozitářům" id="vytvoření-ssh-klíčů-pro-přístup-k-repozitářům">Vytvoření SSH klíčů pro přístup k repozitářům</a></h3>
+<ol>
+<li>Vygenerujte si klíče pomocí příkazu <code>ssh-keygen -t ed25519 -C &quot;&lt;comment&gt;&quot;</code></li>
+</ol>
+<details>
+    <summary>Tip!</summary>
+Do komentu doporučuji zadat emailovou adresu, kterou máte spojenou s vaším gitlab účtem.
+</details>
+<ol start="2">
+<li>
+<p>Poté (po vyzváni) zadejte adresářovou cestu kam se mají klíče uložit. Doporučuji ponechat &quot;defaultni&quot; cestu
+ale upravit jméno, například takto: <code>/home/&lt;user-name&gt;/.ssh/id_ed25519_gitlab_uamt_&lt;group-number&gt;</code></p>
+</li>
+<li>
+<p>Poté (po vyzváni), pokud chcete, zadejte heslo pro zabezpečení klíče. Jinak jen potvrďte stisknutím <code>Enter</code>.</p>
+</li>
+<li>
+<p>Otevřete soubor <code>/home/&lt;user-name&gt;/.ssh/config</code> (například v nano) přidejte následujíci:</p>
+</li>
+</ol>
+<pre><code># Student gitlab instance at student.robotika.ceitec.vutbr.cz
+Host student.robotika.ceitec.vutbr.cz
+  PreferredAuthentications publickey
+  IdentityFile ~/.ssh/id_ed25519_gitlab_uamt_&lt;group-number&gt;
+</code></pre>
+<details>
+    <summary>Tip!</summary>
+Pokud jste si zvolili jiné jméno klíče, musíte ho stejně zadat i zde.
+</details>
+<ol start="5">
+<li>Zkopírujte obsah souboru <code>/home/&lt;user-name&gt;/.ssh/id_ed25519_gitlab_uamt_&lt;group-number&gt;.pub</code></li>
+</ol>
+<blockquote>
+<p><strong>POZOR!</strong> Kopírujte jen ze souboru s příponou <code>.pub</code>!
+Pokud má obsah více než jeden řádek a nebo začíná řádkem <code>-----BEGIN OPENSSH PRIVATE KEY-----</code>, pravdepodobne kopírujete nesprávnej soubor!</p>
+</blockquote>
+<ol start="6">
+<li>
+<p>V gitlabu přejdete do <code>Preferences &gt; SSH Keys</code>, vložte zkopírovanej obsah, pojmenujte svůj klíč (např. &quot;Notebook-Ubuntu&quot;) a potvrďte stisknutím <code>Add key</code>.</p>
+</li>
+<li>
+<p>Teď by ste meli mít z Vašeho počítače přístup ke všem Vaším (budoucím) repozitářům.
+Zároveň ste se naučili jak se dá spravovat více různych klíčů pro různe git servery.</p>
+</li>
+</ol>
+<p><sup>*</sup>Detailnejší návody najdete také na stránkach <a href="https://student.robotika.ceitec.vutbr.cz/help/ssh/index#generate-an-ssh-key-pair">GitLabu</a> nebo <a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">GitHubu</a>. <br /></p>
+<p>V rámci týmu si teď vyzkoušejte následujicí cvičení:</p>
+<h3><a class="header" href="#základní-nastavení-gitu" id="základní-nastavení-gitu">Základní nastavení GITu</a></h3>
 <p>✅ Jeden člen vytvoří repozitář na serveru.</p>
 <p>✅ Všichni členové si naklonují repozitár k sobě na PC.</p>
-<p>✅ Jeden člen týmu vytvoří na lokále hello world program a &quot;commitne&quot; jej, a &quot;pushne&quot; jej na origin.</p>
-<p>✅ Zbytek týmu si &quot;pullne&quot; změny k sobě na lokál.</p>
-<p>✅ Dva členové týmu si skusí vyrobit konflikt tak, že zároveň změní stejný řádek v kódu a pokusí se jej pushnout na server. Druhému v pořádí, který se pokusí o push, git zahlásí chybu.</p>
-<p>✅ Nešťastný člen týmu, který má nahlášený konflikt, se pokusí o jeho &quot;fix&quot; a opravenou verzi pushne na origin.</p>
-<p>✅ Všichni členové týmu si pullnou aktuální verzi repozitáře. A každý člen týmu si vyrobí vlastní .h soubor a v něm funkci, která vytiskne jeho jméno. Všichni pushnou změny na server.</p>
-<p>✅ Jeden člen týmu si pullne nově vytvořené .h soubory a upraví hello world program tak aby využíval všechen nově vytvořený kód. Změny pushne na origin.</p>
-<p>✅ Všichni si pullnou aktuální stav repozitáře.</p>
+<details>
+    <summary>Jak naklonovat vdálenej repozitář?</summary>
+<p><code>git clone &lt;ssh-link-to-repo.git&gt;</code></p>
+</details>
+<p>✅ Každej si ve svém naklonovaném repozitáři nastavi jméno a emailovou adresu, se kterýma bude do repozitáře commitovat.</p>
+<details>
+    <summary>Jak nastavit jméno a email?</summary>
+<pre><code>git config user.name &quot;&lt;committing-user-name&gt;&quot;
+git config user.email &lt;committing-user-email&gt;
+</code></pre>
+<p>Doporučuji nastavit stejnou emailovou adresu jakou máte ve svém gitlab účtu.</p>
+</details>
+<details>
+    <summary>Tip!</summary>
+<p>Podívejte se jak vypadá soubor <code>.git/config</code>. Nastavení můžete měnit i editováním přímo v tomto souboru.</p>
+</details>
+<h3><a class="header" href="#základní-git-workflow-bash" id="základní-git-workflow-bash">Základní GIT workflow (Bash)</a></h3>
+<p>✅ Jeden člen týmu vytvoří na lokále hello world program, <code>&quot;commitne&quot;</code> jej a <code>&quot;pushne&quot;</code> jej na <code>origin</code>.</p>
+<details>
+    <summary>Jak se commituje a pushuje?</summary>
+<pre><code>git add &lt;files-to-add&gt;
+git commit -m &quot;my first commit&quot;
+git push
+</code></pre>
+</details>
+<details>
+    <summary>Tip!</summary>
+<p>Pomocí příkazů <code>git status</code> a <code>git diff</code> sledujte průběžně změny v repozitáři.</p>
+</details>
+<p>✅ Zbytek týmu si <code>&quot;pullne&quot;</code> změny k sobě na lokál.</p>
+<details>
+    <summary>Jak se pulluje?</summary>
+<pre><code>git pull
+</code></pre>
+</details>
+<p>✅ Dva členové týmu si skusí vyrobit konflikt tak, že zároveň změní stejný řádek v kódu a pokusí se jej <code>&quot;pushnout&quot;</code> na server.
+Druhému v pořádí, který se pokusí o <code>push</code>, git zahlásí chybu.</p>
+<p>✅ Nešťastný člen týmu, který má nahlášený konflikt, se pokusí o jeho <code>fix</code> a opravenou verzi <code>&quot;pushne&quot;</code> na origin.</p>
+<details>
+    <summary>Jak vyřešit konflikt?</summary>
+<p>Nejprve si <code>&quot;pullnete&quot;</code> aktualni verzi z <code>&quot;originu&quot;</code>. Podívejte se co se stalo s Vaším kódem.
+Upravte ho tak aby v nem bylo vše co požadujete. Opět <code>&quot;commitnete&quot;</code> a zkuste <code>&quot;pushnout&quot;</code>.</p>
+</details>
+<p>✅ Všichni členové týmu si pullnou aktuální verzi repozitáře.</p>
+<p>✅ Jeden člen týmu vytvoří novej lokálni <code>branch</code>, <code>&quot;checkoutne&quot;</code> se do nej a vyrobí si vlastní <code>.h</code> soubor a v něm funkci, která vytiskne jeho jméno.
+Změny standardně <code>&quot;commitne&quot;</code> a pokusí se <code>&quot;pushnout&quot;</code>.</p>
+<details>
+    <summary>Jak udělat branch a checkoutnout?</summary>
+<pre><code>git branch &lt;name-of-the-new-branch&gt;
+git checkout &lt;name-of-an-existing-branch&gt;
+</code></pre>
+</details>
+<details>
+    <summary>Tip!</summary>
+<p>Co se stalo když ste se pokusili <code>&quot;pushnout&quot;</code> novej branch? Co Vám poradil <code>git</code>?</p>
+</details>
+<p>✅ Všichni si <code>&quot;pullnou&quot;</code> nové zmeny k sobě a <code>&quot;checkoutnou&quot;</code> se na novej branch v <code>&quot;originu&quot;</code>.
+Každý člen týmu si pak vyrobí vlastní .h soubor a v něm taky funkci, která vytiskne jeho jméno.
+Všichni <code>&quot;pushnou&quot;</code> své změny na server.</p>
+<details>
+    <summary>Tip!</summary>
+<p>Při <code>&quot;checkoutu&quot;</code> se nažte využívat doplňování pomocí <code>Tab</code>.</p>
+</details>
+<p>✅ Jeden člen týmu si <code>&quot;pullne&quot;</code> nově vytvořené <code>.h</code> soubory a upraví hello world program tak aby využíval všechen nově vytvořený kód.
+Změny pushne na <code>origin</code> a v gilabu vytvoří novej <code>Merge Request</code> z nového <code>&quot;branchu&quot;</code> do <code>&quot;branchu&quot; main</code>.</p>
+<p>✅ Nyní si všichni skuste pohrát s <code>MR (&quot;Merge Requestem&quot;)</code> v gitlabu.
+Přidávejte komentáře a zkuste v nich také vkládat odkazy na <code>&quot;commity&quot;</code> a části kódu.</p>
+<p>✅ Jeden člen týmu nakonec <code>Merge Request</code> potvrdí.</p>
+<p>✅ Všichni si <code>&quot;pullnou&quot;</code> aktuální stav repozitáře.</p>
+<details>
+    <summary>Tip!</summary>
+<p>Zkuste se pomocí příkazu <code>git log</code> podívat na aktuálni historii <code>&quot;commitů&quot;</code>.
+Pokud je <code>log</code> příliž dlouhej, vrátite se zpět stisknutím klávesy <code>q</code>.</p>
+</details>
+<h3><a class="header" href="#integrace-gitu-v-clion-ide" id="integrace-gitu-v-clion-ide">Integrace GITu v Clion IDE</a></h3>
+<p>Všechny operace, které ste právě delali se dají mnohem snadněji a efektivněji udělat i v Clionu.
+Dálší část budete delat už přímo v Clionu.</p>
+<p>✅ Všichni si v Clionu otevřou složku se svým repozitářem.</p>
+<details>
+    <summary>Tip!</summary>
+<p>Když si vlevo dolu rozklikněte modul <code>Git</code> uvidíte přehledne celou vaší historii <code>&quot;commitů&quot;</code> a také všechny <code>&quot;branche&quot;</code>, které git právě sleduje.
+<code>&quot;Checkoutovat&quot;</code> můžete (pravé tlačítko myši) nejen do branchů ale také do jekéhokoliv <code>&quot;commitu&quot;</code>.</p>
+</details>
+<p>✅ Všichni si <code>&quot;pullnou&quot;</code> aktuální stav repozitáře pomocí modré sípky napravo nahoře (<code>Update project...</code>) a <code>&quot;checkoutnou&quot;</code> do lokálního <code>&quot;branchu&quot; main</code>.</p>
+<p>✅ Jeden člen týmu vytvoří novej soubor s názvem <code>README.md</code> (pokud takovej soubor ješte neexistuje).</p>
+<p>✅ Do souboru <code>README.md</code> společně doplňte stručnej popis repozitáře pomocí <code>markdown</code> syntaxe.</p>
+<details>
+    <summary>Jak vypadá markdown?</summary>
+<pre><code># Main title
+This repository contains source files for the BPC-PRP cource ...
+
+# Table of contents
+* [Main title](#main-title)
+* [Subtitle](#this-is-a-subtitle)
+* [SubSubtitle](#this-is-a-sub-subtitle)
+* [Itemizing](#itemizing)
+* [Enumerating](#enumeration)
+* [Tables](#tables)
+
+## This is a subtitle
+Our solution for winning the competition was ...
+
+### This is a sub-subtitle
+**BALD TEXT**: Our C++ class `short name in code format` uses the ... algorithm to solve the ...
+
+    Long text displayed in code format.
+    It contains excerptions of our code
+    or other stuff.
+
+[This](https://google.com) is a web page link.
+
+### Itemizing
+* Line 1.
+* Line 2.
+
+### Enumeration
+1. Step one.
+2. Step two.
+
+### Tables
+| Col 1  | Col 2  | Col 3  | Col 4  |
+|--------|--------|--------|--------|
+| Row 11 | Row 12 | Row 13 | Row 12 |
+| Row 21 | Row 22 | Row 23 | Row 12 |
+</code></pre>
+</details>
+<p>✅ Člen týmu, který soubor právě edituje klikne na modul <code>Commit</code> (vlevo), kde uvidí všechny aktuálne rozpracované soubory.
+Po rozkliknutí souboru také přehledně uvidí všechny změny, které v souboru udělal.</p>
+<p>✅ Do okna dolu vloží info o <code>&quot;commitu&quot;</code>, <code>&quot;pushne&quot;</code> stlačením <code>Commit and Push...</code> a potvrdí.</p>
+<p>✅ Dva členové se opět pokusí vytvořit konflikt editovaním stejného řádku v jednom souboru.</p>
+<p>✅ Nešťastný člen týmu opět dostane varováni o konfliktu a stačením <code>Rebase</code> se ho pokusí řešit.</p>
+<p>✅ Řešitel konfliktu pak vybere možnost <code>Merge</code> a sloučí změny tak aby soubor obsahoval změny od obou členů.
+Stlačením <code>Push...</code> (zelená šipka vpravo nahoře) odešle finálni verzi do <code>&quot;originu&quot;</code>.</p>
+<p>Novej <code>branch</code> v Clionu vytvoříte v modulu <code>Git</code> stlačením ikonky <code>plus</code> vlevo.
+Můžete také udělat novej <code>branch</code>, který přímo navazuje na jinej než ten aktuálni a to kliknutím pravým tlačítkem miší a výběrem <code>New branch from selected...</code>.</p>
+<h3><a class="header" href="#podepisování-commitů-pomocí-gpg-klíčů-optional" id="podepisování-commitů-pomocí-gpg-klíčů-optional">Podepisování commitů pomocí GPG klíčů (optional)</a></h3>
+<p>Pokud chcete svoje <code>&quot;commity&quot;</code> podepisovat jako &quot;ověřený&quot; užívatel, je nutné mít verifikovanej email ve Vašem gitlab účtu.</p>
+<ol>
+<li>Klíče vygenerujete pomocí příkazu <code>gpg --full-gen-key</code>, případne <code>gpg --gen-key</code>.</li>
+</ol>
+<details>
+    <summary>Tip!</summary>
+<p>Balíček <code>gpg</code> nainstalujete standardně příkazem <code>sudo apt install gpg</code></p>
+</details>
+<ol start="2">
+<li>
+<p>Následně jen stiskňete klávesu <code>Enter</code> (vybírame &quot;default&quot; možnost <code>RSA and RSA</code>).</p>
+</li>
+<li>
+<p>Po vyzváni pak zadejte velikost klíče 4096.</p>
+</li>
+<li>
+<p>V dalším kroku můžete opět jen stisknout <code>Enter</code> (vaším klíčem nikdy neskončí platnost) a pak potvrdíte zadaním <code>y</code>.</p>
+</li>
+<li>
+<p>Teď budete postupně zadávat údaje o účtu, se kterým budou klíče asociovány:</p>
+<p>5.1 Jméno doporučuji zvolit stejné jako máte nastavené v účtu na gitlabu.</p>
+<p>5.2 Email musí být stejnej jako máte ve svém účtu na gitlabu a musí být verifikován. Email musí být také stejnej jako ste si nastavili v konfiguraci gitu (email <code>&quot;commitujicího&quot;</code>). Jinak Vám gitlab bude zobrazovat <code>&quot;commity&quot;</code> jako neověřené.</p>
+<p>5.3 Jako poznámku můžete zadat třeba &quot;Gitlab VUT&quot; abyste pak klíč rozeznali.</p>
+</li>
+<li>
+<p>Vyberte si heslo (tento krok nezle přeskočit).</p>
+</li>
+<li>
+<p>Když se Vaše klíče vygenerují, pomocí příkazu <code>gpg --list-secret-keys --keyid-format LONG &lt;your-email&gt;</code> si zobrazíte váš privátni klíč.</p>
+</li>
+<li>
+<p>Skopírujte sekvencií znaků (ID Vašeho klíče), která následuje hned po <code>rsa4096/</code>.</p>
+</li>
+<li>
+<p>Pomocí příkazu <code>gpg --armor --export &lt;skopirovane-ID-klice&gt;</code> vygenerujete veřejnou část vašeho páru klíčů.</p>
+</li>
+<li>
+<p>Skopírujte všechno od <code>-----BEGIN PGP PUBLIC KEY BLOCK-----</code> až po <code>-----END PGP PUBLIC KEY BLOCK-----</code>, včetně.</p>
+</li>
+<li>
+<p>V gitlabu přejdete do <code>Preferences &gt; GPG Keys</code>,  vložte skopírovanej obsah a potvrďte stlačením <code>Add key</code>.</p>
+</li>
+<li>
+<p>V Clionu (kde máte otevřenej svůj repozitář) přejdete do <code>Settings &gt; Git &gt; Configure GPG key</code> a vyberte se seznamu Váš klíč.</p>
+</li>
+</ol>
+<details>
+    <summary>Tip!</summary>
+<p>Podívejte co se změnilo v souboru <code>.git/config</code>. To samé by se dalo opět dosáhnout editováním tohto souboru, avšak v Clionu je to mnohem jedndušší.</p>
+</details>
 <h2><a class="header" href="#simulátor-cca-30-min" id="simulátor-cca-30-min">Simulátor (cca 30 min)</a></h2>
 <p>Ze <a href="https://github.com/Robotics-BUT/BPC-PRP">stránek kurzu</a> si pullněte aktuální stav repozitáře.</p>
 <p>Repozitář obsahuje ve složce &quot;bin/&quot; skompilovanou binárku simulátoru nazvanou &quot;simulator&quot;. Pokud máte korektně nainstalovaný ROS, otevřete si 3 terminály</p>
 <details>
     <summary>Tip pro práci s více terminály</summary>
 <br>
-Pro práci s více okny terminálů je dobré si nainstalovat pomocí balíčkovacího manažeru program "terminator". Ten Vám umožní v jednom okně mít otevřených více terminálu.
+Pro práci s více okny terminálů je dobré si nainstalovat pomocí balíčkovacího manažeru program "terminator" nebo "tilix". Ten Vám umožní v jednom okně mít otevřených více terminálu.
 </details>
 <br>
 <details>
