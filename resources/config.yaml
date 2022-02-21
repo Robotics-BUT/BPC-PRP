@@ -3,11 +3,11 @@ line_file_path: "/home/default_user/Developer/bpc-prp-project/resources/route_1.
 #line_file_path: "/home/default_user/Developer/bpc-prp-project/resources/route_3.yaml"
 
 simulation:
-  port_in: 8080
-  port_out: 8081
+  port: 8080
   simulation_period: 0.01
   visualization_period: 0.02
-  verbose: true
+  verbose_timing: true
+  verbose_udp: true
 
 robot:
   pose:
