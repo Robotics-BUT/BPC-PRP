@@ -11,17 +11,34 @@ Tento server bude po zbytek kurzu BPC-PRP Vás tzv. `origin`, tedy vzdálené re
 Vyučující mají náhled do všech Vaších repozitářů, včetně jejich historii a mohou přůběžně sledovat Vaší práci, případně kdo, kdy a jak intenzivně "commitoval".
 
 Na serveru si můžete vytvořit repozitář, ve kterém budete následne udržovat kód po zbytek kurzu.
+Nejprve je ale potřebné zajistit by Váš počítač měl k tomuto repozitáři přístup a mohl si z něj `"pullovat"` nové změny a `"pushovat"` na něj své lokálni změny.
+Pro toto budete využívat SSH (Secure SHell) klíče.
 
 ### Vytvoření SSH klíčů pro přístup k repozitářům
+
+Pár klíčů vygenerujte pouze jeden krát na jednom počítači.
+
+Klíče se ukádají lokálně na počítači a jsou pak spárované s účtem na gitlabu. Pokud tedy pracujete na školním PC, vyberte si jednoho člena týmu, který svůj účet na gitlabu s tímto párem následně v dalších krocích propojí.
+
+Pokud pracujete na svém vlastním počítači postupujte s vaším vlastním gitlab účtem.
+
+> **_POZNÁMKA:_**  Kdykoliv uvidíte špicaté závorky s nějakým textem `<text>`, znamená to, že máte tento text včetě závorek něčím nahradit.
+
 
 1. Vygenerujte si klíče pomocí příkazu `ssh-keygen -t ed25519 -C "<comment>"`
 <details>
     <summary>Tip!</summary>
-Do komentu doporučuji zadat emailovou adresu, kterou máte spojenou s vaším gitlab účtem.
+Jako koment doporučuji zadat emailovou adresu, kterou máte spojenou s vaším gitlab účtem. Snadněji pak spoznáte k čemu klíče patří. 
 </details>
 
 2. Poté (po vyzváni) zadejte adresářovou cestu, kam se mají klíče uložit. Doporučuji ponechat "defaultni" cestu
 ale upravit jméno, například takto: `/home/<user-name>/.ssh/id_ed25519_gitlab_uamt_<group-number>`
+<details>
+    <summary>Tip!</summary>
+
+Tá poslední část (tedy `id_ed25519_gitlab_uamt_<group-number>`) je jméno, se kterým se klíče vygenerují.
+Můžete ho nahradit čím chcete ale musíte to samé pak taky použít v dalších krocích.
+</details>
 
 3. Poté (po vyzváni), pokud chcete, zadejte heslo pro zabezpečení klíče. Jinak jen potvrďte stisknutím `Enter`.
 
@@ -38,13 +55,18 @@ Pokud jste si zvolili jiné jméno klíče, musíte ho stejně zadat i zde.
 </details>
 
 5. Zkopírujte obsah souboru `/home/<user-name>/.ssh/id_ed25519_gitlab_uamt_<group-number>.pub`
-> **POZOR!** Kopírujte jen ze souboru s příponou `.pub`!
-> Pokud má obsah více než jeden řádek a nebo začíná řádkem `-----BEGIN OPENSSH PRIVATE KEY-----`, pravdepodobne kopírujete nesprávný soubor!
+<details>
+    <summary>Tip!</summary>
+Pokud jste si zvolili jiné jméno klíče, musíte ho opět stejně zadat i zde.
+</details>
 
-6. V gitlabu přejdete do `Preferences > SSH Keys`, vložte zkopírovaný obsah, pojmenujte svůj klíč (např. "Notebook-Ubuntu") a potvrďte stisknutím `Add key`.
+> **POZOR!** Kopírujte jen ze souboru s příponou `.pub`!
+> Pokud má obsah více než jeden řádek a nebo začíná řádkem `-----BEGIN OPENSSH PRIVATE KEY-----`, pravdepodobne kopírujete z nesprávneho souboru!
+
+6. V gitlabu přejdete do `Preferences > SSH Keys`, vložte zkopírovaný obsah, pojmenujte tady svůj klíč (např. "Notebook-Ubuntu") a potvrďte stisknutím `Add key`.
 
 7. Teď by ste meli mít z Vašeho počítače přístup ke všem Vaším (budoucím) repozitářům.
-Zároveň ste se naučili jak se dá spravovat více různych klíčů pro různe git servery.
+Zároveň ste se naučili jak můžete v budoucnu spravovat více různych klíčů pro různe git servery.
 
 <sup>*</sup>Detailnejší návody najdete také na stránkach [GitLabu](https://student.robotika.ceitec.vutbr.cz/help/ssh/index#generate-an-ssh-key-pair) nebo [GitHubu](https://docs.github.com/en/authentication/connecting-to-github-with-ssh). <br />
 
@@ -52,9 +74,9 @@ V rámci týmu si teď vyzkoušejte následujicí cvičení:
 
 ### Základní nastavení GITu
 
-✅ Jeden člen vytvoří repozitář na serveru.
+✅ Jeden člen vytvoří repozitář na serveru přímo v gitlabu.
 
-✅ Všichni členové si naklonují repozitár k sobě na PC.
+✅ Všichni členové si naklonují repozitár k sobě na PC (na školním PC klonuje, zamozřejmě, jen jeden užívatel).
 
 <details>
     <summary>Jak naklonovat vdálený repozitář?</summary>
@@ -63,6 +85,7 @@ V rámci týmu si teď vyzkoušejte následujicí cvičení:
 </details>
 
 ✅ Každý si ve svém naklonovaném repozitáři nastavi jméno a emailovou adresu, se kterýma bude do repozitáře commitovat.
+Na školním PC to bude pouze ten člen, který si pro ňej pároval i SSH klíče.
 
 <details>
     <summary>Jak nastavit jméno a email?</summary>
@@ -147,6 +170,16 @@ Při `"checkoutu"` se nažte využívat doplňování pomocí `Tab`.
 ✅ Jeden člen týmu si `"pullne"` nově vytvořené `.h` soubory a upraví hello world program tak aby využíval všechen nově vytvořený kód.
 Změny pushne na `origin` a v gilabu vytvoří nový `Merge Request` z nového `"branchu"` do `"branchu" main`.
 
+> **POZNÁMKA:** Pokud ste v gitlabu ve svém repozitáři a vlevo nevidíte možnost `Merge requests`, musíte si je v nastaveních povolit.
+> Přejdete do (vlevo) `Settings > General`, v části `Visibility, project features, permissions` klikněte na `Expand` a povolte `Merge requests`.
+<details>
+    <summary>Tip!</summary>
+
+Velmi užitečným nástrojem jsou i takzvané `Issues`, které povolíte v týchž nastaveních jako `Merge requesty`.
+Pomocí nich můžou developeři zaznamenávat chyby, které je třeba opravit nebo diskutovat nové "featury".
+`Issues` v tomto cviku používat nebudete ale můžete se s nima pohrát samostatně a také je můžete pak využívat při práci na projektu.
+</details>
+
 ✅ Nyní si všichni skuste pohrát s `MR ("Merge Requestem")` v gitlabu.
 Přidávejte komentáře a zkuste v nich také vkládat odkazy na `"commity"` a části kódu.
 
@@ -177,7 +210,7 @@ Když si vlevo dolu rozklikněte modul `Git` uvidíte přehledne celou vaší hi
 
 ✅ Všichni si `"pullnou"` aktuální stav repozitáře pomocí modré sípky napravo nahoře (`Update project...`) a `"checkoutnou"` do lokálního `"branchu" main`.
 
-✅ Jeden člen týmu vytvoří nový soubor s názvem `README.md` (pokud takový soubor ješte neexistuje).
+✅ Jeden člen týmu vytvoří nový soubor s názvem `README.md` (pokud takový soubor ješte neexistuje), jeden soubor s názvem `.gitignore` (včetně tečky) a jeden textový soubor s názvem `random_file.txt`.
 
 ✅ Do souboru `README.md` společně doplňte stručný popis repozitáře pomocí `markdown` syntaxe.
 
@@ -225,9 +258,26 @@ Our solution for winning the competition was ...
 </details>
 
 ✅ Člen týmu, který soubor právě edituje klikne na modul `Commit` (vlevo), kde uvidí všechny aktuálne rozpracované soubory.
-Po rozkliknutí souboru také přehledně uvidí všechny změny, které v souboru udělal.
+Po rozkliknutí souboru také přehledně uvidí všechny změny, které v tom souboru udělal.
 
-✅ Do okna dolu vloží info o `"commitu"`, `"pushne"` stlačením `Commit and Push...` a potvrdí.
+✅ V části `Untracked files` uvidíte všechny nové soubory, které ste právě vytvořili.
+
+✅ Člen týmu, který vytvářel soubory si otevře `.gitignore` a do něj přímo napíše název posledně vytvořeného textového souboru (tedy `random_file.txt`).
+Pak se pak vráti do modulu `Commit` (vlevo).
+<details>
+    <summary>Tip!</summary>
+
+Sledujte co se stalo v části `Untracked files`. Pokud tam zůstali ješte nejaké jiné neznáme soubory, můžete je stejně přidat do `.gitignore`.
+Typicky to bývají soubory z `cmake` nebo od Clionu. Když do `.gitignore` vložíte `cmake*` bude git ignorovat všechno, co začína textem cmake (včetně složek).
+</details>
+<details>
+    <summary>Pro Tip!</summary>
+
+Podobné chování dosáhnete i přes soubor `.git/info/exclude`.
+Rozdíl je v tom, že ten je přístupnej vždy jen lokálne pro Vás a to co do něj vložíte nikto jiný neuvidí a tedy ani u nikoho jiného fungovat nebude.
+</details>
+
+✅ Do okna dolu vloží info o `"commitu"` (takzvaný `commit message`), `"pushne"` stlačením `Commit and Push...` a potvrdí.
 
 ✅ Dva členové se opět pokusí vytvořit konflikt editovaním stejného řádku v jednom souboru.
 
@@ -302,7 +352,8 @@ Pro `"commitování"` s podpisem přes `Bash` se používa `git commit -S -m "my
 
 Ze [stránek kurzu](https://github.com/Robotics-BUT/BPC-PRP) si `"naclonujte"` aktuální stav repozitáře.
 
-Repozitář obsahuje ve složce `bin/` skompilovanou binárku simulátoru nazvanou "simulator". Pokud máte korektně nainstalovaný ROS, otevřete si 3 terminály
+Repozitář obsahuje ve složce `bin/` skompilovanou binárku simulátoru nazvanou "simulator". Pokud máte korektně nainstalovaný ROS, otevřete si 3 terminály.
+Pokud ne, nainstalujte si ho podle návodu na [stránkach kurzu](https://robotics-but.github.io/BPC-PRP/chap_1_software/text/ros.html) nebo přímo [stránkach rosu](http://wiki.ros.org/noetic/Installation/Ubuntu).
 
 <details>
     <summary>Tip pro práci s více terminály</summary>
@@ -319,12 +370,19 @@ Pro práci s více okny terminálů je dobré si nainstalovat pomocí balíčkov
 Ve složce `resources/` naleznete soubor `config.yaml`. Z něj si bude simulátor načítat hodnoty pro Vaší simulaci, mezi jinými nastavení síťové komunikace, simulované rozměry robota, parametry podvozku, rozmístění snímačů, a hlavně cestu k mapě, se kterou bude simulátor pracovat. Tu si upravte pro svůj vlastní souborový systém.
 
 Dále se ve složce `resources/` nachází také jedna vzorová mapa. Nahlédněté do ní a všiměnte si struktury YAML dat. Nachází se zde informace o šířce čáry a následně je zde pole úseček definovaných vždy `[bod1_x, bod1_y, bod2_x, bod2_y]`. V budoucnu si budete vytvářet taky vlastní mapy.
+<details>
+    <summary>Tip!</summary>
+
+Zkuste se zamyslet nad tím jak si zjednodušit tvorbu map. Můžete např. využít nějaký grafický nástroj, soubor si vyexportovat do nějakého vhodného formátu a pak prekonvertovat do `.yaml`. Řešení je na Vás.
+</details>
 
 ✅ Nastavte si v souboru `config.yaml` validní cestu k mapě `route_1.yaml`.
 
 ✅ Po změně obsahu souboru si vyzkoušejte validitu `.yaml` souboru v [online nástroji](http://www.yamllint.com/).
 
 Nyní zbývá si vyzkoušet oživit celý systém.
+
+> **POZNÁMKA:** Pokud nemáte ve svém `/home/<user-name>/.bashrc` souboru přidán příkaz `source /opt/ros/noetic/setup.bash` budete muset v každém novém okně vždy tento příkaz zavolat, jinak Váš počítač nepozná, že máte nainstalovaný ROS. 
 
 ✅ V 1. terminále zapněte `roscore`
 
