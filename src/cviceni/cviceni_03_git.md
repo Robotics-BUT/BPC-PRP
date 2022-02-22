@@ -20,7 +20,7 @@ Na serveru si můžete vytvořit repozitář, ve kterém budete následne udržo
 Do komentu doporučuji zadat emailovou adresu, kterou máte spojenou s vaším gitlab účtem.
 </details>
 
-2. Poté (po vyzváni) zadejte adresářovou cestu kam se mají klíče uložit. Doporučuji ponechat "defaultni" cestu
+2. Poté (po vyzváni) zadejte adresářovou cestu, kam se mají klíče uložit. Doporučuji ponechat "defaultni" cestu
 ale upravit jméno, například takto: `/home/<user-name>/.ssh/id_ed25519_gitlab_uamt_<group-number>`
 
 3. Poté (po vyzváni), pokud chcete, zadejte heslo pro zabezpečení klíče. Jinak jen potvrďte stisknutím `Enter`.
@@ -39,9 +39,9 @@ Pokud jste si zvolili jiné jméno klíče, musíte ho stejně zadat i zde.
 
 5. Zkopírujte obsah souboru `/home/<user-name>/.ssh/id_ed25519_gitlab_uamt_<group-number>.pub`
 > **POZOR!** Kopírujte jen ze souboru s příponou `.pub`!
-> Pokud má obsah více než jeden řádek a nebo začíná řádkem `-----BEGIN OPENSSH PRIVATE KEY-----`, pravdepodobne kopírujete nesprávnej soubor!
+> Pokud má obsah více než jeden řádek a nebo začíná řádkem `-----BEGIN OPENSSH PRIVATE KEY-----`, pravdepodobne kopírujete nesprávný soubor!
 
-6. V gitlabu přejdete do `Preferences > SSH Keys`, vložte zkopírovanej obsah, pojmenujte svůj klíč (např. "Notebook-Ubuntu") a potvrďte stisknutím `Add key`.
+6. V gitlabu přejdete do `Preferences > SSH Keys`, vložte zkopírovaný obsah, pojmenujte svůj klíč (např. "Notebook-Ubuntu") a potvrďte stisknutím `Add key`.
 
 7. Teď by ste meli mít z Vašeho počítače přístup ke všem Vaším (budoucím) repozitářům.
 Zároveň ste se naučili jak se dá spravovat více různych klíčů pro různe git servery.
@@ -57,12 +57,12 @@ V rámci týmu si teď vyzkoušejte následujicí cvičení:
 ✅ Všichni členové si naklonují repozitár k sobě na PC.
 
 <details>
-    <summary>Jak naklonovat vdálenej repozitář?</summary>
+    <summary>Jak naklonovat vdálený repozitář?</summary>
 
 `git clone <ssh-link-to-repo.git>`
 </details>
 
-✅ Každej si ve svém naklonovaném repozitáři nastavi jméno a emailovou adresu, se kterýma bude do repozitáře commitovat.
+✅ Každý si ve svém naklonovaném repozitáři nastavi jméno a emailovou adresu, se kterýma bude do repozitáře commitovat.
 
 <details>
     <summary>Jak nastavit jméno a email?</summary>
@@ -118,7 +118,7 @@ Upravte ho tak aby v nem bylo vše co požadujete. Opět `"commitnete"` a zkuste
 
 ✅ Všichni členové týmu si `"pullnou"` aktuální verzi repozitáře.
 
-✅ Jeden člen týmu vytvoří novej lokálni `branch`, `"checkoutne"` se do nej a vyrobí si vlastní `.h` soubor a v něm funkci, která vytiskne jeho jméno.
+✅ Jeden člen týmu vytvoří nový lokálni `branch`, `"checkoutne"` se do nej a vyrobí si vlastní `.h` soubor a v něm funkci, která vytiskne jeho jméno.
 Změny standardně `"commitne"` a pokusí se `"pushnout"`.
 
 <details>
@@ -131,10 +131,10 @@ Změny standardně `"commitne"` a pokusí se `"pushnout"`.
 <details>
     <summary>Tip!</summary>
 
-Co se stalo když ste se pokusili `"pushnout"` novej branch? Co Vám poradil `git`?
+Co se stalo když ste se pokusili `"pushnout"` nový branch? Co Vám poradil `git`?
 </details>
 
-✅ Všichni si `"pullnou"` nové zmeny k sobě a `"checkoutnou"` se na novej branch v `"originu"`.
+✅ Všichni si `"pullnou"` nové zmeny k sobě a `"checkoutnou"` se na nový branch v `"originu"`.
 Každý člen týmu si pak vyrobí vlastní `.h` soubor a v něm taky funkci, která vytiskne jeho jméno.
 Všichni `"pushnou"` své změny na server.
 
@@ -145,7 +145,7 @@ Při `"checkoutu"` se nažte využívat doplňování pomocí `Tab`.
 </details>
 
 ✅ Jeden člen týmu si `"pullne"` nově vytvořené `.h` soubory a upraví hello world program tak aby využíval všechen nově vytvořený kód.
-Změny pushne na `origin` a v gilabu vytvoří novej `Merge Request` z nového `"branchu"` do `"branchu" main`.
+Změny pushne na `origin` a v gilabu vytvoří nový `Merge Request` z nového `"branchu"` do `"branchu" main`.
 
 ✅ Nyní si všichni skuste pohrát s `MR ("Merge Requestem")` v gitlabu.
 Přidávejte komentáře a zkuste v nich také vkládat odkazy na `"commity"` a části kódu.
@@ -177,9 +177,9 @@ Když si vlevo dolu rozklikněte modul `Git` uvidíte přehledne celou vaší hi
 
 ✅ Všichni si `"pullnou"` aktuální stav repozitáře pomocí modré sípky napravo nahoře (`Update project...`) a `"checkoutnou"` do lokálního `"branchu" main`.
 
-✅ Jeden člen týmu vytvoří novej soubor s názvem `README.md` (pokud takovej soubor ješte neexistuje).
+✅ Jeden člen týmu vytvoří nový soubor s názvem `README.md` (pokud takový soubor ješte neexistuje).
 
-✅ Do souboru `README.md` společně doplňte stručnej popis repozitáře pomocí `markdown` syntaxe.
+✅ Do souboru `README.md` společně doplňte stručný popis repozitáře pomocí `markdown` syntaxe.
 
 <details>
     <summary>Jak vypadá markdown?</summary>
@@ -236,12 +236,12 @@ Po rozkliknutí souboru také přehledně uvidí všechny změny, které v soubo
 ✅ Řešitel konfliktu pak vybere možnost `Merge` a sloučí změny tak aby soubor obsahoval změny od obou členů.
 Stlačením `Push...` (zelená šipka vpravo nahoře) odešle finálni verzi do `"originu"`.
 
-Novej `branch` v Clionu vytvoříte v modulu `Git` stlačením ikonky `plus` vlevo.
-Můžete také udělat novej `branch`, který přímo navazuje na jinej než ten aktuálni a to kliknutím pravým tlačítkem miší a výběrem `New branch from selected...`.
+Nový `branch` v Clionu vytvoříte v modulu `Git` stlačením ikonky `plus` vlevo.
+Můžete také udělat nový `branch`, který přímo navazuje na jiný než ten aktuálni a to kliknutím pravým tlačítkem miší a výběrem `New branch from selected...`.
 
 ### Podepisování commitů pomocí GPG klíčů (optional)
 
-Pokud chcete svoje `"commity"` podepisovat jako "ověřený" užívatel, je nutné mít verifikovanej email ve Vašem gitlab účtu.
+Pokud chcete svoje `"commity"` podepisovat jako "ověřený" užívatel, je nutné mít verifikovaný email ve Vašem gitlab účtu.
 
 1. Klíče vygenerujete pomocí příkazu `gpg --full-gen-key`, případne `gpg --gen-key`.
 
@@ -261,7 +261,7 @@ Balíček `gpg` nainstalujete standardně příkazem `sudo apt install gpg`
 
     5.1 Jméno doporučuji zvolit stejné jako máte nastavené v účtu na gitlabu.
 
-    5.2 Email musí být stejnej jako máte ve svém účtu na gitlabu a musí být verifikován. Email musí být také stejnej jako ste si nastavili v konfiguraci gitu (email `"commitujicího"`). Jinak Vám gitlab bude zobrazovat `"commity"` jako neověřené.
+    5.2 Email musí být stejný jako máte ve svém účtu na gitlabu a musí být verifikován. Email musí být také stejný jako ste si nastavili v konfiguraci gitu (email `"commitujicího"`). Jinak Vám gitlab bude zobrazovat `"commity"` jako neověřené.
 
     5.3 Jako poznámku můžete zadat třeba "Gitlab VUT" abyste pak klíč rozeznali.
 
@@ -275,9 +275,9 @@ Balíček `gpg` nainstalujete standardně příkazem `sudo apt install gpg`
 
 10. Skopírujte všechno od `-----BEGIN PGP PUBLIC KEY BLOCK-----` až po `-----END PGP PUBLIC KEY BLOCK-----`, včetně obou.
 
-11. V gitlabu přejdete do `Preferences > GPG Keys`,  vložte skopírovanej obsah a potvrďte stlačením `Add key`.
+11. V gitlabu přejdete do `Preferences > GPG Keys`,  vložte skopírovaný obsah a potvrďte stlačením `Add key`.
 
-12. V Clionu (kde máte otevřenej svůj repozitář) přejdete do `Settings > Git > Configure GPG key` a vyberte se seznamu Váš klíč.
+12. V Clionu (kde máte otevřený svůj repozitář) přejdete do `Settings > Git > Configure GPG key` a vyberte se seznamu Váš klíč.
 
 <details>
     <summary>Tip!</summary>
@@ -285,9 +285,9 @@ Balíček `gpg` nainstalujete standardně příkazem `sudo apt install gpg`
 Podívejte co se změnilo v souboru `.git/config`. To samé by se dalo opět dosáhnout editováním tohto souboru, avšak v Clionu je to mnohem jedndušší.
 </details>
 
-13. Jeden člen týmu zkusí cvične udělat nejakej `commit` (měl by dostat výzvu na zadáni hesla) a `"pushnout"`.
+13. Jeden člen týmu zkusí cvične udělat nejaký `commit` (měl by dostat výzvu na zadáni hesla) a `"pushnout"`.
 
-14. Pokud všechno probehlo správně měli by ste v gitlabu v historii `"commitů"` vidět svůj commit označenej jako `verified`.
+14. Pokud všechno probehlo správně měli by ste v gitlabu v historii `"commitů"` vidět svůj commit označený jako `verified`.
 
 <details>
     <summary>Tip!</summary>
@@ -300,7 +300,7 @@ Pro `"commitování"` s podpisem přes `Bash` se používa `git commit -S -m "my
 
 ## Simulátor (cca 30 min)
 
-Ze [stránek kurzu](https://github.com/Robotics-BUT/BPC-PRP) si `"pullněte"` aktuální stav repozitáře.
+Ze [stránek kurzu](https://github.com/Robotics-BUT/BPC-PRP) si `"naclonujte"` aktuální stav repozitáře.
 
 Repozitář obsahuje ve složce `bin/` skompilovanou binárku simulátoru nazvanou "simulator". Pokud máte korektně nainstalovaný ROS, otevřete si 3 terminály
 
