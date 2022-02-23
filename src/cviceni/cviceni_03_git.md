@@ -4,7 +4,7 @@ Cvičící: Ing. Adam Ligocki, Ph.D., Ing. Tomáš Horeličan
 
 ## GIT (cca 1 hod)
 
-Zaregistrujte se na studentském [GitLab serveru](https://student.robotika.ceitec.vutbr.cz/). Doporučuji také verifikovat emailovou adresu, bude se Vám to hodiť při některých operacích.
+Každý student se nejprve zaregistruje na studentském [GitLab serveru](https://student.robotika.ceitec.vutbr.cz/). Doporučuji také verifikovat emailovou adresu, bude se Vám to hodiť při některých operacích.
 
 Tento server bude po zbytek kurzu BPC-PRP Vás tzv. `origin`, tedy vzdálené repozitář.
 
@@ -32,12 +32,12 @@ Jako koment doporučuji zadat emailovou adresu, kterou máte spojenou s vaším 
 </details>
 
 2. Poté (po vyzváni) zadejte adresářovou cestu, kam se mají klíče uložit. Doporučuji ponechat "defaultni" cestu
-ale upravit jméno, například takto: `/home/<user-name>/.ssh/id_ed25519_gitlab_uamt_<group-number>`
+ale upravit jméno, například takto: `/home/<user-name>/.ssh/id_ed25519_gitlab_uamt_<group-number>`.
 <details>
     <summary>Tip!</summary>
 
 Tá poslední část (tedy `id_ed25519_gitlab_uamt_<group-number>`) je jméno, se kterým se klíče vygenerují.
-Můžete ho nahradit čím chcete ale musíte to samé pak taky použít v dalších krocích.
+Můžete ho nahradit čím chcete ale musíte to samé pak taky použít v dalších krocích. Tady při psaní nepoužívejte šípky (nebudou Vám fungovat).
 </details>
 
 3. Poté (po vyzváni), pokud chcete, zadejte heslo pro zabezpečení klíče. Jinak jen potvrďte stisknutím `Enter`.
