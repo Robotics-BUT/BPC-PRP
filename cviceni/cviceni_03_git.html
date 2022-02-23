@@ -454,16 +454,6 @@ Můžete také udělat nový <code>branch</code>, který přímo navazuje na jin
 <p><sup>*</sup>Detailnejší návody najdete také na stránkach <a href="https://git.robotika.ceitec.vutbr.cz:2223/help/user/project/repository/gpg_signed_commits/index.md">GitLabu</a> nebo <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification">GitHubu</a>. <br /></p>
 <h2><a class="header" href="#simulátor-cca-30-min" id="simulátor-cca-30-min">Simulátor (cca 30 min)</a></h2>
 <p>Ze <a href="https://github.com/Robotics-BUT/BPC-PRP">stránek kurzu</a> si <code>&quot;naclonujte&quot;</code> aktuální stav repozitáře.</p>
-<p>Repozitář obsahuje ve složce <code>bin/</code> skompilovanou binárku simulátoru nazvanou &quot;simulator&quot;. Pokud máte korektně nainstalovaný ROS, otevřete si 3 terminály.
-Pokud ne, nainstalujte si ho podle návodu na <a href="https://robotics-but.github.io/BPC-PRP/chap_1_software/text/ros.html">stránkach kurzu</a> nebo přímo <a href="http://wiki.ros.org/noetic/Installation/Ubuntu">stránkach rosu</a>.</p>
-<details>
-    <summary>Tip pro práci s více terminály</summary>
-<p>Pro práci s více okny terminálů je dobré si nainstalovat pomocí balíčkovacího manažeru program &quot;terminator&quot; nebo &quot;tilix&quot;. Ten Vám umožní v jednom okně mít otevřených více terminálu.</p>
-</details>
-<details>
-    <summary>Vím jak se pracuje s balíčkovacím manažerem, jen potřebuji osvěžit paměť.</summary>
-<p><code>sudo apt install &lt;package-name&gt;</code></p>
-</details>
 <p>Ve složce <code>resources/</code> naleznete soubor <code>config.yaml</code>. Z něj si bude simulátor načítat hodnoty pro Vaší simulaci, mezi jinými nastavení síťové komunikace, simulované rozměry robota, parametry podvozku, rozmístění snímačů, a hlavně cestu k mapě, se kterou bude simulátor pracovat. Tu si upravte pro svůj vlastní souborový systém.</p>
 <p>Dále se ve složce <code>resources/</code> nachází také jedna vzorová mapa. Nahlédněté do ní a všiměnte si struktury YAML dat. Nachází se zde informace o šířce čáry a následně je zde pole úseček definovaných vždy <code>[bod1_x, bod1_y, bod2_x, bod2_y]</code>. V budoucnu si budete vytvářet taky vlastní mapy.</p>
 <details>
@@ -472,13 +462,27 @@ Pokud ne, nainstalujte si ho podle návodu na <a href="https://robotics-but.gith
 </details>
 <p>✅ Nastavte si v souboru <code>config.yaml</code> validní cestu k mapě <code>route_1.yaml</code>.</p>
 <p>✅ Po změně obsahu souboru si vyzkoušejte validitu <code>.yaml</code> souboru v <a href="http://www.yamllint.com/">online nástroji</a>.</p>
-<p>Nyní zbývá si vyzkoušet oživit celý systém.</p>
+<p>Nyní zbývá si vyzkoušet oživit celý systém.
+Repozitář obsahuje ve složce <code>bin/</code> skompilovanou binárku simulátoru nazvanou &quot;simulator&quot;. Pokud máte korektně nainstalovaný ROS, otevřete si 3 terminály.
+Pokud ne, nainstalujte si ho podle návodu na <a href="https://robotics-but.github.io/BPC-PRP/chap_1_software/text/ros.html">stránkach kurzu</a> nebo přímo <a href="http://wiki.ros.org/noetic/Installation/Ubuntu">stránkach rosu</a>.</p>
 <blockquote>
-<p><strong>POZNÁMKA:</strong> Pokud nemáte ve svém <code>/home/&lt;user-name&gt;/.bashrc</code> souboru přidán příkaz <code>source /opt/ros/noetic/setup.bash</code> budete muset v každém novém okně vždy tento příkaz zavolat, jinak Váš počítač nepozná, že máte nainstalovaný ROS. </p>
+<p><strong>POZNÁMKA:</strong> Pokud nemáte ve svém <code>/home/&lt;user-name&gt;/.bashrc</code> souboru přidán příkaz <code>source /opt/ros/noetic/setup.bash</code> budete muset v každém novém okně vždy tento příkaz zavolat, jinak Váš počítač nepozná, že máte nainstalovaný ROS.</p>
 </blockquote>
+<details>
+    <summary>Tip pro práci s více terminály</summary>
+<p>Pro práci s více okny terminálů je dobré si nainstalovat pomocí balíčkovacího manažeru program &quot;terminator&quot; nebo &quot;tilix&quot;. Ten Vám umožní v jednom okně mít otevřených více terminálu.</p>
+</details>
+<details>
+    <summary>Vím jak se pracuje s balíčkovacím manažerem, jen potřebuji osvěžit paměť.</summary>
+<p><code>sudo apt install &lt;package-name&gt;</code></p>
+</details>
 <p>✅ V 1. terminále zapněte <code>roscore</code></p>
 <p>✅ V 2. terminále spusťte binárku simulátoru, jako argument programu přidejte absolutní cestu ke konfiguračnímu souboru, který jste dříve editovali.</p>
-<p>✅ V 3. terminále zapněte rviz a přidejte si vizualizaci topicků </p>
+<details>
+    <summary>Vím jak se spouštějí binárky, jen potřebuji osvěžit paměť.</summary>
+<p><code>./&lt;path-to-binary-file&gt;</code></p>
+</details>
+<p>✅ V 3. terminále zapněte <code>rviz</code> a přidejte si vizualizaci topicků </p>
 <h3><a class="header" href="#konfigurace-rvizu" id="konfigurace-rvizu">Konfigurace RVizu</a></h3>
 <p><img src="../images/rviz_1.jpg" alt="empty RViz" /></p>
 <p>Pokud běží simulátor, v levé dolní sekci tlačítkem <code>Add</code> otevřete okno pro přidání vizualizací.</p>
