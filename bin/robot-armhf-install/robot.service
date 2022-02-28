@@ -1,0 +1,10 @@
+[Unit]
+Description=Robot service
+After=network.target
+Wants=network.target
+
+[Service]
+ExecStart=/opt/robot
+
+[Install]
+WantedBy=network.target
