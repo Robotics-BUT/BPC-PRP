@@ -155,8 +155,8 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#snímání-čáry" id="snímání-čáry">Snímání čáry</a></h1>
-<p>Cvičící: Ing. Tomáš Jílek, Ph.D.</p>
+                        <p>﻿# Snímání čáry
+Cvičící: Ing. Tomáš Jílek, Ph.D.</p>
 <h2><a class="header" href="#cíle" id="cíle">Cíle</a></h2>
 <ul>
 <li>Realizovat zpracování signálu z emulovaného optočlenu CNY70.</li>
@@ -175,23 +175,23 @@
 <li>Spolehlivě fungující měření pozice vodicí čáry vzhledem k ose jízdy robotu s jedním optočlenem CNY70.</li>
 <li>Základní verze měřicího systému složeného z více optočlenů CNY70 (např. diferenční zapojení se 2 ks CNY70).</li>
 </ul>
-<h2><a class="header" href="#odevzdání-výsledku-řešení-cvičení-do-pátku-2-dubna-2021" id="odevzdání-výsledku-řešení-cvičení-do-pátku-2-dubna-2021">Odevzdání výsledku řešení cvičení (do pátku 2. dubna 2021)</a></h2>
+<h2><a class="header" href="#odevzdání-výsledku-řešení-cvičení-do-následujícího-cvičení" id="odevzdání-výsledku-řešení-cvičení-do-následujícího-cvičení">Odevzdání výsledku řešení cvičení (do následujícího cvičení)</a></h2>
 <ul>
-<li>Do 'odevzdávací' složky v repozitáři Vašeho projektu uložte:
+<li>Do složky <code>labs/lab-07/</code> v repozitáři Vašeho projektu uložte:
 <ul>
-<li>graf změřené převodní charakteristiky samotného senzoru bez jakéhokoliv zpracování,</li>
-<li>graf převodní charakteristiky senzoru po Vašem zpracování,</li>
+<li>graf změřené statické převodní charakteristiky samotného senzoru bez jakéhokoliv zpracování,</li>
+<li>graf statické převodní charakteristiky senzoru po Vašem zpracování,</li>
 <li>textový soubor formátovaný v jazyce Markdown, který krátce popisuje Vámi zvolený způsob zpracování dat ze senzoru a odkazuje se na dva předchozí grafy (krátká technická zpráva, rozsah postačí ekv. 1/2 A4, mnohem důležitější je úroveň obsahu, než množství textu).</li>
 </ul>
 </li>
 </ul>
 <h2><a class="header" href="#Úkol-č-1-realizace-měření-převodní-charakteristiky-senzoru-cny70" id="Úkol-č-1-realizace-měření-převodní-charakteristiky-senzoru-cny70">Úkol č. 1: Realizace měření převodní charakteristiky senzoru CNY70</a></h2>
 <p>Proveďte implementaci automatizovaného měření převodní charakteristiky emulovaného senzoru CNY70. Jedná se o závislost <code>u_raw=f(dD)</code> nebo <code>u_raw=f(dA)</code>, kde <code>u_raw</code> je celočíselná hodnota reprezentující měřené napětí, která je získána z AD převodníku s 12 bitovým registrem pro uložení výsledku AD převodu. Veličina <code>dD</code> odpovídá délkové odchylce senzoru od vodicí čáry. Veličina <code>dA</code> odpovídá úhlové odchylce senzoru od vodicí čáry.</p>
-<p>Hodnotu, která je výsledkem A/D převodu, získáte pomocí NMEA zprávy <code>SENSOR</code>, která je ve formátu: <code>$SENSOR,&lt;id&gt;*&lt;chksum&gt;</code>, kde <code>id</code> odpovídá pořadovému číslu senzoru, který je součástí robotu. Senzory jsou indexované od nuly. Registr, ze kterého jsou data čteny, je 12bitový. Skutečné rozlišení převodníku je ale pouze 10bitové, spodní 2 bity jsou tedy vždy nulové. Emulátor navrací zprávu <code>$SENSOR,&lt;id&gt;,&lt;value&gt;*&lt;chksum&gt;</code>, kde <code>value</code> je celočíselná hodnota, která je výsledkem A/D převodu.</p>
+<p>Hodnotu, která je výsledkem A/D převodu, získáte pomocí NMEA zprávy <code>SENSOR</code>, která je ve formátu: <code>$SENSOR,&lt;id&gt;*&lt;chksum&gt;</code>, kde <code>id</code> odpovídá pořadovému číslu senzoru, který je součástí robotu. Senzory jsou indexované od nuly. Registr, ze kterého jsou data čteny, je 12bitový. Skutečné rozlišení použitého převodníku je ale pouze 10bitové, spodní 2 bity jsou tedy vždy nulové. Emulátor navrací zprávu <code>$SENSOR,&lt;id&gt;,&lt;value&gt;*&lt;chksum&gt;</code>, kde <code>value</code> je celočíselná hodnota, která je výsledkem A/D převodu.</p>
 <h3><a class="header" href="#možný-způsob-řešení-nápověda" id="možný-způsob-řešení-nápověda">Možný způsob řešení (nápověda)</a></h3>
 <p>Charakteristiku <code>u_raw=f(dD)</code> můžete získat např. tak, že robotem nakolmo přejedete čáru a uložíte si změřené hodnoty <code>u_raw</code>, <code>dGamma1</code> a <code>dGamma2</code>. <code>dGamma1</code> a <code>dGamma2</code> jsou počty mikrokroků ujeté každým kolem během příslušné periody vzorkování. Charakteristiku <code>u_raw=f(dA)</code> můžete získat obdobným způsobem, t.j. robot stojí na místě a otáčí se kolem své osy.</p>
 <h2><a class="header" href="#Úkol-č-2-návrh-detekčního-systému-s-jedním-optočlenem-cny70-pro-měření-pozice-čáry-vzhledem-k-ose-jízdy-robotu" id="Úkol-č-2-návrh-detekčního-systému-s-jedním-optočlenem-cny70-pro-měření-pozice-čáry-vzhledem-k-ose-jízdy-robotu">Úkol č. 2: Návrh detekčního systému s jedním optočlenem CNY70 pro měření pozice čáry vzhledem k ose jízdy robotu</a></h2>
-<p>Navrhněte vlastní systém pro měření pozice čáry s využitím optočlenu CNY70. Pro snažší pochopení chování optočlenu v uvedené aplikaci Vám může pomoci proměření vlivu vzdálenosti odrazné roviny na převodní charakteristiku. Umístěte senzor na robot tak, aby bylo možné snímat vychýlení optočlenu od osy vodící čary v co největším rozsahu a současně spolehlivě! Výstupní hodnotu algoritmu pro zpracování měřených dat kalibrujte v metrech příp. milimetrech.</p>
+<p>Navrhněte vlastní systém pro měření pozice čáry s využitím optočlenu CNY70. Pro snažší pochopení chování optočlenu v uvedené aplikaci Vám může pomoci proměření vlivu vzdálenosti odrazné roviny na převodní charakteristiku. Umístěte senzor na robot tak, aby bylo možné snímat vychýlení optočlenu od osy vodící čary v co největším rozsahu a současně spolehlivě! Výstupní hodnotu algoritmu pro zpracování měřených dat kalibrujte ve vhodných fyzikálních jednotkách (metry / milimetry / atd.).</p>
 <h2><a class="header" href="#Úkol-č-3-návrh-detekčního-systému-s-více-optočleny-cny70-pro-měření-poziceorientace-čáry-vzhledem-k-ose-jízdy-robotu" id="Úkol-č-3-návrh-detekčního-systému-s-více-optočleny-cny70-pro-měření-poziceorientace-čáry-vzhledem-k-ose-jízdy-robotu">Úkol č. 3: Návrh detekčního systému s více optočleny CNY70 pro měření pozice/orientace čáry vzhledem k ose jízdy robotu</a></h2>
 <p>Pro zvýšení měřicího rozsahu a robustnosti měření je možné použít více optočlenů CNY70, které budou vhodně prostorově rozmístěny. Nejprve je doporučeno vyzkoušet diferenční zapojení dvou optočlenů a až potom se pouštět do sofistikovanějších zapojení s více optočleny.</p>
 <p>Při návrhu měřicího systému vhodného pro detekci pozice/orientace vodicí čáry je doporučeno zvážit minimálně tyto parametry/vlastnosti:</p>
@@ -215,11 +215,11 @@ int fflush(FILE *stream);
 int fclose(FILE *stream);
 </code></pre>
 <h2><a class="header" href="#nápověda-č-2-přístup-k-souborům-a-jejich-přenos-mimo-os-linux" id="nápověda-č-2-přístup-k-souborům-a-jejich-přenos-mimo-os-linux">Nápověda č. 2: Přístup k souborům a jejich přenos mimo OS Linux</a></h2>
-<p>Naměřená data, které jste si uložili v OS Linux budete chtít nejspíše analyzovat mimo tento systém. Uložené soubory tedy budete v tomto případě potřebovat přenést na jiné zařízení nebo např. z hostovaného OS (Ubuntu), který vám běží ve VM do hostujícího OS (např. Windows), na kterém běžně pracujete. Existuje několik způsobů jak toto realizovat:</p>
+<p>Naměřená data, která jste si uložili v OS Linux budete chtít nejspíše analyzovat mimo tento systém. Uložené soubory tedy budete v tomto případě potřebovat přenést na jiné zařízení nebo např. z hostovaného OS (Ubuntu), který vám běží ve VM do hostujícího OS (např. Windows), na kterém běžně pracujete. Existuje několik způsobů jak toto realizovat:</p>
 <ul>
-<li>Zpřístupnit lokální složku v OS Linux prostřednictvím protokolu SMB (externí přístup z platforem Windows, Linux i Mac k souborům na Ubuntu přes sdílenou síťovou složku)</li>
-<li>Přenést soubory přes síť s využitím protokolu SFTP (dostupné aplikace: <code>WinSCP</code>, <code>FileZilla</code>, <code>psftp</code>, <code>Total Commander</code> + <code>SFTP plugin</code>, atd.)</li>
-<li>Soubory přenést na externí úložiště připojené v Ubuntu přes rozhraní USB (flash disk, HDD/SSD) nebo síť (NAS, atd.)</li>
+<li>zpřístupnit lokální složku v OS Linux prostřednictvím protokolu SMB (externí přístup z platforem Windows, Linux i Mac k souborům na Ubuntu přes sdílenou síťovou složku),</li>
+<li>přenést soubory přes síť s využitím protokolu SFTP (dostupné aplikace: <code>WinSCP</code>, <code>FileZilla</code>, <code>psftp</code>, <code>Total Commander</code> + <code>SFTP plugin</code>, atd.),</li>
+<li>soubory přenést na externí úložiště připojené v Ubuntu přes rozhraní USB (flash disk, HDD/SSD) nebo síť (NAS, atd.).</li>
 </ul>
 <h2><a class="header" href="#nápověda-č-3-zobrazení-naměřených-dat-v-matlabu--gnu-octave" id="nápověda-č-3-zobrazení-naměřených-dat-v-matlabu--gnu-octave">Nápověda č. 3: Zobrazení naměřených dat v MATLABu / GNU Octave</a></h2>
 <h3><a class="header" href="#načtení-souboru-ve-formátu-csv-s-naměřenými-daty" id="načtení-souboru-ve-formátu-csv-s-naměřenými-daty">Načtení souboru ve formátu CSV s naměřenými daty</a></h3>
