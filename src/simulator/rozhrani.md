@@ -73,8 +73,8 @@ s následujícími hodnotami:
 
 | argument | formát| proměnná| jednotka   | 
 |----------|-------|---------|------------|
-|        1 | int64 | left    | ukrok / sec|
-|        2 | int64 | right   | ukrok / sec|
+|        1 | int64 | left    | ukrok      |
+|        2 | int64 | right   | ukrok      |
 
 Poznámka: Reálný robot počítá pouze s 32bitovým intem, kdežto simulátor se 64bitovým !
 
