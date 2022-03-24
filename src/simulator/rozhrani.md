@@ -10,7 +10,7 @@ ladění na hardware. Tyto zprávy jsou simulátorem ignorovány.
 
 | SIM  | REAL| dotaz                  | odpověď                |
 |------|-----|----------------------- |----------------------- |
-| ANO  | ANO | `SPEED,<left>,<right>` | -                      |
+| ANO  | ANO | `SPEED,<left>,<right>` | `OK`                   |
 | ANO  | ANO | `ODO`                  | `ODO,<left>,<right>`   |
 | ANO  | ANO | `SENSOR,<id>`          | `SENSOR,<id>,<hodnota>`|
 | ANO  | ANO | `PING,[<data>]`        | `PONG,[<data>]`        |
