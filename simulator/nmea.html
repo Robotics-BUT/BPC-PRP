@@ -168,7 +168,7 @@ NMEA příkaz (bez počátečního $ a části s CRC s hvězdičkou. Program spo
 <p><code>--version</code> : Vypiš aktuální verzi nástroje a ukonči se.</p>
 <p><code>--local=&lt;udp port&gt;</code> : nastaví lokální číslo UDP portu na kterém má naslouchat (default: 6667). <code>&lt;udp port&gt;</code> musí být celé číslo v rozsahu 1024 - 65535. UDP port nesmí být na lokálním počítači obsazený. Pro použití portu pod <code>1024</code> je potřeba program spustit jako <code>sudo</code>.</p>
 <p><code>--remote=&lt;ip addr&gt;/&lt;udp port&gt;</code> nebo <code>&lt;ip addr&gt;/&lt;udp port&gt;</code> : <strong>povinný parametr</strong>. Nastaví adresu a port vzdáleného počítače. IP adresa musí být specifikovaná číselně v tečkové konvenci (např 127.0.0.1), DNS překlad není podporován. Port musí být celé číslo v rozsahu 1024-65535. Oddělovač adresy a portu je lomítko z důvodu budoucí kompatibility s IPv6 (adresa ipv6 má dvojtečku jako oddělovač částí takže nejde použít pro oddělení části portu od adresy). Adresy IPv6 prozatím nejsou podporovány, ale je na ně příprava. Pro použití portu pod <code>1024</code> je potřeba program spustit jako <code>sudo</code></p>
-<h2><a class="header" href="#příklad-použití" id="příklad-použití">Příklad použití</a></h2>
+<h2><a class="header" href="#příklad-použití-pro-spojení-s-reálným-robotem" id="příklad-použití-pro-spojení-s-reálným-robotem">Příklad použití pro spojení s reálným robotem</a></h2>
 <p>V následujícím příkladu se komunikuje s reálným robotem na adrese 10.16.0.247 na portu 6666. uživatel zadal na klávesnici <code>BEEP</code> a stiskl enter, <code>PING</code> a stiskl enter. Je vidět odeslaná zpráva i přijatá zpráva od serveru.</p>
 <pre><code class="language-shell">bufran@pcburian:~$ nmea 10.16.0.247/6666
 NMEA sender v 0.2 (c) 2022 Frantisek Burian
@@ -182,6 +182,19 @@ NMEA sender v 0.2 (c) 2022 Frantisek Burian
 [ 10.16.0.247/6666 RX] $PONG*16                          
 &gt;                                                        
 </code></pre>
+<h2><a class="header" href="#příklad-použití-pro-testování-protokolu-nmea" id="příklad-použití-pro-testování-protokolu-nmea">Příklad použití pro testování protokolu NMEA</a></h2>
+<p>Protože program zprávy nijak neinterpretuje je vhodným adeptem pro ladění protokolu.</p>
+<p>Nejprve spustíme terminál s programem NMEA, a jako cíl zadáme lokální adresu a port ukazující na číslo které jsme zadali v <code>bind</code> uživatelského programu (zde např <code>1234</code>)</p>
+<pre><code class="language-shell">bufran@pcburian:~$ nmea 127.0.0.1/1234
+NMEA sender v 0.2 (c) 2022 Frantisek Burian
+ communicating with remote 127.0.0.1/1234
+ using local port 6667
+ Press Ctrl-C to exit
+&gt;                                                        
+</code></pre>
+<p>V kodu aplikace kterou ladíme zapíšeme spojení s programem NMEA a portem, který program nmea vypsal (v příkladu <code>6667</code>, tedy adresa <code>127.0.0.1/6667</code>). Nezapomeneme bind na zvolený port (v příkladu <code>1234</code>)</p>
+<p>Vše co Vaše aplikace odešle se zobrazí v terminálu NMEA, pakliže je v pořádku CRC (pokud se nic nezobrazí. máte špatné CRC). Vše co odešlete z terminálu NMEA bude zabaleno do protokolu a odesláno Vaší aplikaci.</p>
+<p>Pakliže se nic nezobrazuje, je vhodné se podívat co odesíláte (např výpisem do terminálu, wiresharkem)</p>
 
                     </main>
 
