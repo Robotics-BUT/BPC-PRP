@@ -25,5 +25,5 @@
     - [Hardware, I2C, ADC](./cviceni/cviceni_05_i2c.md)
     - [Řízení motorů](./cviceni/cviceni_06_motory.md)
     - [Snímání čáry](./cviceni/cviceni_07_snimac_cary.md)
-    - [Návrh regulátoru](./cviceni/cviceni_09_regulator.md)
+    - [Návrh regulátoru](./cviceni/cviceni_08_regulator.md)
     - [Telemetrie a vizualizace](./cviceni/cviceni_10_telemetrie_vizualizace.md)
