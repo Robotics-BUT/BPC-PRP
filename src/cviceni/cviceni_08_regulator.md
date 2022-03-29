@@ -13,7 +13,7 @@ Cvičící: Ing. Tomáš Jílek, Ph.D.
 ## Výstupy
 * Spolehlivě fungující implementace sledování trajektorie.
 
-## Odevzdání výsledku řešení cvičení (do 13 dní)
+## Odevzdání výsledku řešení cvičení (do následujícího cvičení)
 * Do složky `labs/lab-08` v repozitáři Vašeho projektu uložte:
   - 3 grafy časového vývoje regulační odchylky + akčních zásahů při:
     - sledování přímé trasy,
