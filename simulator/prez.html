@@ -198,21 +198,27 @@
 </ul>
 <h2><a class="header" href="#doporučené-rozhraní-pro-implementaci" id="doporučené-rozhraní-pro-implementaci">Doporučené rozhraní pro implementaci</a></h2>
 <h3><a class="header" href="#data" id="data">Data</a></h3>
+<p>Nomenklatura:</p>
+<ul>
+<li>Zprávu nižší úrovně (transportní) nazýváme <strong>frame</strong></li>
+<li>Zprávu vyšší úrovně (aplikační) nazýváme <strong>logická zpráva</strong></li>
+</ul>
 <p>Fakta:</p>
 <ul>
 <li>Jelikož je protokol <strong>bezestavový</strong>, není potřeba stav držet
 <ul>
 <li>Není potřeba instance objektu, stačí <code>static</code> funkce</li>
+<li>Dokonce není potřeba objekt, je vhodné ale funkce oddělit alespoň namespace</li>
 </ul>
 </li>
 <li>Zpráva na straně aplikace reprezentuje <strong>seznam textových argumentů</strong>
 <ul>
-<li>Vhodný typ pro uložení zprávy <code>std::vector(std::string)</code></li>
+<li>Vhodný typ pro logickou zprávu <code>std::vector(std::string)</code></li>
 </ul>
 </li>
 <li>Zpráva na straně transportu reprezentuje <strong>textový řetězec</strong>
 <ul>
-<li>Vhodný typ pro uložení transportního frame <code>std::string</code></li>
+<li>Vhodný typ pro frame <code>std::string</code></li>
 </ul>
 </li>
 <li>Zpráva na straně aplikace bude hojně využívána
@@ -239,7 +245,7 @@
 <h3><a class="header" href="#rozhraní-komunikace-k-transportní-vrstvě" id="rozhraní-komunikace-k-transportní-vrstvě">Rozhraní komunikace k transportní vrstvě</a></h3>
 <p>Fakta:</p>
 <ul>
-<li>Je třeba vytvořit <strong>konverzi</strong> argumentů z aplikační vrstvy na logickou zprávu</li>
+<li>Je třeba vytvořit <strong>konverzi</strong> argumentů z logické zprávy na frame</li>
 <li>Funkce nesmí změnit obsah argumentů vyššího protokolu
 <ul>
 <li>Datová struktura na vstupu tedy odpovídá <code>Immutable</code> <a href="https://cs.wikipedia.org/wiki/Immutable_object">viz odkaz</a> </li>
@@ -263,10 +269,28 @@
 <li>Proto tento přechod takto nazveme</li>
 </ul>
 </li>
+<li>Jeden frame může obsahovat více zpráv
+<ul>
+<li>Je vhodné vytvořit overload funkce <code>Build</code> pro <code>std::vector(Msg)</code></li>
+<li>Jiná možnost je přidat funkci <code>BuildAll</code> která vnitřně volá <code>Build</code></li>
+</ul>
+</li>
 </ul>
 <p>Implementace: </p>
-<pre><code class="language-c++">  std::string Build(const std::vector&lt;std::string&gt; &amp;msg);                        // bez aliasu
+<pre><code class="language-c++">  //std::string Build(const std::vector&lt;std::string&gt; &amp;msg);                      // bez aliasu
   std::string Build(const Msg &amp;msg);                                             // alias
+  std::string BuildAll(const std::vector&lt;const Msg&gt; &amp;msg);                       // overload s aliasem
+</code></pre>
+<p>Overload funkce pro převod několika zpráv naráz je triviální:</p>
+<pre><code class="language-c++">  std::string BuildAll(const std::vector&lt;const Msg&gt; &amp;msg) 
+  {
+    std::string result;
+    
+    for (const auto &amp;i : msg)
+      result += Build(i);
+      
+    return result;   
+  }
 </code></pre>
 <h3><a class="header" href="#rozhraní-komunikace-k-aplikační-vrstvě" id="rozhraní-komunikace-k-aplikační-vrstvě">Rozhraní komunikace k aplikační vrstvě</a></h3>
 <p>Fakta:</p>
@@ -275,19 +299,33 @@
 <li>Jedna logická zpráva transportního protokolu <strong>může obsahovat více zpráv</strong></li>
 </ul>
 <h4><a class="header" href="#implementace-i" id="implementace-i">Implementace I:</a></h4>
-<pre><code class="language-c++">  std::vector&lt;std::vector&lt;std::string&gt;&gt; Parse(const std::string &amp;msg);           // bez aliasu
-  std::vector&lt;Msg&gt; Parse(const std::string &amp;msg);                                // alias  
+<pre><code class="language-c++">  //std::vector&lt;std::string&gt; Parse(const std::string &amp;msg);                      // bez aliasu
+  Msg Parse(const std::string &amp;msg);                                             // alias  
 </code></pre>
 <p>V aplikačním kódu pak obsluha vypadá takto:</p>
-<pre><code class="language-c++">  // obsluha transportni vrstvy
-  for (auto &amp;msg : Parse(&quot;$PING*10$PING*10&quot;)) {                                  // Zde může být string const z vnitřního API transportního protokolu
+<pre><code class="language-c++">  auto packet = &quot;$PING*10$PING*10&quot;;
+  // obsluha transportni vrstvy                                              
+  auto msg = Parse(packet))                                                      // Zde může být string const z vnitřního API transportního protokolu
+  // obsluha aplikacni vrstvy
+  if (msg[0] == &quot;PING&quot;) ....
+</code></pre>
+<p>Tato implementace obsahuje chybu (prvotní implementace na cvičení), kdy veškeré další zprávy uvnitř packetu jsou ignorovány</p>
+<p>Pro úspěšné splnění předmětu tato implementace plně dostačuje. Ostatní implementace jsou akademická diskuse nad správným řešením</p>
+<h4><a class="header" href="#implementace-ii" id="implementace-ii">Implementace II:</a></h4>
+<pre><code class="language-c++">  //std::vector&lt;std::vector&lt;std::string&gt;&gt; ParseAll(const std::string &amp;msg);         // bez aliasu
+  std::vector&lt;Msg&gt; ParseAll(const std::string &amp;msg);                             // alias  
+</code></pre>
+<p>V aplikačním kódu pak obsluha vypadá takto:</p>
+<pre><code class="language-c++">  auto packet = &quot;$PING*10$PING*10&quot;;
+  // obsluha transportni vrstvy
+  for (auto &amp;msg : ParseAll(packet)) {                                           // Zde může být string const z vnitřního API transportního protokolu
     // obsluha aplikacni vrstvy
     if (msg[0] == &quot;PING&quot;) ....
   }
 </code></pre>
 <p>Tato implementace obsahuje výkonnostní problém v paměti (<strong>každá zpráva bude v paměti vždy několikrát</strong>), 
 získáme tím ale optické oddělení vrstev v kódu</p>
-<h4><a class="header" href="#implementace-ii" id="implementace-ii">Implementace II:</a></h4>
+<h4><a class="header" href="#implementace-iii" id="implementace-iii">Implementace III:</a></h4>
 <ul>
 <li>Funkce vyjme každou zprávu ze vstupního řetězce, a zpracuje se postupně
 <ul>
@@ -300,16 +338,17 @@ získáme tím ale optické oddělení vrstev v kódu</p>
   Msg Parse(std::string &amp;msg);                                                   // alias
 </code></pre>
 <p>V aplikačním kódu pak obsluha vypadá takto:</p>
-<pre><code class="language-c++">  // obsluha transportni vrstvy
-  std::string str = {&quot;$PING*10$PING*10&quot;};                                        // Zde musí být vytvořena nová lokální proměnná 
+<pre><code class="language-c++">  auto packet = &quot;$PING*10$PING*10&quot;;
+  // obsluha transportni vrstvy
+  std::string str{packet};                                                       // Zde musí být vytvořena nová lokální proměnná 
   for (auto msg = Parse(str); !msg.empty(); msg = Parse(str)) {
     // obsluha aplikacni vrstvy
     if (msg[0] == &quot;PING&quot;) .... 
-                    
   }
 </code></pre>
-<h4><a class="header" href="#implementace-iii" id="implementace-iii">Implementace III:</a></h4>
-<p>Využití <code>std::string_view</code> - nejlepší možnost, bez kopírování ale korektně lze implementovat až od <code>C++23</code></p>
+<h4><a class="header" href="#implementace-iv" id="implementace-iv">Implementace IV:</a></h4>
+<p>Využití <code>std::string_view</code> - nejlepší možnost, bez kopírování ale korektně lze implementovat až od <code>C++23</code>, který není 
+podporován současnými kompilátory použitými v raspbianu (GCC 9)</p>
 <h3><a class="header" href="#pomocné-funkce" id="pomocné-funkce">Pomocné funkce</a></h3>
 <p>Pro obě rozhraní je potřeba vytvořit funkci, která spočítá checksum z předaných dat</p>
 <pre><code class="language-c++">std::string Crc(const std::string &amp;text);
