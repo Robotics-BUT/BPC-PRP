@@ -35,7 +35,6 @@
     - [Program robot](./simulator/robot.md)
 
 - [Cviceni](./cviceni/cviceni_uvod.md)
-
     - [Instalace a seznámení se s prostředím](./cviceni/cviceni_01_linux_install.md)
     - [Linux CLI a C++](./cviceni/cviceni_02_linux_cli_cpp.md)
     - [GIT, simulátor](./cviceni/cviceni_03_git.md)
@@ -45,3 +44,11 @@
     - [Snímání čáry](./cviceni/cviceni_07_snimac_cary.md)
     - [Návrh regulátoru](./cviceni/cviceni_08_regulator.md)
     - [Telemetrie a vizualizace](./cviceni/cviceni_10_telemetrie_vizualizace.md)
+
+- [Principy](./principy/INDEX.md)
+  - [Supersmyčka a zpětnovazební řízení](./principy/superloop.md)
+  - [Mediator - Protokolový eventový parser](./principy/mediator.md)
+  - [Stavový controller](./principy/controller.md)
+  - [Procházení komunikačním protokolem ISO/OSI](./principy/protostack.md)
+  - [Organizace projektu / práce v týmu](./principy/splitfiles.md)
+  - [Oddělení modulů - Zrychlení kompilace](./principy/isolate.md)

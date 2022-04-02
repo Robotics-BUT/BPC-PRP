@@ -29,8 +29,6 @@ void send(std::vector<Msg> msgs)
 ```
 Principy aneb hloupeko kopni a chytreho nakopni
 
-Deferred processing
-
 ```c++
 std::vector<Msg> ProcessIncoming(const Msg &msg) {
   auto res = map.find(msg[0]);
@@ -41,68 +39,6 @@ std::vector<Msg> ProcessIncoming(const Msg &msg) {
 }
 ```
 
-Data pro popis stavu robotu
-
-```c++
-std::vector<Msg> MyRobotData::ODOReceived(const Msg &msg)
-{
-  if (msg.size() != 3)
-    return {};
-    
-  OdoL = std::stod(msg[1]);
-  OdoR = std::stod(msg[2]);  
-  return {};
-}
-
-std::vector<Msg> MyRobotData::BuildReads() 
-{
-  return {
-    {"ODO"},
-    {"SENSOR","1"},
-    {"SENSOR","2"},
-    };
-}
-
-std::vector<Msg> MyRobotData::BuildWrites() 
-{
-  return {
-    {"SPEED", std::to_string(LeftSpeed), std::string(RightSpeed)},
-    {"LED"},
-    };
-}
-```
-
-Controller pro stavove ovladani robotu
-
-```c++
-class Controller {
-  using State = void(Controller::*)();
-public:
-  State state{&Controller::DoSearchLine}
-}
-  
-
-void Controller::DoSearchLine() 
-{
-  if (!robot.LineMissing)
-    state = &Controller::DoFollowLine;
-}  
-
-void Controller::DoFollowLine()
-{
-    robot.SenseLine();
-    robot.RegulateLine();
-    if (robot.LineMissing)
-      state = &Controller::DoTryMissingLine;
-}
-
-void Controller::DoTryMissingLine()
-{
-    robot.SenseLine();
-    if (!robot.LineMissing)
-       state = &Controller::DoFollowLine;
-}
-```
 
 Supersmycka
 
