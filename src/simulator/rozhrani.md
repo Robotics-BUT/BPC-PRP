@@ -20,47 +20,47 @@ Adresu simulátoru lze zjistit linuxovým příkazem `ip a` z terminálu virtuá
 Některé zprávy neobsahují žádnou odpověď serveru. Reálný robot implementuje více příkazů než simulátor z důvodu lepšího   
 ladění na hardware. Tyto zprávy jsou simulátorem ignorovány.
 
-| SIM  | REAL | dotaz                    | odpověď                 | dokumentace                                |
-|------|------|--------------------------|-------------------------|--------------------------------------------|
-| ANO  | ANO  | `SPEED,<left>,<right>`   | `OK`                    | [SPEED](./simulator/zpravy/SPEED.md)       | 
-| ANO  | ANO  | `ODO`                    | `ODO,<left>,<right>`    | [ODO](./simulator/zpravy/ODO.md)           | 
-| ANO  | ANO  | `SENSOR,<id>`            | `SENSOR,<id>,<hodnota>` | [SENSOR](./simulator/zpravy/SENSOR.md)     |
-| ANO  | ANO  | `PING,[<data>]`          | `PONG,[<data>]`         | [PING](./simulator/zpravy/PING.md)         |
-| ANO  | ANO  | `RESET`                  | `RESET,DONE`            | [RESET](./simulator/zpravy/RESET.md)       |
-| 1.7+ | ANO  | `KILL`                   |                         | [KILL](./simulator/zpravy/KILL.md)         |
-| 1.7+ | ANO  | `HELP`                   | `HELP,<cmd1>,...`       | [HELP](./simulator/zpravy/HELP.md)         |
-|      | ANO  | `BEEP,[<ms>]`            |                         | [BEEP](./simulator/zpravy/BEEP.md)         |
-|      | ANO  | `LED,[<ms>]`             |                         | [LED](./simulator/zpravy/LED.md)           |
-|      | ANO  | `BTN`                    | `BTN,<left>,<right>`    | [BTN](./simulator/zpravy/BTN.md)           |
-|      | ANO  | `GPIO.GET,[<mask>]`      | `GPIO.GET,<mask>`       | [GPIO.GET](./simulator/zpravy/GPIO.GET.md) |
-|      | ANO  | `GPIO.SET,<mask>,<val>`  |                         | [GPIO.SET](./simulator/zpravy/GPIO.SET.md) |
-|      | ANO  | `GPIO.DIR,<mask>,<dir>`  |                         | [GPIO.DIR](./simulator/zpravy/GPIO.DIR.md) |
-|      |      | `PWM,<output>,<value>`   |                         | [PWM](./simulator/zpravy/PWM.md)           |     
-|      |      | `SERVO,<output>,<value>` |                         | [SERVO](./simulator/zpravy/SERVO.md)       |
+| SIM  | REAL | dotaz                    | odpověď                 | dokumentace                        |
+|------|------|--------------------------|-------------------------|------------------------------------|
+| ANO  | ANO  | `SPEED,<left>,<right>`   | `OK`                    | [SPEED](./zpravy/SPEED.md)         | 
+| ANO  | ANO  | `ODO`                    | `ODO,<left>,<right>`    | [ODO](./zpravy/ODO.md)             | 
+| ANO  | ANO  | `SENSOR,<id>`            | `SENSOR,<id>,<hodnota>` | [SENSOR](./zpravy/SENSOR.md)       |
+| ANO  | ANO  | `PING,[<data>]`          | `PONG,[<data>]`         | [PING](./zpravy/PING.md)           |
+| ANO  | ANO  | `RESET`                  | `RESET,DONE`            | [RESET](./zpravy/RESET.md)         |
+| 1.7+ | ANO  | `KILL`                   |                         | [KILL](./zpravy/KILL.md)           |
+| 1.7+ | ANO  | `HELP`                   | `HELP,<cmd1>,...`       | [HELP](./zpravy/HELP.md)           |
+|      | ANO  | `BEEP,[<ms>]`            |                         | [BEEP](./zpravy/BEEP.md)           |
+|      | ANO  | `LED,[<ms>]`             |                         | [LED](./zpravy/LED.md)             |
+|      | ANO  | `BTN`                    | `BTN,<left>,<right>`    | [BTN](./zpravy/BTN.md)             |
+|      | ANO  | `GPIO.GET,[<mask>]`      | `GPIO.GET,<mask>`       | [GPIO.GET](./zpravy/GPIO.GET.md)   |
+|      | ANO  | `GPIO.SET,<mask>,<val>`  |                         | [GPIO.SET](./zpravy/GPIO.SET.md)   |
+|      | ANO  | `GPIO.DIR,<mask>,<dir>`  |                         | [GPIO.DIR](./zpravy/GPIO.DIR.md)   |
+|      |      | `PWM,<output>,<value>`   |                         | [PWM](./zpravy/PWM.md)             |     
+|      |      | `SERVO,<output>,<value>` |                         | [SERVO](./zpravy/SERVO.md)         |
 
 ## Zprávy dle kategorií
 
  * ***Zprávy ovládání běhu a ladicí***
-   * [PING](./simulator/zpravy/PING.md)
-   * [RESET](./simulator/zpravy/RESET.md)
-   * [KILL](./simulator/zpravy/KILL.md)
-   * [HELP](./simulator/zpravy/HELP.md)
+   * [PING](./zpravy/PING.md)
+   * [RESET](./zpravy/RESET.md)
+   * [KILL](./zpravy/KILL.md)
+   * [HELP](./zpravy/HELP.md)
 
  * **Zprávy ovládání robotu**
 
-   * [SPEED](./simulator/zpravy/SPEED.md)
-   * [ODO](./simulator/zpravy/ODO.md)
-   * [SENSOR](./simulator/zpravy/SENSOR.md)
+   * [SPEED](./zpravy/SPEED.md)
+   * [ODO](./zpravy/ODO.md)
+   * [SENSOR](./zpravy/SENSOR.md)
 
  * **Zprávy interakce s uživatelem**
 
-   * [BEEP](./simulator/zpravy/BEEP.md)
-   * [LED](./simulator/zpravy/LED.md)
-   * [BTN](./simulator/zpravy/BTN.md)
-   * [GPIO.GET](./simulator/zpravy/GPIO.GET.md)
-   * [GPIO.SET](./simulator/zpravy/GPIO.SET.md)
-   * [GPIO.DIR](./simulator/zpravy/GPIO.DIR.md)
+   * [BEEP](./zpravy/BEEP.md)
+   * [LED](./zpravy/LED.md)
+   * [BTN](./zpravy/BTN.md)
+   * [GPIO.GET](./zpravy/GPIO.GET.md)
+   * [GPIO.SET](./zpravy/GPIO.SET.md)
+   * [GPIO.DIR](./zpravy/GPIO.DIR.md)
 
  * **Zprávy dosud neimplementované**
-   * [PWM](./simulator/zpravy/PWM.md)
-   * [SERVO](./simulator/zpravy/SERVO.md)
+   * [PWM](./zpravy/PWM.md)
+   * [SERVO](./zpravy/SERVO.md)

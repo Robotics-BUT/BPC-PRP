@@ -160,7 +160,7 @@ COMMIT / PUSH
 
 ### NMEA (simulátor)
 
-Pro obsluhu GPIO v simulátoru jsou vyhrazeny příkazy [BEEP](./../simulator/rozhrani.md#beep), [LED](./../simulator/rozhrani.md#led), [BTN](./../simulator/rozhrani.md#btn), případně nízkoúrovňové [GPIO.GET](./../simulator/rozhrani.md#gpio.get), [GPIO.SET](./../simulator/rozhrani.md#gpio.set), [GPIO.DIR](./../simulator/rozhrani.md#gpio.dir), avšak tyto nejsou nijak simulátorem zpracovávány. Implementujte je do svého programu pouze v okamžiku, pokud budete chtít získat 5b navíc jízdou reálného robotu na konci semestru.
+Pro obsluhu GPIO v simulátoru jsou vyhrazeny příkazy [BEEP](./../simulator/zpravy/BEEP.md), [LED](./../simulator/zpravy/LED.md), [BTN](./../simulator/zpravy/BTN.md), případně nízkoúrovňové [GPIO.GET](./../simulator/zpravy/GPIO.GET.md), [GPIO.SET](./../simulator/zpravy/GPIO.SET.md), [GPIO.DIR](./../simulator/zpravy/GPIO.DIR.md), avšak tyto nejsou nijak simulátorem zpracovávány. Implementujte je do svého programu pouze v okamžiku, pokud budete chtít získat 5b navíc jízdou reálného robotu na konci semestru.
 
 ## ADC (60minut)
 
@@ -222,7 +222,7 @@ Odpovídá pozorovaný údaj vypočítané toleranci měření ?
 
 ### NMEA (simulátor)
 
-Pro obsluhu analogově/digitálního převodníku v simulátoru je vyhrazen příkaz [SENSOR](./../simulator/rozhrani.md#sensor). 
+Pro obsluhu analogově/digitálního převodníku v simulátoru je vyhrazen příkaz [SENSOR](./../simulator/zpravy/SENSOR.md). 
 Vraťte se tedy ke kódu předchozího cvičení (jiný projekt) a zkuste změřit na reálném robotu (nebo i simulovaném doma) 
 úroveň napájecího napětí, tentokráte s pomocí NMEA zpráv.
 
