@@ -269,7 +269,7 @@ hodnotu value o 1. Volitelně můžete použít i tisk na obrazovku.
 Pozor na zákmity tlačítka !!</p>
 <p>COMMIT / PUSH</p>
 <h3><a class="header" href="#nmea-simulátor" id="nmea-simulátor">NMEA (simulátor)</a></h3>
-<p>Pro obsluhu GPIO v simulátoru jsou vyhrazeny příkazy <a href="./../simulator/rozhrani.html#beep">BEEP</a>, <a href="./../simulator/rozhrani.html#led">LED</a>, <a href="./../simulator/rozhrani.html#btn">BTN</a>, případně nízkoúrovňové <a href="./../simulator/rozhrani.html#gpio.get">GPIO.GET</a>, <a href="./../simulator/rozhrani.html#gpio.set">GPIO.SET</a>, <a href="./../simulator/rozhrani.html#gpio.dir">GPIO.DIR</a>, avšak tyto nejsou nijak simulátorem zpracovávány. Implementujte je do svého programu pouze v okamžiku, pokud budete chtít získat 5b navíc jízdou reálného robotu na konci semestru.</p>
+<p>Pro obsluhu GPIO v simulátoru jsou vyhrazeny příkazy <a href="./../simulator/zpravy/BEEP.html">BEEP</a>, <a href="./../simulator/zpravy/LED.html">LED</a>, <a href="./../simulator/zpravy/BTN.html">BTN</a>, případně nízkoúrovňové <a href="./../simulator/zpravy/GPIO.GET.html">GPIO.GET</a>, <a href="./../simulator/zpravy/GPIO.SET.html">GPIO.SET</a>, <a href="./../simulator/zpravy/GPIO.DIR.html">GPIO.DIR</a>, avšak tyto nejsou nijak simulátorem zpracovávány. Implementujte je do svého programu pouze v okamžiku, pokud budete chtít získat 5b navíc jízdou reálného robotu na konci semestru.</p>
 <h2><a class="header" href="#adc-60minut" id="adc-60minut">ADC (60minut)</a></h2>
 <h3><a class="header" href="#vzorový-projekt-1" id="vzorový-projekt-1">Vzorový projekt</a></h3>
 <p>Založte na aktuáním &quot;master&quot; novou větev pojmenovanou &quot;hw-cv5-adc&quot;, přepněte se do ní a upravte kód vzorového projektu tak, 
@@ -312,7 +312,7 @@ v 10 bitovém, 14bitovém a 18bitovém režimu měření ? U všech tolerancí p
 tolerančním polem (značně si usnadníte práci)</p>
 <p>Odpovídá pozorovaný údaj vypočítané toleranci měření ?</p>
 <h3><a class="header" href="#nmea-simulátor-1" id="nmea-simulátor-1">NMEA (simulátor)</a></h3>
-<p>Pro obsluhu analogově/digitálního převodníku v simulátoru je vyhrazen příkaz <a href="./../simulator/rozhrani.html#sensor">SENSOR</a>. 
+<p>Pro obsluhu analogově/digitálního převodníku v simulátoru je vyhrazen příkaz <a href="./../simulator/zpravy/SENSOR.html">SENSOR</a>. 
 Vraťte se tedy ke kódu předchozího cvičení (jiný projekt) a zkuste změřit na reálném robotu (nebo i simulovaném doma) 
 úroveň napájecího napětí, tentokráte s pomocí NMEA zpráv.</p>
 <p>(tuto část můžete již dělat na simulátoru doma, nezapomeňte commitovat/ pushovat aby i ostatní změny viděli !)</p>

@@ -265,13 +265,13 @@ Pozorujte chování a zhodnoťte pozorování.</p>
 <p>Otevřete si projekt z minulého / předminulého cvičení, kde jste zpracovávali NMEA protokol. Následující body již nemusíte tvořit na cvičení, lze je realizovat i v simulátoru.</p>
 <p>V tomto cvičení již budete ovládat robota pomocí NMEA zpráv, je tedy nutné pravidelně navracet simulátor do výchozího stavu.
 Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho programu, lze to ale řešit přímočařeji, a to tak,
-že při startu vašeho programu simulátoru pošlete NMEA zprávu <a href="./../simulator/rozhrani.html#reset">RESET</a>.</p>
+že při startu vašeho programu simulátoru pošlete NMEA zprávu <a href="./../simulator/zpravy/RESET.html">RESET</a>.</p>
 <p>✅ Po odeslání resetu byste měli přijmout NMEA zprávu <code>$RESET,DONE</code>.</p>
 <p>Pakliže nepřijmete DONE, program ukončete s chybou.</p>
 <p>Simulátor simuluje chování dvou krokových motorů, na které jsou namonotována kola uživatelsky definovaného průměru.
-Motory jsou řízeny pomocí NMEA zpráv <a href="./../simulator/rozhrani.html#speed">SPEED</a> a <a href="./../simulator/rozhrani.html#odo">ODO</a> posílaných simulátoru.</p>
+Motory jsou řízeny pomocí NMEA zpráv <a href="./../simulator/zpravy/SPEED.html">SPEED</a> a <a href="./../simulator/zpravy/ODO.html">ODO</a> posílaných simulátoru.</p>
 <h3><a class="header" href="#nastavení-rychlosti-kol" id="nastavení-rychlosti-kol">Nastavení rychlosti kol</a></h3>
-<p>Příkaz pro nastavení rychlosti motoru je <a href="./../simulator/rozhrani.html#speed">SPEED</a>. Pošleme tedy tento příkaz simulátoru s nějakou malou 
+<p>Příkaz pro nastavení rychlosti motoru je <a href="./../simulator/zpravy/SPEED.html">SPEED</a>. Pošleme tedy tento příkaz simulátoru s nějakou malou 
 rychlostí levého kola, třeba 0.05 otáčky za sekundu a nulovou rychlostí pravého kola.</p>
 <p>✅ Pokud nám vše správně funguje, měl by se robot v simulátoru začít pomalu otáčet.</p>
 <p>Motor se po asi 1 s otáčení zastaví, toto je bezpečnostní funkce, která je implementována v našich reálných budičích motorů. V případě softwarové chyby, kdy by spadl řídicí program, by se totiž robot mohl nekontrolovatelně rozjet.
@@ -280,7 +280,7 @@ Je tedy nutné řídicí příkazy posílat periodicky.</p>
 <p>COMMIT / PUSH</p>
 <h3><a class="header" href="#Čtení-ujeté-vzdálenosti" id="Čtení-ujeté-vzdálenosti">Čtení ujeté vzdálenosti</a></h3>
 <p>Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné
-si to již teď připravit. Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazu <a href="./../simulator/rozhrani.html#odo">ODO</a>. Tento příkaz 
+si to již teď připravit. Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazu <a href="./../simulator/zpravy/ODO.html">ODO</a>. Tento příkaz 
 způsobí, že nám simulátor pošle ujetou vzdálenost v mikrokrocích pro obě kola a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.</p>
 <p>✅ Vyzkoušejte si čtení ujeté vzdálenosti obou motorů a jejich přepočet na ujeté metry.</p>
 <p>✅ Vyzkoušejte si, že se hodnota ujeté vzdálenosti opravdu nuluje.</p>

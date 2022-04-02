@@ -1195,57 +1195,57 @@ Adresu simulátoru lze zjistit linuxovým příkazem <code>ip a</code> z termin�
 <p>Některé zprávy neobsahují žádnou odpověď serveru. Reálný robot implementuje více příkazů než simulátor z důvodu lepšího<br />
 ladění na hardware. Tyto zprávy jsou simulátorem ignorovány.</p>
 <table><thead><tr><th>SIM</th><th>REAL</th><th>dotaz</th><th>odpověď</th><th>dokumentace</th></tr></thead><tbody>
-<tr><td>ANO</td><td>ANO</td><td><code>SPEED,&lt;left&gt;,&lt;right&gt;</code></td><td><code>OK</code></td><td><a href="simulator/./simulator/zpravy/SPEED.html">SPEED</a></td></tr>
-<tr><td>ANO</td><td>ANO</td><td><code>ODO</code></td><td><code>ODO,&lt;left&gt;,&lt;right&gt;</code></td><td><a href="simulator/./simulator/zpravy/ODO.html">ODO</a></td></tr>
-<tr><td>ANO</td><td>ANO</td><td><code>SENSOR,&lt;id&gt;</code></td><td><code>SENSOR,&lt;id&gt;,&lt;hodnota&gt;</code></td><td><a href="simulator/./simulator/zpravy/SENSOR.html">SENSOR</a></td></tr>
-<tr><td>ANO</td><td>ANO</td><td><code>PING,[&lt;data&gt;]</code></td><td><code>PONG,[&lt;data&gt;]</code></td><td><a href="simulator/./simulator/zpravy/PING.html">PING</a></td></tr>
-<tr><td>ANO</td><td>ANO</td><td><code>RESET</code></td><td><code>RESET,DONE</code></td><td><a href="simulator/./simulator/zpravy/RESET.html">RESET</a></td></tr>
-<tr><td>1.7+</td><td>ANO</td><td><code>KILL</code></td><td></td><td><a href="simulator/./simulator/zpravy/KILL.html">KILL</a></td></tr>
-<tr><td>1.7+</td><td>ANO</td><td><code>HELP</code></td><td><code>HELP,&lt;cmd1&gt;,...</code></td><td><a href="simulator/./simulator/zpravy/HELP.html">HELP</a></td></tr>
-<tr><td></td><td>ANO</td><td><code>BEEP,[&lt;ms&gt;]</code></td><td></td><td><a href="simulator/./simulator/zpravy/BEEP.html">BEEP</a></td></tr>
-<tr><td></td><td>ANO</td><td><code>LED,[&lt;ms&gt;]</code></td><td></td><td><a href="simulator/./simulator/zpravy/LED.html">LED</a></td></tr>
-<tr><td></td><td>ANO</td><td><code>BTN</code></td><td><code>BTN,&lt;left&gt;,&lt;right&gt;</code></td><td><a href="simulator/./simulator/zpravy/BTN.html">BTN</a></td></tr>
-<tr><td></td><td>ANO</td><td><code>GPIO.GET,[&lt;mask&gt;]</code></td><td><code>GPIO.GET,&lt;mask&gt;</code></td><td><a href="simulator/./simulator/zpravy/GPIO.GET.html">GPIO.GET</a></td></tr>
-<tr><td></td><td>ANO</td><td><code>GPIO.SET,&lt;mask&gt;,&lt;val&gt;</code></td><td></td><td><a href="simulator/./simulator/zpravy/GPIO.SET.html">GPIO.SET</a></td></tr>
-<tr><td></td><td>ANO</td><td><code>GPIO.DIR,&lt;mask&gt;,&lt;dir&gt;</code></td><td></td><td><a href="simulator/./simulator/zpravy/GPIO.DIR.html">GPIO.DIR</a></td></tr>
-<tr><td></td><td></td><td><code>PWM,&lt;output&gt;,&lt;value&gt;</code></td><td></td><td><a href="simulator/./simulator/zpravy/PWM.html">PWM</a></td></tr>
-<tr><td></td><td></td><td><code>SERVO,&lt;output&gt;,&lt;value&gt;</code></td><td></td><td><a href="simulator/./simulator/zpravy/SERVO.html">SERVO</a></td></tr>
+<tr><td>ANO</td><td>ANO</td><td><code>SPEED,&lt;left&gt;,&lt;right&gt;</code></td><td><code>OK</code></td><td><a href="simulator/./zpravy/SPEED.html">SPEED</a></td></tr>
+<tr><td>ANO</td><td>ANO</td><td><code>ODO</code></td><td><code>ODO,&lt;left&gt;,&lt;right&gt;</code></td><td><a href="simulator/./zpravy/ODO.html">ODO</a></td></tr>
+<tr><td>ANO</td><td>ANO</td><td><code>SENSOR,&lt;id&gt;</code></td><td><code>SENSOR,&lt;id&gt;,&lt;hodnota&gt;</code></td><td><a href="simulator/./zpravy/SENSOR.html">SENSOR</a></td></tr>
+<tr><td>ANO</td><td>ANO</td><td><code>PING,[&lt;data&gt;]</code></td><td><code>PONG,[&lt;data&gt;]</code></td><td><a href="simulator/./zpravy/PING.html">PING</a></td></tr>
+<tr><td>ANO</td><td>ANO</td><td><code>RESET</code></td><td><code>RESET,DONE</code></td><td><a href="simulator/./zpravy/RESET.html">RESET</a></td></tr>
+<tr><td>1.7+</td><td>ANO</td><td><code>KILL</code></td><td></td><td><a href="simulator/./zpravy/KILL.html">KILL</a></td></tr>
+<tr><td>1.7+</td><td>ANO</td><td><code>HELP</code></td><td><code>HELP,&lt;cmd1&gt;,...</code></td><td><a href="simulator/./zpravy/HELP.html">HELP</a></td></tr>
+<tr><td></td><td>ANO</td><td><code>BEEP,[&lt;ms&gt;]</code></td><td></td><td><a href="simulator/./zpravy/BEEP.html">BEEP</a></td></tr>
+<tr><td></td><td>ANO</td><td><code>LED,[&lt;ms&gt;]</code></td><td></td><td><a href="simulator/./zpravy/LED.html">LED</a></td></tr>
+<tr><td></td><td>ANO</td><td><code>BTN</code></td><td><code>BTN,&lt;left&gt;,&lt;right&gt;</code></td><td><a href="simulator/./zpravy/BTN.html">BTN</a></td></tr>
+<tr><td></td><td>ANO</td><td><code>GPIO.GET,[&lt;mask&gt;]</code></td><td><code>GPIO.GET,&lt;mask&gt;</code></td><td><a href="simulator/./zpravy/GPIO.GET.html">GPIO.GET</a></td></tr>
+<tr><td></td><td>ANO</td><td><code>GPIO.SET,&lt;mask&gt;,&lt;val&gt;</code></td><td></td><td><a href="simulator/./zpravy/GPIO.SET.html">GPIO.SET</a></td></tr>
+<tr><td></td><td>ANO</td><td><code>GPIO.DIR,&lt;mask&gt;,&lt;dir&gt;</code></td><td></td><td><a href="simulator/./zpravy/GPIO.DIR.html">GPIO.DIR</a></td></tr>
+<tr><td></td><td></td><td><code>PWM,&lt;output&gt;,&lt;value&gt;</code></td><td></td><td><a href="simulator/./zpravy/PWM.html">PWM</a></td></tr>
+<tr><td></td><td></td><td><code>SERVO,&lt;output&gt;,&lt;value&gt;</code></td><td></td><td><a href="simulator/./zpravy/SERVO.html">SERVO</a></td></tr>
 </tbody></table>
 <h2><a class="header" href="#zprávy-dle-kategorií" id="zprávy-dle-kategorií">Zprávy dle kategorií</a></h2>
 <ul>
 <li>
 <p><em><strong>Zprávy ovládání běhu a ladicí</strong></em></p>
 <ul>
-<li><a href="simulator/./simulator/zpravy/PING.html">PING</a></li>
-<li><a href="simulator/./simulator/zpravy/RESET.html">RESET</a></li>
-<li><a href="simulator/./simulator/zpravy/KILL.html">KILL</a></li>
-<li><a href="simulator/./simulator/zpravy/HELP.html">HELP</a></li>
+<li><a href="simulator/./zpravy/PING.html">PING</a></li>
+<li><a href="simulator/./zpravy/RESET.html">RESET</a></li>
+<li><a href="simulator/./zpravy/KILL.html">KILL</a></li>
+<li><a href="simulator/./zpravy/HELP.html">HELP</a></li>
 </ul>
 </li>
 <li>
 <p><strong>Zprávy ovládání robotu</strong></p>
 <ul>
-<li><a href="simulator/./simulator/zpravy/SPEED.html">SPEED</a></li>
-<li><a href="simulator/./simulator/zpravy/ODO.html">ODO</a></li>
-<li><a href="simulator/./simulator/zpravy/SENSOR.html">SENSOR</a></li>
+<li><a href="simulator/./zpravy/SPEED.html">SPEED</a></li>
+<li><a href="simulator/./zpravy/ODO.html">ODO</a></li>
+<li><a href="simulator/./zpravy/SENSOR.html">SENSOR</a></li>
 </ul>
 </li>
 <li>
 <p><strong>Zprávy interakce s uživatelem</strong></p>
 <ul>
-<li><a href="simulator/./simulator/zpravy/BEEP.html">BEEP</a></li>
-<li><a href="simulator/./simulator/zpravy/LED.html">LED</a></li>
-<li><a href="simulator/./simulator/zpravy/BTN.html">BTN</a></li>
-<li><a href="simulator/./simulator/zpravy/GPIO.GET.html">GPIO.GET</a></li>
-<li><a href="simulator/./simulator/zpravy/GPIO.SET.html">GPIO.SET</a></li>
-<li><a href="simulator/./simulator/zpravy/GPIO.DIR.html">GPIO.DIR</a></li>
+<li><a href="simulator/./zpravy/BEEP.html">BEEP</a></li>
+<li><a href="simulator/./zpravy/LED.html">LED</a></li>
+<li><a href="simulator/./zpravy/BTN.html">BTN</a></li>
+<li><a href="simulator/./zpravy/GPIO.GET.html">GPIO.GET</a></li>
+<li><a href="simulator/./zpravy/GPIO.SET.html">GPIO.SET</a></li>
+<li><a href="simulator/./zpravy/GPIO.DIR.html">GPIO.DIR</a></li>
 </ul>
 </li>
 <li>
 <p><strong>Zprávy dosud neimplementované</strong></p>
 <ul>
-<li><a href="simulator/./simulator/zpravy/PWM.html">PWM</a></li>
-<li><a href="simulator/./simulator/zpravy/SERVO.html">SERVO</a></li>
+<li><a href="simulator/./zpravy/PWM.html">PWM</a></li>
+<li><a href="simulator/./zpravy/SERVO.html">SERVO</a></li>
 </ul>
 </li>
 </ul>
@@ -2343,7 +2343,7 @@ hodnotu value o 1. Volitelně můžete použít i tisk na obrazovku.
 Pozor na zákmity tlačítka !!</p>
 <p>COMMIT / PUSH</p>
 <h3><a class="header" href="#nmea-simulátor" id="nmea-simulátor">NMEA (simulátor)</a></h3>
-<p>Pro obsluhu GPIO v simulátoru jsou vyhrazeny příkazy <a href="cviceni/./../simulator/rozhrani.html#beep">BEEP</a>, <a href="cviceni/./../simulator/rozhrani.html#led">LED</a>, <a href="cviceni/./../simulator/rozhrani.html#btn">BTN</a>, případně nízkoúrovňové <a href="cviceni/./../simulator/rozhrani.html#gpio.get">GPIO.GET</a>, <a href="cviceni/./../simulator/rozhrani.html#gpio.set">GPIO.SET</a>, <a href="cviceni/./../simulator/rozhrani.html#gpio.dir">GPIO.DIR</a>, avšak tyto nejsou nijak simulátorem zpracovávány. Implementujte je do svého programu pouze v okamžiku, pokud budete chtít získat 5b navíc jízdou reálného robotu na konci semestru.</p>
+<p>Pro obsluhu GPIO v simulátoru jsou vyhrazeny příkazy <a href="cviceni/./../simulator/zpravy/BEEP.html">BEEP</a>, <a href="cviceni/./../simulator/zpravy/LED.html">LED</a>, <a href="cviceni/./../simulator/zpravy/BTN.html">BTN</a>, případně nízkoúrovňové <a href="cviceni/./../simulator/zpravy/GPIO.GET.html">GPIO.GET</a>, <a href="cviceni/./../simulator/zpravy/GPIO.SET.html">GPIO.SET</a>, <a href="cviceni/./../simulator/zpravy/GPIO.DIR.html">GPIO.DIR</a>, avšak tyto nejsou nijak simulátorem zpracovávány. Implementujte je do svého programu pouze v okamžiku, pokud budete chtít získat 5b navíc jízdou reálného robotu na konci semestru.</p>
 <h2><a class="header" href="#adc-60minut" id="adc-60minut">ADC (60minut)</a></h2>
 <h3><a class="header" href="#vzorový-projekt-1" id="vzorový-projekt-1">Vzorový projekt</a></h3>
 <p>Založte na aktuáním &quot;master&quot; novou větev pojmenovanou &quot;hw-cv5-adc&quot;, přepněte se do ní a upravte kód vzorového projektu tak, 
@@ -2386,7 +2386,7 @@ v 10 bitovém, 14bitovém a 18bitovém režimu měření ? U všech tolerancí p
 tolerančním polem (značně si usnadníte práci)</p>
 <p>Odpovídá pozorovaný údaj vypočítané toleranci měření ?</p>
 <h3><a class="header" href="#nmea-simulátor-1" id="nmea-simulátor-1">NMEA (simulátor)</a></h3>
-<p>Pro obsluhu analogově/digitálního převodníku v simulátoru je vyhrazen příkaz <a href="cviceni/./../simulator/rozhrani.html#sensor">SENSOR</a>. 
+<p>Pro obsluhu analogově/digitálního převodníku v simulátoru je vyhrazen příkaz <a href="cviceni/./../simulator/zpravy/SENSOR.html">SENSOR</a>. 
 Vraťte se tedy ke kódu předchozího cvičení (jiný projekt) a zkuste změřit na reálném robotu (nebo i simulovaném doma) 
 úroveň napájecího napětí, tentokráte s pomocí NMEA zpráv.</p>
 <p>(tuto část můžete již dělat na simulátoru doma, nezapomeňte commitovat/ pushovat aby i ostatní změny viděli !)</p>
@@ -2508,13 +2508,13 @@ Pozorujte chování a zhodnoťte pozorování.</p>
 <p>Otevřete si projekt z minulého / předminulého cvičení, kde jste zpracovávali NMEA protokol. Následující body již nemusíte tvořit na cvičení, lze je realizovat i v simulátoru.</p>
 <p>V tomto cvičení již budete ovládat robota pomocí NMEA zpráv, je tedy nutné pravidelně navracet simulátor do výchozího stavu.
 Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho programu, lze to ale řešit přímočařeji, a to tak,
-že při startu vašeho programu simulátoru pošlete NMEA zprávu <a href="cviceni/./../simulator/rozhrani.html#reset">RESET</a>.</p>
+že při startu vašeho programu simulátoru pošlete NMEA zprávu <a href="cviceni/./../simulator/zpravy/RESET.html">RESET</a>.</p>
 <p>✅ Po odeslání resetu byste měli přijmout NMEA zprávu <code>$RESET,DONE</code>.</p>
 <p>Pakliže nepřijmete DONE, program ukončete s chybou.</p>
 <p>Simulátor simuluje chování dvou krokových motorů, na které jsou namonotována kola uživatelsky definovaného průměru.
-Motory jsou řízeny pomocí NMEA zpráv <a href="cviceni/./../simulator/rozhrani.html#speed">SPEED</a> a <a href="cviceni/./../simulator/rozhrani.html#odo">ODO</a> posílaných simulátoru.</p>
+Motory jsou řízeny pomocí NMEA zpráv <a href="cviceni/./../simulator/zpravy/SPEED.html">SPEED</a> a <a href="cviceni/./../simulator/zpravy/ODO.html">ODO</a> posílaných simulátoru.</p>
 <h3><a class="header" href="#nastavení-rychlosti-kol" id="nastavení-rychlosti-kol">Nastavení rychlosti kol</a></h3>
-<p>Příkaz pro nastavení rychlosti motoru je <a href="cviceni/./../simulator/rozhrani.html#speed">SPEED</a>. Pošleme tedy tento příkaz simulátoru s nějakou malou 
+<p>Příkaz pro nastavení rychlosti motoru je <a href="cviceni/./../simulator/zpravy/SPEED.html">SPEED</a>. Pošleme tedy tento příkaz simulátoru s nějakou malou 
 rychlostí levého kola, třeba 0.05 otáčky za sekundu a nulovou rychlostí pravého kola.</p>
 <p>✅ Pokud nám vše správně funguje, měl by se robot v simulátoru začít pomalu otáčet.</p>
 <p>Motor se po asi 1 s otáčení zastaví, toto je bezpečnostní funkce, která je implementována v našich reálných budičích motorů. V případě softwarové chyby, kdy by spadl řídicí program, by se totiž robot mohl nekontrolovatelně rozjet.
@@ -2523,7 +2523,7 @@ Je tedy nutné řídicí příkazy posílat periodicky.</p>
 <p>COMMIT / PUSH</p>
 <h3><a class="header" href="#Čtení-ujeté-vzdálenosti" id="Čtení-ujeté-vzdálenosti">Čtení ujeté vzdálenosti</a></h3>
 <p>Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné
-si to již teď připravit. Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazu <a href="cviceni/./../simulator/rozhrani.html#odo">ODO</a>. Tento příkaz 
+si to již teď připravit. Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazu <a href="cviceni/./../simulator/zpravy/ODO.html">ODO</a>. Tento příkaz 
 způsobí, že nám simulátor pošle ujetou vzdálenost v mikrokrocích pro obě kola a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.</p>
 <p>✅ Vyzkoušejte si čtení ujeté vzdálenosti obou motorů a jejich přepočet na ujeté metry.</p>
 <p>✅ Vyzkoušejte si, že se hodnota ujeté vzdálenosti opravdu nuluje.</p>

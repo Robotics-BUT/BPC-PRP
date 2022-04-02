@@ -171,57 +171,57 @@ Adresu simulátoru lze zjistit linuxovým příkazem <code>ip a</code> z termin�
 <p>Některé zprávy neobsahují žádnou odpověď serveru. Reálný robot implementuje více příkazů než simulátor z důvodu lepšího<br />
 ladění na hardware. Tyto zprávy jsou simulátorem ignorovány.</p>
 <table><thead><tr><th>SIM</th><th>REAL</th><th>dotaz</th><th>odpověď</th><th>dokumentace</th></tr></thead><tbody>
-<tr><td>ANO</td><td>ANO</td><td><code>SPEED,&lt;left&gt;,&lt;right&gt;</code></td><td><code>OK</code></td><td><a href="./simulator/zpravy/SPEED.html">SPEED</a></td></tr>
-<tr><td>ANO</td><td>ANO</td><td><code>ODO</code></td><td><code>ODO,&lt;left&gt;,&lt;right&gt;</code></td><td><a href="./simulator/zpravy/ODO.html">ODO</a></td></tr>
-<tr><td>ANO</td><td>ANO</td><td><code>SENSOR,&lt;id&gt;</code></td><td><code>SENSOR,&lt;id&gt;,&lt;hodnota&gt;</code></td><td><a href="./simulator/zpravy/SENSOR.html">SENSOR</a></td></tr>
-<tr><td>ANO</td><td>ANO</td><td><code>PING,[&lt;data&gt;]</code></td><td><code>PONG,[&lt;data&gt;]</code></td><td><a href="./simulator/zpravy/PING.html">PING</a></td></tr>
-<tr><td>ANO</td><td>ANO</td><td><code>RESET</code></td><td><code>RESET,DONE</code></td><td><a href="./simulator/zpravy/RESET.html">RESET</a></td></tr>
-<tr><td>1.7+</td><td>ANO</td><td><code>KILL</code></td><td></td><td><a href="./simulator/zpravy/KILL.html">KILL</a></td></tr>
-<tr><td>1.7+</td><td>ANO</td><td><code>HELP</code></td><td><code>HELP,&lt;cmd1&gt;,...</code></td><td><a href="./simulator/zpravy/HELP.html">HELP</a></td></tr>
-<tr><td></td><td>ANO</td><td><code>BEEP,[&lt;ms&gt;]</code></td><td></td><td><a href="./simulator/zpravy/BEEP.html">BEEP</a></td></tr>
-<tr><td></td><td>ANO</td><td><code>LED,[&lt;ms&gt;]</code></td><td></td><td><a href="./simulator/zpravy/LED.html">LED</a></td></tr>
-<tr><td></td><td>ANO</td><td><code>BTN</code></td><td><code>BTN,&lt;left&gt;,&lt;right&gt;</code></td><td><a href="./simulator/zpravy/BTN.html">BTN</a></td></tr>
-<tr><td></td><td>ANO</td><td><code>GPIO.GET,[&lt;mask&gt;]</code></td><td><code>GPIO.GET,&lt;mask&gt;</code></td><td><a href="./simulator/zpravy/GPIO.GET.html">GPIO.GET</a></td></tr>
-<tr><td></td><td>ANO</td><td><code>GPIO.SET,&lt;mask&gt;,&lt;val&gt;</code></td><td></td><td><a href="./simulator/zpravy/GPIO.SET.html">GPIO.SET</a></td></tr>
-<tr><td></td><td>ANO</td><td><code>GPIO.DIR,&lt;mask&gt;,&lt;dir&gt;</code></td><td></td><td><a href="./simulator/zpravy/GPIO.DIR.html">GPIO.DIR</a></td></tr>
-<tr><td></td><td></td><td><code>PWM,&lt;output&gt;,&lt;value&gt;</code></td><td></td><td><a href="./simulator/zpravy/PWM.html">PWM</a></td></tr>
-<tr><td></td><td></td><td><code>SERVO,&lt;output&gt;,&lt;value&gt;</code></td><td></td><td><a href="./simulator/zpravy/SERVO.html">SERVO</a></td></tr>
+<tr><td>ANO</td><td>ANO</td><td><code>SPEED,&lt;left&gt;,&lt;right&gt;</code></td><td><code>OK</code></td><td><a href="./zpravy/SPEED.html">SPEED</a></td></tr>
+<tr><td>ANO</td><td>ANO</td><td><code>ODO</code></td><td><code>ODO,&lt;left&gt;,&lt;right&gt;</code></td><td><a href="./zpravy/ODO.html">ODO</a></td></tr>
+<tr><td>ANO</td><td>ANO</td><td><code>SENSOR,&lt;id&gt;</code></td><td><code>SENSOR,&lt;id&gt;,&lt;hodnota&gt;</code></td><td><a href="./zpravy/SENSOR.html">SENSOR</a></td></tr>
+<tr><td>ANO</td><td>ANO</td><td><code>PING,[&lt;data&gt;]</code></td><td><code>PONG,[&lt;data&gt;]</code></td><td><a href="./zpravy/PING.html">PING</a></td></tr>
+<tr><td>ANO</td><td>ANO</td><td><code>RESET</code></td><td><code>RESET,DONE</code></td><td><a href="./zpravy/RESET.html">RESET</a></td></tr>
+<tr><td>1.7+</td><td>ANO</td><td><code>KILL</code></td><td></td><td><a href="./zpravy/KILL.html">KILL</a></td></tr>
+<tr><td>1.7+</td><td>ANO</td><td><code>HELP</code></td><td><code>HELP,&lt;cmd1&gt;,...</code></td><td><a href="./zpravy/HELP.html">HELP</a></td></tr>
+<tr><td></td><td>ANO</td><td><code>BEEP,[&lt;ms&gt;]</code></td><td></td><td><a href="./zpravy/BEEP.html">BEEP</a></td></tr>
+<tr><td></td><td>ANO</td><td><code>LED,[&lt;ms&gt;]</code></td><td></td><td><a href="./zpravy/LED.html">LED</a></td></tr>
+<tr><td></td><td>ANO</td><td><code>BTN</code></td><td><code>BTN,&lt;left&gt;,&lt;right&gt;</code></td><td><a href="./zpravy/BTN.html">BTN</a></td></tr>
+<tr><td></td><td>ANO</td><td><code>GPIO.GET,[&lt;mask&gt;]</code></td><td><code>GPIO.GET,&lt;mask&gt;</code></td><td><a href="./zpravy/GPIO.GET.html">GPIO.GET</a></td></tr>
+<tr><td></td><td>ANO</td><td><code>GPIO.SET,&lt;mask&gt;,&lt;val&gt;</code></td><td></td><td><a href="./zpravy/GPIO.SET.html">GPIO.SET</a></td></tr>
+<tr><td></td><td>ANO</td><td><code>GPIO.DIR,&lt;mask&gt;,&lt;dir&gt;</code></td><td></td><td><a href="./zpravy/GPIO.DIR.html">GPIO.DIR</a></td></tr>
+<tr><td></td><td></td><td><code>PWM,&lt;output&gt;,&lt;value&gt;</code></td><td></td><td><a href="./zpravy/PWM.html">PWM</a></td></tr>
+<tr><td></td><td></td><td><code>SERVO,&lt;output&gt;,&lt;value&gt;</code></td><td></td><td><a href="./zpravy/SERVO.html">SERVO</a></td></tr>
 </tbody></table>
 <h2><a class="header" href="#zprávy-dle-kategorií" id="zprávy-dle-kategorií">Zprávy dle kategorií</a></h2>
 <ul>
 <li>
 <p><em><strong>Zprávy ovládání běhu a ladicí</strong></em></p>
 <ul>
-<li><a href="./simulator/zpravy/PING.html">PING</a></li>
-<li><a href="./simulator/zpravy/RESET.html">RESET</a></li>
-<li><a href="./simulator/zpravy/KILL.html">KILL</a></li>
-<li><a href="./simulator/zpravy/HELP.html">HELP</a></li>
+<li><a href="./zpravy/PING.html">PING</a></li>
+<li><a href="./zpravy/RESET.html">RESET</a></li>
+<li><a href="./zpravy/KILL.html">KILL</a></li>
+<li><a href="./zpravy/HELP.html">HELP</a></li>
 </ul>
 </li>
 <li>
 <p><strong>Zprávy ovládání robotu</strong></p>
 <ul>
-<li><a href="./simulator/zpravy/SPEED.html">SPEED</a></li>
-<li><a href="./simulator/zpravy/ODO.html">ODO</a></li>
-<li><a href="./simulator/zpravy/SENSOR.html">SENSOR</a></li>
+<li><a href="./zpravy/SPEED.html">SPEED</a></li>
+<li><a href="./zpravy/ODO.html">ODO</a></li>
+<li><a href="./zpravy/SENSOR.html">SENSOR</a></li>
 </ul>
 </li>
 <li>
 <p><strong>Zprávy interakce s uživatelem</strong></p>
 <ul>
-<li><a href="./simulator/zpravy/BEEP.html">BEEP</a></li>
-<li><a href="./simulator/zpravy/LED.html">LED</a></li>
-<li><a href="./simulator/zpravy/BTN.html">BTN</a></li>
-<li><a href="./simulator/zpravy/GPIO.GET.html">GPIO.GET</a></li>
-<li><a href="./simulator/zpravy/GPIO.SET.html">GPIO.SET</a></li>
-<li><a href="./simulator/zpravy/GPIO.DIR.html">GPIO.DIR</a></li>
+<li><a href="./zpravy/BEEP.html">BEEP</a></li>
+<li><a href="./zpravy/LED.html">LED</a></li>
+<li><a href="./zpravy/BTN.html">BTN</a></li>
+<li><a href="./zpravy/GPIO.GET.html">GPIO.GET</a></li>
+<li><a href="./zpravy/GPIO.SET.html">GPIO.SET</a></li>
+<li><a href="./zpravy/GPIO.DIR.html">GPIO.DIR</a></li>
 </ul>
 </li>
 <li>
 <p><strong>Zprávy dosud neimplementované</strong></p>
 <ul>
-<li><a href="./simulator/zpravy/PWM.html">PWM</a></li>
-<li><a href="./simulator/zpravy/SERVO.html">SERVO</a></li>
+<li><a href="./zpravy/PWM.html">PWM</a></li>
+<li><a href="./zpravy/SERVO.html">SERVO</a></li>
 </ul>
 </li>
 </ul>
