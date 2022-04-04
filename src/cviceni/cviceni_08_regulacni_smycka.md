@@ -1,4 +1,4 @@
-# Návrh regulátoru
+# Návrh regulační smyčky
 Cvičící: Ing. Tomáš Jílek, Ph.D.
 
 ## Cíle
