@@ -175,6 +175,21 @@ rqt_graph
 rqt_plot
 ```
 
+
+Ukázka odeslání float hodnoty skrze ros::Publisher
+```cpp
+
+ros::Publisher float_publisher;
+float_publisher = node->advertise<std_msgs::Float32>("some_topic", 0);
+...
+float_publisher.publish(float_value);
+```
+
+Tímto spůsobem je možné si napšíklad vizualizovat požadované a skutečné rychlosti kol (ověřit si strmost rampy), vykreslit si do grafu výstupy snímačů a přepočet na pozici vůči čáře, či si například vizualizovat odezvy jednotlivých složek PID regulátoru.
+
+![diff_chassis_model](../images/qrt_plot.png)
+
+
 # Integrace ROS klientské knihovny do BPC-PRP projektu (cca 30 min)
 
 Nyní se pokuste transformovat Váš BPC-PRP projekt tak, aby byl ROS Nodem, podle výše uvedeného návodu a aby Váš projekt byl chopen publishovat ROS zprávy.
