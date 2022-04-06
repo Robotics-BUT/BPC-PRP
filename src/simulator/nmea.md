@@ -23,7 +23,7 @@ Jednotlivé argumenty příkazové řádky:
 
  `--remote=<ip addr>/<udp port>` nebo `<ip addr>/<udp port>` : **povinný parametr**. Nastaví adresu a port vzdáleného počítače. IP adresa musí být specifikovaná číselně v tečkové konvenci (např 127.0.0.1), DNS překlad není podporován. Port musí být celé číslo v rozsahu 1024-65535. Oddělovač adresy a portu je lomítko z důvodu budoucí kompatibility s IPv6 (adresa ipv6 má dvojtečku jako oddělovač částí takže nejde použít pro oddělení části portu od adresy). Adresy IPv6 prozatím nejsou podporovány, ale je na ně příprava. Pro použití portu pod `1024` je potřeba program spustit jako `sudo`
 
-## Příklad použití
+## Příklad použití pro spojení s reálným robotem
 
 V následujícím příkladu se komunikuje s reálným robotem na adrese 10.16.0.247 na portu 6666. uživatel zadal na klávesnici `BEEP` a stiskl enter, `PING` a stiskl enter. Je vidět odeslaná zpráva i přijatá zpráva od serveru.
 
@@ -41,3 +41,23 @@ NMEA sender v 0.2 (c) 2022 Frantisek Burian
 >                                                        
 ```
 
+## Příklad použití pro testování protokolu NMEA
+
+Protože program zprávy nijak neinterpretuje je vhodným adeptem pro ladění protokolu.
+
+Nejprve spustíme terminál s programem NMEA, a jako cíl zadáme lokální adresu a port ukazující na číslo které jsme zadali v `bind` uživatelského programu (zde např `1234`)
+
+```shell
+bufran@pcburian:~$ nmea 127.0.0.1/1234
+NMEA sender v 0.2 (c) 2022 Frantisek Burian
+ communicating with remote 127.0.0.1/1234
+ using local port 6667
+ Press Ctrl-C to exit
+>                                                        
+```
+
+V kodu aplikace kterou ladíme zapíšeme spojení s programem NMEA a portem, který program nmea vypsal (v příkladu `6667`, tedy adresa `127.0.0.1/6667`). Nezapomeneme bind na zvolený port (v příkladu `1234`)
+
+Vše co Vaše aplikace odešle se zobrazí v terminálu NMEA, pakliže je v pořádku CRC (pokud se nic nezobrazí. máte špatné CRC). Vše co odešlete z terminálu NMEA bude zabaleno do protokolu a odesláno Vaší aplikaci.
+
+Pakliže se nic nezobrazuje, je vhodné se podívat co odesíláte (např výpisem do terminálu, wiresharkem)

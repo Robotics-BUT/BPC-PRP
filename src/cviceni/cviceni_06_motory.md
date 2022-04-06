@@ -141,19 +141,19 @@ Otevřete si projekt z minulého / předminulého cvičení, kde jste zpracováv
 
 V tomto cvičení již budete ovládat robota pomocí NMEA zpráv, je tedy nutné pravidelně navracet simulátor do výchozího stavu.
 Toho lze dosáhnout jak opětovným spuštěním jak simulátoru, tak vašeho programu, lze to ale řešit přímočařeji, a to tak,
-že při startu vašeho programu simulátoru pošlete NMEA zprávu [RESET](./../simulator/rozhrani.md#reset).
+že při startu vašeho programu simulátoru pošlete NMEA zprávu [RESET](./../simulator/zpravy/RESET.md).
 
 ✅ Po odeslání resetu byste měli přijmout NMEA zprávu `$RESET,DONE`.
 
 Pakliže nepřijmete DONE, program ukončete s chybou.
 
 Simulátor simuluje chování dvou krokových motorů, na které jsou namonotována kola uživatelsky definovaného průměru.
-Motory jsou řízeny pomocí NMEA zpráv [SPEED](./../simulator/rozhrani.md#speed) a [ODO](./../simulator/rozhrani.md#odo) posílaných simulátoru.
+Motory jsou řízeny pomocí NMEA zpráv [SPEED](./../simulator/zpravy/SPEED.md) a [ODO](./../simulator/zpravy/ODO.md) posílaných simulátoru.
 
 
 ### Nastavení rychlosti kol
 
-Příkaz pro nastavení rychlosti motoru je [SPEED](./../simulator/rozhrani.md#speed). Pošleme tedy tento příkaz simulátoru s nějakou malou 
+Příkaz pro nastavení rychlosti motoru je [SPEED](./../simulator/zpravy/SPEED.md). Pošleme tedy tento příkaz simulátoru s nějakou malou 
 rychlostí levého kola, třeba 0.05 otáčky za sekundu a nulovou rychlostí pravého kola.
 
 ✅ Pokud nám vše správně funguje, měl by se robot v simulátoru začít pomalu otáčet.
@@ -169,7 +169,7 @@ COMMIT / PUSH
 ### Čtení ujeté vzdálenosti
 
 Pro lokalizaci robota v prostředí lze využít výpočtu odometrie z ujeté vzdálenosti obou kol, to bude předmětem dalších cvičení, je ale vhodné
-si to již teď připravit. Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazu [ODO](./../simulator/rozhrani.md#odo). Tento příkaz 
+si to již teď připravit. Čtení ujeté vzdálenost je v simulátoru implementováno pomocí příkazu [ODO](./../simulator/zpravy/ODO.md). Tento příkaz 
 způsobí, že nám simulátor pošle ujetou vzdálenost v mikrokrocích pro obě kola a sám si vnitřní hodnotu ujeté vzdálenosti vynuluje.
 
 ✅ Vyzkoušejte si čtení ujeté vzdálenosti obou motorů a jejich přepočet na ujeté metry.
