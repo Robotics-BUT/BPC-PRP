@@ -316,16 +316,25 @@ private:
     ros::Timer timer_;
     ros::Publisher markers_publisher_;
 };
-
-/*
- * v souboru main.cpp pak 
- * 
- *  #include "RvizExampleClass.h"
- *  auto rviz_visualizer = RvizExampleClass(node, "rviz_topic", 30.0);
- *
- */
-
 ```
+
+v souboru main.cpp pak
+
+``` cpp
+#include <ros/ros.h>
+#include "RvizExampleClass.h"
+
+int main(int argc, char* argv[]) {
+
+    ros::init(argc, argv, "cool_node_name");
+    auto node = ros::NodeHandle();
+    auto rviz_visualizer = RvizExampleClass(node, "rviz_topic", 30.0);
+    
+    ros::spin();
+    return 0;
+}
+```
+
 
 Topic na kterém publikujete zprávu si zobrazte v RVizu.
 
@@ -334,3 +343,77 @@ Topic na kterém publikujete zprávu si zobrazte v RVizu.
 ✅  Publikujte do Vámi nazvaného topicu skalár vzdálenosti robota od čáry. Tuto hodnotu vizualizujte v rqt_plot.
 
 ✅  Vytvořte krátké video ve kterém ukážete, dvě výše uvedené funkcionality. Video nahrejte na git do složky s odevzdáními.
+
+# Optional: visualizace plánované trajektorie (cca 30min)
+
+Ukážeme si další možný příklad užitečné vizualizace v RVizu. Na základě znalosti aktuální rychlosti kol si dokážeme vypočítat lineární a úhlovou rychlost robota.
+
+![diff_chassis_model](../images/diff_chassis.png)
+
+Ze znalosti lineární a úhlové rychlosti pak dokážeme vypočítat trajektorii, kterou robot projede, pokud zachová konstantní rychlosti.
+
+![diff_chassis_model](../images/arc_trajectory.png)
+
+Příklad ukazuje funkci, která na vstupu přijmá jako argumenty právě dopřednou a úhlovou rychlost v SI jednotkách (m/s a rad/s) a na základě této informace vykreslí v RVizu budoucí trajektorii.
+
+``` cpp
+void draw_predicted_trajectory(float lin_vel, float ang_vel) {
+    
+    // Create message instance
+    auto msg = visualization_msgs::Marker{};
+    
+    // Define frame and timestamp 
+    msg.header.frame_id = "robot"; // frame "robot" means, that (0,0) point is in the origin of your robot
+    msg.header.stamp = ros::Time().now();
+    msg.id = 0;
+
+    // Define marker type
+    msg.type = visualization_msgs::Marker::LINE_STRIP; // lines that interconnect set of points
+    msg.action = visualization_msgs::Marker::ADD;
+
+    // Define 
+    msg.pose.orientation.w = 1.0; // avoid invalid quaternion
+    msg.scale.x = 0.005; // line strip width in meters
+
+    // Purple color
+    msg.color.b = 1.0;
+    msg.color.r = 1.0;
+    msg.color.a = 1.0;
+
+    // First point (robot origin)
+    geometry_msgs::Point previous_p;
+    previous_p.x = 0.0;
+    previous_p.y = 0.0;
+    previous_p.z = 0.0;
+    
+    float theta = 0.0f;
+    float dt = 0.1;     // trajectory approximation step
+    for (size_t i = 0; i < 50; ++i){    // 0.1s * 50 = 5s of prediction
+        geometry_msgs::Point p = previous_p;
+        
+        // Arc trajectory
+        if (ang_vel != 0) {
+            float radius = lin_vel / ang_vel;
+            p.x += -radius * sin(theta) + radius * sin(theta + ang_vel*dt); // see the arc trajectory model
+            p.y +=  radius * cos(theta) - radius * cos(theta + ang_vel*dt);
+            theta += ang_vel*dt;
+        } 
+        // Directly forward
+        else {
+            p.x = previous_p.x + lin_vel * dt;
+        }
+        
+        // Add trajectory point to message
+        msg.points.push_back(p); 
+        previous_p = p;
+    }
+    
+    // Send trajectory to RViz
+    trajectory_publisher_.publish(msg); 
+}
+```
+
+Příklad možné výsledné implementace
+
+
+![diff_chassis_model](../images/telemetry_trajectory.png)
