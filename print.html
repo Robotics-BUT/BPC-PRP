@@ -3344,6 +3344,15 @@ rosrun my_first_ros_project cpp_ros_example
 <p>Či dokonce vykreslit si časový průběh v programu rqt_plot.</p>
 <pre><code>rqt_plot
 </code></pre>
+<p>Ukázka odeslání float hodnoty skrze ros::Publisher</p>
+<pre><code class="language-cpp">
+ros::Publisher float_publisher;
+float_publisher = node-&gt;advertise&lt;std_msgs::Float32&gt;(&quot;some_topic&quot;, 0);
+...
+float_publisher.publish(float_value);
+</code></pre>
+<p>Tímto spůsobem je možné si napšíklad vizualizovat požadované a skutečné rychlosti kol (ověřit si strmost rampy), vykreslit si do grafu výstupy snímačů a přepočet na pozici vůči čáře, či si například vizualizovat odezvy jednotlivých složek PID regulátoru.</p>
+<p><img src="cviceni/../images/qrt_plot.png" alt="diff_chassis_model" /></p>
 <h1><a class="header" href="#integrace-ros-klientské-knihovny-do-bpc-prp-projektu-cca-30-min" id="integrace-ros-klientské-knihovny-do-bpc-prp-projektu-cca-30-min">Integrace ROS klientské knihovny do BPC-PRP projektu (cca 30 min)</a></h1>
 <p>Nyní se pokuste transformovat Váš BPC-PRP projekt tak, aby byl ROS Nodem, podle výše uvedeného návodu a aby Váš projekt byl chopen publishovat ROS zprávy.</p>
 <p>POZOR! - Zvažte, zda se vydáte cesout blokujicího <code>ros::spin()</code>, v tom případě si zablokujete Vaší main smyčku, nebo se vydáte cestou while smyčky s <code>ros::spinOnce()</code>. V tom případě se ale publishery, subscribery a timery přijmou/odešlou zprávu, nebo zavolají timer callback pouze, když se provede řádek <code>ros::spinOnce()</code>.</p>
