@@ -20,7 +20,7 @@ Oficiální tutoriály pro práci s CLI:
 
 My si však dnes vytvoříme balíčky ručně a při tom si vysvětlíme jednotlivé kroky, které první způsob právě automatizuje.
 
-V prvním kroku si vytvoříme na libovolném místě ve file systému složku `ros_ws`. Jméno složky však může být libovolné. Je jen dobré zachovávat best practice postupy. Uvnitř právě vytvořené složky `ros_ws` si vyrobíme složku `src`. Tímto jsme vytořili ROS workspace.
+V prvním kroku si vytvoříme na libovolném místě ve file systému složku `ros_ws`. Jméno složky však může být libovolné. Je jen dobré zachovávat "best practice" postupy. Uvnitř právě vytvořené složky `ros_ws` si vyrobíme složku `src`. Tímto jsme vytořili ROS workspace.
 
 Nyní se přesuneme do podsložky `ros_ws/src/`. Nacházíme se v místě, kde se umisťují tzv. ROS balíčky (package), tedy CMake projekty, které pracují s ROS knihovnou. V našem případě si vytvoříme jeden balíček tak, že vytvoříme složku `my_first_ros_project`. Uvnitř této složky pak vytvoříme složky `include` a `src`, a soubory `package.xml` a `CMakeLists.txt`. Ve složce `src` pak soubor `main.cpp` a ve složce `include` soubor `RosExampleClass.h`.
 
@@ -76,7 +76,7 @@ Dále pak soubor `package.xml`
 </package>
 ```
 
-A nyní si niž můžeme projekt otevřít jako CMake projekt v CLionu a napsat kód v `main.cpp`.
+A nyní si již můžeme projekt otevřít jako CMake projekt v CLionu a napsat kód v `main.cpp`.
 > **POZOR!** - Je potřeba otevřít CLion v termiále, kde už máte načtené prostředí ROSu (`source /opt/ros/noetic/setup.bash`) a nebo si všechny potřebné ROS proměnné do otevřeného CLionu doimportovat. 
 
 ```cpp
@@ -145,9 +145,13 @@ private:
 };
 ```
 
+Ti z Vás, kteří si pročetli [ROS návody](../chap_1_software/text/ros.md) vědí, že ROS funguje na princípu tzv. "uzlů" (`node`), které můžou (kromě jiného) "publikovat" (`publisher`) a "odebírat" (`subscriber`) dáta do/z různych "topiců" (`topic`).
+
+✅  Prostudujte si kód, který jste právě zkopírovali (nedělám si žádne iluze 🙂) a zkuste si nejprve tipnout co bude náš program dělat když ho spustíme.
+
 Nýní můžeme v CLionu projekt zkompilovat a spustit.
 
-Alternativně je možné přejít do kořene workspacu a zavolat `rosrun <jmeno_balicku> <jmeno_binarky>`
+Alternativně je možné přejít do kořene workspacu, zkompilovat balíčky a zavolat `rosrun <jmeno_balicku> <jmeno_binarky>`:
 
 ```
 catkin_make
@@ -161,26 +165,32 @@ rosrun my_first_ros_project cpp_ros_example
 3. `rosrun my_first_ros_project cpp_ros_example` - zapni program `cpp_ros_example` z balíčku `my_first_ros_project`.
 
 
-Dále si pak můžeme vypsat si zprávy přímo v terminále.
+Pokud se náš program úspěšně spustil, můžeme si vypsat zprávy z topiců přímo v terminále:
 
 ```
-rostopic echo <nazev_topicku>
+rostopic echo <nazev_topicu>
 ```
 
-Podívat na komunikaci pomocí programu `rqt_graph`.
+<details>
+    <summary>Tip!</summary>
+
+Všechny právě aktivní topicy si můžeme vypsat příkazem `rostopic list`.
+</details>
+
+Podívat se na vzájemné propojení a komunikaci mezi všemi aktivními komponenty pomocí programu `rqt_graph`:
 
 ```
 rqt_graph
 ```
 
-Či dokonce vykreslit si časový průběh v programu `rqt_plot`.
+Či dokonce si vykreslit časový průběh dát z topiců v programu `rqt_plot`:
 
 ```
 rqt_plot
 ```
 
 
-Ukázka odeslání float hodnoty skrze `ros::Publisher`
+Ukázka odeslání float hodnoty skrze `ros::Publisher`:
 ```cpp
 
 ros::Publisher float_publisher;
@@ -215,7 +225,7 @@ Neprve si nastudujte oficiální dokumentaci k [vizualizaci v RViz](http://wiki.
 
 Jedná se o zprávy z ROS knihovny `visualization_msgs`. Tyto zprávy umoňují vizualizaci geometrických těles, šipek, úseček, polyúseček, mračna bodů, textu, nebo mesh gridů.
 
-My si nyní napíšeme třídu, která bude vizualizovat krychli, jenž bude plavat 3D prostředím a vedle ní budem vypisovat její aktuální polohu.
+My si nyní napíšeme třídu, která bude vizualizovat krychli, jenž bude plavat 3D prostředím a nad ní budem vypisovat její aktuální polohu.
 
 ```cpp
 #pragma once
@@ -310,7 +320,7 @@ private:
         // Position
         text.pose.position.x = pose.x();
         text.pose.position.y = pose.y();
-        text.pose.position.z = pose.z() + 0.2;
+        text.pose.position.z = pose.z() + 0.3;
 
         // Size
         text.scale.z = 0.1;
@@ -337,7 +347,7 @@ private:
 };
 ```
 
-v souboru main.cpp pak
+v souboru `main.cpp` pak
 
 ``` cpp
 #include <ros/ros.h>
