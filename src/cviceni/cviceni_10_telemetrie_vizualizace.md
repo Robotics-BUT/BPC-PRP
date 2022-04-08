@@ -77,7 +77,7 @@ Dále pak soubor `package.xml`
 ```
 
 A nyní si niž můžeme projekt otevřít jako CMake projekt v CLionu a napsat kód v `main.cpp`.
->Pozor, je potřeba otevřít CLion v termiále, kde máte načtené prostředí ROSu (`source /opt/ros/noetic/setup.bash`).
+> **POZOR!** - Je potřeba otevřít CLion v termiále, kde už máte načtené prostředí ROSu (`source /opt/ros/noetic/setup.bash`) a nebo si všechny potřebné ROS proměnné do otevřeného CLionu doimportovat. 
 
 ```cpp
 #include <ros/ros.h>
