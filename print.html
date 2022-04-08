@@ -3266,8 +3266,10 @@ target_link_libraries(cpp_ros_example ${catkin_LIBRARIES})
     &lt;exec_depend&gt;roscpp&lt;/exec_depend&gt;
 &lt;/package&gt;
 </code></pre>
-<p>A nyní si niž můžeme projekt otevřít jako CMake projekt v CLionu a napsat kód v <code>main.cpp</code>.
-&gt;Pozor, je potřeba otevřít CLion v termiále, kde máte načtené prostředí ROSu (<code>source /opt/ros/noetic/setup.bash</code>).</p>
+<p>A nyní si niž můžeme projekt otevřít jako CMake projekt v CLionu a napsat kód v <code>main.cpp</code>.</p>
+<blockquote>
+<p><strong>POZOR!</strong> - Je potřeba otevřít CLion v termiále, kde už máte načtené prostředí ROSu (<code>source /opt/ros/noetic/setup.bash</code>) a nebo si všechny potřebné ROS proměnné do otevřeného CLionu doimportovat. </p>
+</blockquote>
 <pre><code class="language-cpp">#include &lt;ros/ros.h&gt;
 #include &quot;RosExampleClass.h&quot;
 
