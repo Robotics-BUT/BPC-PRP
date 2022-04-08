@@ -3221,7 +3221,7 @@ motor_right_speed = (robot_linear_speed - 0.5 * C_TW * robot_angular_speed) * C_
 <li><a href="http://wiki.ros.org/ROS/Tutorials">Ostatní tutoriálny</a></li>
 </ul>
 <p>My si však dnes vytvoříme balíčky ručně a při tom si vysvětlíme jednotlivé kroky, které první způsob právě automatizuje.</p>
-<p>V prvním kroku si vytvoříme na libovolném místě ve file systému složku <code>ros_ws</code>. Jméno složky však může být libovolné. Je jen dobré zachovávat best practice postupy. Uvnitř právě vytvořené složky <code>ros_ws</code> si vyrobíme složku <code>src</code>. Tímto jsme vytořili ROS workspace.</p>
+<p>V prvním kroku si vytvoříme na libovolném místě ve file systému složku <code>ros_ws</code>. Jméno složky však může být libovolné. Je jen dobré zachovávat &quot;best practice&quot; postupy. Uvnitř právě vytvořené složky <code>ros_ws</code> si vyrobíme složku <code>src</code>. Tímto jsme vytořili ROS workspace.</p>
 <p>Nyní se přesuneme do podsložky <code>ros_ws/src/</code>. Nacházíme se v místě, kde se umisťují tzv. ROS balíčky (package), tedy CMake projekty, které pracují s ROS knihovnou. V našem případě si vytvoříme jeden balíček tak, že vytvoříme složku <code>my_first_ros_project</code>. Uvnitř této složky pak vytvoříme složky <code>include</code> a <code>src</code>, a soubory <code>package.xml</code> a <code>CMakeLists.txt</code>. Ve složce <code>src</code> pak soubor <code>main.cpp</code> a ve složce <code>include</code> soubor <code>RosExampleClass.h</code>.</p>
 <p>Struktura celého workspacu bude tedy vypadat následovně.</p>
 <pre><code>ros_ws/
@@ -3266,7 +3266,7 @@ target_link_libraries(cpp_ros_example ${catkin_LIBRARIES})
     &lt;exec_depend&gt;roscpp&lt;/exec_depend&gt;
 &lt;/package&gt;
 </code></pre>
-<p>A nyní si niž můžeme projekt otevřít jako CMake projekt v CLionu a napsat kód v <code>main.cpp</code>.</p>
+<p>A nyní si již můžeme projekt otevřít jako CMake projekt v CLionu a napsat kód v <code>main.cpp</code>.</p>
 <blockquote>
 <p><strong>POZOR!</strong> - Je potřeba otevřít CLion v termiále, kde už máte načtené prostředí ROSu (<code>source /opt/ros/noetic/setup.bash</code>) a nebo si všechny potřebné ROS proměnné do otevřeného CLionu doimportovat. </p>
 </blockquote>
@@ -3331,8 +3331,10 @@ private:
     ros::Time start_time_;
 };
 </code></pre>
+<p>Ti z Vás, kteří si pročetli <a href="cviceni/../chap_1_software/text/ros.html">ROS návody</a> vědí, že ROS funguje na princípu tzv. &quot;uzlů&quot; (<code>node</code>), které můžou (kromě jiného) &quot;publikovat&quot; (<code>publisher</code>) a &quot;odebírat&quot; (<code>subscriber</code>) dáta do/z různych &quot;topiců&quot; (<code>topic</code>).</p>
+<p>✅  Prostudujte si kód, který jste právě zkopírovali (nedělám si žádne iluze 🙂) a zkuste si nejprve tipnout co bude náš program dělat když ho spustíme.</p>
 <p>Nýní můžeme v CLionu projekt zkompilovat a spustit.</p>
-<p>Alternativně je možné přejít do kořene workspacu a zavolat <code>rosrun &lt;jmeno_balicku&gt; &lt;jmeno_binarky&gt;</code></p>
+<p>Alternativně je možné přejít do kořene workspacu, zkompilovat balíčky a zavolat <code>rosrun &lt;jmeno_balicku&gt; &lt;jmeno_binarky&gt;</code>:</p>
 <pre><code>catkin_make
 source devel/setup.bash
 rosrun my_first_ros_project cpp_ros_example 
@@ -3343,16 +3345,20 @@ rosrun my_first_ros_project cpp_ros_example
 <li><code>source devel/setup.bash</code> - načti právě zkompilované balíčky a</li>
 <li><code>rosrun my_first_ros_project cpp_ros_example</code> - zapni program <code>cpp_ros_example</code> z balíčku <code>my_first_ros_project</code>.</li>
 </ol>
-<p>Dále si pak můžeme vypsat si zprávy přímo v terminále.</p>
-<pre><code>rostopic echo &lt;nazev_topicku&gt;
+<p>Pokud se náš program úspěšně spustil, můžeme si vypsat zprávy z topiců přímo v terminále:</p>
+<pre><code>rostopic echo &lt;nazev_topicu&gt;
 </code></pre>
-<p>Podívat na komunikaci pomocí programu <code>rqt_graph</code>.</p>
+<details>
+    <summary>Tip!</summary>
+<p>Všechny právě aktivní topicy si můžeme vypsat příkazem <code>rostopic list</code>.</p>
+</details>
+<p>Podívat se na vzájemné propojení a komunikaci mezi všemi aktivními komponenty pomocí programu <code>rqt_graph</code>:</p>
 <pre><code>rqt_graph
 </code></pre>
-<p>Či dokonce vykreslit si časový průběh v programu <code>rqt_plot</code>.</p>
+<p>Či dokonce si vykreslit časový průběh dát z topiců v programu <code>rqt_plot</code>:</p>
 <pre><code>rqt_plot
 </code></pre>
-<p>Ukázka odeslání float hodnoty skrze <code>ros::Publisher</code></p>
+<p>Ukázka odeslání float hodnoty skrze <code>ros::Publisher</code>:</p>
 <pre><code class="language-cpp">
 ros::Publisher float_publisher;
 float_publisher = node-&gt;advertise&lt;std_msgs::Float32&gt;(&quot;some_topic&quot;, 0);
@@ -3375,7 +3381,7 @@ float_publisher.publish(float_value);
 <p>Nyní se podíváme, jak vytvářet vizualizace pro RViz.</p>
 <p>Neprve si nastudujte oficiální dokumentaci k <a href="http://wiki.ros.org/rviz">vizualizaci v RViz</a>, případně tutoriál k tzv. <a href="http://wiki.ros.org/rviz/DisplayTypes/Marker">markerům</a>.</p>
 <p>Jedná se o zprávy z ROS knihovny <code>visualization_msgs</code>. Tyto zprávy umoňují vizualizaci geometrických těles, šipek, úseček, polyúseček, mračna bodů, textu, nebo mesh gridů.</p>
-<p>My si nyní napíšeme třídu, která bude vizualizovat krychli, jenž bude plavat 3D prostředím a vedle ní budem vypisovat její aktuální polohu.</p>
+<p>My si nyní napíšeme třídu, která bude vizualizovat krychli, jenž bude plavat 3D prostředím a nad ní budem vypisovat její aktuální polohu.</p>
 <pre><code class="language-cpp">#pragma once
 #include &lt;iostream&gt;
 #include &lt;ros/ros.h&gt;
@@ -3468,7 +3474,7 @@ private:
         // Position
         text.pose.position.x = pose.x();
         text.pose.position.y = pose.y();
-        text.pose.position.z = pose.z() + 0.2;
+        text.pose.position.z = pose.z() + 0.3;
 
         // Size
         text.scale.z = 0.1;
@@ -3494,7 +3500,7 @@ private:
     ros::Publisher markers_publisher_;
 };
 </code></pre>
-<p>v souboru main.cpp pak</p>
+<p>v souboru <code>main.cpp</code> pak</p>
 <pre><code class="language-cpp">#include &lt;ros/ros.h&gt;
 #include &quot;RvizExampleClass.h&quot;
 
