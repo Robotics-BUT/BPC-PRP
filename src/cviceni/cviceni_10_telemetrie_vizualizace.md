@@ -371,7 +371,8 @@ Topic na kterém publikujete zprávu si zobrazte v RVizu.
 
 ✅  Publikujte do Vámi nazvaného topicu skalár vzdálenosti robota od čáry. Tuto hodnotu vizualizujte v `rqt_plot`.
 
-✅  Vytvořte krátké video ve kterém ukážete, dvě výše uvedené funkcionality. Video nahrejte na git do složky s odevzdáními.
+[comment]: <> (This was only applicable to remote classes, keeping if we ever need to revert to this again.)
+[comment]: <> (✅  Vytvořte krátké video ve kterém ukážete, dvě výše uvedené funkcionality. Video nahrejte na git do složky s odevzdáními.)
 
 # Optional: visualizace plánované trajektorie (cca 30min)
 
