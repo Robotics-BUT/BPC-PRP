@@ -180,23 +180,26 @@ Všechny právě aktivní topicy si můžeme vypsat příkazem `rostopic list`.
 Podívat se na vzájemné propojení a komunikaci mezi všemi aktivními komponenty pomocí programu `rqt_graph`:
 
 ```
-rqt_graph
+rosrun rqt_graph rqt_graph
 ```
 
 Či dokonce si vykreslit časový průběh dát z topiců v programu `rqt_plot`:
 
 ```
-rqt_plot
+rosrun rqt_plot rqt_plot
 ```
 
 
 Ukázka odeslání float hodnoty skrze `ros::Publisher`:
 ```cpp
+#include <std_msgs::Float32.h>
 
 ros::Publisher float_publisher;
-float_publisher = node->advertise<std_msgs::Float32>("some_topic", 0);
+float_publisher = node.advertise<std_msgs::Float32>("some_topic", 0);
 ...
-float_publisher.publish(float_value);
+auto msg = std_msgs::Float32{};
+msg.data = float_value
+float_publisher.publish(msg);
 ```
 
 Tímto spůsobem je možné si například vizualizovat požadované a skutečné rychlosti kol (ověřit si strmost rampy), vykreslit si do grafu výstupy snímačů a přepočet na pozici vůči čáře, či si například vizualizovat odezvy jednotlivých složek PID regulátoru.
