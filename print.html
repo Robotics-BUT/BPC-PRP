@@ -3353,17 +3353,20 @@ rosrun my_first_ros_project cpp_ros_example
 <p>Všechny právě aktivní topicy si můžeme vypsat příkazem <code>rostopic list</code>.</p>
 </details>
 <p>Podívat se na vzájemné propojení a komunikaci mezi všemi aktivními komponenty pomocí programu <code>rqt_graph</code>:</p>
-<pre><code>rqt_graph
+<pre><code>rosrun rqt_graph rqt_graph
 </code></pre>
 <p>Či dokonce si vykreslit časový průběh dát z topiců v programu <code>rqt_plot</code>:</p>
-<pre><code>rqt_plot
+<pre><code>rosrun rqt_plot rqt_plot
 </code></pre>
 <p>Ukázka odeslání float hodnoty skrze <code>ros::Publisher</code>:</p>
-<pre><code class="language-cpp">
+<pre><code class="language-cpp">#include &lt;std_msgs::Float32.h&gt;
+
 ros::Publisher float_publisher;
-float_publisher = node-&gt;advertise&lt;std_msgs::Float32&gt;(&quot;some_topic&quot;, 0);
+float_publisher = node.advertise&lt;std_msgs::Float32&gt;(&quot;some_topic&quot;, 0);
 ...
-float_publisher.publish(float_value);
+auto msg = std_msgs::Float32{};
+msg.data = float_value
+float_publisher.publish(msg);
 </code></pre>
 <p>Tímto spůsobem je možné si například vizualizovat požadované a skutečné rychlosti kol (ověřit si strmost rampy), vykreslit si do grafu výstupy snímačů a přepočet na pozici vůči čáře, či si například vizualizovat odezvy jednotlivých složek PID regulátoru.</p>
 <p><img src="cviceni/../images/qrt_plot.png" alt="diff_chassis_model" /></p>
