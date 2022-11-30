@@ -1,1 +1,0 @@
-# Transportní protokol (UDP)

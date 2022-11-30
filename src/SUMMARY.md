@@ -11,13 +11,6 @@
     - [Robotic Operating System](chap_1_software/text/ros.md)
     - [Příprava prostředí](chap_1_software/text/vb.linux_installation.md)
 
-- [Simulátor](./simulator/intro.md)
-    - [Aplikační protokol (popis zpráv)](./simulator/zpravy.md)
-      - [Transportní protokol (UDP)](./simulator/transport.md)
-      - [Prezentační protokol (NMEA)](./simulator/prez.md)
-    - [Program nmea](./simulator/nmea.md)
-    - [Program robot](./simulator/robot.md)
-
 - [Cviceni](./cviceni/cviceni_uvod.md)
     - [Instalace a seznámení se s prostředím](./cviceni/cviceni_01_linux_install.md)
     - [Linux CLI a C++](./cviceni/cviceni_02_linux_cli_cpp.md)
