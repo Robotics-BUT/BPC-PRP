@@ -1,0 +1,326 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Jazyk - BPC-PRP</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../title-page.html">Uvod</a></li><li class="chapter-item expanded affix "><a href="../prednasky.html">Přednášky</a></li><li class="chapter-item expanded affix "><a href="../cviceni.html">Cvičení</a></li><li class="chapter-item expanded "><a href="../chap_1_software/text/intro.html"><strong aria-hidden="true">1.</strong> Softwarové vybavení</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../chap_1_software/text/linux.html"><strong aria-hidden="true">1.1.</strong> Linux a příkazová řádka</a></li><li class="chapter-item expanded "><a href="../chap_1_software/text/git.html"><strong aria-hidden="true">1.2.</strong> Git - Verzovací systému</a></li><li class="chapter-item expanded "><a href="../chap_1_software/text/clion.html"><strong aria-hidden="true">1.3.</strong> CLion IDE</a></li><li class="chapter-item expanded "><a href="../chap_1_software/text/ros.html"><strong aria-hidden="true">1.4.</strong> Robotic Operating System</a></li><li class="chapter-item expanded "><a href="../chap_1_software/text/vb.linux_installation.html"><strong aria-hidden="true">1.5.</strong> Příprava prostředí</a></li></ol></li><li class="chapter-item expanded "><a href="../cviceni/cviceni_uvod.html"><strong aria-hidden="true">2.</strong> Cviceni</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cviceni/cviceni_01_linux_install.html"><strong aria-hidden="true">2.1.</strong> Instalace a seznámení se s prostředím</a></li><li class="chapter-item expanded "><a href="../cviceni/cviceni_02_linux_cli_cpp.html"><strong aria-hidden="true">2.2.</strong> Linux CLI a C++</a></li><li class="chapter-item expanded "><a href="../cviceni/cviceni_03_git.html"><strong aria-hidden="true">2.3.</strong> GIT, simulátor</a></li><li class="chapter-item expanded "><a href="../cviceni/cviceni_04_udp.html"><strong aria-hidden="true">2.4.</strong> UDP komunikace</a></li><li class="chapter-item expanded "><a href="../cviceni/cviceni_05_i2c.html"><strong aria-hidden="true">2.5.</strong> Hardware, I2C, ADC</a></li><li class="chapter-item expanded "><a href="../cviceni/cviceni_06_motory.html"><strong aria-hidden="true">2.6.</strong> Řízení motorů</a></li><li class="chapter-item expanded "><a href="../cviceni/cviceni_07_snimac_cary.html"><strong aria-hidden="true">2.7.</strong> Snímání čáry</a></li><li class="chapter-item expanded "><a href="../cviceni/cviceni_08_regulacni_smycka.html"><strong aria-hidden="true">2.8.</strong> Regulační smyčka</a></li><li class="chapter-item expanded "><a href="../cviceni/cviceni_09_regulatory.html"><strong aria-hidden="true">2.9.</strong> Návrh regulátorů</a></li><li class="chapter-item expanded "><a href="../cviceni/cviceni_10_telemetrie_vizualizace.html"><strong aria-hidden="true">2.10.</strong> Telemetrie a vizualizace</a></li></ol></li><li class="chapter-item expanded "><a href="../cpp.html"><strong aria-hidden="true">3.</strong> C++</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cpp/jazyk.html" class="active"><strong aria-hidden="true">3.1.</strong> Jazyk</a></li><li class="chapter-item expanded "><a href="../cpp/kontejnery.html"><strong aria-hidden="true">3.2.</strong> Kontejnery</a></li><li class="chapter-item expanded "><a href="../cpp/algoritmy.html"><strong aria-hidden="true">3.3.</strong> Algoritmy</a></li><li class="chapter-item expanded "><a href="../cpp/patterns.html"><strong aria-hidden="true">3.4.</strong> Návrhové vzory</a></li></ol></li><li class="chapter-item expanded "><a href="../principy/INDEX.html"><strong aria-hidden="true">4.</strong> Principy</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../principy/superloop.html"><strong aria-hidden="true">4.1.</strong> Supersmyčka a zpětnovazební řízení</a></li><li class="chapter-item expanded "><a href="../principy/mediator.html"><strong aria-hidden="true">4.2.</strong> Mediator - Protokolový eventový parser</a></li><li class="chapter-item expanded "><a href="../principy/controller.html"><strong aria-hidden="true">4.3.</strong> Stavový controller</a></li><li class="chapter-item expanded "><a href="../principy/protostack.html"><strong aria-hidden="true">4.4.</strong> Procházení komunikačním protokolem ISO/OSI</a></li><li class="chapter-item expanded "><a href="../principy/splitfiles.html"><strong aria-hidden="true">4.5.</strong> Organizace projektu / práce v týmu</a></li><li class="chapter-item expanded "><a href="../principy/isolate.html"><strong aria-hidden="true">4.6.</strong> Oddělení modulů - Zrychlení kompilace</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">BPC-PRP</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#vlastnosti-jakzyka-c17--c20" id="vlastnosti-jakzyka-c17--c20">Vlastnosti jakzyka C++17 / C++20</a></h1>
+<p>O těchto vlastnostech jazyka jste se pravděpodobně neučili a bude dobré když je začleníte do svých znalostí</p>
+<h2><a class="header" href="#vynucená-inicializace" id="vynucená-inicializace">Vynucená inicializace</a></h2>
+<pre><code class="language-c++">  struct Trida {
+     int A;
+     int B;
+     double C;
+  };
+  
+  // ...
+  Trida instance{1, 2, 3.14159265};  // Vynucena inicializace
+</code></pre>
+<p>Vynucuje inicializaci položek A,B a C v daném pořadí podle deklarace uvnitř objektu. Všechny další nastaví na 0.</p>
+<h2><a class="header" href="#vynucené-rozbalení" id="vynucené-rozbalení">Vynucené rozbalení</a></h2>
+<pre><code class="language-c++">  struct Trida {
+     int A;
+     int B;
+     double C;
+  };
+  
+  // ...
+  Trida instance{1, 2, 3.14159265};  // Vynucena inicializace
+  
+  auto [a, b, c] = instance;            // vynucene rozbaleni
+</code></pre>
+<h2><a class="header" href="#jmenný-alias" id="jmenný-alias">Jmenný alias</a></h2>
+<pre><code class="language-c++">  using NovyNazev = StaryNazev 
+</code></pre>
+<p>Vytvoří zástupné jméno pro komplikovanější zápis. Používá se zejména pro zvýšení čitelnsoti.</p>
+<p>Kdekoliv je použit <code>NovyNazev</code>, je to jako byl na daném místě použit datový typ <code>StaryNazev</code> (oba typy jsou zaměnitelné)</p>
+<p>Priklad:</p>
+<pre><code class="language-c++">  using Msg = std::vector&lt;std::string&gt;;
+  using Mediator = std::map&lt;std::string, std::function&lt;void(const Msg &amp;)&gt;&gt;
+  
+  Mediator mediator;   // odpovica std::map&lt;std::string, std::function&lt;void(const std::vector&lt;std::string&gt;&amp;)&gt;&gt;
+</code></pre>
+<h2><a class="header" href="#definice-callbacku" id="definice-callbacku">Definice callbacku</a></h2>
+<pre><code class="language-c++">  std::function&lt;deklarace funkce&gt; Callback;  
+</code></pre>
+<p>Kdykoliv potřebujete zavolat funkci s neznámým cílem funkce (koho máte volat definuje někdo jiný, nadřazený) 
+použijete callback jako ukazatel na funkci. Tato funkce ale narozdíl od C-čkového ukazatele na funkci může 
+být i součástí objektu. Ukazatel na funkce z jazyka C prosím nepoužívejte! </p>
+<p>Příklad pouziti:</p>
+<pre><code class="language-c++">  void funkce(std::string par) 
+  {
+    // ...
+  }
+  
+  // ...
+  std::function&lt;void(std::string)&gt; Callback;    // Deklarace callbacku
+  Callback = &amp;funkce;                           // Přiřazení koho má volat
+  
+  // ...
+  
+  if (Callback)                                 // Test zdali odkaz vede na nejaky obsah
+    Callback(&quot;Ahoj světe&quot;);                     // Zavolani obsahu
+
+  // ... 
+</code></pre>
+<h2><a class="header" href="#lambda" id="lambda">Lambda</a></h2>
+<pre><code class="language-c++">  [zachyt](argumenty) -&gt; navratovy typ { kod funkce }  
+</code></pre>
+<p>Je to deklarace těla funkce bez názvu. </p>
+<p>Do zachyt patří všechny proměnné, které funkce potřebuje ke svému běhu, nebo <code>&amp;</code> pokud chceme zachytit všechny automatické 
+proměnné referencí, nebo <code>=</code> pokud kopií. Pokud je v zachyt znak <code>&amp;</code> nebo <code>=</code> a deklarace se nachází uvntř kontextu objektu, 
+tak se implcitně zachytí i tento objekt.</p>
+<p>Návratový typ se šipkou nemusí být specifikován, odvodí se pak z kontextu (z datovéhé typu za return)</p>
+<p>Argumenty jsou standardní argumenty funkce jako při deklaraci. Pokud je deklarace na vhodném místě ze kterého překladač pozná 
+kontext, můžeme používat auto místo datových typů.</p>
+<p>Příklad:</p>
+<pre><code class="language-c++">  int a = 42;
+  auto f1 = [a]() { cout &lt;&lt; a &lt;&lt; endl; };                   // a zachyceno hodnotou
+  auto f2 = [&amp;a]() { cout &lt;&lt; ++a &lt;&lt; endl; };                // a zachyceno referenci, muzu jej menit
+  auto f3 = [=]() { cout &lt;&lt; a &lt;&lt; endl; };                   // a zachyceno hodnotou
+  auto f4 = [&amp;]() { cout &lt;&lt; --a &lt;&lt; endl; };                 // a zachyceno referenci, muzu jej menit
+  auto f5 = [&amp;]() { return this-&gt;NejakaFunkce(); };         // Navratova hodnota dedukovana jako navrat z NejakeFunkce (muze modifikovat objekt protoze zachyt referenci)  
+  auto f6 = [=]() { this-&gt;NejakaFunkce(); };                // Pozor NejakaFunkce pracuje nad KOPII objektu - modifikuje kopii, ne puvodni objekt
+  
+  f1();                                                     // lambdu volam stejne jako funkci
+</code></pre>
+<p>Lambdy je dobre pouzivat az od C++17 protoze v C++14 a nizsim maji neintuitivni chovani ve specifickych pripadech 
+a kompilator vyhazuje chyby ktere nejsou na prvni pohled zrejme</p>
+<h2><a class="header" href="#procházení-všech-prvků-kontejneru" id="procházení-všech-prvků-kontejneru">Procházení všech prvků kontejneru</a></h2>
+<pre><code class="language-c++">  for (auto i: &lt;kontejner&gt;) {
+    // operace s prvkem i
+  }
+</code></pre>
+<h2><a class="header" href="#validátor-platnosti-s-deklarací" id="validátor-platnosti-s-deklarací">Validátor platnosti s deklarací</a></h2>
+<p>Pomucka pro citelnost a optimalizaci kodu - omezení platnosti proměnné pouze na úsek, kdy je platná. Pokud není platná, kompilátor ji může zahodit.</p>
+<pre><code class="language-c++">  if (auto obj = DejObjekt()) {
+    // zde muzu pracovat s obj pokud neni null nebo operator bool() objektu ktery vratila funkce DejObjekt vraci true
+  }
+  // zde obj neexistuje
+</code></pre>
+<pre><code class="language-c++">  if (auto obj = DejObjekt(); Podminka) {
+    // zde muzu pracovat s obj pokud je podminka splnena (vraci true)
+  }
+  // zde obj neexistuje
+</code></pre>
+<p>Analogicky u <code>while</code>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../cpp.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../cpp/kontejnery.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../cpp.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../cpp/kontejnery.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
