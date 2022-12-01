@@ -1,0 +1,1 @@
+# Návrhové vzory (design patterns)

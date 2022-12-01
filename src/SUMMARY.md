@@ -23,6 +23,13 @@
     - [Návrh regulátorů](./cviceni/cviceni_09_regulatory.md)
     - [Telemetrie a vizualizace](./cviceni/cviceni_10_telemetrie_vizualizace.md)
 
+- [C++](./cpp.md)
+  - [Jazyk](./cpp/jazyk.md)
+  - [Kontejnery](./cpp/kontejnery.md)
+  - [Algoritmy](./cpp/algoritmy.md)
+  - [Návrhové vzory](./cpp/patterns.md)
+
+
 - [Principy](./principy/INDEX.md)
   - [Supersmyčka a zpětnovazební řízení](./principy/superloop.md)
   - [Mediator - Protokolový eventový parser](./principy/mediator.md)
