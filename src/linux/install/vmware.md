@@ -1,0 +1,1 @@
+### Instalace Linuxu s použitím virtulizace VmWare

@@ -1,10 +1,6 @@
-# Příprava prostředí
+### Instalace Linuxu s použitím virtulizace VirtualBox
 
-V této kapitole stručně probereme, jak si připravit počítač tak, aby bylo možné začít vyvíjet kód pro BPC-PRP projekt.
-
-V ideálním případě si nainstalujte Linux přímo na Váš počítač, případně je možné jej nainstalovat do virtuálního stroje.
-
-## Instalace VirtualBoxu
+#### Instalace VirtualBoxu
 
 VirtualBox si nainstalujte podle návodu na příslušném operačním systému.
 
@@ -12,9 +8,9 @@ Postup pro [Windows a Mac](https://www.virtualbox.org/wiki/Downloads).
 
 Pro Linux instalace záleží na distribuci a používaném baličkovacím systému. Na Debianu použijte příkaz "sudo apt install virtualbox". Poté bude možné VB aktivovat z terminálu voláním "virtualbox", nebo skrze ikonku v seznamu nainstalovaných programů.
 
-![VB](../images/vb.png)
+![VB](../../images/vb.png)
 
-## Instalace Linuxu
+#### Zahájení Instalace Linuxu
 
 Stáhněte si obraz instalačního disku [Ubuntu 20.04](https://ubuntu.com/download/desktop).
 
@@ -28,14 +24,16 @@ Dále v záložce "Display" světšete množství dedikované video paměti na m
 
 V záložce "Storage" klikněte na položku s obrázkem CD a následně úplně v pravo klikněte pravým na ikonku CD s malou šipečkou. Tím otevřete okno pro nastavení cesty k instalačnímu obrazu Ubuntu, které jsme dříve stáhli na počítač. Zavřete nastavení tlačítkem OK.
 
-![VB](../images/vb_storage.png)
+![VB](../../images/vb_storage.png)
 
 Nyní v hlavním okně Virtual Boxu aktivujte virtuální stroj tlačítkem start.
 
 Pokud je vše nastaveno korektně, stroj nabootuje z instalačního obrazu.
 
+Dále pokračujte podle návodu ke standardní instalaci
 
-![VB](../images/ubuntu_install_1.png)
+
+![VB](../../images/ubuntu_install_1.png)
 
 Zvolte jazyk operačního systému (doporučeno angličtinu), zvolte rozložení klávesnice (doporučeno English US), a nechte pokračovat "Normal Installation".
 
@@ -50,15 +48,4 @@ Po opětovném nabootování v horní liště okna virtuálního stroje zvolte z
 Po dalším sestartu máte připarevený virtuální stroj s nainstalovaným Linuxem Ubuntu 20.04.
 
 
-![VB](../images/ubuntu_rdy.png)
-
-Jako alternativu si stáhněte obraz virtuálního stroje s nainstalovaným Ubuntu [zde](https://drive.google.com/file/d/1kTZDLVTljSmCJOvL0AAAgZzEql6RpVrq/view?usp=sharing).
-
-## Instalace ROS
-
-Instalaci ROSu na nově nainstalovaný Linux proveďte pomocí návodu popsaného v kiapitole [Robotic Operating System](ros.md).
-
-## CLion
-
-CLion si do nově nainstalovaného systému stáhněte z oficiálních stránek (viz [CLion](clion.md))
-
+![VB](../../images/ubuntu_rdy.png)

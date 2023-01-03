@@ -41,6 +41,11 @@ Nejprve zapneme ROS Core, tedy server, který začte poslouchat příchozí komu
 
 Nyní máme vytvořené všechny tři programy. Ty spolu komunikují, ale robot přesto nefunguje podle přestav. Tušíme, že chyba je v tom, jak druhý program převádí data ze snímače na pohyb kol. Proto si napíšeme 4. program, který bude poslouchat veškerou komunikaci a bude ji logovat do souboru. Náš nový program tedy bude subscriberem pro oba dříve zavedené topicky "SensorData" a "MotorControl". V okamžiku kdy tento program zapneme, tak se ohlásí serveru a od tohoto okamžiku všechny zprávy odeslané v topicích "SensorData" a "MotorControl" budo poslány také našemu logovcímu programu. Ten zprávy přijíme a jejich obsach včetně časové značky vytiskne do souboru. Když se pak do souboru podíváme, zjistíme, že plánovací program vatváří akční zásah vždy s opačným znaménkem, proto přídáme "-" do výpočtu akčního zásahu a vše začne fungovat.
 
+## Instalace ROS
+
+Instalaci ROSu na nově nainstalovaný Linux proveďte pomocí návodu popsaného v kiapitole [Robotic Operating System](ros.md).
+
+
 ## Instalace ROSu
 
 Tento návod je pouze českým přepisem oficiální dokumentace (Instalace pro Ubuntu)[http://wiki.ros.org/noetic/Installation/Ubuntu]. Prim8rn2 prosím používejte oficiální verzi. Tento návod je pouze doprovodný.

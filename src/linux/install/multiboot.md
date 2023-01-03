@@ -1,0 +1,1 @@
+### Instalace Linuxu (multiboot)

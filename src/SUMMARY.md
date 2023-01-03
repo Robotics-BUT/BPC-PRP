@@ -1,16 +1,7 @@
 # Summary
 [Uvod](title-page.md)
-[Přednášky](prednasky.md)
-[Cvičení](cviceni.md)
 
-- [Softwarové vybavení](chap_1_software/text/intro.md)
-  - [Git - Verzovací systému](chap_1_software/text/git.md)
-  - [CLion IDE](chap_1_software/text/clion.md)
-  - [Robotic Operating System](chap_1_software/text/ros.md)
-  - [Příprava prostředí](chap_1_software/text/vb.linux_installation.md)
-
-- [Cviceni](./cviceni/cviceni_uvod.md)
-    - [Instalace a seznámení se s prostředím](./cviceni/cviceni_01_linux_install.md)
+- [Cviceni]()
     - [Linux CLI a C++](./cviceni/cviceni_02_linux_cli_cpp.md)
     - [GIT, simulátor](./cviceni/cviceni_03_git.md)
     - [UDP komunikace](./cviceni/cviceni_04_udp.md)
@@ -48,11 +39,14 @@
     - [Souborový manažer](./linux/shell/mc.md)
   - [Slovo závěrem](./linux/footer.md)
 
+- [Git - Verzovací systém](chap_1_software/text/git.md)
+
 - [CMake](./cmake.md)
   - [Struktura CMakeLists.txt](./cmake/cmakelists.md)
   - [Kompilůace z příkazová řádky](./cmake/build.md)
 
 - [CLion](./clion.md)
+  - [CLion IDE](chap_1_software/text/clion.md)
   - [Instalace](./clion/install.md)
   - [Otevření cmake projektu](./clion/open_cmake.md)
   - [Kompilace programu](./clion/build.md)
@@ -68,6 +62,8 @@
   - [Kontejnery](./cpp/kontejnery.md)
   - [Algoritmy](./cpp/algoritmy.md)
   - [Návrhové vzory](./cpp/patterns.md)
+
+- [Robotic Operating System](chap_1_software/text/ros.md)
 
 
 - [Principy](./principy/INDEX.md)
