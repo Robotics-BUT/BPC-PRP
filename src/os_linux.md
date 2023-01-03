@@ -1,1 +1,0 @@
-# Operacni system Linux
