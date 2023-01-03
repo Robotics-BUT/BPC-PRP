@@ -33,8 +33,13 @@
     - [Souborový manažer](linux/shell/mc.md)
   - [Slovo závěrem](linux/footer.md)
 
-- [***Git***]()
-  - [Git - Verzovací systém](git/git.md)
+- [***Git***](git/index.md)
+  - [Instalace](git/install.md)
+  - [Účel](git/purpose.md)
+  - [Terminologie](git/terminology.md)
+  - [Příkazy](git/commands.md)
+  - [Příklady k procvičení](git/excercises.md)
+  - [Doporučená literatura](git/seealso.md)
 
 - [***CMake***]()
   - [Struktura CMakeLists.txt](cmake/cmakelists.md)

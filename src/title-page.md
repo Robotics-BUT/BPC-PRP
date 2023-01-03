@@ -1,4 +1,4 @@
-# Praktická robotika a zpracov8n9 obrazu (BPC-PRP) online skripta
+# Praktická robotika a zpracování obrazu (BPC-PRP) online skripta
 
 Tento text představuje online skripta předmětu BPC-PRP - povinného předmětu 3. rocniku bakalářského studijního oboru Automatizační a měřicí technika na Fakultě elektrotechniky a komunikačních technologií Vysokého Učení Technického v Brně.
 
