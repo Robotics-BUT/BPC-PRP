@@ -1,7 +1,7 @@
 # Summary
 - [Uvod](title-page.md)
 
-- [***OS Linux***]()
+- [***OS Linux***](linux/index.md)
   - [Distribuce](linux/distro.md)
   - [***Instalace***]()
     - [Multiboot](linux/install/multiboot.md)
