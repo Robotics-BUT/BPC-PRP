@@ -2,7 +2,7 @@
 
 Cvičící: Ing. Adam Ligocki, Ph.D., Ing. Tomáš Horeličan
 
-Před cvičením si zopakujte návod [ROS](../chap_1_software/text/ros.md) z kapitoly [Softwarové vybavení](../chap_1_software/text/intro.html)
+Před cvičením si zopakujte návod [ROS](../ros/ros.md) z kapitoly [Softwarové vybavení](../chap_1_software/text/intro.html)
 
 # Tvorba vlastního ROS nodu (cca 1h)
 
@@ -145,7 +145,7 @@ private:
 };
 ```
 
-Ti z Vás, kteří si pročetli [ROS návody](../chap_1_software/text/ros.md) vědí, že ROS funguje na princípu tzv. "uzlů" (`node`), které můžou (kromě jiného) "publikovat" (`publisher`) a "odebírat" (`subscriber`) dáta do/z různych "topiců" (`topic`).
+Ti z Vás, kteří si pročetli [ROS návody](../ros/ros.md) vědí, že ROS funguje na princípu tzv. "uzlů" (`node`), které můžou (kromě jiného) "publikovat" (`publisher`) a "odebírat" (`subscriber`) dáta do/z různych "topiců" (`topic`).
 
 ✅  Prostudujte si kód, který jste právě zkopírovali (nedělám si žádne iluze 🙂) a zkuste si nejprve tipnout co bude náš program dělat když ho spustíme.
 

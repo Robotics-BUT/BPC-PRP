@@ -1,19 +1,19 @@
-# Prakticka robotika a pocitacove videni (BPC-PRP) online skripta
+# Praktická robotika a zpracov8n9 obrazu (BPC-PRP) online skripta
 
-Tento text predstavuje online skripta a studijni materialy pro prednasky a cviceni predmetu BPC-PRP - povinneho premetu 3. rocniku bakalarskeho studiniho oboru Automatizacni a merici technika na Fakulte elektrotechniky a komunikacnich technologii Vysokeho Uceni Technickeho v Brne.
+Tento text představuje online skripta předmětu BPC-PRP - povinného předmětu 3. rocniku bakalářského studijního oboru Automatizační a měřicí technika na Fakultě elektrotechniky a komunikačních technologií Vysokého Učení Technického v Brně.
 
-Skripta rovnez obsahuji texty tykajici se dalsich oblasti robotiky, ktere jiz ale nejsou vyzadovany samotnou naplni predmetu.
+Skripta rovněž obsahují texty týkajici se dalších oblastí robotiky, které již ale nejsou vyžadovány samotnou náplní předmětu.
 
-## Autori
+## Autoři
 
 Ing. Adam Ligocki, Ph.D.
 
-Ing. Tomas Lazna
+Ing. Tomáš Lázna
 
-Ing. Petr Gabrlik
+Ing. Petr Gábrlík
 
-Ing. Tomas Jilek, Ph.D.
+Ing. Tomáš Jílek, Ph.D.
 
-Ing. Frantisek Burian, Ph.D.
+Ing. František Burian, Ph.D.
 
 Ing. Tomáš Horeličan

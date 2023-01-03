@@ -2,8 +2,8 @@
 
 `pwd` - print working directory
 
-Vypíše aktuální pozici ve file systému.
+Vypíše aktuální složku.
 
-```
+```shell
 pwd
 ```

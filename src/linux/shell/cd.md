@@ -4,7 +4,7 @@
 
 Změna složky.
 
-```
+```shell
 cd my_directory      ...      přesun do adresáře s názvem my_directory
 cd ~                 ...      návrat do domovské složky (v linuxu nazýváme "home")
 cd ..                ...      návrat o adresář výš (dvojtečka)

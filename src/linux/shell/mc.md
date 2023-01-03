@@ -4,4 +4,8 @@
 
 Midnight Commander - grafické prostředí pro pohyb v souborovém systému. Připomíná MS Dos.
 
-Vypíná se klávesou F10.
+```shell
+mc
+```
+
+Vypíná se klávesou `F10`.

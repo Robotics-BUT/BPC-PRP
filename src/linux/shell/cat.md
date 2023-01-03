@@ -4,6 +4,6 @@
 
 Program vypíše do termínálu obsah souboru.
 
-```
-cat ~/my_config_file.txt      ...      vytiskne v terminále obsah zvoleného souboru
+```shell
+cat ~/my_config_file.txt      ...      vytiskne v terminálu obsah zvoleného souboru
 ```

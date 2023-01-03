@@ -74,13 +74,13 @@ když přijde na řadu, zpracuje všechny doposud přijaté zprávy v pořadí t
 
 ### Reference
 
-Reference, někdy také nazývané "alias", je datový typ, který směřuje (je aliasem) na již existujicí objekt v paměti. 
+Reference, někdy také nazývané "alias", je datový typ, který směřuje (je aliasem) na již existujicí objekt v paměti.
 Při kompilaci je reference obvykle nahrazena ukazatelem, ale z pohledu programátora se jedná o výrazně bezpečnější formu
 práce s daty a, či objekty, protože nedovoluje některé nebezpečné operace.
 
 Reference se liší od ukazatele ve dvou základních vlastnostech:
- - Nemůže být NULL; reference je vždy nainicializovaná
- - Reference se nemůže přesměrovat na jiný objekt/data.
+- Nemůže být NULL; reference je vždy nainicializovaná
+- Reference se nemůže přesměrovat na jiný objekt/data.
 
 Pozor, nezaměňovat datový typ reference "<T>&" s operátorem reference "&variable" !
 
@@ -116,7 +116,7 @@ Reference je často používaná pro předání argumentů fukce bez nutnosti ko
 
 
 Reference je často pužívaná pro vrácení hodnot z funkce skrze argument funkce.
-Nejedná se však o best-practice metodu. Pokud je to jen trochu možné, měla by metoda vracet hodnotu skrze návratovou 
+Nejedná se však o best-practice metodu. Pokud je to jen trochu možné, měla by metoda vracet hodnotu skrze návratovou
 hodnotu. Pokud je potřeba vrátit více hodnot, použijte strukturu jako návratový typ.
 
 ```cpp
@@ -135,13 +135,13 @@ hodnotu. Pokud je potřeba vrátit více hodnot, použijte strukturu jako návra
 ### Smart Pointers
 
 Smart pointery jsou náhradou C-čkových ukazatelů. V základu máme 3 typy těchto smart ukazatelů:
- - std::unique_ptr\<T>  
- - std::shared_ptr\<T>
- - std::weak_ptr\<T>
+- std::unique_ptr\<T>
+- std::shared_ptr\<T>
+- std::weak_ptr\<T>
 
 kde T je datový typ na který bude ukazatel ukazovat.
 
-Vyhodou smart pointerů je, že nemusíme jako programátoři bezprostředně řešit alokaci a zejména uvolnění paměti. 
+Vyhodou smart pointerů je, že nemusíme jako programátoři bezprostředně řešit alokaci a zejména uvolnění paměti.
 Jsou li splněny podmínky, smartpointer během svého zániku zavolá také destruktor objektu, na který ukazoval a uvolní naalokovanou paměť.
 
 Výsledkem je, že programátoru už nemusí používat klíčová slova ```new``` a ```delete```.
@@ -150,7 +150,7 @@ Každý ze smart pointerů se však mírně liší.
 
 #### std::unique_ptr\<T>
 
-std::unique_ptr<T> je nejtriviálnější implementací smart pointeru. Smart pointer je vlastníkem objektu na který ukazuje a 
+std::unique_ptr<T> je nejtriviálnější implementací smart pointeru. Smart pointer je vlastníkem objektu na který ukazuje a
 neumožní toto vlastnictví (ownership) předat jinému ukazateli. Když unique_ptr zanikne, zavolá destruktor nad vlasněným objektem a dealokuje paměť.
 
 ```cpp
@@ -192,7 +192,7 @@ Obdoba shared_ptr, ale neinkrementuje čitač, který počítá, kolik je platn�
 
 ### OOP
 
-Při tvorbě Vaších programů se snažte dodržovat OOP paradigma. Přemýšlejte o programu, jako o sadě black-boxů, kdy tyto schránky 
+Při tvorbě Vaších programů se snažte dodržovat OOP paradigma. Přemýšlejte o programu, jako o sadě black-boxů, kdy tyto schránky
 jsou každá zaměřená na velmi specifický problém. Každou Vaší třídu by měla vystihovat jedna věta. Stejně tak každá funkce
 by měla dělat právě jednu věc a nic víc.
 
@@ -210,8 +210,8 @@ Oddělte data od algoritmů. Vytvořte si oddělené třídy, které v sobě maj
 Naimplementujte příklad pomocí OOP C++. Při implementaci využijte reference a smart pointery.
 
 Mějme univerzitu. Každá univerzita má 5 ročníků, v každém ročníku je libovolný počet studentů.
-Když studenti nastupují na univerzitu, jsou automaticky zařazeni do 1. ročníku. Vždy, když proběhne rok, 
-tak univerzita prozkouší všechny studenty v ročnících a s pravděpodobností 0.9 posune studenta do vyžšího ročníku. Pokud student projde pátý ročníku, 
+Když studenti nastupují na univerzitu, jsou automaticky zařazeni do 1. ročníku. Vždy, když proběhne rok,
+tak univerzita prozkouší všechny studenty v ročnících a s pravděpodobností 0.9 posune studenta do vyžšího ročníku. Pokud student projde pátý ročníku,
 univerzita si jej zaznamená jako absolventa.
 Na konci každého roku vytiskněte stav univerzity a všech studentů na ní.
 

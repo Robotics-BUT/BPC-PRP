@@ -4,6 +4,6 @@
 
 Rychlá pomoc když zapomenu, jak pracovat s daným programem
 
-```
-man ls      ...      vytiskne v terminále manuál k programu ls
+```shell
+man ls      ...      vytiskne v terminálu manuál k programu ls
 ```

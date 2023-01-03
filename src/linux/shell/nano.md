@@ -4,7 +4,7 @@
 
 Editace textu podobná poznámkovému bloku
 
-```shell
+```bash
 nano jmeno_souboru    --- zahájí editaci souboru
 ```
 
