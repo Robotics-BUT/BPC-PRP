@@ -1,29 +1,29 @@
 # Summary
 - [Uvod](title-page.md)
 
-- ***OS Linux***
+- ***[OS Linux]()***
   - [Distribuce](linux/distro.md)
-  - ***Instalace***
+  - ***[Instalace]()***
     - [Multiboot](linux/install/multiboot.md)
     - [VirtualBox](linux/install/virtualbox.md)
     - [VmWare](linux/install/vmware.md)
   - [Souborový systém](linux/filesystem.md)
-  - ***Příkazový řádek***
+  - ***[Příkazový řádek]()***
     - [Otevření příkazového řádku](linux/shell/run.md)
-    - ***Soubory***
+    - ***[Soubory]()***
       - [Vytvoření](linux/shell/touch.md)
       - [Kopírování](linux/shell/cp.md)
       - [Přesun](linux/shell/mv.md)
       - [Smazání](linux/shell/rm.md)
       - [Změna práv](linux/shell/chmod.md)
       - [Zjištění obsahu](linux/shell/cat.md)
-    - ***Složky***
+    - ***[Složky]()***
       - [Vytvoření](linux/shell/mkdir.md)
       - [Smazání](linux/shell/rmdir.md)
       - [Zjištění aktuální](linux/shell/pwd.md)
       - [Změna aktuální](linux/shell/cd.md)
       - [Výpis souborů](linux/shell/ls.md)
-    - ***Editace souborů***
+    - ***[Editace souborů]()***
       - [Pomocí GNU nano](linux/shell/nano.md)
       - [Pomocí GNU vim](linux/shell/vim.md)
     - [Stahování souborů z internetu](linux/shell/wget.md)
@@ -33,42 +33,42 @@
     - [Souborový manažer](linux/shell/mc.md)
   - [Slovo závěrem](linux/footer.md)
 
-- ***Git***
+- ***[Git]()***
   - [Git - Verzovací systém](git/git.md)
 
-- ***CMake***
+- ***[CMake]()***
   - [Struktura CMakeLists.txt](cmake/cmakelists.md)
   - [Kompilůace z příkazová řádky](cmake/build.md)
 
-- ***CLion***
+- ***[CLion]()***
   - [Úvod k CLion](clion/uvod.md)
   - [Instalace](clion/install.md)
-  - ***Projekt***
+  - ***[Projekt]()***
     - [Otevření cmake projektu](clion/open_cmake.md)
     - [Nový cmake projekt](clion/newproj.md)
-  - ***Kompilace a spouštění***
+  - ***[Kompilace a spouštění]()***
     - [Kompilace programu](clion/build.md)
     - [Spuštění programu](clion/run.md)
     - [Ladění programu](clion/debug.md)
   - [Profil vzdáleného ladění](clion/remote.md)
   - [Troubleshooting](clion/troubleshoot.md)
-  - ***Integrace Gitu v CLionu***
+  - ***[Integrace Gitu v CLionu]()***
     - [Aktualizace ze serveru](clion/git/pull.md)
     - [Potvrzení změn](clion/git/commit.md)
     - [Odeslání změn na server](clion/git/push.md)
     - [Log](clion/git/log.md)
 
-- ***C++/Algoritmizace***
+- ***[C++/Algoritmizace]()***
   - [Jazyk](cpp/jazyk.md)
   - [C++](cpp/cli.md)
   - [Kontejnery](cpp/kontejnery.md)
   - [Algoritmy](cpp/algoritmy.md)
   - [Návrhové vzory](cpp/patterns.md)
 
-- ***ROS***
+- ***[ROS]()***
   - [Robotic Operating System](ros/ros.md)
 
-- ***Principy***
+- ***[Principy]()***
   - [Supersmyčka a zpětnovazební řízení](principy/superloop.md)
   - [Mediator - Protokolový eventový parser](principy/mediator.md)
   - [Stavový controller](principy/controller.md)
