@@ -4,17 +4,11 @@
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>BPC-PRP</title>
-        
         <meta name="robots" content="noindex" />
-        
-        
 
 
         <!-- Custom HTML head -->
         
-
-
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
@@ -28,9 +22,7 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        
         <link rel="stylesheet" href="fonts/fonts.css">
-        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -38,19 +30,17 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        
 
-        
     </head>
     <body>
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -66,7 +56,7 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -78,7 +68,7 @@
         </script>
 
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        <script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -91,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="title-page.html"><strong aria-hidden="true">1.</strong> Uvod</a></li><li class="chapter-item expanded "><strong aria-hidden="true">2.</strong> OS Linux</li><li><ol class="section"><li class="chapter-item expanded "><a href="linux/distro.html"><strong aria-hidden="true">2.1.</strong> Distribuce</a></li><li class="chapter-item expanded "><strong aria-hidden="true">2.2.</strong> Instalace</li><li><ol class="section"><li class="chapter-item expanded "><a href="linux/install/multiboot.html"><strong aria-hidden="true">2.2.1.</strong> Multiboot</a></li><li class="chapter-item expanded "><a href="linux/install/virtualbox.html"><strong aria-hidden="true">2.2.2.</strong> VirtualBox</a></li><li class="chapter-item expanded "><a href="linux/install/vmware.html"><strong aria-hidden="true">2.2.3.</strong> VmWare</a></li></ol></li><li class="chapter-item expanded "><a href="linux/filesystem.html"><strong aria-hidden="true">2.3.</strong> Souborový systém</a></li><li class="chapter-item expanded "><strong aria-hidden="true">2.4.</strong> Příkazový řádek</li><li><ol class="section"><li class="chapter-item expanded "><a href="linux/shell/run.html"><strong aria-hidden="true">2.4.1.</strong> Otevření příkazového řádku</a></li><li class="chapter-item expanded "><strong aria-hidden="true">2.4.2.</strong> Soubory</li><li><ol class="section"><li class="chapter-item expanded "><a href="linux/shell/touch.html"><strong aria-hidden="true">2.4.2.1.</strong> Vytvoření</a></li><li class="chapter-item expanded "><a href="linux/shell/cp.html"><strong aria-hidden="true">2.4.2.2.</strong> Kopírování</a></li><li class="chapter-item expanded "><a href="linux/shell/mv.html"><strong aria-hidden="true">2.4.2.3.</strong> Přesun</a></li><li class="chapter-item expanded "><a href="linux/shell/rm.html"><strong aria-hidden="true">2.4.2.4.</strong> Smazání</a></li><li class="chapter-item expanded "><a href="linux/shell/chmod.html"><strong aria-hidden="true">2.4.2.5.</strong> Změna práv</a></li><li class="chapter-item expanded "><a href="linux/shell/cat.html"><strong aria-hidden="true">2.4.2.6.</strong> Zjištění obsahu</a></li></ol></li><li class="chapter-item expanded "><strong aria-hidden="true">2.4.3.</strong> Složky</li><li><ol class="section"><li class="chapter-item expanded "><a href="linux/shell/mkdir.html"><strong aria-hidden="true">2.4.3.1.</strong> Vytvoření</a></li><li class="chapter-item expanded "><a href="linux/shell/rmdir.html"><strong aria-hidden="true">2.4.3.2.</strong> Smazání</a></li><li class="chapter-item expanded "><a href="linux/shell/pwd.html"><strong aria-hidden="true">2.4.3.3.</strong> Zjištění aktuální</a></li><li class="chapter-item expanded "><a href="linux/shell/cd.html"><strong aria-hidden="true">2.4.3.4.</strong> Změna aktuální</a></li><li class="chapter-item expanded "><a href="linux/shell/ls.html"><strong aria-hidden="true">2.4.3.5.</strong> Výpis souborů</a></li></ol></li><li class="chapter-item expanded "><strong aria-hidden="true">2.4.4.</strong> Editace souborů</li><li><ol class="section"><li class="chapter-item expanded "><a href="linux/shell/nano.html"><strong aria-hidden="true">2.4.4.1.</strong> Pomocí GNU nano</a></li><li class="chapter-item expanded "><a href="linux/shell/vim.html"><strong aria-hidden="true">2.4.4.2.</strong> Pomocí GNU vim</a></li></ol></li><li class="chapter-item expanded "><a href="linux/shell/wget.html"><strong aria-hidden="true">2.4.5.</strong> Stahování souborů z internetu</a></li><li class="chapter-item expanded "><a href="linux/shell/man.html"><strong aria-hidden="true">2.4.6.</strong> Manuálové stránky</a></li><li class="chapter-item expanded "><a href="linux/shell/sudo.html"><strong aria-hidden="true">2.4.7.</strong> Zvýšení oprávnění</a></li><li class="chapter-item expanded "><a href="linux/shell/apt.html"><strong aria-hidden="true">2.4.8.</strong> Instalace balíčků</a></li><li class="chapter-item expanded "><a href="linux/shell/mc.html"><strong aria-hidden="true">2.4.9.</strong> Souborový manažer</a></li></ol></li><li class="chapter-item expanded "><a href="linux/footer.html"><strong aria-hidden="true">2.5.</strong> Slovo závěrem</a></li></ol></li><li class="chapter-item expanded "><strong aria-hidden="true">3.</strong> Git</li><li><ol class="section"><li class="chapter-item expanded "><a href="git/git.html"><strong aria-hidden="true">3.1.</strong> Git - Verzovací systém</a></li></ol></li><li class="chapter-item expanded "><strong aria-hidden="true">4.</strong> CMake</li><li><ol class="section"><li class="chapter-item expanded "><a href="cmake/cmakelists.html"><strong aria-hidden="true">4.1.</strong> Struktura CMakeLists.txt</a></li><li class="chapter-item expanded "><a href="cmake/build.html"><strong aria-hidden="true">4.2.</strong> Kompilůace z příkazová řádky</a></li></ol></li><li class="chapter-item expanded "><strong aria-hidden="true">5.</strong> CLion</li><li><ol class="section"><li class="chapter-item expanded "><a href="clion/uvod.html"><strong aria-hidden="true">5.1.</strong> Úvod k CLion</a></li><li class="chapter-item expanded "><a href="clion/install.html"><strong aria-hidden="true">5.2.</strong> Instalace</a></li><li class="chapter-item expanded "><strong aria-hidden="true">5.3.</strong> Projekt</li><li><ol class="section"><li class="chapter-item expanded "><a href="clion/open_cmake.html"><strong aria-hidden="true">5.3.1.</strong> Otevření cmake projektu</a></li><li class="chapter-item expanded "><a href="clion/newproj.html"><strong aria-hidden="true">5.3.2.</strong> Nový cmake projekt</a></li></ol></li><li class="chapter-item expanded "><strong aria-hidden="true">5.4.</strong> Kompilace a spouštění</li><li><ol class="section"><li class="chapter-item expanded "><a href="clion/build.html"><strong aria-hidden="true">5.4.1.</strong> Kompilace programu</a></li><li class="chapter-item expanded "><a href="clion/run.html"><strong aria-hidden="true">5.4.2.</strong> Spuštění programu</a></li><li class="chapter-item expanded "><a href="clion/debug.html"><strong aria-hidden="true">5.4.3.</strong> Ladění programu</a></li></ol></li><li class="chapter-item expanded "><a href="clion/remote.html"><strong aria-hidden="true">5.5.</strong> Profil vzdáleného ladění</a></li><li class="chapter-item expanded "><a href="clion/troubleshoot.html"><strong aria-hidden="true">5.6.</strong> Troubleshooting</a></li><li class="chapter-item expanded "><strong aria-hidden="true">5.7.</strong> Integrace Gitu v CLionu</li><li><ol class="section"><li class="chapter-item expanded "><a href="clion/git/pull.html"><strong aria-hidden="true">5.7.1.</strong> Aktualizace ze serveru</a></li><li class="chapter-item expanded "><a href="clion/git/commit.html"><strong aria-hidden="true">5.7.2.</strong> Potvrzení změn</a></li><li class="chapter-item expanded "><a href="clion/git/push.html"><strong aria-hidden="true">5.7.3.</strong> Odeslání změn na server</a></li><li class="chapter-item expanded "><a href="clion/git/log.html"><strong aria-hidden="true">5.7.4.</strong> Log</a></li></ol></li></ol></li><li class="chapter-item expanded "><strong aria-hidden="true">6.</strong> C++/Algoritmizace</li><li><ol class="section"><li class="chapter-item expanded "><a href="cpp/jazyk.html"><strong aria-hidden="true">6.1.</strong> Jazyk</a></li><li class="chapter-item expanded "><a href="cpp/cli.html"><strong aria-hidden="true">6.2.</strong> C++</a></li><li class="chapter-item expanded "><a href="cpp/kontejnery.html"><strong aria-hidden="true">6.3.</strong> Kontejnery</a></li><li class="chapter-item expanded "><a href="cpp/algoritmy.html"><strong aria-hidden="true">6.4.</strong> Algoritmy</a></li><li class="chapter-item expanded "><a href="cpp/patterns.html"><strong aria-hidden="true">6.5.</strong> Návrhové vzory</a></li></ol></li><li class="chapter-item expanded "><strong aria-hidden="true">7.</strong> ROS</li><li><ol class="section"><li class="chapter-item expanded "><a href="ros/ros.html"><strong aria-hidden="true">7.1.</strong> Robotic Operating System</a></li></ol></li><li class="chapter-item expanded "><strong aria-hidden="true">8.</strong> Principy</li><li><ol class="section"><li class="chapter-item expanded "><a href="principy/superloop.html"><strong aria-hidden="true">8.1.</strong> Supersmyčka a zpětnovazební řízení</a></li><li class="chapter-item expanded "><a href="principy/mediator.html"><strong aria-hidden="true">8.2.</strong> Mediator - Protokolový eventový parser</a></li><li class="chapter-item expanded "><a href="principy/controller.html"><strong aria-hidden="true">8.3.</strong> Stavový controller</a></li><li class="chapter-item expanded "><a href="principy/protostack.html"><strong aria-hidden="true">8.4.</strong> Procházení komunikačním protokolem ISO/OSI</a></li><li class="chapter-item expanded "><a href="principy/splitfiles.html"><strong aria-hidden="true">8.5.</strong> Organizace projektu / práce v týmu</a></li><li class="chapter-item expanded "><a href="principy/isolate.html"><strong aria-hidden="true">8.6.</strong> Oddělení modulů - Zrychlení kompilace</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="title-page.html"><strong aria-hidden="true">1.</strong> Uvod</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.</strong> OS Linux</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="linux/distro.html"><strong aria-hidden="true">2.1.</strong> Distribuce</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.2.</strong> Instalace</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="linux/install/multiboot.html"><strong aria-hidden="true">2.2.1.</strong> Multiboot</a></li><li class="chapter-item expanded "><a href="linux/install/virtualbox.html"><strong aria-hidden="true">2.2.2.</strong> VirtualBox</a></li><li class="chapter-item expanded "><a href="linux/install/vmware.html"><strong aria-hidden="true">2.2.3.</strong> VmWare</a></li></ol></li><li class="chapter-item expanded "><a href="linux/filesystem.html"><strong aria-hidden="true">2.3.</strong> Souborový systém</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.4.</strong> Příkazový řádek</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="linux/shell/run.html"><strong aria-hidden="true">2.4.1.</strong> Otevření příkazového řádku</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.4.2.</strong> Soubory</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="linux/shell/touch.html"><strong aria-hidden="true">2.4.2.1.</strong> Vytvoření</a></li><li class="chapter-item expanded "><a href="linux/shell/cp.html"><strong aria-hidden="true">2.4.2.2.</strong> Kopírování</a></li><li class="chapter-item expanded "><a href="linux/shell/mv.html"><strong aria-hidden="true">2.4.2.3.</strong> Přesun</a></li><li class="chapter-item expanded "><a href="linux/shell/rm.html"><strong aria-hidden="true">2.4.2.4.</strong> Smazání</a></li><li class="chapter-item expanded "><a href="linux/shell/chmod.html"><strong aria-hidden="true">2.4.2.5.</strong> Změna práv</a></li><li class="chapter-item expanded "><a href="linux/shell/cat.html"><strong aria-hidden="true">2.4.2.6.</strong> Zjištění obsahu</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.4.3.</strong> Složky</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="linux/shell/mkdir.html"><strong aria-hidden="true">2.4.3.1.</strong> Vytvoření</a></li><li class="chapter-item expanded "><a href="linux/shell/rmdir.html"><strong aria-hidden="true">2.4.3.2.</strong> Smazání</a></li><li class="chapter-item expanded "><a href="linux/shell/pwd.html"><strong aria-hidden="true">2.4.3.3.</strong> Zjištění aktuální</a></li><li class="chapter-item expanded "><a href="linux/shell/cd.html"><strong aria-hidden="true">2.4.3.4.</strong> Změna aktuální</a></li><li class="chapter-item expanded "><a href="linux/shell/ls.html"><strong aria-hidden="true">2.4.3.5.</strong> Výpis souborů</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.4.4.</strong> Editace souborů</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="linux/shell/nano.html"><strong aria-hidden="true">2.4.4.1.</strong> Pomocí GNU nano</a></li><li class="chapter-item expanded "><a href="linux/shell/vim.html"><strong aria-hidden="true">2.4.4.2.</strong> Pomocí GNU vim</a></li></ol></li><li class="chapter-item expanded "><a href="linux/shell/wget.html"><strong aria-hidden="true">2.4.5.</strong> Stahování souborů z internetu</a></li><li class="chapter-item expanded "><a href="linux/shell/man.html"><strong aria-hidden="true">2.4.6.</strong> Manuálové stránky</a></li><li class="chapter-item expanded "><a href="linux/shell/sudo.html"><strong aria-hidden="true">2.4.7.</strong> Zvýšení oprávnění</a></li><li class="chapter-item expanded "><a href="linux/shell/apt.html"><strong aria-hidden="true">2.4.8.</strong> Instalace balíčků</a></li><li class="chapter-item expanded "><a href="linux/shell/mc.html"><strong aria-hidden="true">2.4.9.</strong> Souborový manažer</a></li></ol></li><li class="chapter-item expanded "><a href="linux/footer.html"><strong aria-hidden="true">2.5.</strong> Slovo závěrem</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">3.</strong> Git</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="git/git.html"><strong aria-hidden="true">3.1.</strong> Git - Verzovací systém</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> CMake</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="cmake/cmakelists.html"><strong aria-hidden="true">4.1.</strong> Struktura CMakeLists.txt</a></li><li class="chapter-item expanded "><a href="cmake/build.html"><strong aria-hidden="true">4.2.</strong> Kompilůace z příkazová řádky</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.</strong> CLion</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="clion/uvod.html"><strong aria-hidden="true">5.1.</strong> Úvod k CLion</a></li><li class="chapter-item expanded "><a href="clion/install.html"><strong aria-hidden="true">5.2.</strong> Instalace</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.3.</strong> Projekt</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="clion/open_cmake.html"><strong aria-hidden="true">5.3.1.</strong> Otevření cmake projektu</a></li><li class="chapter-item expanded "><a href="clion/newproj.html"><strong aria-hidden="true">5.3.2.</strong> Nový cmake projekt</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.4.</strong> Kompilace a spouštění</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="clion/build.html"><strong aria-hidden="true">5.4.1.</strong> Kompilace programu</a></li><li class="chapter-item expanded "><a href="clion/run.html"><strong aria-hidden="true">5.4.2.</strong> Spuštění programu</a></li><li class="chapter-item expanded "><a href="clion/debug.html"><strong aria-hidden="true">5.4.3.</strong> Ladění programu</a></li></ol></li><li class="chapter-item expanded "><a href="clion/remote.html"><strong aria-hidden="true">5.5.</strong> Profil vzdáleného ladění</a></li><li class="chapter-item expanded "><a href="clion/troubleshoot.html"><strong aria-hidden="true">5.6.</strong> Troubleshooting</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">5.7.</strong> Integrace Gitu v CLionu</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="clion/git/pull.html"><strong aria-hidden="true">5.7.1.</strong> Aktualizace ze serveru</a></li><li class="chapter-item expanded "><a href="clion/git/commit.html"><strong aria-hidden="true">5.7.2.</strong> Potvrzení změn</a></li><li class="chapter-item expanded "><a href="clion/git/push.html"><strong aria-hidden="true">5.7.3.</strong> Odeslání změn na server</a></li><li class="chapter-item expanded "><a href="clion/git/log.html"><strong aria-hidden="true">5.7.4.</strong> Log</a></li></ol></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">6.</strong> C++/Algoritmizace</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="cpp/jazyk.html"><strong aria-hidden="true">6.1.</strong> Jazyk</a></li><li class="chapter-item expanded "><a href="cpp/cli.html"><strong aria-hidden="true">6.2.</strong> C++</a></li><li class="chapter-item expanded "><a href="cpp/kontejnery.html"><strong aria-hidden="true">6.3.</strong> Kontejnery</a></li><li class="chapter-item expanded "><a href="cpp/algoritmy.html"><strong aria-hidden="true">6.4.</strong> Algoritmy</a></li><li class="chapter-item expanded "><a href="cpp/patterns.html"><strong aria-hidden="true">6.5.</strong> Návrhové vzory</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">7.</strong> ROS</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="ros/ros.html"><strong aria-hidden="true">7.1.</strong> Robotic Operating System</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">8.</strong> Principy</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="principy/superloop.html"><strong aria-hidden="true">8.1.</strong> Supersmyčka a zpětnovazební řízení</a></li><li class="chapter-item expanded "><a href="principy/mediator.html"><strong aria-hidden="true">8.2.</strong> Mediator - Protokolový eventový parser</a></li><li class="chapter-item expanded "><a href="principy/controller.html"><strong aria-hidden="true">8.3.</strong> Stavový controller</a></li><li class="chapter-item expanded "><a href="principy/protostack.html"><strong aria-hidden="true">8.4.</strong> Procházení komunikačním protokolem ISO/OSI</a></li><li class="chapter-item expanded "><a href="principy/splitfiles.html"><strong aria-hidden="true">8.5.</strong> Organizace projektu / práce v týmu</a></li><li class="chapter-item expanded "><a href="principy/isolate.html"><strong aria-hidden="true">8.6.</strong> Oddělení modulů - Zrychlení kompilace</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -99,8 +89,7 @@
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                
-                <div id="menu-bar-hover-placeholder"></div>
+                                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky bordered">
                     <div class="left-buttons">
                         <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -110,17 +99,15 @@
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                         </ul>
-                        
                         <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
                             <i class="fa fa-search"></i>
                         </button>
-                        
                     </div>
 
                     <h1 class="menu-title">BPC-PRP</h1>
@@ -129,14 +116,13 @@
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        
+
                     </div>
                 </div>
 
-                
                 <div id="search-wrapper" class="hidden">
                     <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
                     </form>
                     <div id="searchresults-outer" class="searchresults-outer hidden">
                         <div id="searchresults-header" class="searchresults-header"></div>
@@ -144,10 +130,9 @@
                         </ul>
                     </div>
                 </div>
-                
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -157,17 +142,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#praktická-robotika-a-zpracov8n9-obrazu-bpc-prp-online-skripta" id="praktická-robotika-a-zpracov8n9-obrazu-bpc-prp-online-skripta">Praktická robotika a zpracov8n9 obrazu (BPC-PRP) online skripta</a></h1>
+                        <h1 id="praktická-robotika-a-zpracov8n9-obrazu-bpc-prp-online-skripta"><a class="header" href="#praktická-robotika-a-zpracov8n9-obrazu-bpc-prp-online-skripta">Praktická robotika a zpracov8n9 obrazu (BPC-PRP) online skripta</a></h1>
 <p>Tento text představuje online skripta předmětu BPC-PRP - povinného předmětu 3. rocniku bakalářského studijního oboru Automatizační a měřicí technika na Fakultě elektrotechniky a komunikačních technologií Vysokého Učení Technického v Brně.</p>
 <p>Skripta rovněž obsahují texty týkajici se dalších oblastí robotiky, které již ale nejsou vyžadovány samotnou náplní předmětu.</p>
-<h2><a class="header" href="#autoři" id="autoři">Autoři</a></h2>
+<h2 id="autoři"><a class="header" href="#autoři">Autoři</a></h2>
 <p>Ing. Adam Ligocki, Ph.D.</p>
 <p>Ing. Tomáš Lázna</p>
 <p>Ing. Petr Gábrlík</p>
 <p>Ing. Tomáš Jílek, Ph.D.</p>
 <p>Ing. František Burian, Ph.D.</p>
 <p>Ing. Tomáš Horeličan</p>
-<h2><a class="header" href="#distribuce-linuxu" id="distribuce-linuxu">Distribuce Linuxu</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="distribuce-linuxu"><a class="header" href="#distribuce-linuxu">Distribuce Linuxu</a></h2>
 <p>Hovoříme-li o operačním systému <strong>Linux</strong>, máme na mysli jádro operačního systému, které je spravováno autoritou (autor <strong>Linus Benedict Torvalds</strong>) a ta zajišťuje integritu veškerého kódu, který je do jádra OS zaintegrován.</p>
 <p>Pro interakci jádra operačního systému s okolím je třeba přidružených programů (např balíčkovacích systémů, grafického rozhraní, a dalšího podpůrného software). Sadu těchto programů souhrnně označujeme <strong>Distribuce</strong>.</p>
 <p>Distribuce  je dodávána a garantována konkrétní právnickou osobou (komerční subjekt, organizace, atd.). Distribuce jsou většinou vzájemně nekompatibilní na binární úrovni.</p>
@@ -224,20 +209,20 @@
 </li>
 </ul>
 <p>... a mnoho dalších (výčet není konečný)</p>
-<h3><a class="header" href="#instalace-linuxu-vedle-windows" id="instalace-linuxu-vedle-windows">Instalace Linuxu vedle Windows</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="instalace-linuxu-vedle-windows"><a class="header" href="#instalace-linuxu-vedle-windows">Instalace Linuxu vedle Windows</a></h3>
 <p>Tuto metodu zvolte, pokud chcete mít linux rychlý, nebo máte postarší stroj</p>
-<h4><a class="header" href="#tvorba-instalačního-média" id="tvorba-instalačního-média">Tvorba instalačního média</a></h4>
-<h4><a class="header" href="#rozdělení-disku--vytvoření-prostoru-pro-instalaci" id="rozdělení-disku--vytvoření-prostoru-pro-instalaci">Rozdělení disku / vytvoření prostoru pro instalaci</a></h4>
-<h4><a class="header" href="#zahájení-instalace-linuxu" id="zahájení-instalace-linuxu">Zahájení Instalace Linuxu</a></h4>
-<h3><a class="header" href="#instalace-linuxu-s-použitím-virtulizace-virtualbox" id="instalace-linuxu-s-použitím-virtulizace-virtualbox">Instalace Linuxu s použitím virtulizace VirtualBox</a></h3>
-<h4><a class="header" href="#instalace-virtualboxu" id="instalace-virtualboxu">Instalace VirtualBoxu</a></h4>
+<h4 id="tvorba-instalačního-média"><a class="header" href="#tvorba-instalačního-média">Tvorba instalačního média</a></h4>
+<h4 id="rozdělení-disku--vytvoření-prostoru-pro-instalaci"><a class="header" href="#rozdělení-disku--vytvoření-prostoru-pro-instalaci">Rozdělení disku / vytvoření prostoru pro instalaci</a></h4>
+<h4 id="zahájení-instalace-linuxu"><a class="header" href="#zahájení-instalace-linuxu">Zahájení Instalace Linuxu</a></h4>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="instalace-linuxu-s-použitím-virtulizace-virtualbox"><a class="header" href="#instalace-linuxu-s-použitím-virtulizace-virtualbox">Instalace Linuxu s použitím virtulizace VirtualBox</a></h3>
+<h4 id="instalace-virtualboxu"><a class="header" href="#instalace-virtualboxu">Instalace VirtualBoxu</a></h4>
 <p>VirtualBox si nainstalujte podle návodu na příslušném operačním systému.</p>
 <p>Postup pro <a href="https://www.virtualbox.org/wiki/Downloads">Windows a Mac</a>.</p>
 <p>Pro Linux instalace záleží na distribuci a používaném baličkovacím systému. Na Debianu použijte příkaz <code>sudo apt install virtualbox</code>. Poté bude možné VB aktivovat z terminálu voláním <code>virtualbox</code>, nebo skrze ikonku v seznamu nainstalovaných programů.</p>
 <p><img src="linux/install/../../images/vb.png" alt="VB" /></p>
-<h4><a class="header" href="#příprava-instalačního-média" id="příprava-instalačního-média">Příprava instalačního média</a></h4>
+<h4 id="příprava-instalačního-média"><a class="header" href="#příprava-instalačního-média">Příprava instalačního média</a></h4>
 <p>Stáhněte si obraz instalačního disku <a href="https://ubuntu.com/download/desktop">Ubuntu 20.04</a>.</p>
-<h4><a class="header" href="#vytvoření-virtuáního-stroje" id="vytvoření-virtuáního-stroje">Vytvoření virtuáního stroje</a></h4>
+<h4 id="vytvoření-virtuáního-stroje"><a class="header" href="#vytvoření-virtuáního-stroje">Vytvoření virtuáního stroje</a></h4>
 <p>Pomocí tlačítka &quot;New&quot; vytvořte nový virtuální stroj. Pojmenujte si jej, zvolte typ operačního systému, nastavte velikost operační paměti (vhodné 4GB a více), vytvořte nový virtuální disk, vyberte typ virtuálního disku (VDI), zvolte dynamickou alokaci 
 disku a na poslední obrazovce vyberte umístění virtuálního disku na svém počítači a zvolte maximální možnou velikost virtuálního disku (32 - 64GB).</p>
 <p>Nyní v hlavní obrazovce Virtual Boxu zvolte nově vytvořený virtuální stroj a přejděte do nastavení.</p>
@@ -247,7 +232,7 @@ disku a na poslední obrazovce vyberte umístění virtuálního disku na svém 
 <p><img src="linux/install/../../images/vb_storage.png" alt="VB" /></p>
 <p>Nyní v hlavním okně Virtual Boxu aktivujte virtuální stroj tlačítkem start.</p>
 <p>Pokud je vše nastaveno korektně, stroj nabootuje z instalačního obrazu.</p>
-<h4><a class="header" href="#zahájení-instalace-linuxu-1" id="zahájení-instalace-linuxu-1">Zahájení Instalace Linuxu</a></h4>
+<h4 id="zahájení-instalace-linuxu-1"><a class="header" href="#zahájení-instalace-linuxu-1">Zahájení Instalace Linuxu</a></h4>
 <p><img src="linux/install/../../images/ubuntu_install_1.png" alt="VB" /></p>
 <p>Zvolte jazyk operačního systému (doporučena angličtina), zvolte rozložení klávesnice (doporučeno English US), a nechte pokračovat &quot;Normal Installation&quot;.</p>
 <p>Dále se Vás proces dotáže, zda chcete &quot;Smazat disk a nainstalovat Ubuntu&quot;. Protože instalujeme do virtuálního stroje, necháme rozdělení disku na instalátoru. </p>
@@ -256,12 +241,12 @@ disku a na poslední obrazovce vyberte umístění virtuálního disku na svém 
 <p>Po opětovném nabootování v horní liště okna virtuálního stroje zvolte záložku &quot;Devices&quot; a &quot;Insert Guest Additions CD Image&quot;. Za okamžik vyskočí okno, které se dotáže zda má aktivovat autorun vloženého CD. Souhlaste. Systém si vyžádá heslo a poté se doinstalují ovladače pro virtualizovaný hardware.</p>
 <p>Po dalším restartu máte připarevený virtuální stroj s nainstalovaným Linuxem Ubuntu 20.04.</p>
 <p><img src="linux/install/../../images/ubuntu_rdy.png" alt="VB" /></p>
-<h3><a class="header" href="#instalace-linuxu-s-použitím-virtulizace-vmware" id="instalace-linuxu-s-použitím-virtulizace-vmware">Instalace Linuxu s použitím virtulizace VmWare</a></h3>
-<h4><a class="header" href="#instalace-vmware-player" id="instalace-vmware-player">Instalace VmWare Player</a></h4>
-<h4><a class="header" href="#příprava-instalačního-média-1" id="příprava-instalačního-média-1">Příprava instalačního média</a></h4>
-<h4><a class="header" href="#vytvoření-virtuálního-stroje" id="vytvoření-virtuálního-stroje">Vytvoření virtuálního stroje</a></h4>
-<h4><a class="header" href="#zahájení-instalace-linuxu-2" id="zahájení-instalace-linuxu-2">Zahájení instalace Linuxu</a></h4>
-<h2><a class="header" href="#orientace-v-systému" id="orientace-v-systému">Orientace v systému</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="instalace-linuxu-s-použitím-virtulizace-vmware"><a class="header" href="#instalace-linuxu-s-použitím-virtulizace-vmware">Instalace Linuxu s použitím virtulizace VmWare</a></h3>
+<h4 id="instalace-vmware-player"><a class="header" href="#instalace-vmware-player">Instalace VmWare Player</a></h4>
+<h4 id="příprava-instalačního-média-1"><a class="header" href="#příprava-instalačního-média-1">Příprava instalačního média</a></h4>
+<h4 id="vytvoření-virtuálního-stroje"><a class="header" href="#vytvoření-virtuálního-stroje">Vytvoření virtuálního stroje</a></h4>
+<h4 id="zahájení-instalace-linuxu-2"><a class="header" href="#zahájení-instalace-linuxu-2">Zahájení instalace Linuxu</a></h4>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="orientace-v-systému"><a class="header" href="#orientace-v-systému">Orientace v systému</a></h2>
 <p>Souborová struktura Linuxu se odvozuje od tzv. kořene (root), který značíme jako <code>/</code> (vzdáleny ekvivalent <code>C:/</code> na Windows).</p>
 <p>V kořenovém adresáři pak nalezneme složky jako:</p>
 <ul>
@@ -278,53 +263,53 @@ fyzického disku, a možnost připojit disk do složky přichází až od systé
 <p>Složka <code>tmp</code> vede na většině distribucí do virtuálního disku v paměťi RAM počítače. Je tedy extrémně rychlá, ale za cenu že se při 
 vypnutí počítače smaže. Spousta nástrojů ji používá pro vytvoření mezivýsledků kompilace.</p>
 <p>Po příhlášení do konzole se obvykle nacházíte v domovském adresáři, tj na místě <code>/home/&lt;jmeno_uzivatele&gt;/</code></p>
-<h3><a class="header" href="#spuštění-příkazového-řádku" id="spuštění-příkazového-řádku">Spuštění příkazového řádku</a></h3>
-<h3><a class="header" href="#vytvoření-souboru" id="vytvoření-souboru">Vytvoření souboru</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="spuštění-příkazového-řádku"><a class="header" href="#spuštění-příkazového-řádku">Spuštění příkazového řádku</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="vytvoření-souboru"><a class="header" href="#vytvoření-souboru">Vytvoření souboru</a></h3>
 <p><code>touch</code> - (touch file)</p>
 <p>Vytvoří soubor na disku</p>
 <pre><code class="language-bash">touch  jmeno_souboru      ...      Vytvoří soubor jmeno_souboru na disku.
 </code></pre>
-<h3><a class="header" href="#kopírování-souboru" id="kopírování-souboru">Kopírování souboru</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="kopírování-souboru"><a class="header" href="#kopírování-souboru">Kopírování souboru</a></h3>
 <p><code>cp</code> - (copy)</p>
 <pre><code class="language-shell">cp zdrojovy_soubor cilovy_soubor                    ...      vytvoří novou kopii zdrojovy_soubor nazvanou cilovy_soubor
 cp ../secter.txt secret_folder/supersecret.txt      ...      vem soubor secret.txt, který se nachází o složku výš a zkopíruj ji do složky secret_folder. Kopie původního souboru se bude jmenovat &quot;supersecret.txt&quot;     
 </code></pre>
-<h3><a class="header" href="#p5esun-souboru" id="p5esun-souboru">P5esun souboru</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="p5esun-souboru"><a class="header" href="#p5esun-souboru">P5esun souboru</a></h3>
 <p><code>mv</code> - (move)</p>
 <p>Příkaz původně pro přesun souboru, hlavně se však využívá pro přejmenováni soborů.</p>
 <pre><code class="language-bash">mv old_name.txt new_name.html      ...      přejmenuje soubor &quot;old%name.txt&quot; na &quot;new_name.html&quot;
 </code></pre>
-<h3><a class="header" href="#smazání-souboru" id="smazání-souboru">Smazání souboru</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="smazání-souboru"><a class="header" href="#smazání-souboru">Smazání souboru</a></h3>
 <p><code>rm</code> - (remove)</p>
 <p>Smaže soubor/složku.</p>
 <pre><code class="language-bash">rm old_file.txt      ...      vymaže soubor &quot;old_file.txt&quot;
 rm -r my_folder      ...      smaže složku. Při mazání složky vždy musíme použít modifikátor rekurze (-r). Ten říká, že se má rekurzivně smazat také obsah složky.
 </code></pre>
-<h3><a class="header" href="#změna-práv-k-souboru" id="změna-práv-k-souboru">Změna práv k souboru</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="změna-práv-k-souboru"><a class="header" href="#změna-práv-k-souboru">Změna práv k souboru</a></h3>
 <p><code>chmod</code> - (change file mode)</p>
 <p>Změní přístupová práva k souboru.</p>
 <pre><code class="language-shell">chmod 777 /dev/ttyUSB0      ...      umožní všem uživatelům PC přístup na USB port s pořadovým číslem 0. Pro detail fungováni přístupových práv ve file systému viz [7].
 </code></pre>
-<h3><a class="header" href="#vypsání-obsahu-souboru" id="vypsání-obsahu-souboru">Vypsání obsahu souboru</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="vypsání-obsahu-souboru"><a class="header" href="#vypsání-obsahu-souboru">Vypsání obsahu souboru</a></h3>
 <p><code>cat</code> - (Concatenate FILE(s) to standard output)</p>
 <p>Program vypíše do termínálu obsah souboru.</p>
 <pre><code class="language-shell">cat ~/my_config_file.txt      ...      vytiskne v terminálu obsah zvoleného souboru
 </code></pre>
-<h3><a class="header" href="#vytvoření-nového-adresáře" id="vytvoření-nového-adresáře">Vytvoření nového adresáře</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="vytvoření-nového-adresáře"><a class="header" href="#vytvoření-nového-adresáře">Vytvoření nového adresáře</a></h3>
 <p><code>mkdir</code> - (make directory)</p>
 <pre><code class="language-bash">mkdir my_folder      ...      vytvoří nový adresář s názvem &quot;my_folder&quot;
 </code></pre>
-<h3><a class="header" href="#smazání-složky" id="smazání-složky">Smazání složky</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="smazání-složky"><a class="header" href="#smazání-složky">Smazání složky</a></h3>
 <p><code>rmdir</code> - (remove directory)</p>
 <p>Smaže složku z disku. Složka musí být prázdná</p>
 <pre><code class="language-bash">rmdir my_folder      ...      smaže složku.
 </code></pre>
-<h3><a class="header" href="#zjištění-aktuální-nastavené-složky" id="zjištění-aktuální-nastavené-složky">Zjištění aktuální nastavené složky</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="zjištění-aktuální-nastavené-složky"><a class="header" href="#zjištění-aktuální-nastavené-složky">Zjištění aktuální nastavené složky</a></h3>
 <p><code>pwd</code> - print working directory</p>
 <p>Vypíše aktuální složku.</p>
 <pre><code class="language-shell">pwd
 </code></pre>
-<h3><a class="header" href="#zm2na-aktuáln9ho-adresáře" id="zm2na-aktuáln9ho-adresáře">Zm2na aktuáln9ho adresáře</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="zm2na-aktuáln9ho-adresáře"><a class="header" href="#zm2na-aktuáln9ho-adresáře">Zm2na aktuáln9ho adresáře</a></h3>
 <p><code>cd</code> - (change directory)</p>
 <p>Změna složky.</p>
 <pre><code class="language-shell">cd my_directory      ...      přesun do adresáře s názvem my_directory
@@ -334,44 +319,44 @@ cd /                 ...      návrat do kořene file systému (v linuxu nazýv�
 cd ../my_folder      ...      vrať se o adresář výš a pak se přesuň do adresáře &quot;my_folder&quot;
 cd .                 ...      přesuň se do &quot;současného adresáře&quot;. V podstatě nic neudělá. Příklad ilustruje existenci symbolu pro aktuální adresář (tečka).
 </code></pre>
-<h3><a class="header" href="#výpis-souborů-ve-složce" id="výpis-souborů-ve-složce">Výpis souborů ve složce</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="výpis-souborů-ve-složce"><a class="header" href="#výpis-souborů-ve-složce">Výpis souborů ve složce</a></h3>
 <p><code>ls</code> - (list)</p>
 <p>Vypiš všechny soubory a složky (složka je taky typ souboru) v aktuálním bodě file systému.</p>
 <pre><code class="language-shell">ls
 ls -la      ...      vypíše všechny soubory, včetně sktytých a přidá k výpisu detailní informace
 </code></pre>
-<h3><a class="header" href="#editace-textu-pomocí-gnu-nano" id="editace-textu-pomocí-gnu-nano">Editace textu pomocí GNU nano</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="editace-textu-pomocí-gnu-nano"><a class="header" href="#editace-textu-pomocí-gnu-nano">Editace textu pomocí GNU nano</a></h3>
 <p><code>nano</code></p>
 <p>Editace textu podobná poznámkovému bloku</p>
 <pre><code class="language-bash">nano jmeno_souboru    --- zahájí editaci souboru
 </code></pre>
 <p>Klávesové ovládání:</p>
 <p><code>Ctrl + X</code> - ukončení programu. Program se zeptá, zda má uložit změny</p>
-<h3><a class="header" href="#editace-textu-pomocí-gnu-vim" id="editace-textu-pomocí-gnu-vim">Editace textu pomocí GNU vim</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="editace-textu-pomocí-gnu-vim"><a class="header" href="#editace-textu-pomocí-gnu-vim">Editace textu pomocí GNU vim</a></h3>
 <p><code>vim</code> (visual editor improved)</p>
 <p>Editor textu, který pracuje v příkazovém režimu, tedy uživatel zadává editoru příkazy a editor na základě těchto příkazů upravuje text. </p>
 <p>Pro jeho použití je nutné si zapamatovat velké množství příkazů a klávesových zkratek. Pokud to však zvládnete, může 
 být práce s ním rychlejší než s nano. Není doporučován začátečníkům.</p>
 <p>Kdyby se Vám přeci jen povedlo vim zapnout, vězte že jej vypnete kobinací kláves <code>Shift + Z + Z</code> (držíme shift a dvakrát zmáčkneme klávesu 'Z').</p>
-<h3><a class="header" href="#stahování-souborů-ze-sítě-pomocí-gnu-wget" id="stahování-souborů-ze-sítě-pomocí-gnu-wget">Stahování souborů ze sítě pomocí GNU wget</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="stahování-souborů-ze-sítě-pomocí-gnu-wget"><a class="header" href="#stahování-souborů-ze-sítě-pomocí-gnu-wget">Stahování souborů ze sítě pomocí GNU wget</a></h3>
 <p><code>wget</code></p>
 <p>Program pro stahování souborů ze sítě.</p>
 <p>Příklad stažení posledního releasu wordpresu:</p>
 <pre><code class="language-shell">wget https://wordpress.org/latest.zip
 </code></pre>
-<h3><a class="header" href="#manuálové-stránky" id="manuálové-stránky">Manuálové stránky</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="manuálové-stránky"><a class="header" href="#manuálové-stránky">Manuálové stránky</a></h3>
 <p><code>man</code> - (manual) referenční manuál operačního systému</p>
 <p>Rychlá pomoc když zapomenu, jak pracovat s daným programem</p>
 <pre><code class="language-shell">man ls      ...      vytiskne v terminálu manuál k programu ls
 </code></pre>
-<h3><a class="header" href="#eskalace-oprávnění" id="eskalace-oprávnění">Eskalace oprávnění</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="eskalace-oprávnění"><a class="header" href="#eskalace-oprávnění">Eskalace oprávnění</a></h3>
 <p><code>sudo</code></p>
 <p>Meta příkaz. Operace specifikovaná za tímto příkazem bude provedena v režimu oprávnění administrátora operačního systému. 
 Obvykle používáme, když zasahujeme do systémových souborů.</p>
 <pre><code class="language-shell">sudo mkdir /etc/config      ...      vytvoří složku &quot;config&quot; v systémovém adresáři &quot;/etc&quot;.
 sudo rm -r /                ...      příkaz rekurzivně smaže celý adresář &quot;root&quot; (v podstatě smaže celý disk včetně OS)
 </code></pre>
-<h3><a class="header" href="#balíčkovací-systém" id="balíčkovací-systém">Balíčkovací systém</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="balíčkovací-systém"><a class="header" href="#balíčkovací-systém">Balíčkovací systém</a></h3>
 <p><code>apt</code></p>
 <p>Jedná se o Balíčkovací systém Debianu. Na Linuxu nejčastěji instalumeme programy tak, že si jej stáhneme z veřejného repozitáře, 
 tedy obvykle ověřeného a bezpečného serveru.</p>
@@ -380,35 +365,35 @@ tedy obvykle ověřeného a bezpečného serveru.</p>
 <pre><code class="language-shell">sudo apt update                  --- aktualizuj záznamy o repozitářích na internetu 
 sudo apt install git             --- nainstaluj program git
 </code></pre>
-<h3><a class="header" href="#souborový-manažer" id="souborový-manažer">Souborový manažer</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="souborový-manažer"><a class="header" href="#souborový-manažer">Souborový manažer</a></h3>
 <p><code>mc</code></p>
 <p>Midnight Commander - grafické prostředí pro pohyb v souborovém systému. Připomíná MS Dos.</p>
 <pre><code class="language-shell">mc
 </code></pre>
 <p>Vypíná se klávesou <code>F10</code>.</p>
-<h3><a class="header" href="#slovo-na-závěre" id="slovo-na-závěre">Slovo na závěre</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="slovo-na-závěre"><a class="header" href="#slovo-na-závěre">Slovo na závěre</a></h3>
 <p>Pokud jste v Linuxu nováčky, hlavně se nebote experimentovat. Ideálně si nainstalulte systém do Virtual Boxu a udělejte si zálohu virtuálního disku. Když se Vás podaří systém rozhasit, stačí si natánout backup a jedete dál.</p>
-<h1><a class="header" href="#git---verzovací-systému" id="git---verzovací-systému">Git - Verzovací systému</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="git---verzovací-systému"><a class="header" href="#git---verzovací-systému">Git - Verzovací systému</a></h1>
 <p>Git je distribuovaný systém pro verzováni a management zálohování zdrojových kódů. Obecně ale Git funguje dobře pro verzování libovolného textu. Primární motivací k výuce Gitu v rámci tohoto předmětu je fakt, že Git je dnes nejrozšířenějí verzovací systém v konerční svéře a zároveň je na webu dostupná obrovská paleta Git-based online verzovacích služeb.</p>
-<h2><a class="header" href="#základní-terminologie" id="základní-terminologie">Základní terminologie</a></h2>
+<h2 id="základní-terminologie"><a class="header" href="#základní-terminologie">Základní terminologie</a></h2>
 <p>Vymezme si několik základních pojmů, abychom si rozuměli.</p>
-<h3><a class="header" href="#repozitář-repo" id="repozitář-repo">repozitář (repo)</a></h3>
+<h3 id="repozitář-repo"><a class="header" href="#repozitář-repo">repozitář (repo)</a></h3>
 <p>Sada verzovaných souborů a záznamy o jejich historii. Pokud je repozitář uložen na našem počítači, nazýváme jej lokální repozitář (local repo). Jeli uložen na jiném stroji, hovoříme o vzdáleném repozitáři (remote repo).</p>
-<h3><a class="header" href="#klonování-cloning" id="klonování-cloning">klonování (cloning)</a></h3>
+<h3 id="klonování-cloning"><a class="header" href="#klonování-cloning">klonování (cloning)</a></h3>
 <p>Stažení repozitáře z remote repa. Klonujeme v okamžiku, kdy na lokálním počítači repozitář neexistuje.</p>
-<h3><a class="header" href="#snapshot" id="snapshot">snapshot</a></h3>
+<h3 id="snapshot"><a class="header" href="#snapshot">snapshot</a></h3>
 <p>Stav repozitáře v konkrétním bodě v historii.</p>
-<h3><a class="header" href="#diff" id="diff">diff</a></h3>
+<h3 id="diff"><a class="header" href="#diff">diff</a></h3>
 <p>Rozdíl mezi dvěmi snapshoty. Tedy rozdíl stavu verzovaných souborů.</p>
-<h3><a class="header" href="#commit" id="commit">commit</a></h3>
+<h3 id="commit"><a class="header" href="#commit">commit</a></h3>
 <p>Záznam, který obsahuje referenci na předchozí, následujicí snapshot a diff mezi nimi. Zároveň každý commit má svůj unikátní dvaceti bytový hash, který jej jednoznačně identifikuje v rámci repozitáře.</p>
-<h3><a class="header" href="#push" id="push">push</a></h3>
+<h3 id="push"><a class="header" href="#push">push</a></h3>
 <p>Nahrání nových comitů na remote repo.</p>
-<h3><a class="header" href="#fetch" id="fetch">fetch</a></h3>
+<h3 id="fetch"><a class="header" href="#fetch">fetch</a></h3>
 <p>Stažení commitů z remote repo na lokál. Fetchujeme, pokud na lokále máme repozitář naklonovaný, ale nemáme stažené nejnovější commity.</p>
-<h3><a class="header" href="#větev-branch" id="větev-branch">větev (branch)</a></h3>
+<h3 id="větev-branch"><a class="header" href="#větev-branch">větev (branch)</a></h3>
 <p>Řetězec na sebe navazujicích commitů. Ze základu má každý repozitáž jednu větev (&quot;master&quot;, někdy &quot;main&quot;). Probíha-li však vývoj několika funkcionalit vedle sebe, je možné tyto vývoje rozdělit do zvláštnich větví a připojit je spátky k hlavní větni, až je funkcionalita dokončená.</p>
-<h2><a class="header" href="#princip-fungování" id="princip-fungování">Princip fungování</a></h2>
+<h2 id="princip-fungování"><a class="header" href="#princip-fungování">Princip fungování</a></h2>
 <p>Primární funkcí Gitu je verzování textových souborů. Jedním dechem je potřeba dodta, že Git NENÍ vhodny pro verzování binárních souborů. Vyvíjíme-li tedy program a verzujeme vývoj v Gitu, vždy verzujeme pouuze zdrojové kódy, nikdy ne zkompilované spustitelné soubory (binárky).</p>
 <p>Zároveň Git umožňuje velmi efektivní spolupráci mnoha lidí na stejném projektu (repozitáři). Vývojáři mohou pracovat společně, případně každý na separátním branchi. Důležité pravidlo však je, že dva lidé nesmí přepsat stejný řádek kódu ve dvou různých commitech. To způsobi tzv. konflikt. Obecné doporučení je, aby dva lidé neměnili stejný soubor.</p>
 <p>Ve srovnání s SVN je ale Git tzv. decentralizovaný systém. To znamená, že v systému repozitářů neexistuje žaden nadřazeny, důležitější repozitář, či něco ve smyslu centrálního serveru. Všechny repozitáře mají stejnou funkcionalitu a jsou schopny udržovat kompletní historii celého repozitáře a ponohodnotně komunikovat se všemi ostatními klony. Praxe je však taková, že obvykle existuje repozitář, který funguje jako centrální místo pro výměnu commitů mezi vývojáři. Takový repozitář se obvykle jmenuje &quot;origin&quot;. Důležité však je, že kterýkolik repozitář, si může z originu stáhnout kompletní historii a tak v případě selhání originu nedojde ke ztrátě dat, protože každý vývojář může mít jeho plnohodnotnou kopii na svém počítačí.</p>
@@ -420,81 +405,81 @@ sudo apt install git             --- nainstaluj program git
 <li>na konci dne každý vývojáž pushne (nahraje) své denní commity na origin.</li>
 <li>na druhý den ráno si každý fetchne (stáhne) commity kolegů z dne předchozího.</li>
 </ul>
-<h2><a class="header" href="#instalace-gitu-na-linuxu" id="instalace-gitu-na-linuxu">Instalace Gitu na Linuxu</a></h2>
+<h2 id="instalace-gitu-na-linuxu"><a class="header" href="#instalace-gitu-na-linuxu">Instalace Gitu na Linuxu</a></h2>
 <p>V případě, že pracujeme na distribuci Debian, Git nainstalujeme následovně:</p>
 <pre><code>sudo apt install git
 </code></pre>
 <p>nebo</p>
 <pre><code>sudo snap install git
 </code></pre>
-<h2><a class="header" href="#přehled-příkazů" id="přehled-příkazů">Přehled příkazů</a></h2>
-<h3><a class="header" href="#git-init" id="git-init">git init</a></h3>
+<h2 id="přehled-příkazů"><a class="header" href="#přehled-příkazů">Přehled příkazů</a></h2>
+<h3 id="git-init"><a class="header" href="#git-init">git init</a></h3>
 <p>Inicializace repozitře. Z obvyklé složky v souborovém systému vytvořím repozitář.</p>
 <p>Repozitář se od obyčejné složky liší tím, že v sobě obsahuje skrytou složku s názvem .git a ta obsahuje historii repozitáře.</p>
 <pre><code>git init     ...      inicializuje repozitář
 </code></pre>
-<h3><a class="header" href="#git-add" id="git-add">git add</a></h3>
+<h3 id="git-add"><a class="header" href="#git-add">git add</a></h3>
 <p>Příkaz přidává změny vytvořené od posledního commitu do tzv. indexu. Index je soubor změn, které budou součástí nejbližšího commitu. Díky mezistupni index je možné commitnout jen některé změny, které jsme od posledního commitu vytvořili.</p>
 <pre><code>git add myfile.txt     ...      přidá do indexu změny provedené nad souborem myfile.txt
 git add .              ...      přidá do indexu všechny aktuální změny
 </code></pre>
-<h3><a class="header" href="#git-commit" id="git-commit">git commit</a></h3>
+<h3 id="git-commit"><a class="header" href="#git-commit">git commit</a></h3>
 <p>Vytvoř nový commit, který je odvozený od posledního commitu v současné větví, a zahrni do commitu změny (diffy), které jsou v indexu.</p>
 <pre><code>git commit -m &quot;komentář k danému commitu&quot;     ...      vytvoří nový commit v rámci větve, ve které se nacházíme
 </code></pre>
-<h3><a class="header" href="#git-checkout" id="git-checkout">git checkout</a></h3>
+<h3 id="git-checkout"><a class="header" href="#git-checkout">git checkout</a></h3>
 <p>Příkaz slouží k přecházení mezi snapshoty.</p>
 <pre><code>git checkout .          ...     vrať větev do stavu posledního commitu (zahoď všechny do té doby vytvořené změny)
 git checkout abcdef     ...     přepni mě do stavu, který vznikl po commitu s hexadecimálním označením abcdef
 git checkout master     ...     přepni mě do stavu posledního dostupného commitu na větvi master
 </code></pre>
-<h3><a class="header" href="#git-clone" id="git-clone">git clone</a></h3>
+<h3 id="git-clone"><a class="header" href="#git-clone">git clone</a></h3>
 <p>Příkaz vytvoří klon vzdáleného repozitáře na lokále. Klonujeme-li, není potřeba inicializovat repozitář pomocí git init. Metadata repozitáře se stáhnou automaticky s obsahem.</p>
 <pre><code>git clone https://adresa_vzdaleneho_repozitare.git     ...      vytvoří klon daného repozitáře na lokálním stroji
 </code></pre>
-<h3><a class="header" href="#git-remote" id="git-remote">git remote</a></h3>
+<h3 id="git-remote"><a class="header" href="#git-remote">git remote</a></h3>
 <p>Příkaz vytvoří klon vzdáleného repozitáře na lokále. Klonujeme-li, není potřeba inicializovat repozitář pomocí git init. Metadata repozitáře se stáhnou automaticky s obsahem.</p>
 <pre><code>git remote -v                                            ...      vypíše konfiguraci vzdálených repozitářů
 git remote add origin https://adresa_repozitare.git      ...      přidá do lokálního repozitáře alias vzdáleného repozitáře s danou adresou
 git remote remove origin                                 ...      smaže alias origin na vzdálený repozitář  
 </code></pre>
-<h3><a class="header" href="#git-push" id="git-push">git push</a></h3>
+<h3 id="git-push"><a class="header" href="#git-push">git push</a></h3>
 <p>Odešle nové commity vytvořené na lokále na vzdálený repozitář.</p>
 <pre><code>git push origin master     ...     odešle na mastera nové commity vytvořené v rámci větvě (branche) master
 </code></pre>
-<h3><a class="header" href="#git-fetch" id="git-fetch">git fetch</a></h3>
+<h3 id="git-fetch"><a class="header" href="#git-fetch">git fetch</a></h3>
 <p>Stáhne z remotu commity do lokálního repozitáře. Stažené komity se ale nestanou součástí větve. Změny zůstanou pouze zapsány v paměti.</p>
 <pre><code>git fetch origin           ...     stáhne nové commity ve všech větvích z originu na lokál
 git fetch origin master    ...     stáhne nové commity pouze pro větev master z originu na lokál
 </code></pre>
-<h3><a class="header" href="#git-merge" id="git-merge">git merge</a></h3>
+<h3 id="git-merge"><a class="header" href="#git-merge">git merge</a></h3>
 <p>Na aktuální větví vytvoří nový commit tak, že spojí naagregované diffy dvou různých větví. Tím pádem se v součacné větvi objeví všechny změny, které byly vytvořeny v jiné větví. Větve se tak spojí.</p>
 <pre><code>git merge cool_branch        ...      na současné větví vytvoří nový commit, který obsahuje všechny změny větve cool_branch
 </code></pre>
-<h3><a class="header" href="#git-pull" id="git-pull">git pull</a></h3>
+<h3 id="git-pull"><a class="header" href="#git-pull">git pull</a></h3>
 <p>Kombinace příkazů git fetch a git merge. Obvykle se používá při stažení změn ze serveru. Příkaz nejprve stáhne commity z vzdáleného repozítáře (provede fetch) a následně je připojí do současné větve (provede merge).</p>
 <pre><code>git pull origin master        ...      stáhne z originu nové commity na větvi master a přidá je do lokální větve master
 </code></pre>
-<h3><a class="header" href="#git-diff" id="git-diff">git diff</a></h3>
+<h3 id="git-diff"><a class="header" href="#git-diff">git diff</a></h3>
 <p>Vytiskne rozdíl stavu repozitáře mezi dvěma commity.</p>
 <pre><code>git diff abcdef 012345        ...      vytiskne rozdíl mezi commity, které jsou identifikovány hexadecimálními hashy abcdef a 012345
 </code></pre>
-<h3><a class="header" href="#git-status" id="git-status">git status</a></h3>
+<h3 id="git-status"><a class="header" href="#git-status">git status</a></h3>
 <p>Zobrazí současný stav změn provedených od posledního commitu, včetně zobrazení změn, které jsou již přidány do indexu.</p>
 <pre><code>git status        ...      vytiskne současný stav změn
 </code></pre>
-<h3><a class="header" href="#git-log" id="git-log">git log</a></h3>
+<h3 id="git-log"><a class="header" href="#git-log">git log</a></h3>
 <p>Vytiskne chronologicky výpis commitů spolu s jejich metadaty (časem vytvoření commitu, popiskem, identifikačním hashem, atd.)</p>
 <pre><code>git log        ...      vytiskne historii současné větve
 </code></pre>
-<h3><a class="header" href="#git-stash" id="git-stash">git stash</a></h3>
+<h3 id="git-stash"><a class="header" href="#git-stash">git stash</a></h3>
 <p>Slouží pro ukládání a načítání změn do zásobníku. Vhodné například, když si všimnete, že píšete kód na jiné větvi, než byl záměr. Pomocí git stash uložíte změny do zásobníku, přepnete se na jinou větev a změny si ze zásobníku vytáhnete.</p>
 <pre><code>git stash        ...      Uloží změny provedené od posledního commitu do zásobníku a vrátí větev do stavu, v jakém byla po posledním commitu (jako by jste zdrojový kód nikdy nenapsali).
 git stash pop      ...      Vytáhne změny uložené ze zásobníku a aplikuje je na současný stav (jako by jste kód právě ručně napsali).
 </code></pre>
-<h2><a class="header" href="#cvičení" id="cvičení">Cvičení</a></h2>
+<h2 id="cvičení"><a class="header" href="#cvičení">Cvičení</a></h2>
 <p>Několik scénářů se kterými se můžete během vývoje software potkat. Vyzkoušejte si je opakovaně, aby jste si vryli do paměti způsob práce s Gitem. Zároveň doporučuji si příklady nejprvé projít v příkazové řádce, aby jste chápali zůpsob, jakým Git funguje na nejnižší vrstvě a následně si cvičení absolvovali i v grafickém rozhraní Vašecho vývojového prostředí.</p>
-<h3><a class="header" href="#základní-obsluha" id="základní-obsluha">Základní obsluha</a></h3>
+<h3 id="základní-obsluha"><a class="header" href="#základní-obsluha">Základní obsluha</a></h3>
 <ul>
 <li>Vytvořte si repozitář.</li>
 <li>Vytvořte v něm 2 textové soubory a do každého napište několik řádků.</li>
@@ -509,7 +494,7 @@ git stash pop      ...      Vytáhne změny uložené ze zásobníku a aplikuje 
 <li>V původní složce pullněte nové commity z originu.</li>
 <li>Příkazem git log si prohlédněte historii.</li>
 </ul>
-<h3><a class="header" href="#konflikt" id="konflikt">Konflikt</a></h3>
+<h3 id="konflikt"><a class="header" href="#konflikt">Konflikt</a></h3>
 <p>Příklad, co se stane, když dva vývojáří změní tentýž kód.</p>
 <ul>
 <li>Po vzoru předchozího cvičení si vytvořte na počítači, případně na dvou počítačích dvě kopie repozitáře, který bude mít společný origin na webu.</li>
@@ -522,11 +507,11 @@ git stash pop      ...      Vytáhne změny uložené ze zásobníku a aplikuje 
 <li>Pushněte nový commit na origin a poté pullněte jej v původním repozitáři.</li>
 <li>Příkazem git log si prohlédněte historii.</li>
 </ul>
-<h2><a class="header" href="#doporučené-materiály" id="doporučené-materiály">Doporučené materiály</a></h2>
+<h2 id="doporučené-materiály"><a class="header" href="#doporučené-materiály">Doporučené materiály</a></h2>
 <p><a href="https://atlassian.com">Tutoriál Atlassianu</a></p>
 <p><a href="https://git.com">Oficiální dokumentace Gitu</a></p>
 <p><a href="https://ohshithit.com/cs">Užitečný rádce při potížích s Gitem (cs)</a></p>
-<h2><a class="header" href="#build-system-cmake" id="build-system-cmake">Build system CMake</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="build-system-cmake"><a class="header" href="#build-system-cmake">Build system CMake</a></h2>
 <p>CMake je soubor nástrojů, které zjednodušují kompilaci projektů a knihoven takovým
 způsobem, aby byly nezávislé na operačním systému a kompilátoru. Funguje tak,
 že pomocí jednotného konfiguračního souboru CMakeLists.txt vygeneruje Makefile
@@ -571,7 +556,7 @@ install(EXPORT RoboUtilsConfig DESTINATION share/MyCoolLibrary/cmake)
 
 export(TARGETS libroboutils FILE MyCoolLibraryConfig.cmake)
 </code></pre>
-<h2><a class="header" href="#kompilace-cmake-projektu-y-p59kayov0ho-58dku" id="kompilace-cmake-projektu-y-p59kayov0ho-58dku">Kompilace cmake projektu y p59kayov0ho 58dku</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="kompilace-cmake-projektu-y-p59kayov0ho-58dku"><a class="header" href="#kompilace-cmake-projektu-y-p59kayov0ho-58dku">Kompilace cmake projektu y p59kayov0ho 58dku</a></h2>
 <p>V případě, že máme nějaký projekt, který používá CMake a chceme jej spustit,
 provedeme to pomocí příkazů:</p>
 <pre><code class="language-shell">cd MyCoolRobot
@@ -579,7 +564,7 @@ cmake .
 make
 ./MyCoolRobot
 </code></pre>
-<h1><a class="header" href="#remote-development-v-prostredi-clion" id="remote-development-v-prostredi-clion">Remote development v prostredi CLion</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="remote-development-v-prostredi-clion"><a class="header" href="#remote-development-v-prostredi-clion">Remote development v prostredi CLion</a></h1>
 <p>Clion je integrované vývojové prostředí vyvíjené firmou JetBrains. Jedná se o zajímavou alternativu ke konvenčním prostředím jako je například Eclipse nebo NetBeans.
 Oproti těmto uvedeným prostředím Clion vyčnívá zejména kvůli své rychlosti, přehlednosti a modernosti.
 Díky napojení na ekosystém firmy JetBrains je možné do studia doinstalovat spoustu rozšiřujících pluginů přinášejících podporu pro nové jazyky, vývojářské nástroje atp.
@@ -589,19 +574,19 @@ Nejprve bude stručně rozebrán build system CMake.
 Poté se manuál již bude věnovat CLionu a to zejména jeho instalaci, vytvoření jednoduchého projektu typu Hello World a jeho zprovoznení.
 Dále je popsána stěžejní kapitola tohoto manuálu, a to vzdálený vývoj umožňující vzdálené programování Raspberry Pi pomocí standardního počítače. Na konci je popsán jednoduchý projekt blikání LEDkou a kapitola zabývající se odstraňováním nejčastějších problémů se vzdáleným vývojem.</p>
 <p>Příklady v tomto manuálu byly zpracovány ve verzi Clion 2018.3, je tedy možné, že se v budoucnosti některé postupy budou měnit.</p>
-<h2><a class="header" href="#instalace-clion" id="instalace-clion">Instalace CLion</a></h2>
-<h3><a class="header" href="#pro-debianubuntu" id="pro-debianubuntu">Pro Debian/Ubuntu</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="instalace-clion"><a class="header" href="#instalace-clion">Instalace CLion</a></h2>
+<h3 id="pro-debianubuntu"><a class="header" href="#pro-debianubuntu">Pro Debian/Ubuntu</a></h3>
 <p><code>sudo snap install clion</code></p>
-<h3><a class="header" href="#pro-windows" id="pro-windows">Pro Windows</a></h3>
+<h3 id="pro-windows"><a class="header" href="#pro-windows">Pro Windows</a></h3>
 <p>Stáhněte instalační balík ze stránky <a href="https://www.jetbrains.com/clion/">https://www.jetbrains.com/clion/</a> po kliknutí na &quot;GET FREE 30 DAY TRIAL&quot;.</p>
 <p>Spousťte stažený EXE soubor</p>
-<h3><a class="header" href="#registrace-studentským-účtem" id="registrace-studentským-účtem">Registrace studentským účtem</a></h3>
+<h3 id="registrace-studentským-účtem"><a class="header" href="#registrace-studentským-účtem">Registrace studentským účtem</a></h3>
 <p>Studenti mají nárok na bezplatné využívání plné verze po dobu studia, což se též týká všech produktů firmy JetBrains.</p>
 <p>Získání plné verze je možné pomocí postupu na stránce <a href="https://www.jetbrains.com/student/">https://www.jetbrains.com/student/</a>.</p>
 <p>Studenti VUT musí pro registraci použít emailovou adresu <code>id@vut.cz</code> </p>
 <p>Registraci nalezneme pod Help/Register</p>
-<h2><a class="header" href="#otevření-cmake-projektu" id="otevření-cmake-projektu">Otevření cmake projektu</a></h2>
-<h2><a class="header" href="#založení-nového-projektu" id="založení-nového-projektu">Založení nového projektu</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="otevření-cmake-projektu"><a class="header" href="#otevření-cmake-projektu">Otevření cmake projektu</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="založení-nového-projektu"><a class="header" href="#založení-nového-projektu">Založení nového projektu</a></h2>
 <p>Nejprve vytvoříme jednoduchý HelloWorld projekt, ve kterém se seznámíme s procesem vytvoření projektu, prostředím a vývojem na lokálním počítači.
 Po spuštění CLion nás přivítá úvodní obrazovka se seznamem naposledy otevřených projektů, kde klikneme na tlačítko &quot;New Project&quot;.</p>
 <p><img src="clion/../images/clion/clion1.png" alt="uvodni obrazovka" /></p>
@@ -636,10 +621,10 @@ Při přidávání a odebírání souborů je nutné, aby všechny <code>.cpp</c
 <p><img src="clion/../images/clion/clion7.png" alt="new class" /></p>
 <p>CLion obsahuje spoustu funkcí a možností, jejichž popsání je zcela nad rámec tohoto návodu, doporučuji tedy si s ním pohrát a vyzkoušet, co všechno se v něm dá dělat a jak efektivně.
 Dobré je rovněž si všímat toho, když je řádek označený žlutě, většinou se jedná o CLion doporučující nějaké zlepšení kódu.</p>
-<h2><a class="header" href="#kompilace-programu" id="kompilace-programu">Kompilace programu</a></h2>
-<h2><a class="header" href="#spuštění-programu" id="spuštění-programu">Spuštění programu</a></h2>
-<h2><a class="header" href="#ladění-programu" id="ladění-programu">Ladění programu</a></h2>
-<h2><a class="header" href="#vzdálený-vývoj" id="vzdálený-vývoj">Vzdálený vývoj</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="kompilace-programu"><a class="header" href="#kompilace-programu">Kompilace programu</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="spuštění-programu"><a class="header" href="#spuštění-programu">Spuštění programu</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="ladění-programu"><a class="header" href="#ladění-programu">Ladění programu</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="vzdálený-vývoj"><a class="header" href="#vzdálený-vývoj">Vzdálený vývoj</a></h2>
 <p>Vzdálený vývoj (remote development) znamená, že výpočetně náročné vývojové prostředí běží na běžném počítači, zatímco kompilace a spouštění programu probíhána cílovém počítači.
 Tímto způsobem lze například velmi pohodlně programovat embedded hardware případně servery.
 Velká výhoda je, že například jde z Windows nebo MacOS programovat aplikace pro Linux, což nemusí vždy být možné kvůli chybějícím knihovnám napřiklad i2c-dev.
@@ -654,12 +639,13 @@ Pokud konfigurace Raspberry Pi nebyla měněna, lze použít hodnoty uvedené v 
 Na Raspberry Pi musí být povoleno SSH.</p>
 <p><img src="clion/../images/clion/clion9.png" alt="toolchain" />
 <img src="clion/../images/clion/clion10.png" alt="toolchain" /></p>
-<table><thead><tr><th>parametr</th><th>hodnota</th></tr></thead><tbody>
+<div class="table-wrapper"><table><thead><tr><th>parametr</th><th>hodnota</th></tr></thead><tbody>
 <tr><td>Host</td><td>raspberrypi.local</td></tr>
 <tr><td>Port</td><td>22</td></tr>
 <tr><td>User name</td><td>pi</td></tr>
 <tr><td>Password</td><td>raspberry</td></tr>
 </tbody></table>
+</div>
 <p>Po kliknutí na OK, se CLion pokusí připojit k danému Raspberry Pi a zkontroluje,zda jsou všechny potřebné programy k dispozici.
 Připojování je vidět na obrazku a úspěšné připojení je vidět na dalsim obrazku.</p>
 <p><img src="clion/../images/clion/clion11.png" alt="toolchain" />
@@ -676,20 +662,20 @@ Po kliknutí na &quot;+&quot; nakonfigurujeme CMake tak aby používal náš nov
 <p>Po kliknutí na tlačítko kompilace a spuštění se náš firmware zkompiluje naRaspberry Pi a spustí se, tak jak je vidět na obrazku, kdy úspěch poznáme podle toho, že se spustitelný soubor spouští z adresáře tmp.</p>
 <p><img src="clion/../images/clion/clion18.png" alt="toolchain" /></p>
 <p>Vzdálený vývoj je nyní nakonfigurován</p>
-<h2><a class="header" href="#troubleshooting" id="troubleshooting">Troubleshooting</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h2>
 <p>V této kapitole bude rozebráno řešení problémů vznikajících při použití vzdáleného vývoje.</p>
-<h3><a class="header" href="#cmake-312-is-required-you-are-running-version-372" id="cmake-312-is-required-you-are-running-version-372">CMake 3.12 is required. You are running version 3.7.2</a></h3>
+<h3 id="cmake-312-is-required-you-are-running-version-372"><a class="header" href="#cmake-312-is-required-you-are-running-version-372">CMake 3.12 is required. You are running version 3.7.2</a></h3>
 <p>Problém je ve vašem CMakeLists.txt, změňte parametr &quot;cmake_minimum_required&quot;.</p>
-<h3><a class="header" href="#v-raspberry-pi-chybí-požadované-soubory" id="v-raspberry-pi-chybí-požadované-soubory">V Raspberry Pi chybí požadované soubory</a></h3>
+<h3 id="v-raspberry-pi-chybí-požadované-soubory"><a class="header" href="#v-raspberry-pi-chybí-požadované-soubory">V Raspberry Pi chybí požadované soubory</a></h3>
 <p>Po kliknuti na slozku projektu v levem panelu, kliknete na &quot;Deployment&quot;, &quot;Upload to&quot; a vyberte Raspberry Pi.</p>
-<h3><a class="header" href="#ultimátní-řešení-problémů" id="ultimátní-řešení-problémů">Ultimátní řešení problémů</a></h3>
+<h3 id="ultimátní-řešení-problémů"><a class="header" href="#ultimátní-řešení-problémů">Ultimátní řešení problémů</a></h3>
 <p>Zkontrolujte, jestli v CMakeLists.txt jsou uvedeny všechny soubory, které se mají kompilovat.
 Zkuste v podokně CMake provést reload, jak je zobrazeno na obrazku.
 Pokud to nepomůže, přes SSH se připojte k Raspberry Pi, v /tmp smažte momentálně používanou složku pro vzdálený vývoj, restartujte CLion.</p>
 <p><img src="clion/../images/clion/clion19.png" alt="toolchain" /></p>
-<h1><a class="header" href="#vlastnosti-jakzyka-c17--c20" id="vlastnosti-jakzyka-c17--c20">Vlastnosti jakzyka C++17 / C++20</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="vlastnosti-jakzyka-c17--c20"><a class="header" href="#vlastnosti-jakzyka-c17--c20">Vlastnosti jakzyka C++17 / C++20</a></h1>
 <p>O těchto vlastnostech jazyka jste se pravděpodobně neučili a bude dobré když je začleníte do svých znalostí</p>
-<h2><a class="header" href="#vynucená-inicializace" id="vynucená-inicializace">Vynucená inicializace</a></h2>
+<h2 id="vynucená-inicializace"><a class="header" href="#vynucená-inicializace">Vynucená inicializace</a></h2>
 <pre><code class="language-c++">  struct Trida {
      int A;
      int B;
@@ -700,7 +686,7 @@ Pokud to nepomůže, přes SSH se připojte k Raspberry Pi, v /tmp smažte momen
   Trida instance{1, 2, 3.14159265};  // Vynucena inicializace
 </code></pre>
 <p>Vynucuje inicializaci položek A,B a C v daném pořadí podle deklarace uvnitř objektu. Všechny další nastaví na 0.</p>
-<h2><a class="header" href="#vynucené-rozbalení" id="vynucené-rozbalení">Vynucené rozbalení</a></h2>
+<h2 id="vynucené-rozbalení"><a class="header" href="#vynucené-rozbalení">Vynucené rozbalení</a></h2>
 <pre><code class="language-c++">  struct Trida {
      int A;
      int B;
@@ -712,7 +698,7 @@ Pokud to nepomůže, přes SSH se připojte k Raspberry Pi, v /tmp smažte momen
   
   auto [a, b, c] = instance;            // vynucene rozbaleni
 </code></pre>
-<h2><a class="header" href="#jmenný-alias" id="jmenný-alias">Jmenný alias</a></h2>
+<h2 id="jmenný-alias"><a class="header" href="#jmenný-alias">Jmenný alias</a></h2>
 <pre><code class="language-c++">  using NovyNazev = StaryNazev 
 </code></pre>
 <p>Vytvoří zástupné jméno pro komplikovanější zápis. Používá se zejména pro zvýšení čitelnsoti.</p>
@@ -723,7 +709,7 @@ Pokud to nepomůže, přes SSH se připojte k Raspberry Pi, v /tmp smažte momen
   
   Mediator mediator;   // odpovica std::map&lt;std::string, std::function&lt;void(const std::vector&lt;std::string&gt;&amp;)&gt;&gt;
 </code></pre>
-<h2><a class="header" href="#definice-callbacku" id="definice-callbacku">Definice callbacku</a></h2>
+<h2 id="definice-callbacku"><a class="header" href="#definice-callbacku">Definice callbacku</a></h2>
 <pre><code class="language-c++">  std::function&lt;deklarace funkce&gt; Callback;  
 </code></pre>
 <p>Kdykoliv potřebujete zavolat funkci s neznámým cílem funkce (koho máte volat definuje někdo jiný, nadřazený) 
@@ -746,7 +732,7 @@ být i součástí objektu. Ukazatel na funkce z jazyka C prosím nepoužívejte
 
   // ... 
 </code></pre>
-<h2><a class="header" href="#lambda" id="lambda">Lambda</a></h2>
+<h2 id="lambda"><a class="header" href="#lambda">Lambda</a></h2>
 <pre><code class="language-c++">  [zachyt](argumenty) -&gt; navratovy typ { kod funkce }  
 </code></pre>
 <p>Je to deklarace těla funkce bez názvu. </p>
@@ -769,12 +755,12 @@ kontext, můžeme používat auto místo datových typů.</p>
 </code></pre>
 <p>Lambdy je dobre pouzivat az od C++17 protoze v C++14 a nizsim maji neintuitivni chovani ve specifickych pripadech 
 a kompilator vyhazuje chyby ktere nejsou na prvni pohled zrejme</p>
-<h2><a class="header" href="#procházení-všech-prvků-kontejneru" id="procházení-všech-prvků-kontejneru">Procházení všech prvků kontejneru</a></h2>
+<h2 id="procházení-všech-prvků-kontejneru"><a class="header" href="#procházení-všech-prvků-kontejneru">Procházení všech prvků kontejneru</a></h2>
 <pre><code class="language-c++">  for (auto i: &lt;kontejner&gt;) {
     // operace s prvkem i
   }
 </code></pre>
-<h2><a class="header" href="#validátor-platnosti-s-deklarací" id="validátor-platnosti-s-deklarací">Validátor platnosti s deklarací</a></h2>
+<h2 id="validátor-platnosti-s-deklarací"><a class="header" href="#validátor-platnosti-s-deklarací">Validátor platnosti s deklarací</a></h2>
 <p>Pomucka pro citelnost a optimalizaci kodu - omezení platnosti proměnné pouze na úsek, kdy je platná. Pokud není platná, kompilátor ji může zahodit.</p>
 <pre><code class="language-c++">  if (auto obj = DejObjekt()) {
     // zde muzu pracovat s obj pokud neni null nebo operator bool() objektu ktery vratila funkce DejObjekt vraci true
@@ -787,7 +773,7 @@ a kompilator vyhazuje chyby ktere nejsou na prvni pohled zrejme</p>
   // zde obj neexistuje
 </code></pre>
 <p>Analogicky u <code>while</code>.</p>
-<h3><a class="header" href="#stl-structures" id="stl-structures">STL Structures</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="stl-structures"><a class="header" href="#stl-structures">STL Structures</a></h3>
 <p>Součástí jazyka C++ je tzv. Standard Template Library (STL). Ta obsahuje širokou paletu různých datových struktur a naimplementovaných fukncí.
 My se dnes zaměříme na část která implementuje datové konteinery.</p>
 <p>Knihovna obsahuje implementace pro pole, zásobník, vektor, frontu, list, množinu, mapu (hash_tabulku/dictionary), atd. <a href="https://en.cppreference.com/w/cpp/container">Dokumentace zde</a>.</p>
@@ -845,7 +831,7 @@ když přijde na řadu, zpracuje všechny doposud přijaté zprávy v pořadí t
         my_queue.pop();
     }
 </code></pre>
-<h3><a class="header" href="#reference" id="reference">Reference</a></h3>
+<h3 id="reference"><a class="header" href="#reference">Reference</a></h3>
 <p>Reference, někdy také nazývané &quot;alias&quot;, je datový typ, který směřuje (je aliasem) na již existujicí objekt v paměti.
 Při kompilaci je reference obvykle nahrazena ukazatelem, ale z pohledu programátora se jedná o výrazně bezpečnější formu
 práce s daty a, či objekty, protože nedovoluje některé nebezpečné operace.</p>
@@ -894,7 +880,7 @@ hodnotu. Pokud je potřeba vrátit více hodnot, použijte strukturu jako návra
     ops(5, 10, sum, sub, mul, div);
     std::cout &lt;&lt; sum &lt;&lt; &quot; &quot; &lt;&lt; sub &lt;&lt; &quot; &quot; &lt;&lt; mul &lt;&lt; &quot; &quot; &lt;&lt; div &lt;&lt; std::endl;
 </code></pre>
-<h3><a class="header" href="#smart-pointers" id="smart-pointers">Smart Pointers</a></h3>
+<h3 id="smart-pointers"><a class="header" href="#smart-pointers">Smart Pointers</a></h3>
 <p>Smart pointery jsou náhradou C-čkových ukazatelů. V základu máme 3 typy těchto smart ukazatelů:</p>
 <ul>
 <li>std::unique_ptr&lt;T&gt;</li>
@@ -906,7 +892,7 @@ hodnotu. Pokud je potřeba vrátit více hodnot, použijte strukturu jako návra
 Jsou li splněny podmínky, smartpointer během svého zániku zavolá také destruktor objektu, na který ukazoval a uvolní naalokovanou paměť.</p>
 <p>Výsledkem je, že programátoru už nemusí používat klíčová slova <code>new</code> a <code>delete</code>.</p>
 <p>Každý ze smart pointerů se však mírně liší.</p>
-<h4><a class="header" href="#stdunique_ptrt" id="stdunique_ptrt">std::unique_ptr&lt;T&gt;</a></h4>
+<h4 id="stdunique_ptrt"><a class="header" href="#stdunique_ptrt">std::unique_ptr&lt;T&gt;</a></h4>
 <p>std::unique_ptr<T> je nejtriviálnější implementací smart pointeru. Smart pointer je vlastníkem objektu na který ukazuje a
 neumožní toto vlastnictví (ownership) předat jinému ukazateli. Když unique_ptr zanikne, zavolá destruktor nad vlasněným objektem a dealokuje paměť.</p>
 <pre><code class="language-cpp">    #include &lt;memory&gt;
@@ -920,7 +906,7 @@ neumožní toto vlastnictví (ownership) předat jinému ukazateli. Když unique
 
     std::unique_ptr&lt;float&gt; y = unique_float; // error
 </code></pre>
-<h4><a class="header" href="#stdshared_ptrt" id="stdshared_ptrt">std::shared_ptr&lt;T&gt;</a></h4>
+<h4 id="stdshared_ptrt"><a class="header" href="#stdshared_ptrt">std::shared_ptr&lt;T&gt;</a></h4>
 <p>std::shared_ptr<T> je příkladem tzv. Automatic Reference Counter (ACR). Idea je, že při vzniku objektu se vytvoří také čítač, který čítá kolik shared_pointerů na tento objekt ukazuje.
 Když vytvářím nové kopie shared pointeru, čítač roste, když tyto smart pointery zanikají, hodnota čítače klesá.</p>
 <p>Když čítač dosáhne nuly, to znamená, že na objekt už nic neukazuje, je automaticky zavolán destruktor a je uvolněná paměť.</p>
@@ -933,9 +919,9 @@ Když vytvářím nové kopie shared pointeru, čítač roste, když tyto smart 
     
     std::shared_ptr&lt;int&gt; x = shared_int;
 </code></pre>
-<h4><a class="header" href="#stdweak_ptrt" id="stdweak_ptrt">std::weak_ptr&lt;T&gt;</a></h4>
+<h4 id="stdweak_ptrt"><a class="header" href="#stdweak_ptrt">std::weak_ptr&lt;T&gt;</a></h4>
 <p>Obdoba shared_ptr, ale neinkrementuje čitač, který počítá, kolik je platných ukazatelů na daný objekt. To znamená, že pokud na objekt ukazuje 5 weak_ptr a žáden shared_ptr, objekt zanikne.</p>
-<h3><a class="header" href="#oop" id="oop">OOP</a></h3>
+<h3 id="oop"><a class="header" href="#oop">OOP</a></h3>
 <p>Při tvorbě Vaších programů se snažte dodržovat OOP paradigma. Přemýšlejte o programu, jako o sadě black-boxů, kdy tyto schránky
 jsou každá zaměřená na velmi specifický problém. Každou Vaší třídu by měla vystihovat jedna věta. Stejně tak každá funkce
 by měla dělat právě jednu věc a nic víc.</p>
@@ -943,7 +929,7 @@ by měla dělat právě jednu věc a nic víc.</p>
 <p>Vyhněte se tvorbě &quot;supertříd&quot;, tedy tříd, které řeší &quot;všechno&quot;. Mějte své třídy úzce specializované.</p>
 <p>Běžně by se měla třída vměstnant do 100 řádku. Pokud je třída nad 300 řádků, silně zvažte její rozdělení na více tříd.</p>
 <p>Oddělte data od algoritmů. Vytvořte si oddělené třídy, které v sobě mají uložená data a oddelené třídy, které implementují algoritmy pro zpracování dat.</p>
-<h4><a class="header" href="#příklad" id="příklad">Příklad</a></h4>
+<h4 id="příklad"><a class="header" href="#příklad">Příklad</a></h4>
 <p>Naimplementujte příklad pomocí OOP C++. Při implementaci využijte reference a smart pointery.</p>
 <p>Mějme univerzitu. Každá univerzita má 5 ročníků, v každém ročníku je libovolný počet studentů.
 Když studenti nastupují na univerzitu, jsou automaticky zařazeni do 1. ročníku. Vždy, když proběhne rok,
@@ -1071,7 +1057,7 @@ int main() {
     return 0;
 }
 </code></pre>
-<h3><a class="header" href="#const" id="const">Const</a></h3>
+<h3 id="const"><a class="header" href="#const">Const</a></h3>
 <p>Rychlý přehled užití const v kódu</p>
 <pre><code class="language-cpp">
     // Helpre Object
@@ -1154,11 +1140,11 @@ int main() {
     let&amp; c = a; // const reference
     mut&amp; d = b; // mutable reference
 </code></pre>
-<h1><a class="header" href="#standardní-kontejnery-v-c" id="standardní-kontejnery-v-c">Standardní kontejnery v C++</a></h1>
-<h2><a class="header" href="#stdstring" id="stdstring">std::string</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="standardní-kontejnery-v-c"><a class="header" href="#standardní-kontejnery-v-c">Standardní kontejnery v C++</a></h1>
+<h2 id="stdstring"><a class="header" href="#stdstring">std::string</a></h2>
 <p>Je to kontejner, pro obyčejný text. Obsahuje základní funkce pro práci s textem.</p>
 <p>Může sice obsahovat UTF-8, ale nepočítá jeden znak UTF-8 jako primitivu, ale jako sekvenci několika bajtů.</p>
-<h2><a class="header" href="#stdvectortyp" id="stdvectortyp">std::vector&lt;typ&gt;</a></h2>
+<h2 id="stdvectortyp"><a class="header" href="#stdvectortyp">std::vector&lt;typ&gt;</a></h2>
 <p>Je to dynamické pole, které obsahuje prvky specifikovaného datového typu.</p>
 <p>Jedotlivé prvky jsou indexovány od nuly</p>
 <pre><code class="language-c++">  std::vector&lt;int&gt; vektor{
@@ -1172,7 +1158,7 @@ int main() {
     cout &lt;&lt; *p &lt;&lt; endl;                       // prvek se nachází ve vektoru
   }
 </code></pre>
-<h2><a class="header" href="#stdunordered_mapklíčtyp" id="stdunordered_mapklíčtyp">std::unordered_map&lt;klíč,typ&gt;</a></h2>
+<h2 id="stdunordered_mapklíčtyp"><a class="header" href="#stdunordered_mapklíčtyp">std::unordered_map&lt;klíč,typ&gt;</a></h2>
 <p>Je to adresovatelný kontejner, kde každá hodnota má specifikovaný klíč, pod kterým ji lze najít.
 Kontejner zajišťuje oproti std::map co nejrychlejší adresaci za pomocí hashe.</p>
 <pre><code class="language-c++">  std::unordered_map&lt;std::string, double&gt; mapa{
@@ -1188,13 +1174,13 @@ Kontejner zajišťuje oproti std::map co nejrychlejší adresaci za pomocí hash
     cout &lt;&lt; p-&gt;second &lt;&lt; endl;                      // ZY se nachází v mapě
   }
 </code></pre>
-<h1><a class="header" href="#standardní-algoritmy-v-c" id="standardní-algoritmy-v-c">Standardní algoritmy v C++</a></h1>
-<h1><a class="header" href="#návrhové-vzory-design-patterns" id="návrhové-vzory-design-patterns">Návrhové vzory (design patterns)</a></h1>
-<h2><a class="header" href="#builder" id="builder">Builder</a></h2>
-<h2><a class="header" href="#observer" id="observer">Observer</a></h2>
-<h2><a class="header" href="#mediator" id="mediator">Mediator</a></h2>
-<h2><a class="header" href="#state" id="state">State</a></h2>
-<h1><a class="header" href="#robotic-operating-system" id="robotic-operating-system">Robotic Operating System</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="standardní-algoritmy-v-c"><a class="header" href="#standardní-algoritmy-v-c">Standardní algoritmy v C++</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="návrhové-vzory-design-patterns"><a class="header" href="#návrhové-vzory-design-patterns">Návrhové vzory (design patterns)</a></h1>
+<h2 id="builder"><a class="header" href="#builder">Builder</a></h2>
+<h2 id="observer"><a class="header" href="#observer">Observer</a></h2>
+<h2 id="mediator"><a class="header" href="#mediator">Mediator</a></h2>
+<h2 id="state"><a class="header" href="#state">State</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="robotic-operating-system"><a class="header" href="#robotic-operating-system">Robotic Operating System</a></h1>
 <p>Název &quot;Robot Operating System&quot; poněkud klame svým zněním. Nejedná se o samostaný operační sýstém, nýbrž spíše o middle-ware, tedy softwarový nástroj (knihovnu), který pomáha propojit dílčí programy do komplexnejšího celku. V praxi si to můžem představit tak, že máme jednoduchou aplikaci pro robota jezdícího po čáre, kterou realizujeme pomoci 3 navzájem spolupracujících programů (příklad funguje jako ilustrační; takového robota samozřejmě můžeme naprogramovat pomocí jednoho programu; ilustrujeme tím ale komplexnější problém). První program vyčítá data ze snímače a provádí jednoduchou filtraci dat. Druhý program je mozkem celého řešení a rozhoduje o pohybu robota. Třetí program pak přijímá řídicí pokyny a na jejich základě ovládá motory.</p>
 <p><img src="ros/../images/robot_scheme.png" alt="Rviz" /></p>
 <p>Obr: Schéma fungování pomyslého line-tracking robota na platformě Rapserry Pi s pouřitím ROSu.</p>
@@ -1218,9 +1204,9 @@ Kontejner zajišťuje oproti std::map co nejrychlejší adresaci za pomocí hash
 <p><img src="ros/../images/ros_com_scheme.png" alt="Rviz" /></p>
 <p>Nejprve zapneme ROS Core, tedy server, který začte poslouchat příchozí komunikaci. Dále si napíšeme zmíněne 3 programy. Jeden pro čtení dat ze snímače, druhý pro rozhodování, jak se pohybovat a třetí pro ovládání motorů. První program (Node) se přihlásí k serveru, jako publisher pro topick &quot;SensorData&quot;. Druhý se přihlásí serveru, jako subscriber v tomtéž topicku. Server si tyto dva nody poznamená a publisherovi odešle informaci, že je v sídi na dané adrese a portu připravený subscriber, který si vyžádal data z topicku, který oba nody sdílí. Když pak první program přečte data ze snímače, vyfiltruje je a vytvoří z nich message, kterou pošle na dříve obdrženou adresu a port, aby data obdržel subscriber. Obdobným způsobem se vymění data i mezi druhým a třetím programem, pouze pod hlavičkou jiného topicku.</p>
 <p>Nyní máme vytvořené všechny tři programy. Ty spolu komunikují, ale robot přesto nefunguje podle přestav. Tušíme, že chyba je v tom, jak druhý program převádí data ze snímače na pohyb kol. Proto si napíšeme 4. program, který bude poslouchat veškerou komunikaci a bude ji logovat do souboru. Náš nový program tedy bude subscriberem pro oba dříve zavedené topicky &quot;SensorData&quot; a &quot;MotorControl&quot;. V okamžiku kdy tento program zapneme, tak se ohlásí serveru a od tohoto okamžiku všechny zprávy odeslané v topicích &quot;SensorData&quot; a &quot;MotorControl&quot; budo poslány také našemu logovcímu programu. Ten zprávy přijíme a jejich obsach včetně časové značky vytiskne do souboru. Když se pak do souboru podíváme, zjistíme, že plánovací program vatváří akční zásah vždy s opačným znaménkem, proto přídáme &quot;-&quot; do výpočtu akčního zásahu a vše začne fungovat.</p>
-<h2><a class="header" href="#instalace-ros" id="instalace-ros">Instalace ROS</a></h2>
+<h2 id="instalace-ros"><a class="header" href="#instalace-ros">Instalace ROS</a></h2>
 <p>Instalaci ROSu na nově nainstalovaný Linux proveďte pomocí návodu popsaného v kiapitole <a href="ros/ros.html">Robotic Operating System</a>.</p>
-<h2><a class="header" href="#instalace-rosu" id="instalace-rosu">Instalace ROSu</a></h2>
+<h2 id="instalace-rosu"><a class="header" href="#instalace-rosu">Instalace ROSu</a></h2>
 <p>Tento návod je pouze českým přepisem oficiální dokumentace (Instalace pro Ubuntu)[http://wiki.ros.org/noetic/Installation/Ubuntu]. Prim8rn2 prosím používejte oficiální verzi. Tento návod je pouze doprovodný.</p>
 <p>Instalace je doporučená na distribuci Ubuntu 20.04 LTS (long term stable). Instalovat budeme verzi ROSu z roku 2020, Noetic.</p>
 <p>Přidáme do Linuxu repozitáře (servery) ze kterých je možné stáhnout ROS.</p>
@@ -1239,7 +1225,7 @@ Kontejner zajišťuje oproti std::map co nejrychlejší adresaci za pomocí hash
 <pre><code>echo &quot;source /opt/ros/noetic/setup.bash&quot; &gt;&gt; ~/.bashrc
 source ~/.bashrc
 </code></pre>
-<h2><a class="header" href="#tvorba-vlastního-nodu" id="tvorba-vlastního-nodu">Tvorba vlastního nodu</a></h2>
+<h2 id="tvorba-vlastního-nodu"><a class="header" href="#tvorba-vlastního-nodu">Tvorba vlastního nodu</a></h2>
 <p>Vytvoříme si jednoduchou aplikaci, kte jeden node bude odesílat zprávu s pořadovým číslem a časovou značkou a druhý node zprávu přijíme, vypíše a zjisti, s jakým zpožděním zpráva došla.</p>
 <p>Nejprve si vytvoříme tzv workspace pro náš projekt. Workspacem se myslí speciálně uspořádaná složka.</p>
 <pre><code>cd ~/
@@ -1248,7 +1234,7 @@ cd ros_ws
 mkdir src
 cd src
 </code></pre>
-<h3><a class="header" href="#c-node" id="c-node">C++ Node</a></h3>
+<h3 id="c-node"><a class="header" href="#c-node">C++ Node</a></h3>
 <p>Dále si pomocí catkinu (balíčkovací nástroj pro ROS) necháme vztgenerovat nový balíček (package).</p>
 <pre><code>catkin_create_pkg cpp_publisher std_msgs roscpp
 </code></pre>
@@ -1364,7 +1350,7 @@ catkin_make
 <pre><code>rostopic echo /my_topic
 </code></pre>
 <p>Pokud vidíte v terminále výpis zpráv, vše pracuje, jak má.</p>
-<h3><a class="header" href="#python-node" id="python-node">Python Node</a></h3>
+<h3 id="python-node"><a class="header" href="#python-node">Python Node</a></h3>
 <p>Vytvoříme si další balíček pomocí</p>
 <pre><code>cd ~/ros_ws/src/
 catkin_create_pkg python_subscriber std_msgs rospy
@@ -1485,7 +1471,7 @@ catkin_make
 </code></pre>
 <p><img src="ros/../images/rqt_graph.png" alt="rqt_graph" /></p>
 <p>Obr: vizualizace komunikace mezi nody pomocí rqt_graph</p>
-<h2><a class="header" href="#rviz" id="rviz">Rviz</a></h2>
+<h2 id="rviz"><a class="header" href="#rviz">Rviz</a></h2>
 <p>Rviz je vizualizační nástroj, který je dodáván jako součást ROSu. Jedná se o aplikaci, která dokáže poslouchat širokou paletu předdefinovaných ROS zpráv a vizualizovat je v 3D grafickém prostředí.</p>
 <p>Obvzkle Rviz používáme pro vizualizaci pointcloudů (mrařna bodů z LIDARu), obrázků z kamery, vykreslování geometrických primitiv v prostoru, vizualizace occupancy grid map, atd.</p>
 <p>Pokud nám již běži roscore, rviz aktivujeme pomocí</p>
@@ -1606,7 +1592,7 @@ int main(int argc, char **argv) {
 }
 </code></pre>
 <p>V Rvizu si pak otevřeme topic /cute_cube .</p>
-<h2><a class="header" href="#distribuovaný-ros" id="distribuovaný-ros">Distribuovaný ROS</a></h2>
+<h2 id="distribuovaný-ros"><a class="header" href="#distribuovaný-ros">Distribuovaný ROS</a></h2>
 <p>Tím, že calý backend ROS-ové komunikace je postaven na IP komunikaci (UDP protokolu), je možné snadno komunikaci mezi Nody přenést i na jiné počítače v dostupné síti. Po nainstalování je ROS nakonfigurován tak, že veškerá komunikace s Corem probíha na adrese http://localhost:11311, a Nody si bindují dostupné volné UDP porty a skrze něj komunikují mezi sebou. Pokud ale nastavíme na lokálním stroji proměnnou ROS_MASTER_URI na jinou IP adresu, bude každý nově nastartovaný Node hledat svůj ROS Core na adrese uvedené v ROS_MASTER_URI.</p>
 <p>Spojme si 2 počitáče skrze IP síť a ověřme, že na seba navzájem vidí příkazem PING.</p>
 <pre><code>ping xxx.yyy.zzz.qqq
@@ -1627,7 +1613,7 @@ echo $ROS_IP
 <p>Nyní, pokud aktivujeme publisher a subscriber na libovolném počítači v takto nastavené ROS síti, budou nody spolu komunikovat.</p>
 <p><img src="ros/../images/ros_distributed.png" alt="rqt_graph" />
 Obr: příklad konfigurace ROSu na dvou počítačích.</p>
-<h2><a class="header" href="#kam-dál" id="kam-dál">Kam dál?</a></h2>
+<h2 id="kam-dál"><a class="header" href="#kam-dál">Kam dál?</a></h2>
 <p>Tento tutoriál je popisuje pouze malý zlomek všech možných funkcionalit této obšírné platformy.</p>
 <p>Oficiální web [1] - http://www.ros.org/</p>
 <p>Oficiální tutoriály [2] - http://wiki.ros.org/ROS/Tutorials</p>
@@ -1635,7 +1621,7 @@ Obr: příklad konfigurace ROSu na dvou počítačích.</p>
 <p>Seznamy několika předdefinovaných ROS Messagů - [4] [5]</p>
 <p>Pro zdatné ROSáky je možnost se posunout na další kvalitativní level, a totiž ROS 2 [3]. Druhá verze robotického operačního systému je již koncipováná jako real-time middleware s podporou QoS a širokou paletou služeb, které ocení zejména vývojáři sofistikovaných robotických řešení, na která bude kladeny řádově vyžší kvalitativní nároky.</p>
 <p>Pro reálnou práci se zdrojovými kódy je vhodné použít nějaké IDE. V případě Linuxu vřele doporučuji programy od  JetBrains, CLion pro vývoj C++ a Pycharm pro práci s pythonem. Oba programy jsou pro studenty VUT zdarma.</p>
-<h2><a class="header" href="#reference-1" id="reference-1">Reference</a></h2>
+<h2 id="reference-1"><a class="header" href="#reference-1">Reference</a></h2>
 <p>[1] http://www.ros.org/</p>
 <p>[2] http://wiki.ros.org/ROS/Tutorials</p>
 <p>[3] https://github.com/ros2/ros2/wiki</p>
@@ -1644,7 +1630,7 @@ Obr: příklad konfigurace ROSu na dvou počítačích.</p>
 <p>[6] http://wiki.ros.org/Services</p>
 <p>[7] https://www.computerhope.com/unix/uchmod.htm</p>
 <p>[8] http://wiki.ros.org/ROS/Installation</p>
-<h1><a class="header" href="#supersmyčka-a-regulace-v-ní" id="supersmyčka-a-regulace-v-ní">Supersmyčka a regulace v ní</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="supersmyčka-a-regulace-v-ní"><a class="header" href="#supersmyčka-a-regulace-v-ní">Supersmyčka a regulace v ní</a></h1>
 <pre><code class="language-c++">const int T = 30;
 long long ms = millis() + T;
 while(rum) {
@@ -1666,12 +1652,12 @@ while(rum) {
     comm.send(drive.BuildWrites());
   }
 </code></pre>
-<h1><a class="header" href="#mediator---protokolový-eventový-parser" id="mediator---protokolový-eventový-parser">Mediator - Protokolový eventový parser</a></h1>
-<h1><a class="header" href="#controller" id="controller">Controller</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="mediator---protokolový-eventový-parser"><a class="header" href="#mediator---protokolový-eventový-parser">Mediator - Protokolový eventový parser</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="controller"><a class="header" href="#controller">Controller</a></h1>
 <p>Někdy je třeba řídit robot v různých okamžicích různým způsobem (např. robot nejprve musí zkalibrovat senzor čáry, aby 
 mohl vyrazit na soutěžní trať ), přičemž potřebujeme, aby důležité části chodu supersmyčky probíhaly ve správném čase</p>
 <p>Ideální je implementace stavového automatu. Jde ji řešit hloupým a nepřehledným způsobem <strong>switch-case</strong> nebo <strong>funkcionálně</strong></p>
-<h2><a class="header" href="#funkcionální-přístup" id="funkcionální-přístup">Funkcionální přístup</a></h2>
+<h2 id="funkcionální-přístup"><a class="header" href="#funkcionální-přístup">Funkcionální přístup</a></h2>
 <p>Nejprve musíme deklarovat <strong>ukazatel</strong> na prováděcí <strong>funkci stavu</strong>. </p>
 <p>Pokud budou všechny stavy obsluhovány jedním objektem, je možné vytvořit ukazatel na metodu aktuálního objektu. </p>
 <pre><code class="language-c++">using State = void(StateController::*)();                                       // ukazatel na stavovou funkci
@@ -1686,7 +1672,7 @@ state = [=](){ regulator-&gt;DoSearchLine(); }                                  
 (*state)();                                                                     // vyvolání stavové funkce
 </code></pre>
 <p>Doporučuji první způsob.</p>
-<h3><a class="header" href="#Řešení-funkcionálním-přístupem-s-pomocí-metod-aktuálního-objektu" id="Řešení-funkcionálním-přístupem-s-pomocí-metod-aktuálního-objektu">Řešení funkcionálním přístupem s pomocí metod aktuálního objektu</a></h3>
+<h3 id="Řešení-funkcionálním-přístupem-s-pomocí-metod-aktuálního-objektu"><a class="header" href="#Řešení-funkcionálním-přístupem-s-pomocí-metod-aktuálního-objektu">Řešení funkcionálním přístupem s pomocí metod aktuálního objektu</a></h3>
 <p>Deklarace Controlleru</p>
 <pre><code class="language-c++">class StateController {
   using State = void(StateController::*)();                                     // MAGIE: ukazatel na metodu controlleru
@@ -1755,7 +1741,7 @@ while(rum) {
     comm.send(drive.BuildWrites());
   }
 </code></pre>
-<h2><a class="header" href="#přístup-switch-case" id="přístup-switch-case">Přístup switch-case</a></h2>
+<h2 id="přístup-switch-case"><a class="header" href="#přístup-switch-case">Přístup switch-case</a></h2>
 <p>Deklarace Controlleru</p>
 <pre><code class="language-c++">enum State {
     SearchLine,
@@ -1798,8 +1784,8 @@ public:
 </code></pre>
 <p><strong>Poznámka:</strong> V příkladech chybí deklarace lokálních proměnných objektu, příklady jsou uvedeny jen jako vzorové, pro pochopení funkce. Konkrétní implementaci si musíte vytvořit sami.</p>
 <p>Chytrého nakopni, hloupého kopni, blbého zakopej 4 metry pod zem ...</p>
-<h1><a class="header" href="#procházení-komunikačním-protokolem-isoosi" id="procházení-komunikačním-protokolem-isoosi">Procházení komunikačním protokolem ISO/OSI</a></h1>
-<h1><a class="header" href="#doporučená-organizace-projektu" id="doporučená-organizace-projektu">Doporučená organizace projektu</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="procházení-komunikačním-protokolem-isoosi"><a class="header" href="#procházení-komunikačním-protokolem-isoosi">Procházení komunikačním protokolem ISO/OSI</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="doporučená-organizace-projektu"><a class="header" href="#doporučená-organizace-projektu">Doporučená organizace projektu</a></h1>
 <p>Rozdělení do tříd (abecedně):</p>
 <ul>
 <li><code>Comm</code> - Obsluha kompletní komunikace</li>
@@ -1816,7 +1802,7 @@ než vybraná osoba nesmí daný soubor commitovat.</p>
 <p>Main je kolizní, můžou do něj všichni, ideálně v malých jednořádkových commitech. 
 Main pokud možno modifikovat jen když jste všichni spolu a definujete API 
 (rozdáváte práci)</p>
-<h2><a class="header" href="#maincpp" id="maincpp">main.cpp</a></h2>
+<h2 id="maincpp"><a class="header" href="#maincpp">main.cpp</a></h2>
 <p>Řeší:</p>
 <ul>
 <li>obsluha argumentů příkazové řádky</li>
@@ -1832,7 +1818,7 @@ Main pokud možno modifikovat jen když jste všichni spolu a definujete API
 <li><code>Controller</code> - instanciace a volání v supersmyčce</li>
 </ul>
 <p>POZOR KOLIZNÍ SOUBOR (commitovat vždy zvlášť, modifikovat pouze velmi malé změny kvůli častým konfliktům)</p>
-<h2><a class="header" href="#nmea" id="nmea">Nmea</a></h2>
+<h2 id="nmea"><a class="header" href="#nmea">Nmea</a></h2>
 <p>Řeší:</p>
 <ul>
 <li>převod z frame na zprávu</li>
@@ -1847,7 +1833,7 @@ Main pokud možno modifikovat jen když jste všichni spolu a definujete API
 <li>Implementace 4. týden</li>
 <li>Spolehlivost 6. týden</li>
 </ul>
-<h2><a class="header" href="#comm" id="comm">Comm</a></h2>
+<h2 id="comm"><a class="header" href="#comm">Comm</a></h2>
 <p>Řeší:</p>
 <ul>
 <li>obsluha příjmu a odesílání UDP zpráv</li>
@@ -1863,7 +1849,7 @@ Main pokud možno modifikovat jen když jste všichni spolu a definujete API
 <li>Implementace 6. týden</li>
 <li>Spolehlivost 8. týden</li>
 </ul>
-<h2><a class="header" href="#drive" id="drive">Drive</a></h2>
+<h2 id="drive"><a class="header" href="#drive">Drive</a></h2>
 <p>Řeší:</p>
 <ul>
 <li>Obsluha komunikace s podvozkem</li>
@@ -1880,7 +1866,7 @@ Main pokud možno modifikovat jen když jste všichni spolu a definujete API
 <li>Implementace 6. týden</li>
 <li>Spolehlivost 8. týden</li>
 </ul>
-<h2><a class="header" href="#sensor" id="sensor">Sensor</a></h2>
+<h2 id="sensor"><a class="header" href="#sensor">Sensor</a></h2>
 <p>Řeší:</p>
 <ul>
 <li>Obsluha komunikace se senzory</li>
@@ -1896,7 +1882,7 @@ Main pokud možno modifikovat jen když jste všichni spolu a definujete API
 <li>Implementace 7. týden</li>
 <li>Spolehlivost 8. týden</li>
 </ul>
-<h2><a class="header" href="#configuration" id="configuration">Configuration</a></h2>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
 <ul>
 <li>Načítání parametrů z yaml souboru</li>
 <li>Volitelná třída, lze implementovat za pomocí konstant v kódu</li>
@@ -1909,7 +1895,7 @@ Main pokud možno modifikovat jen když jste všichni spolu a definujete API
 <li>Implementace 8. týden</li>
 <li>Spolehlivost 10. týden</li>
 </ul>
-<h2><a class="header" href="#controller-1" id="controller-1">Controller</a></h2>
+<h2 id="controller-1"><a class="header" href="#controller-1">Controller</a></h2>
 <p>Řeší:</p>
 <ul>
 <li>Logika jízdy robotu</li>
@@ -1933,7 +1919,7 @@ Main pokud možno modifikovat jen když jste všichni spolu a definujete API
 <li>Implementace 8. týden</li>
 <li>Spolehlivost 10. týden</li>
 </ul>
-<h1><a class="header" href="#oddělení-modulů---zrychlení-kompilace" id="oddělení-modulů---zrychlení-kompilace">Oddělení modulů - Zrychlení kompilace</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="oddělení-modulů---zrychlení-kompilace"><a class="header" href="#oddělení-modulů---zrychlení-kompilace">Oddělení modulů - Zrychlení kompilace</a></h1>
 <p>Při návrhu objektového API se setkáváme s nutností oddělení jednotlivých modulů tak, aby <strong>navzájem spolupracovaly</strong> 
 (jeden modul využívá druhý), ale současně <strong>změna v impleentaci</strong> jednoho modulu nevyvolala <strong>nutnost rekompilace</strong> 
 modulu druhého. Typickým příkladem je vazba <strong>nadřazený-podřazený</strong>, ale lze takto vytvořit i <strong>cyklickou závislost</strong></p>
@@ -1942,7 +1928,7 @@ modulu druhého. Typickým příkladem je vazba <strong>nadřazený-podřazený<
 <p><strong>Příklad:</strong> Máme objekt <code>Controller</code>, který ve svých metodách potřebuje používat funkce z objektů <code>Drive</code> a <code>Sensor</code>.
 Objekty <code>Drive</code> a <code>Sensor</code> jsou singletony (existují v aplikaci v právě jedné instanci, vytvořené nejspíše jako
 lokální proměnné ve funkci <code>main</code>.</p>
-<h2><a class="header" href="#forward" id="forward">Forward</a></h2>
+<h2 id="forward"><a class="header" href="#forward">Forward</a></h2>
 <p>Aby mohly jednotlivé metody <code>Controller</code>u pracovat s <code>Drive</code>, musí mít <code>Controller</code> v sobě uložený odkaz na instanci
 objektu <code>Drive</code>. Nejspíše takto:</p>
 <pre><code class="language-c++">#include &quot;Drive.h&quot;
@@ -1981,7 +1967,7 @@ Controller:: ......
 </ul>
 </li>
 </ul>
-<h2><a class="header" href="#neměnný-ukazatel" id="neměnný-ukazatel">Neměnný ukazatel</a></h2>
+<h2 id="neměnný-ukazatel"><a class="header" href="#neměnný-ukazatel">Neměnný ukazatel</a></h2>
 <p>Dále <code>drive</code> by měl být konstantní ukazatel na nekonstantní instanci třídy <code>Drive</code>. Ukazatel nechceme nikdy měnit, ale
 vlastní objekt měnit můžeme. S tím kam umístíme <code>const</code> bývá začátečnický problém, pro shrnutí: </p>
 <pre><code class="language-c++">Drive *drv;               // ukazatel na Drive. Lze změnit ukazatel i Data na které ukazuje.
@@ -1995,7 +1981,7 @@ vyhýbáme, kde to jde). Místo konstantního ukazatele <code>Drive * const ptr<
 Pozor reference je vždy konstantní, takže nám jedno <code>const</code> odpadá ! </p>
 <pre><code class="language-c++">Drive &amp; drv;              // reference na Drive. Lze změnit Data na které ukazuje. Ukazatel ne.
 </code></pre>
-<h2><a class="header" href="#vzorové-řešení" id="vzorové-řešení">Vzorové řešení</a></h2>
+<h2 id="vzorové-řešení"><a class="header" href="#vzorové-řešení">Vzorové řešení</a></h2>
 <p>Objekt <code>Controller</code> tedy deklarujeme v headeru takto: </p>
 <pre><code class="language-c++">class Drive;    // pouze forward
 
@@ -2023,7 +2009,7 @@ void Controller::Method()
   drv-&gt;CallMe();            // Můžeme používat API
 }
 </code></pre>
-<h2><a class="header" href="#cyklická-závislost" id="cyklická-závislost">Cyklická závislost</a></h2>
+<h2 id="cyklická-závislost"><a class="header" href="#cyklická-závislost">Cyklická závislost</a></h2>
 <p>Stejným způsobem lze definovat, že <code>Drive</code> může přistupovat k prvkům <code>Controlleru</code>. Standardním způsobem deklarace 
 bysme vytvořili cyklickou závislost mezi headery a kód by (logicky) nešel zkompilovat:</p>
 <p>Drive.h:</p>
@@ -2059,9 +2045,7 @@ class Controller {
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        
 
-                        
 
                         <div style="clear: both"></div>
                     </nav>
@@ -2069,49 +2053,34 @@ class Controller {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
 
-                
             </nav>
 
         </div>
 
-        
 
-        
 
-        
 
-        
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
-        
 
-        
 
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
-        
 
-        
-        
-        <script type="text/javascript">
+        <script>
         window.addEventListener('load', function() {
             window.setTimeout(window.print, 100);
         });
         </script>
-        
-        
 
     </body>
 </html>
