@@ -4,15 +4,15 @@ GIT je integrován do CLion pomocí tří funkčních vstupů:
 
 **Menu**
 
-![menu](git_menu.png)
+![menu](git/menu.png)
 
 **Toolbar**
 
-![menu](git_toolbar.png)
+![menu](git/toolbar.png)
 
 **Okno historie**
 
-![menu](git_window.png)
+![menu](git/window.png)
 
 V toolbaru se nacházejí nejpoužívanější zkratky z menu, které jsou velmi snadno identifikovatelné pomocí ikonky.
 
