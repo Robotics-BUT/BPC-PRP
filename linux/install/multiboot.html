@@ -141,11 +141,68 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h3 id="instalace-linuxu-vedle-windows"><a class="header" href="#instalace-linuxu-vedle-windows">Instalace Linuxu vedle Windows</a></h3>
-<p>Tuto metodu zvolte, pokud chcete mít linux rychlý, nebo máte postarší stroj</p>
-<h4 id="tvorba-instalačního-média"><a class="header" href="#tvorba-instalačního-média">Tvorba instalačního média</a></h4>
-<h4 id="rozdělení-disku--vytvoření-prostoru-pro-instalaci"><a class="header" href="#rozdělení-disku--vytvoření-prostoru-pro-instalaci">Rozdělení disku / vytvoření prostoru pro instalaci</a></h4>
-<h4 id="zahájení-instalace-linuxu"><a class="header" href="#zahájení-instalace-linuxu">Zahájení Instalace Linuxu</a></h4>
+                        <h1 id="instalace-linuxu-vedle-windows"><a class="header" href="#instalace-linuxu-vedle-windows">Instalace Linuxu vedle Windows</a></h1>
+<p>Tuto metodu zvolte, pokud chcete mít linux rychlý, nebo máte postarší stroj.</p>
+<h2 id="tvorba-instalačního-média"><a class="header" href="#tvorba-instalačního-média">Tvorba instalačního média</a></h2>
+<h2 id="rozdělení-disku--vytvoření-prostoru-pro-instalaci"><a class="header" href="#rozdělení-disku--vytvoření-prostoru-pro-instalaci">Rozdělení disku / vytvoření prostoru pro instalaci</a></h2>
+<p>Nejprve je vhodné nachystat prostor na disku, kde bude Linux nainstalován. To udeláte ve svém Windowsu pomocí utility <code>Disk Management</code>. Stiskněte <code>Start</code> a do vyhledávaní napíšte <code>diskmgmt.msc</code> a spusťte.</p>
+<p><img src="../../images/linux/windows_dual_boot/open_disk_manager.png" alt="linux_install" /></p>
+<p>Otevře se vám nové okno s managerem kde uvidíte všechny dostupné disky:</p>
+<p><img src="../../images/linux/windows_dual_boot/disk_manager_basic_window.png" alt="linux_install" /></p>
+<p>Nejpohodlnejší je samozřejmě mít druhý systém nainstalován na samostatném disku (viz. obrázek dolu, kde je označen disk s nainstalovaným Linuxem).</p>
+<p><img src="../../images/linux/windows_dual_boot/disk_manager_dual_physical.png" alt="linux_install" /></p>
+<p>Mnohokrát ovšem taková možnost není a musíte si oba systémy rozdelit do jednoho disku. Např. když máte jen jedno rychlé SSD, ze kterého chcete oba systémy bootovat. Pro to je potřeba uvolnit (odalokovat) místo z některého oddílu na disku.</p>
+<blockquote>
+<p><strong>POZOR!</strong> - V Disk Manageru uvidíte kromě základních oddílů, ke kterým máte jako uživatel prístup (např. C:, D:, atd.), také skryté oddíly které Windows interně využíva (obvykle bez označení písmenem). Nesnažte se zasahovat do těchto oddílů, jinak můžete poškodit svůj systém.</p>
+</blockquote>
+<details>
+    <summary>Záloha</summary>
+<p>Pokud chcete mít jistotu, že o svoje dáta nepřijdete můžete si celý disk nebo jeho jednotlivé oddíly zálohovat na externí disk. Můžete použít program <a href="https://www.macrium.com/reflectfree">Macrium Refect</a> pro klonování disků. Po zpuštění programu vyberete disk, který chcete klonovat.</p>
+<p><img src="../../images/linux/drive_backup/macrium_clone.png" alt="linux_install" /></p>
+<p>Následně vyberete disk, na který chcete klon převézt a zvolíte které oddíly se mají klonovat. Tento proces může v závislosti na velikosti klonovaného oddílu trvat celkem dlouho.</p>
+<p><img src="../../images/linux/drive_backup/macrium_clone_select_partitions.png" alt="linux_install" /></p>
+</details>
+<p>Klikněte na zvolený oddíl (ideálně ten, na kterém máte nejvíce místa) a vyberte možnost &quot;zmenšit&quot;.</p>
+<p><img src="../../images/linux/windows_dual_boot/shrink_partition.png" alt="linux_install" /></p>
+<p>Vyberte kolik míste chcete uvolnit (např. 100GB).</p>
+<p><img src="../../images/linux/windows_dual_boot/shrink_partition_options.png" alt="linux_install" /></p>
+<p>V disk manageru nyní uvidíte váš nově uvolněný prostor a můžete přejít k instalaci Linuxu.</p>
+<p><img src="../../images/linux/windows_dual_boot/unallocated_space.png" alt="linux_install" /></p>
+<p>Pokud máte ve Windowsu zapnuté šifrování disku BitLockerem (např. u Windows 11 je to default), budete ho muset vypnout. Instalace Linuxu není možná pokud je disk šifrován. Existují způsoby jak zachovat šifrování i pro dual boot ale nejjednodušší je ho pro naše účely úplně vypnout.</p>
+<details>
+    <summary>Windows BitLocker</summary>
+<p>Ve Windows 11 najdete nastavení v části <code>Soukromí a Zabezpečení &gt; Šifrování zařízení</code>. Pro zálohovaní obnovovacího klíče klikněte na <code>Nástroj BitLocker Drive Encryption</code> a vyberte možnost zálohovat. Můžete také postupovat podle návodu <a href="https://help.ubuntu.com/wip/bitlocker/">zde</a>. Po vypnutí nastavení zaháji Windows dešifrování disku, tento proces může nejakou chvíli trvat.</p>
+<p><img src="../../images/linux/windows_dual_boot/disabling_bitlocker.png" alt="linux_install" />
+<img src="../../images/linux/windows_dual_boot/disabling_bitlocker_2.png" alt="linux_install" /></p>
+<p>Po dokončení dešifrace restartujte systém.</p>
+</details>
+<h2 id="zahájení-instalace-linuxu"><a class="header" href="#zahájení-instalace-linuxu">Zahájení Instalace Linuxu</a></h2>
+<p>Vložte nachystané instalační USB a restartujte systém. Nezapomeňte si v BIOSu přepnout nastavení na boot z USB pokud máte nastavené prioritně bootování z disku s Windowsem. Zvolte jazyk anglicky a vyberte možnost instalovat.</p>
+<p><img src="../../images/linux/install_steps/ubuntu_install_1.png" alt="linux_install" /></p>
+<p>Zvolte normální instalaci a dále můžete zaškrtnout možnost stahování updatů počas instalace a instalaci driverů od třetích strán, a nebo je vynechat a doinstalovat vše potřebné později.</p>
+<p><img src="../../images/linux/install_steps/ubuntu_install_2.png" alt="linux_install" /></p>
+<p>Následně, pokud instalatér detekuje na vašem disku bootovací oddíl pro Windows, můžete zvolit možnost automatické instalace vedle systému Windows. Dále už proběhne samotná instalace do uvolněného prostoru. Pokud tuto možnost neuvidíte budete muset zvolit možnost <code>Something else</code> a manuálně vybrat kam se má Linux nainstalovat.</p>
+<p><img src="../../images/linux/install_steps/ubuntu_install_3_simple.png" alt="linux_install" /></p>
+<details>
+    <summary>Manuálni Instalace</summary>
+<p>V seznamu najděte položku s volným prostorem. Její velokost musí odpovídat tomu kolik místa jste si uvolnili v předchozích krocích. V tomto příkladu jsou obrázky z jiného počítače, proto je velikost jiná. Stiskněte plus pro vytvoření nového oddílu.</p>
+<p><img src="../../images/linux/install_steps/ubuntu_install_3_advanced_a.png" alt="linux_install" /></p>
+<p>Vyberte maximální dostupnou velikost a zbytek podle obrázku dolu:</p>
+<p><img src="../../images/linux/install_steps/ubuntu_install_3_advanced_b.png" alt="linux_install" /></p>
+<p>Poté uvidíte nově vytvořený oddíl v seznamu.</p>
+<blockquote>
+<p><strong>POZOR!</strong> - V spodní části můžete zvolit kam se na nainstalovat bootovací oddíl pro Linux. Tady nechejte buď celý disk (položku s názvm celého disku kde instalujete Linux) a nebo právě nově vytvořený oddíl. Nikdy nevybírejte žádnej jinej oddíl, který je na disku.</p>
+</blockquote>
+<p><img src="../../images/linux/install_steps/ubuntu_install_3_advanced_c.png" alt="linux_install" /></p>
+</details>
+<p>Pak už jen vyberete časové pásmo, a vytvoříte si username a heslo k účtu.</p>
+<p>Instrukce pro instalaci Linuxu najdete také <a href="https://itsfoss.com/dual-boot-ubuntu-windows-bitlocker/">zde</a>.</p>
+<h3 id="výsledek"><a class="header" href="#výsledek">Výsledek</a></h3>
+<p>Po dokončení instalace a restartu uvidíte obrazovku boot manageru (<code>GRUB</code>), kde můžete vždy volit jestli chcete zpustit Linux nebo Windows. </p>
+<p><img src="../../images/linux/windows_dual_boot/grub_menu.jpeg" alt="linux_install" /></p>
+<p>V BIOSu můžete také vidět více možnosti pro bootování systému. Boot manager pro Linux, který zároveň detekuje i všechny ostatní nainstalované systémy, a boot manager pro Windows, který uvidí vždy jen svůj vlastní systém Windows. Je proto nejlepší ponechat jako prioritní manager Linuxu, protože z nej můžete jednoduše bootovat i do svého Windowsu.</p>
+<p><img src="../../images/linux/windows_dual_boot/bios_boot_priority.jpeg" alt="linux_install" /></p>
+<h2 id="odstranění-linuxu"><a class="header" href="#odstranění-linuxu">Odstranění Linuxu</a></h2>
 
                     </main>
 
