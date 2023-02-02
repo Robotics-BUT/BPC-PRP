@@ -144,6 +144,8 @@
                         <h1 id="instalace-linuxu-vedle-windows"><a class="header" href="#instalace-linuxu-vedle-windows">Instalace Linuxu vedle Windows</a></h1>
 <p>Tuto metodu zvolte, pokud chcete mít linux rychlý, nebo máte postarší stroj.</p>
 <h2 id="tvorba-instalačního-média"><a class="header" href="#tvorba-instalačního-média">Tvorba instalačního média</a></h2>
+<p>Připravte si prázdné USB a stáhněte nástroj <a href="https://rufus.ie/en/">Rufus</a> pro tvorbu bootovacího média. Dále stáhněte <a href="https://releases.ubuntu.com/22.04/">Ubuntu 22.04 desktop image</a>. Vložte USB do počítače a spusťte program <code>Rufus</code>. Ujistěte se, že je zvolené správné USB, vyberte stažený Ubuntu <code>.iso</code> image jako zdroj, a zvolte schému <code>GPT</code> a target <code>UEFI</code>. Spusťte program a pokud se vás zeptá ponechte režim ISO.</p>
+<p><img src="../../images/linux/windows_dual_boot/rufus.jpg" alt="linux_install" /></p>
 <h2 id="rozdělení-disku--vytvoření-prostoru-pro-instalaci"><a class="header" href="#rozdělení-disku--vytvoření-prostoru-pro-instalaci">Rozdělení disku / vytvoření prostoru pro instalaci</a></h2>
 <p>Nejprve je vhodné nachystat prostor na disku, kde bude Linux nainstalován. To udeláte ve svém Windowsu pomocí utility <code>Disk Management</code>. Stiskněte <code>Start</code> a do vyhledávaní napíšte <code>diskmgmt.msc</code> a spusťte.</p>
 <p><img src="../../images/linux/windows_dual_boot/open_disk_manager.png" alt="linux_install" /></p>
@@ -157,7 +159,7 @@
 </blockquote>
 <details>
     <summary>Záloha</summary>
-<p>Pokud chcete mít jistotu, že o svoje dáta nepřijdete můžete si celý disk nebo jeho jednotlivé oddíly zálohovat na externí disk. Můžete použít program <a href="https://www.macrium.com/reflectfree">Macrium Refect</a> pro klonování disků. Po zpuštění programu vyberete disk, který chcete klonovat.</p>
+<p>Pokud chcete mít jistotu, že o svoje dáta nepřijdete můžete si celý disk nebo jeho jednotlivé oddíly zálohovat na externí disk. Můžete použít program <a href="https://www.macrium.com/reflectfree">Macrium Refect</a> pro klonování disků. Po spuštění programu vyberete disk, který chcete klonovat.</p>
 <p><img src="../../images/linux/drive_backup/macrium_clone.png" alt="linux_install" /></p>
 <p>Následně vyberete disk, na který chcete klon převézt a zvolíte které oddíly se mají klonovat. Tento proces může v závislosti na velikosti klonovaného oddílu trvat celkem dlouho.</p>
 <p><img src="../../images/linux/drive_backup/macrium_clone_select_partitions.png" alt="linux_install" /></p>
@@ -202,7 +204,23 @@
 <p><img src="../../images/linux/windows_dual_boot/grub_menu.jpeg" alt="linux_install" /></p>
 <p>V BIOSu můžete také vidět více možnosti pro bootování systému. Boot manager pro Linux, který zároveň detekuje i všechny ostatní nainstalované systémy, a boot manager pro Windows, který uvidí vždy jen svůj vlastní systém Windows. Je proto nejlepší ponechat jako prioritní manager Linuxu, protože z nej můžete jednoduše bootovat i do svého Windowsu.</p>
 <p><img src="../../images/linux/windows_dual_boot/bios_boot_priority.jpeg" alt="linux_install" /></p>
+<p>V programu <code>Disk Management</code> ve Windowsu uvidíte, že oddíl, který jste na začátku uvolňovali je nyní obsazen Linuxem.</p>
+<p><img src="../../images/linux/windows_dual_boot/linux_installed.png" alt="linux_install" /></p>
 <h2 id="odstranění-linuxu"><a class="header" href="#odstranění-linuxu">Odstranění Linuxu</a></h2>
+<p>Nejjednodušší způsob jak odstranit Linux a vrátit prostor na disku zpátky do Windowsu je odstranit celý oddíl s nainstalovaným Linuxem.</p>
+<blockquote>
+<p><strong>POZOR!</strong> - Tím ale Linuxový boot manager ztratí informace o instalaci systému a nebude schopen dál nijak bootovat. Proto si nejprve v BIOSu nastavte jako prioritní výchozí Windows boot manager a ujistěte se, že bootování do Windowsu přes nej funguje. Pak můžete odstránit oddíl s Linuxem.</p>
+</blockquote>
+<p><img src="../../images/linux/windows_dual_boot/delete_partition.png" alt="linux_install" /></p>
+<p>Po odstranění opět zůstane volný prostor.</p>
+<p><img src="../../images/linux/windows_dual_boot/unallocated_space.png" alt="linux_install" /></p>
+<p>Pak už jen jednoduše zvolte původní oddíl a vyberte možnost &quot;rozšířit&quot;.</p>
+<p><img src="../../images/linux/windows_dual_boot/extend_partition.png" alt="linux_install" /></p>
+<p>Zadejte maximální dostupnou velikost a potvrďte.</p>
+<p><img src="../../images/linux/windows_dual_boot/extend_partition_options.png" alt="linux_install" /></p>
+<p>Nyní bude disk v původním stavu tak jako před instalací Linuxu.</p>
+<p><img src="../../images/linux/windows_dual_boot/disk_manager_basic_window.png" alt="linux_install" /></p>
+<p>Nefunkční Linux boot manager na disku bohužel už zůstane. Pokud se ho budete chtít zbavit také, můžete zkusit některý z Windows nástrojů pro opravu bootovacího sektoru. Můžete si tím ale zbytečne poškodit i aktuálně fungující instalaci Windowsu, proto pokud vše funguje je lepší ho nechat tak.</p>
 
                     </main>
 
