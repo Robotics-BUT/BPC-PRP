@@ -4,6 +4,7 @@
 - [***OS Linux***](linux/index.md)
   - [Distribuce](linux/distro.md)
   - [***Instalace***]()
+    - [Windows WSL](linux/install/wsl.md)
     - [Multiboot](linux/install/multiboot.md)
     - [VirtualBox](linux/install/virtualbox.md)
     - [VmWare](linux/install/vmware.md)
