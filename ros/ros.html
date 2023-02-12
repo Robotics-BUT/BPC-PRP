@@ -142,26 +142,26 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="robotic-operating-system-2"><a class="header" href="#robotic-operating-system-2">Robotic Operating System 2</a></h1>
-<p>Název &quot;Robot Operating System&quot; poněkud klame svým zněním. Nejedná se o samostaný operační sýstém, nýbrž spíše o middle-ware, tedy softwarový nástroj (knihovnu), který pomáha propojit dílčí programy do komplexnejšího celku. V praxi si to můžeme představit tak, že máme jednoduchou aplikaci pro robotu jezdícího po čáre, kterou realizujeme pomocí 3 navzájem spolupracujících programů (příklad funguje jako ilustrační; takový robot samozřejmě můžeme naprogramovat pomocí jednoho programu; ilustrujeme tím ale komplexnější problém). První program vyčítá data ze snímače a provádí jednoduchou filtraci dat. Druhý program je mozkem celého řešení a rozhoduje o pohybu robotu. Třetí program pak přijímá řídicí pokyny a na jejich základě ovládá motory.</p>
+<p>Název &quot;Robot Operating System&quot; poněkud klame svým zněním. Nejedná se o samostaný operační sýstém, nýbrž spíše o middle-ware, tedy softwarový nástroj (knihovnu), který pomáha propojit dílčí programy do komplexnejšího celku. V praxi si to můžeme představit tak, že máme jednoduchou aplikaci pro robot jezdící po čáre, kterou realizujeme pomocí 3 navzájem spolupracujících programů (příklad funguje jako ilustrační; takový robot samozřejmě můžeme naprogramovat pomocí jednoho programu; ilustrujeme tím ale komplexnější problém). První program vyčítá data ze snímače a provádí jednoduchou filtraci dat. Druhý program je mozkem celého řešení a rozhoduje o pohybu robotu. Třetí program pak přijímá řídicí pokyny a na jejich základě ovládá motory.</p>
 <p><img src="../images/robot_scheme.png" alt="Rviz" /></p>
 <p>Obr: Schéma fungování pomyslého line-tracking robotu na platformě Rasperry Pi s použitím ROSu.</p>
-<p>V případě absence ROSu bychom museli vymyslet způsob jak spolu budou tyto tři programy komunikovat. Mohli bychom sdílet paměť, pipovat, posílat si IP zprávy, používat DBus, etc. Všechny tyto techniky fungují, ale vyžadují určitý programátorský um. My se těmito nízkouúrovňovými problémy nechceme zabývat a proto použijeme ROS.</p>
+<p>V případě absence ROSu bychom museli vymyslet způsob jak spolu budou tyto tři programy komunikovat. Mohli bychom sdílet paměť, pipovat, posílat si IP zprávy, používat DBus, atd. Všechny tyto techniky fungují, ale vyžadují určitý programátorský um. My se těmito nízkouúrovňovými problémy nechceme zabývat a proto použijeme ROS.</p>
 <p>V praxi si pak můžeme říct, že ROS komunikuje mezi procesy právě pomocí posílání UDP paketů. To umožňuje také komunikovat procesům, které běží na různých počítačích. Tomu říkáme distribuovaný systém.</p>
 <p>Základ ROSu je postaven na 3 stavebních kamenech.</p>
 <ul>
-<li>ROS Node</li>
-<li>ROS Topic</li>
-<li>ROS Message</li>
+<li><strong>ROS Node</strong></li>
+<li><strong>ROS Topic</strong></li>
+<li><strong>ROS Message</strong></li>
 </ul>
-<p>ROS Node - Nodem je myšlený každý program do kterého přídáme klientskou knihovnu ROSu. Naučíme tedy program používat funkce ROSu. ROS Node je pak schopen &quot;automaticky&quot; objevit další instance (programy), které jsou na stejné síťi spuštěny a navázat s nimi komunikaci.</p>
-<p>ROS Topic - Doména, ve které se posílá specifický okruh ROS Messagů.</p>
-<p>ROS Message - Jedna instance odeslané zprávy. V rámci ROSu je možné posílat jenom zprávy, které jsou striktně zadefinovány a mají svůj jasně daný formát. Často obsahují také časovou značku, kdy byly odeslány.</p>
+<p><strong>ROS Node</strong> - Nodem je myšlený každý program do kterého přídáme klientskou knihovnu ROSu. Naučíme tedy program používat funkce ROSu. ROS Node je pak schopen &quot;automaticky&quot; objevit další instance (programy), které jsou spuštěny na stejné síťi a navázat s nimi komunikaci.</p>
+<p><strong>ROS Topic</strong> - Doména, ve které se posílá specifický okruh ROS Messagů.</p>
+<p><strong>ROS Message</strong> - Jedna instance odeslané zprávy. V rámci ROSu je možné posílat jenom zprávy, které jsou striktně zadefinovány a mají svůj jasně daný formát. Často obsahují také časovou značku, kdy byly odeslány.</p>
 <p>Dále si zadefinujme dva typy postavení ROS Nodů při komunikaci.</p>
-<p>Subscriber - ROS Node, který přijímá všechny zprávy v rámci daného ROS Topicu.</p>
-<p>Publisher - ROS Node, který vytváří a odesíla zprávy v rámci daného ROS Topicu.</p>
+<p><strong>Subscriber</strong> - ROS Node, který přijímá všechny zprávy v rámci daného ROS Topicu.</p>
+<p><strong>Publisher</strong> - ROS Node, který vytváří a odesíla zprávy v rámci daného ROS Topicu.</p>
 <p>Náš robot-sledující-čáru příklad si pak můžem ilustrovat takto:</p>
 <p><img src="../images/ros_com_scheme.png" alt="Rviz" /></p>
-<p>Napíšeme zmíněné 3 programy. Jeden pro čtení dat ze snímače, druhý pro rozhodování jak se pohybovat a třetí pro ovládání motorů. První program (Node) vystaví svůj topic &quot;SensorData&quot; jako publisher. Druhý se přihlásí k odebírání zpráv jako subscriber v témuž topicu. V tuto chvíli dojde k navázání spojení a všechny zprávy publikované na tomto topicu budou směrovány k subsriberovi. Když pak první program přečte data ze snímače, vyfiltruje je a vytvoří z nich message, který odešle. Obdobným způsobem se vymění data i mezi druhým a třetím programem, pouze pod hlavičkou jiného topicuu.</p>
+<p>Napíšeme zmíněné 3 programy. Jeden pro čtení dat ze snímače, druhý pro rozhodování jak se pohybovat a třetí pro ovládání motorů. První program (Node) vystaví svůj topic &quot;SensorData&quot; jako publisher. Druhý se přihlásí k odebírání zpráv jako subscriber v témuž topicu. V tuto chvíli dojde k navázání spojení a všechny zprávy publikované na tomto topicu budou směrovány k subsriberovi. Když pak první program přečte data ze snímače, vyfiltruje je a vytvoří z nich message, kterou odešle. Obdobným způsobem se vymění data i mezi druhým a třetím programem, pouze pod hlavičkou jiného topicuu.</p>
 <p>Nyní máme vytvořené všechny tři programy. Ty spolu komunikují, ale robot přesto nefunguje podle přestav. Tušíme, že chyba je v tom, jak druhý program převádí data ze snímače na pohyb kol. Proto si napíšeme 4. program, který bude poslouchat veškerou komunikaci a bude ji logovat do souboru. Náš nový program tedy bude subscriberem pro oba dříve zavedené topicy &quot;SensorData&quot; a &quot;MotorControl&quot;. V okamžiku kdy tento program zapneme, tak se ohlásí publisherům (Nodům, které data publikují) a od tohoto okamžiku všechny zprávy odeslané v topicích &quot;SensorData&quot; a &quot;MotorControl&quot; budou posílány také našemu logovacímu programu. Ten zprávy přijme a jejich obsah včetně časové značky vytiskne do souboru. Když se pak do souboru podíváme, zjistíme, že plánovací program vytváří akční zásah vždy s opačným znaménkem, proto přídáme &quot;-&quot; do výpočtu akčního zásahu a vše začne fungovat.</p>
 <h2 id="instalace-ros2"><a class="header" href="#instalace-ros2">Instalace ROS2</a></h2>
 <p>Tento návod je pouze českým přepisem oficiální dokumentace (Instalace pro Ubuntu)[https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html]. Primárně prosím používejte oficiální verzi. Tento návod je pouze doprovodný.</p>
@@ -179,7 +179,7 @@ echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/
 <pre><code>sudo apt update
 sudo apt upgrade
 </code></pre>
-<p>Samotný ROS nainstalujeme příkazem. Trvá cca 10 min.</p>
+<p>Samotný ROS nainstalujeme tímto příkazem. Trvá cca 10 min.</p>
 <pre><code>sudo apt install ros-humble-desktop
 </code></pre>
 <p>V neposlední řadě nainstalujeme build system zvalý colcon</p>
@@ -203,10 +203,10 @@ cd ros_ws/src
 <p>Dále si vygenerujeme nový balíček (package) - Nutno spouštět ve složce ~/ros_ws/src.</p>
 <pre><code>ros2 pkg create --build-type ament_cmake cpp_publisher
 </code></pre>
+<p>Příkaz nám říká, že budeme volat program pkg create a chceme po něm, aby nám vytvořil balíček cpp_publisher.</p>
 <p>Pokud se Vám stane, že předchozí příkaz neprojde z důvodu nedostatečných práv, vraťte se o složku zpět (cd ~/ros_ws) a upravte přístupová práva - pak zkuste balíček vytvořit znovu</p>
 <pre><code>sudo chmod 777 -R .
 </code></pre>
-<p>Příkaz nám říká, že budeme volat program pkg create a chceme po něm, aby nám vytvořil balíček cpp_publisher.</p>
 <p>Nyní se náš balíček skládá z několika následujícíh souborů</p>
 <pre><code>~/ros_ws/src/cpp_publisher/
     include/
@@ -322,7 +322,7 @@ colcon build
 <p>Abychom tuto akci již nemuseli opakovat přidáme si tento řádek také do ~/.bashrc</p>
 <pre><code>echo &quot;source ~/ros_ws/src/cpp_publisher/install/setup.bash&quot; &gt;&gt; ~/.bashrc
 </code></pre>
-<p>Nyní si otevřeme další terminál tak, abychom celkem měli 2 okna terminálu. V jednom spustíme námi vytvořený publisher</p>
+<p>Nyní si dvě okna terminálu. V jednom spustíme námi vytvořený publisher</p>
 <pre><code>ros2 run cpp_publisher publisher
 </code></pre>
 <p>A ve druhém si poslechneme zprávy na topicu /timestamp_topic</p>
@@ -332,283 +332,282 @@ colcon build
 <h3 id="python-node"><a class="header" href="#python-node">Python Node</a></h3>
 <p>Vytvoříme si další balíček pomocí</p>
 <pre><code>cd ~/ros_ws/src/
-catkin_create_pkg python_subscriber std_msgs rospy
+ros2 pkg create --build-type ament_python python_subscriber
 </code></pre>
 <p>a upravíme si strukturu balíčku tak, aby vypadala následovně.</p>
 <pre><code>~/ros_ws/src/python_subscriber/
-    bin/
+    python_subscriber/
+        __init__.py
         python_subscriber.py
-    include/
-    src/
+    resource/
+        ...
+    test/
+        ...
+    setup.cfg
     setup.py
-    CMakeLists.txt
     package.xml
 </code></pre>
-<p>Složka bin bude soužit k uložení hlavního skriptu python_subscriber.py, include a src pro další zdrojové kódy, které ale dneska nevyužijeme a CMakeLists.txt a package.xml obdobně jako pro C++ příklad. setup.py slouží k instalaci pythoniho balíčku do workspacu.</p>
+<p>Složka python_subscriber bude soužit k uložení hlavního skriptu python_subscriber.py. package.xml obdobně jako pro C++ příklad. setup.py a setup.cfg slouží k instalaci python balíčku do workspacu.</p>
 <p>Zmíněné soubory si pak upravíme následovně.</p>
-<pre><code>cmake_minimum_required(VERSION 2.8.3)
-project(python_subscriber)
-
-find_package(catkin REQUIRED COMPONENTS
-  rospy
-  std_msgs
-)
-
-catkin_package()
-
-catkin_python_setup()
-</code></pre>
-<p>dále</p>
 <pre><code>nano package.xml
 </code></pre>
 <pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;package format=&quot;2&quot;&gt;
+&lt;?xml-model href=&quot;http://download.ros.org/schema/package_format3.xsd&quot; schematypens=&quot;http://www.w3.org/2001/XMLSchema&quot;?&gt;
+&lt;package format=&quot;3&quot;&gt;
   &lt;name&gt;python_subscriber&lt;/name&gt;
   &lt;version&gt;0.0.0&lt;/version&gt;
-  &lt;description&gt;The python_subscriber package&lt;/description&gt;
-
-  &lt;maintainer email=&quot;my@email.todo&quot;&gt;adash&lt;/maintainer&gt;
-
+  &lt;description&gt;TODO&lt;/description&gt;
+  &lt;maintainer email=&quot;todo@todo.todo&quot;&gt;python_subscriber&lt;/maintainer&gt;
   &lt;license&gt;TODO&lt;/license&gt;
 
-  &lt;buildtool_depend&gt;catkin&lt;/buildtool_depend&gt;
-  &lt;build_depend&gt;rospy&lt;/build_depend&gt;
-  &lt;build_depend&gt;std_msgs&lt;/build_depend&gt;
-  &lt;build_export_depend&gt;rospy&lt;/build_export_depend&gt;
-  &lt;build_export_depend&gt;std_msgs&lt;/build_export_depend&gt;
-  &lt;exec_depend&gt;rospy&lt;/exec_depend&gt;
+  &lt;exec_depend&gt;rclpy&lt;/exec_depend&gt;
   &lt;exec_depend&gt;std_msgs&lt;/exec_depend&gt;
 
-  &lt;export&gt;
+  &lt;!-- These test dependencies are optional
+  Their purpose is to make sure that the code passes the linters --&gt;
+  &lt;test_depend&gt;ament_copyright&lt;/test_depend&gt;
+  &lt;test_depend&gt;ament_flake8&lt;/test_depend&gt;
+  &lt;test_depend&gt;ament_pep257&lt;/test_depend&gt;
+  &lt;test_depend&gt;python3-pytest&lt;/test_depend&gt;
 
+  &lt;export&gt;
+    &lt;build_type&gt;ament_python&lt;/build_type&gt;
   &lt;/export&gt;
 &lt;/package&gt;
 </code></pre>
 <p>pak</p>
 <pre><code>nano setup.py
 </code></pre>
-<pre><code>## ! DO NOT MANUALLY INVOKE THIS setup.py, USE CATKIN INSTEAD
+<pre><code>from setuptools import setup
 
-from distutils.core import setup
-from catkin_pkg.python_setup import generate_distutils_setup
+package_name = 'python_subscriber'
 
-# fetch values from package.xml
-setup_args = generate_distutils_setup(
-    packages=['python_subscriber'],
-    package_dir={'': 'src'},
+setup(
+    name=package_name,
+    version='0.0.0',
+    packages=[package_name],
+    data_files=[
+        ('share/ament_index/resource_index/packages',
+            ['resource/' + package_name]),
+        ('share/' + package_name, ['package.xml']),
+    ],
+    install_requires=['setuptools'],
+    zip_safe=True,
+    maintainer='TODO',
+    maintainer_email='todo@todo.todo',
+    description='TODO',
+    license='TODO',
+    tests_require=['pytest'],
+    entry_points={
+        'console_scripts': [
+                'python_subscriber = python_subscriber.python_subscriber:main',
+        ],
+    },
 )
-
-setup(**setup_args)
 </code></pre>
 <p>a finálně</p>
-<pre><code>nano python_subscriber.py
+<pre><code>nano python_subscriber/python_subscriber.py
 </code></pre>
-<pre><code>#!/usr/bin/env python
-import rospy
+<pre><code>import rclpy
+from rclpy.node import Node
+
 from std_msgs.msg import Header
 
-def callback(message):
 
-    now = rospy.Time.now()
-    delta_t = (now.secs - message.stamp.secs)*1000000000 + (now.nsecs - message.stamp.nsecs)
+class TimestampSubscriber(Node):
 
-    print('seq: ' + str(message.seq))
-    print('frame id: ' + message.frame_id)
-    print('send time: ' + str(message.stamp.secs) + '.' + str(message.stamp.nsecs).zfill(9) + 's')
-    print('receive time: ' + str(now.secs) + '.' + str(now.nsecs).zfill(9) + 's')
-    print('delay [ns]: ' + str(delta_t))
-    print(30*'*')
+    def __init__(self):
+        super().__init__('timestamp_subscriber')
+        self.subscription = self.create_subscription(
+            Header,
+            'timestamp_topic',
+            self.listener_callback,
+            10)
+        self.subscription  # prevent unused variable warning
 
-def listener():
+    def listener_callback(self, msg):
+        self.get_logger().info('I heard: &quot;%s&quot;' % msg.stamp.nanosec)
 
-    rospy.init_node('listener', anonymous=True)
 
-    rospy.Subscriber(&quot;/my_topic&quot;, Header, callback)
+def main(args=None):
+    rclpy.init(args=args)
 
-    # spin() simply keeps python from exiting until this node is stopped
-    rospy.spin()
+    timestamp_subscriber = TimestampSubscriber()
+
+    rclpy.spin(timestamp_subscriber)
+
+    # Destroy the node explicitly
+    # (optional - otherwise it will be done automatically
+    # when the garbage collector destroys the node object)
+    timestamp_subscriber.destroy_node()
+    rclpy.shutdown()
+
 
 if __name__ == '__main__':
-    listener()
+    main()
 </code></pre>
-<p>a přídáme souboru python_subscriber.py flag pro spouštění, aby bylo možné zapnout skript.</p>
-<pre><code>chmod +x ~/ros_ws/src/python_subscriber/bin/python_subscriber.py
-</code></pre>
-<p>Nyní se můžeme vrátit do kořene workspacu a vše ykompilovat.</p>
+<p>Nyní se můžeme vrátit do kořene workspacu a vše zkompilovat.</p>
 <pre><code>cd ~/ros_ws/
-catkin_make
+colcon build
 </code></pre>
 <p>Zaktualizujeme si proměné prostředí.</p>
-<pre><code>source ~/ros_ws/devel/setup.bash
+<pre><code>echo &quot;source ~/ros_ws/src/python_subscriber/install/setup.bash&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
 </code></pre>
-<p>Pokud máme aktivní roscore i cpp_publisher, pak zampene node pomocí</p>
-<pre><code>rosrun python_subscriber python_subscriber
+<p>Pokud máme aktivní cpp_publisher, pak zapnene python_subscriber node v dalším okně pomocí</p>
+<pre><code>ros2 run python_subscriber python_subscriber
 </code></pre>
 <p>a vidíme výpis přijímaných zpráv.</p>
 <p>Pomocí programu rqt_graph si můžeme prohlédnout aktuální stav propojení nodů.</p>
-<pre><code>rosrun rqt_graph rqt_graph
+<pre><code>ros2 run rqt_graph rqt_graph
 </code></pre>
 <p><img src="../images/rqt_graph.png" alt="rqt_graph" /></p>
 <p>Obr: vizualizace komunikace mezi nody pomocí rqt_graph</p>
 <h2 id="rviz"><a class="header" href="#rviz">Rviz</a></h2>
 <p>Rviz je vizualizační nástroj, který je dodáván jako součást ROSu. Jedná se o aplikaci, která dokáže poslouchat širokou paletu předdefinovaných ROS zpráv a vizualizovat je v 3D grafickém prostředí.</p>
-<p>Obvzkle Rviz používáme pro vizualizaci pointcloudů (mrařna bodů z LIDARu), obrázků z kamery, vykreslování geometrických primitiv v prostoru, vizualizace occupancy grid map, atd.</p>
-<p>Pokud nám již běži roscore, rviz aktivujeme pomocí</p>
-<pre><code>rosrun rviz rviz
+<p>Obvykle Rviz používáme pro vizualizaci pointcloudů (mračna bodů z LIDARu), obrázků z kamery, vykreslování geometrických primitiv v prostoru, vizualizace occupancy grid map, atd.</p>
+<p>Rviz aktivujeme pomocí</p>
+<pre><code>rviz2
 </code></pre>
-<p>Vizualizaci konkrétního topicku pak aktivujeme pomocí</p>
-<p>Add -&gt; By topic -&gt; [náš topick]</p>
+<p>Vizualizaci konkrétního topicu pak aktivujeme pomocí</p>
+<p>Add -&gt; By topic -&gt; [náš topic]</p>
 <p>V sekci</p>
 <p>Add -&gt; By display type</p>
 <p>vidíme všechny podporované typy zpráv (viz online dokumentace ROSu).</p>
 <p><img src="../images/rviz.png" alt="rqt_graph" />
 Obr: příklad vizualizace pointcloudu a kamery v Rvizu</p>
-<p>Nyní si skusme vytvořit vlastní Node, který bude vykreslovat geometrické primitivum do RVizu. Vyjděme z příkladu cpp_ros_publishera a vytvořné následujicí program.</p>
+<p>Nyní si zkusme vytvořit vlastní Node, který bude vykreslovat geometrické primitivum do RVizu. Vyjděme z příkladu cpp_publisher a vytvoříme následujicí program.</p>
 <pre><code>cd ~/ros_ws/src
-catkin_create_pkg cpp_rviz_publisher std_msgs visualization_msgs roscpp
+ros2 pkg create --build-type ament_cmake cpp_rviz_publisher
 </code></pre>
 <p>CMakeLists.txt</p>
-<pre><code>cmake_minimum_required(VERSION 2.8.3)
+<pre><code>cmake_minimum_required(VERSION 3.8)
 project(cpp_rviz_publisher)
 
+## Set CMAKE standard and flags
+SET(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} -std=c++17&quot;)
+set(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic&quot;)
+set(CMAKE_CXX_FLAGS_DEBUG &quot; ${CMAKE_CXX_FLAGS_DEBUG} -g&quot;)
+set(CMAKE_CXX_FLAGS_RELEASE &quot;${CMAKE_CXX_FLAGS_RELEASE} -O3&quot;)
+
 ## Find catkin and any catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs visualization_msgs)
-
-
-## Declare a catkin package
-catkin_package()
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 
 ## Build talker and listener
-include_directories(include ${catkin_INCLUDE_DIRS})
+include_directories(
+        include
+        ${rclcpp_INCLUDE_DIRS}
+        ${std_msgs_INCLUDE_DIRS}
+        ${visualization_msgs_INCLUDE_DIRS}
+        )
 
-add_executable(cpp_rviz_publisher src/main.cpp)
-target_link_libraries(cpp_rviz_publisher ${catkin_LIBRARIES})
+add_executable(rviz_publisher src/main.cpp)
+ament_target_dependencies(rviz_publisher rclcpp std_msgs visualization_msgs)
+
+install(TARGETS rviz_publisher DESTINATION lib/${PROJECT_NAME})
+
+ament_package()
 </code></pre>
 <p>package.xml</p>
 <pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;package format=&quot;2&quot;&gt;
+&lt;?xml-model href=&quot;http://download.ros.org/schema/package_format3.xsd&quot; schematypens=&quot;http://www.w3.org/2001/XMLSchema&quot;?&gt;
+&lt;package format=&quot;3&quot;&gt;
   &lt;name&gt;cpp_rviz_publisher&lt;/name&gt;
   &lt;version&gt;0.0.0&lt;/version&gt;
   &lt;description&gt;The cpp_rviz_publisher package&lt;/description&gt;
 
-  &lt;maintainer email=&quot;my@email.todo&quot;&gt;adash&lt;/maintainer&gt;
+  &lt;maintainer email=&quot;my@email.todo&quot;&gt;cpp_rviz_publisher&lt;/maintainer&gt;
 
   &lt;license&gt;TODO&lt;/license&gt;
 
-  &lt;buildtool_depend&gt;catkin&lt;/buildtool_depend&gt;
-  &lt;build_depend&gt;roscpp&lt;/build_depend&gt;
-  &lt;build_depend&gt;std_msgs&lt;/build_depend&gt;
-  &lt;build_depend&gt;visualization_msgs&lt;/build_depend&gt;
-  &lt;build_export_depend&gt;roscpp&lt;/build_export_depend&gt;
-  &lt;build_export_depend&gt;std_msgs&lt;/build_export_depend&gt;
-  &lt;build_export_depend&gt;visualization_msgs&lt;/build_export_depend&gt;
-  &lt;exec_depend&gt;roscpp&lt;/exec_depend&gt;
-  &lt;exec_depend&gt;std_msgs&lt;/exec_depend&gt;
-  &lt;exec_depend&gt;visualization_msgs&lt;/exec_depend&gt;
-
+  &lt;buildtool_depend&gt;ament_cmake&lt;/buildtool_depend&gt;
+  &lt;depend&gt;rclcpp&lt;/depend&gt;
+  &lt;depend&gt;std_msgs&lt;/depend&gt;
+  &lt;depend&gt;visualization_msgs&lt;/depend&gt;
+  
   &lt;export&gt;
-
+    &lt;build_type&gt;ament_cmake&lt;/build_type&gt;
   &lt;/export&gt;
 &lt;/package&gt;
 </code></pre>
 <p>src/main.cpp</p>
-<pre><code>#include &lt;sstream&gt;
-#include &lt;ros/ros.h&gt;
-#include &lt;visualization_msgs/Marker.h&gt;
+<pre><code>#include &quot;rclcpp/rclcpp.hpp&quot;
+#include &lt;visualization_msgs/msg/marker.hpp&gt;
 
-visualization_msgs::Marker createCuteCube(float pose) {
+class CubePublisher : public rclcpp::Node {
+public:
+        CubePublisher(): Node(&quot;cube_publisher&quot;) {
+                publisher_ = this-&gt;create_publisher&lt;visualization_msgs::msg::Marker&gt;(&quot;cube_topic&quot;, 10);
+                using namespace std::chrono_literals;
+                timer_ = this-&gt;create_wall_timer(100ms, std::bind(&amp;CubePublisher::timer_callback, this));
+        }
 
-    visualization_msgs::Marker marker;
-    marker.header.frame_id = &quot;map&quot;;
-    marker.header.stamp = ros::Time();
-    marker.ns = &quot;cube&quot;;
+private:
+        void timer_callback() {
+                auto marker = visualization_msgs::msg::Marker();
+                marker.header.frame_id = &quot;map&quot;;
+                marker.header.stamp = this-&gt;get_clock()-&gt;now();
+                marker.ns = &quot;cube&quot;;
 
-    marker.id = 0;
-    marker.type = visualization_msgs::Marker::CUBE;
-    marker.action = visualization_msgs::Marker::ADD;
+                marker.id = 0;
+                marker.type = visualization_msgs::msg::Marker::CUBE;
+                marker.action = visualization_msgs::msg::Marker::ADD;
 
-    marker.pose.position.x = sin(pose);
-    marker.pose.position.y = cos(pose);
-    marker.pose.position.z = 0.1*sin(5*pose);
+                marker.pose.position.x = sin(pose_);
+                marker.pose.position.y = cos(pose_);
+                marker.pose.position.z = 0.1*sin(5*pose_);
 
-    marker.pose.orientation.x = 0.0;
-    marker.pose.orientation.y = 0.0;
-    marker.pose.orientation.z = 0.0;
-    marker.pose.orientation.w = 1.0;
+                marker.pose.orientation.x = 0.0;
+                marker.pose.orientation.y = 0.0;
+                marker.pose.orientation.z = 0.0;
+                marker.pose.orientation.w = 1.0;
 
-    marker.scale.x = 0.1;
-    marker.scale.y = 0.1;
-    marker.scale.z = 0.1;
+                marker.scale.x = 0.1;
+                marker.scale.y = 0.1;
+                marker.scale.z = 0.1;
 
-    marker.color.a = 1.0;
-    marker.color.r = 0.0;
-    marker.color.g = 1.0;
-    marker.color.b = 0.0;
+                marker.color.a = 1.0;
+                marker.color.r = 0.0;
+                marker.color.g = 1.0;
+                marker.color.b = 0.0;
 
-    return marker;
-}
+                pose_ += 0.01;
 
+                publisher_-&gt;publish(marker);
+        }
+
+        rclcpp::TimerBase::SharedPtr timer_;
+        rclcpp::Publisher&lt;visualization_msgs::msg::Marker&gt;::SharedPtr publisher_;
+        float pose_ = 0;
+};
 
 int main(int argc, char **argv) {
+        rclcpp::init(argc, argv);
+        rclcpp::spin(std::make_shared&lt;CubePublisher&gt;());
+        rclcpp::shutdown();
 
-    ros::init(argc, argv, &quot;cpp_rviz_publisher&quot;);
-    ros::NodeHandle n;
-
-    ros::Publisher vis_pub = n.advertise&lt;visualization_msgs::Marker&gt;( &quot;/cute_cube&quot;, 0 );
-    ros::Rate loop_rate(100);
-
-    float pose = 0;
-    while (ros::ok()) {
-        visualization_msgs::Marker cube = createCuteCube(pose);
-        vis_pub.publish( cube );
-        pose += 0.01;
-
-        ros::spinOnce();
-        loop_rate.sleep();
-    }
-
-    return 0;
+        return 0;
 }
 </code></pre>
-<p>V Rvizu si pak otevřeme topic /cute_cube .</p>
-<h2 id="distribuovaný-ros"><a class="header" href="#distribuovaný-ros">Distribuovaný ROS</a></h2>
-<p>Tím, že calý backend ROS-ové komunikace je postaven na IP komunikaci (UDP protokolu), je možné snadno komunikaci mezi Nody přenést i na jiné počítače v dostupné síti. Po nainstalování je ROS nakonfigurován tak, že veškerá komunikace s Corem probíha na adrese http://localhost:11311, a Nody si bindují dostupné volné UDP porty a skrze něj komunikují mezi sebou. Pokud ale nastavíme na lokálním stroji proměnnou ROS_MASTER_URI na jinou IP adresu, bude každý nově nastartovaný Node hledat svůj ROS Core na adrese uvedené v ROS_MASTER_URI.</p>
-<p>Spojme si 2 počitáče skrze IP síť a ověřme, že na seba navzájem vidí příkazem PING.</p>
-<pre><code>ping xxx.yyy.zzz.qqq
-</code></pre>
-<p>Pokud oba počítače na sebe navzájem vidí, můžeme na počítači, kde chceme provozovat ROS Core nastavit proměnné, a aktivovat Core.</p>
-<pre><code>export ROS_MASTER_URI=http://localhost:11311
-export ROS_IP=&lt;ip_adresa_pocitace&gt;
-roscore
-</code></pre>
-<p>Na 2. počítači, kde poběží nody musíme nastavit prostředí tak aby dokázalo najít ROS Core v síti.</p>
-<pre><code>export ROS_MASTER_URI=http://&lt;ip_adresa_coru&gt;:&lt;port_coru&gt;
-export ROS_IP=&lt;ip_adresa_pocitace&gt;
-</code></pre>
-<p>Ověřit nastavení proměnných můžeme příkazy</p>
-<pre><code>echo $ROS_MASTER_URI
-echo $ROS_IP
-</code></pre>
-<p>Nyní, pokud aktivujeme publisher a subscriber na libovolném počítači v takto nastavené ROS síti, budou nody spolu komunikovat.</p>
-<p><img src="../images/ros_distributed.png" alt="rqt_graph" />
-Obr: příklad konfigurace ROSu na dvou počítačích.</p>
+<p>V Rvizu si pak otevřeme topic /cube topic.</p>
 <h2 id="kam-dál"><a class="header" href="#kam-dál">Kam dál?</a></h2>
 <p>Tento tutoriál je popisuje pouze malý zlomek všech možných funkcionalit této obšírné platformy.</p>
-<p>Oficiální web [1] - http://www.ros.org/</p>
-<p>Oficiální tutoriály [2] - http://wiki.ros.org/ROS/Tutorials</p>
+<p>Oficiální web [1] - <a href="https://ros.org/">http://www.ros.org/</a></p>
+<p>Oficiální tutoriály [2] - <a href="http://docs.ros.org/en/humble/index.html">http://wiki.ros.org/ROS/Tutorials</a></p>
 <p>Naučit se používat ROS Services [6]</p>
-<p>Seznamy několika předdefinovaných ROS Messagů - [4] [5]</p>
-<p>Pro zdatné ROSáky je možnost se posunout na další kvalitativní level, a totiž ROS 2 [3]. Druhá verze robotického operačního systému je již koncipováná jako real-time middleware s podporou QoS a širokou paletou služeb, které ocení zejména vývojáři sofistikovaných robotických řešení, na která bude kladeny řádově vyžší kvalitativní nároky.</p>
-<p>Pro reálnou práci se zdrojovými kódy je vhodné použít nějaké IDE. V případě Linuxu vřele doporučuji programy od  JetBrains, CLion pro vývoj C++ a Pycharm pro práci s pythonem. Oba programy jsou pro studenty VUT zdarma.</p>
+<p>Seznamy několika předdefinovaných ROS Messagů - [3] [4]</p>
+<p>Pro reálnou práci se zdrojovými kódy je vhodné použít nějaké IDE. V případě Linuxu vřele doporučuji programy od JetBrains, CLion pro vývoj C++ a Pycharm pro práci s pythonem. Oba programy jsou pro studenty VUT zdarma.</p>
 <h2 id="reference"><a class="header" href="#reference">Reference</a></h2>
-<p>[1] http://www.ros.org/</p>
-<p>[2] http://wiki.ros.org/ROS/Tutorials</p>
-<p>[3] https://github.com/ros2/ros2/wiki</p>
-<p>[4] http://wiki.ros.org/std_msgs</p>
-<p>[5] http://wiki.ros.org/sensor_msgs</p>
-<p>[6] http://wiki.ros.org/Services</p>
-<p>[7] https://www.computerhope.com/unix/uchmod.htm</p>
-<p>[8] http://wiki.ros.org/ROS/Installation</p>
+<p>[1] <a href="https://ros.org/">http://www.ros.org/</a></p>
+<p>[2] <a href="http://docs.ros.org/en/humble/index.html">http://wiki.ros.org/ROS/Tutorials</a></p>
+<p>[3] <a href="https://docs.ros2.org/galactic/api/std_msgs/index-msg.html">http://wiki.ros.org/std_msgs</a></p>
+<p>[4] <a href="https://docs.ros2.org/foxy/api/sensor_msgs/index-msg.html">http://wiki.ros.org/sensor_msgs</a></p>
+<p>[6] <a href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Services/Understanding-ROS2-Services.html">http://wiki.ros.org/Services</a></p>
+<p>[7] <a href="https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html">http://wiki.ros.org/ROS/Installation</a></p>
 
                     </main>
 
