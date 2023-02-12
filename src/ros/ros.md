@@ -1,25 +1,22 @@
-# Robotic Operating System
+# Robotic Operating System 2
 
-Název "Robot Operating System" poněkud klame svým zněním. Nejedná se o samostaný operační sýstém, nýbrž spíše o middle-ware, tedy softwarový nástroj (knihovnu), který pomáha propojit dílčí programy do komplexnejšího celku. V praxi si to můžem představit tak, že máme jednoduchou aplikaci pro robota jezdícího po čáre, kterou realizujeme pomoci 3 navzájem spolupracujících programů (příklad funguje jako ilustrační; takového robota samozřejmě můžeme naprogramovat pomocí jednoho programu; ilustrujeme tím ale komplexnější problém). První program vyčítá data ze snímače a provádí jednoduchou filtraci dat. Druhý program je mozkem celého řešení a rozhoduje o pohybu robota. Třetí program pak přijímá řídicí pokyny a na jejich základě ovládá motory.
+Název "Robot Operating System" poněkud klame svým zněním. Nejedná se o samostaný operační sýstém, nýbrž spíše o middle-ware, tedy softwarový nástroj (knihovnu), který pomáha propojit dílčí programy do komplexnejšího celku. V praxi si to můžeme představit tak, že máme jednoduchou aplikaci pro robotu jezdícího po čáre, kterou realizujeme pomocí 3 navzájem spolupracujících programů (příklad funguje jako ilustrační; takový robot samozřejmě můžeme naprogramovat pomocí jednoho programu; ilustrujeme tím ale komplexnější problém). První program vyčítá data ze snímače a provádí jednoduchou filtraci dat. Druhý program je mozkem celého řešení a rozhoduje o pohybu robotu. Třetí program pak přijímá řídicí pokyny a na jejich základě ovládá motory.
 
 ![Rviz](../images/robot_scheme.png)
 
-Obr: Schéma fungování pomyslého line-tracking robota na platformě Rapserry Pi s pouřitím ROSu.
+Obr: Schéma fungování pomyslého line-tracking robotu na platformě Rasperry Pi s použitím ROSu.
 
-V případě absence ROSu bychom museli vymyslet způsob jak tyto tři programy spolu budou komunikovat. Mohli bychom sdílet paměť, pipovat, posílat si IP zprávy, používat DBus, etc. Všechny tyto techniky fungují, ale vyžadují určitý programátorský um. My se těmito nízkouúrovňovými problémy nechceme zabývat a proto použijeme ROS.
+V případě absence ROSu bychom museli vymyslet způsob jak spolu budou tyto tři programy komunikovat. Mohli bychom sdílet paměť, pipovat, posílat si IP zprávy, používat DBus, etc. Všechny tyto techniky fungují, ale vyžadují určitý programátorský um. My se těmito nízkouúrovňovými problémy nechceme zabývat a proto použijeme ROS.
 
 V praxi si pak můžeme říct, že ROS komunikuje mezi procesy právě pomocí posílání UDP paketů. To umožňuje také komunikovat procesům, které běží na různých počítačích. Tomu říkáme distribuovaný systém.
 
-Celý ROS je postaven na 4 stavebních kamenech.
+Základ ROSu je postaven na 3 stavebních kamenech.
 
- - ROS Core
  - ROS Node
  - ROS Topic
  - ROS Message
 
-ROS Core - Zjednodušeně řečeno se jedná o IP server, který zajištujě propojení programů (Nodů), které si chtějí vyměnovat data (Message) . Core nativně otevře port 11311 na localhostu a čeká na příchozí komunikaci.
-
-ROS Node - Nodem je myšlený každý program do kterého přídáme klinetskou knihovnu ROSu. Naučíme tedy program používat funkce ROSu.
+ROS Node - Nodem je myšlený každý program do kterého přídáme klientskou knihovnu ROSu. Naučíme tedy program používat funkce ROSu. ROS Node je pak schopen "automaticky" objevit další instance (programy), které jsou na stejné síťi spuštěny a navázat s nimi komunikaci.
 
 ROS Topic - Doména, ve které se posílá specifický okruh ROS Messagů.
 
@@ -27,84 +24,94 @@ ROS Message - Jedna instance odeslané zprávy. V rámci ROSu je možné posíla
 
 Dále si zadefinujme dva typy postavení ROS Nodů při komunikaci.
 
-Subscriber - ROS Node, který přijímá všechny zprávy v rámci daného ROS Topicku.
+Subscriber - ROS Node, který přijímá všechny zprávy v rámci daného ROS Topicu.
 
-Publisher - ROS Node, který vytváří a odesíla zprávy v rámci daného ROS Topicku.
+Publisher - ROS Node, který vytváří a odesíla zprávy v rámci daného ROS Topicu.
 
 Náš robot-sledující-čáru příklad si pak můžem ilustrovat takto:
 
 
 ![Rviz](../images/ros_com_scheme.png)
 
-Nejprve zapneme ROS Core, tedy server, který začte poslouchat příchozí komunikaci. Dále si napíšeme zmíněne 3 programy. Jeden pro čtení dat ze snímače, druhý pro rozhodování, jak se pohybovat a třetí pro ovládání motorů. První program (Node) se přihlásí k serveru, jako publisher pro topick "SensorData". Druhý se přihlásí serveru, jako subscriber v tomtéž topicku. Server si tyto dva nody poznamená a publisherovi odešle informaci, že je v sídi na dané adrese a portu připravený subscriber, který si vyžádal data z topicku, který oba nody sdílí. Když pak první program přečte data ze snímače, vyfiltruje je a vytvoří z nich message, kterou pošle na dříve obdrženou adresu a port, aby data obdržel subscriber. Obdobným způsobem se vymění data i mezi druhým a třetím programem, pouze pod hlavičkou jiného topicku.
+Napíšeme zmíněné 3 programy. Jeden pro čtení dat ze snímače, druhý pro rozhodování jak se pohybovat a třetí pro ovládání motorů. První program (Node) vystaví svůj topic "SensorData" jako publisher. Druhý se přihlásí k odebírání zpráv jako subscriber v témuž topicu. V tuto chvíli dojde k navázání spojení a všechny zprávy publikované na tomto topicu budou směrovány k subsriberovi. Když pak první program přečte data ze snímače, vyfiltruje je a vytvoří z nich message, který odešle. Obdobným způsobem se vymění data i mezi druhým a třetím programem, pouze pod hlavičkou jiného topicuu.
 
 
-Nyní máme vytvořené všechny tři programy. Ty spolu komunikují, ale robot přesto nefunguje podle přestav. Tušíme, že chyba je v tom, jak druhý program převádí data ze snímače na pohyb kol. Proto si napíšeme 4. program, který bude poslouchat veškerou komunikaci a bude ji logovat do souboru. Náš nový program tedy bude subscriberem pro oba dříve zavedené topicky "SensorData" a "MotorControl". V okamžiku kdy tento program zapneme, tak se ohlásí serveru a od tohoto okamžiku všechny zprávy odeslané v topicích "SensorData" a "MotorControl" budo poslány také našemu logovcímu programu. Ten zprávy přijíme a jejich obsach včetně časové značky vytiskne do souboru. Když se pak do souboru podíváme, zjistíme, že plánovací program vatváří akční zásah vždy s opačným znaménkem, proto přídáme "-" do výpočtu akčního zásahu a vše začne fungovat.
-
-## Instalace ROS
-
-Instalaci ROSu na nově nainstalovaný Linux proveďte pomocí návodu popsaného v kiapitole [Robotic Operating System](ros.md).
+Nyní máme vytvořené všechny tři programy. Ty spolu komunikují, ale robot přesto nefunguje podle přestav. Tušíme, že chyba je v tom, jak druhý program převádí data ze snímače na pohyb kol. Proto si napíšeme 4. program, který bude poslouchat veškerou komunikaci a bude ji logovat do souboru. Náš nový program tedy bude subscriberem pro oba dříve zavedené topicy "SensorData" a "MotorControl". V okamžiku kdy tento program zapneme, tak se ohlásí publisherům (Nodům, které data publikují) a od tohoto okamžiku všechny zprávy odeslané v topicích "SensorData" a "MotorControl" budou posílány také našemu logovacímu programu. Ten zprávy přijme a jejich obsah včetně časové značky vytiskne do souboru. Když se pak do souboru podíváme, zjistíme, že plánovací program vytváří akční zásah vždy s opačným znaménkem, proto přídáme "-" do výpočtu akčního zásahu a vše začne fungovat.
 
 
-## Instalace ROSu
+## Instalace ROS2
 
-Tento návod je pouze českým přepisem oficiální dokumentace (Instalace pro Ubuntu)[http://wiki.ros.org/noetic/Installation/Ubuntu]. Prim8rn2 prosím používejte oficiální verzi. Tento návod je pouze doprovodný.
+Tento návod je pouze českým přepisem oficiální dokumentace (Instalace pro Ubuntu)[https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html]. Primárně prosím používejte oficiální verzi. Tento návod je pouze doprovodný.
 
-Instalace je doporučená na distribuci Ubuntu 20.04 LTS (long term stable). Instalovat budeme verzi ROSu z roku 2020, Noetic.
+Instalace je doporučená na distribuci Ubuntu 22.04 LTS (long term stable). Instalovat budeme verzi ROSu z roku 2022, Humble.
+
+Povolíme přístup do Ubuntu Universe repository
+```
+sudo apt install software-properties-common
+sudo add-apt-repository universe
+```
 
 Přidáme do Linuxu repozitáře (servery) ze kterých je možné stáhnout ROS.
-
 ```
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-```
-
-Přidáme do systému klíč pro zabezpečenou komunikace s repozitářem.
-```
-sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+sudo apt update && sudo apt install curl
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 ```
 
 Necháme baličkovací systém načíst nově přidaná data.
 ```
 sudo apt update
+sudo apt upgrade
 ```
 
 Samotný ROS nainstalujeme příkazem. Trvá cca 10 min.
 ```
-sudo apt install ros-noetic-desktop-full
+sudo apt install ros-humble-desktop
 ```
 
-A na závěr si do souboru ~/.bashrc přídáme záznam o náčítání ROSu do proměnného prostředí, kdykoliv zapneme terminál.
+V neposlední řadě nainstalujeme build system zvalý colcon
 ```
-echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+sudo apt install python3-colcon-common-extensions
+```
+
+A na závěr si do souboru ~/.bashrc přídáme záznam o načítání ROSu do proměnného prostředí, kdykoliv zapneme terminál.
+```
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 source ~/.bashrc
+```
+
+ROS je nyní nainstalován. Pokud vše proběhlo v pořádku, jste nyní schopni provést příkaz 
+```
+ros2
 ```
 
 ## Tvorba vlastního nodu
 
-Vytvoříme si jednoduchou aplikaci, kte jeden node bude odesílat zprávu s pořadovým číslem a časovou značkou a druhý node zprávu přijíme, vypíše a zjisti, s jakým zpožděním zpráva došla.
+Vytvoříme si jednoduchou aplikaci, kde jeden node bude odesílat zprávu s pořadovým číslem a časovou značkou a druhý node zprávu přijme, vypíše a zjistí, s jakým zpožděním zpráva došla.
 
-Nejprve si vytvoříme tzv workspace pro náš projekt. Workspacem se myslí speciálně uspořádaná složka.
+Nejprve si vytvoříme tzv. workspace pro náš projekt. Workspacem se myslí speciálně uspořádaná složka.
 
 ```
 cd ~/
-mkdir ros_ws
-cd ros_ws
-mkdir src
-cd src
+mkdir -p ros_ws/src
+cd ros_ws/src
 ```
 
 ### C++ Node
 
-Dále si pomocí catkinu (balíčkovací nástroj pro ROS) necháme vztgenerovat nový balíček (package).
-
+Dále si vygenerujeme nový balíček (package) - Nutno spouštět ve složce ~/ros_ws/src.
 ```
-catkin_create_pkg cpp_publisher std_msgs roscpp
+ros2 pkg create --build-type ament_cmake cpp_publisher
 ```
 
-Příkaz nám říká, že budeme volat program catkin_create_pkg a chceme po něm, aby nám vytvořil balíček cpp_publisher a připojil k němu knihovny std_msgs, která obsahuje základní sadu ROS zpráv a taktéž knihovnu roscpp, což je základní knihovana pro implementaci ROS Nodu v C++.
+Pokud se Vám stane, že předchozí příkaz neprojde z důvodu nedostatečných práv, vraťte se o složku zpět (cd ~/ros_ws) a upravte přístupová práva - pak zkuste balíček vytvořit znovu
+```
+sudo chmod 777 -R .
+```
+
+Příkaz nám říká, že budeme volat program pkg create a chceme po něm, aby nám vytvořil balíček cpp_publisher.
 
 Nyní se náš balíček skládá z několika následujícíh souborů
-
 ```
 ~/ros_ws/src/cpp_publisher/
     include/
@@ -116,143 +123,142 @@ Nyní se náš balíček skládá z několika následujícíh souborů
 Do adresářů include a src budeme ukládat naše zdrojové kódy a soubory CMakeLists.txt a package.xml slouží ke kompilaci balíčku.
 
 CMakeLists.txt a package.xml obsahují velké množství předpřipravených direktiv, které slouží složitějším příkladům. Pro naše potřeby si můžeme tyto dva soubory smazat.
-
 ```
 cd ~/ros_ws/src/cpp_publisher/
 rm CMakeLists.txt
 rm package.xml
 ```
 
-Pomocí programu nano, nebo vim si oba soubory znovu vytvoříme tak a přidáme následující obsah.
-
-
+Pomocí programu nano nebo vim si oba soubory znovu vytvoříme a přidáme následující obsah.
 ```
 nano CMakeLists.txt
 ```
 
 ```
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.8)
 project(cpp_publisher)
 
+## Set CMAKE standard and flags
+SET(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
+set(CMAKE_CXX_FLAGS_DEBUG " ${CMAKE_CXX_FLAGS_DEBUG} -g")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+
 ## Find catkin and any catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs)
-
-
-## Declare a catkin package
-catkin_package()
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
 
 ## Build talker and listener
-include_directories(include ${catkin_INCLUDE_DIRS})
+include_directories(
+        include
+        ${rclcpp_INCLUDE_DIRS}
+        ${std_msgs_INCLUDE_DIRS}
+        )
 
-add_executable(cpp_publisher src/main.cpp)
-target_link_libraries(cpp_publisher ${catkin_LIBRARIES})
+add_executable(publisher src/main.cpp)
+ament_target_dependencies(publisher rclcpp std_msgs)
+
+install(TARGETS publisher DESTINATION lib/${PROJECT_NAME})
+
+ament_package()
 ```
 
 a
-
 ```
 nano package.xml
 ```
 
 ```
 <?xml version="1.0"?>
-<package format="2">
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>cpp_publisher</name>
   <version>0.0.0</version>
   <description>The cpp_publisher package</description>
 
-  <maintainer email="my@email.todo">adash</maintainer>
+  <maintainer email="my@email.todo">cpp_publisher</maintainer>
 
   <license>TODO</license>
 
-  <buildtool_depend>catkin</buildtool_depend>
-  <build_depend>roscpp</build_depend>
-  <build_depend>std_msgs</build_depend>
-  <build_export_depend>roscpp</build_export_depend>
-  <build_export_depend>std_msgs</build_export_depend>
-  <exec_depend>roscpp</exec_depend>
-  <exec_depend>std_msgs</exec_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
 
   <export>
-
+    <build_type>ament_cmake</build_type>
   </export>
 </package>
 ```
 
 Nyní si můžeme vytvořit soubor main.cpp ve složce src a do něj napíšeme vlastní program
-
 ```
 nano src/main.cpp
 ```
 
 ```
-#include <sstream>
+#include "rclcpp/rclcpp.hpp"
+#include <std_msgs/msg/header.hpp>
 
-#include "ros/ros.h"
-#include "std_msgs/Header.h"
+class TimestampPublisher : public rclcpp::Node {
+public:
+        TimestampPublisher(): Node("timestamp_publisher") {
+                publisher_ = this->create_publisher<std_msgs::msg::Header>("timestamp_topic", 10);
+                using namespace std::chrono_literals;
+                timer_ = this->create_wall_timer(10ms, std::bind(&TimestampPublisher::timer_callback, this));
+        }
+
+private:
+        void timer_callback() {
+                auto message = std_msgs::msg::Header();
+
+                message.stamp = this->get_clock()->now();
+                message.frame_id = "origin";
+
+                publisher_->publish(message);
+        }
+
+        rclcpp::TimerBase::SharedPtr timer_;
+        rclcpp::Publisher<std_msgs::msg::Header>::SharedPtr publisher_;
+};
 
 int main(int argc, char **argv) {
-    ros::init(argc, argv, "cpp_publisher");
-    ros::NodeHandle n;
-
-    ros::Publisher publisher = n.advertise<std_msgs::Header>("/my_topic", 1);
-    ros::Rate loop_rate(10);
-
-    int count = 0;
-    while (ros::ok()) {
-
-        std_msgs::Header msg;
-        msg.stamp = ros::Time::now();
-        msg.seq = count++;
-        msg.frame_id = "origin";
-
-        publisher.publish(msg);
-
-        ros::spinOnce();
-        loop_rate.sleep();
-    }
-
-    return 0;
+        rclcpp::init(argc, argv);
+        rclcpp::spin(std::make_shared<TimestampPublisher>());
+        rclcpp::shutdown();
+        
+        return 0;
 }
 ```
 
 Nyní se vrátíme do kořene našeho workspacu a zavoláme příkaz pro build celého workspacu.
-
 ```
 cd ~/ros_ws
-catkin_make
+colcon build
 ```
 
-Pokud se nevypíše žádná chyba, máme hotový publisher, který je uložený v  ~/ros_ws/devel/lib/cpp_publisher.
+Pokud se nevypíše žádná chyba, máme hotový publisher, který je uložený v  ~/ros_ws/src/cpp_publisher/install.
 
 Aby si Linux načetl nově zkompilované programy z našeho ros_ws přidámi si tento workspace do systémového prostředí (environmentu).
-
 ```
-source ~/ros_ws/devel/setup.bash
+source ~/ros_ws/src/cpp_publisher/install/setup.bash
 ```
 
 Abychom tuto akci již nemuseli opakovat přidáme si tento řádek také do ~/.bashrc
-
 ```
-echo "source ~/ros_ws/devel/setup.bash" >> ~/.bashrc
-```
-
-Nyní si otevřeme další 2 terminály tak, abychom celkem měli 3 okna terminálu. V jednom aktivujeme roscore
-
-```
-roscore
+echo "source ~/ros_ws/src/cpp_publisher/install/setup.bash" >> ~/.bashrc
 ```
 
-Ve druhém námi vytvořený publisher.
+Nyní si otevřeme další terminál tak, abychom celkem měli 2 okna terminálu. V jednom spustíme námi vytvořený publisher
+```
+ros2 run cpp_publisher publisher
+```
+
+A ve druhém si poslechneme zprávy na topicu /timestamp_topic
 
 ```
-rosrun cpp_publisher cpp_publisher
-```
-
-A ve třetím si poslechneme zprávy na topicku /my_topic
-
-```
-rostopic echo /my_topic
+ros2 topic echo /timestamp_topic
 ```
 
 Pokud vidíte v terminále výpis zpráv, vše pracuje, jak má.
