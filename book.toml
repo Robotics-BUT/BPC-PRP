@@ -1,6 +1,6 @@
 [book]
-authors = ["Matous Hybl"]
+authors = ["Adam Ligocki"]
 language = "en"
 multilingual = false
 src = "src"
-title = "BPC-PRP"
+title = "BPC-PRP - Practical Robotics and Computer Vision"

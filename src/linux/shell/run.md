@@ -1,1 +1,0 @@
-### Spuštění příkazového řádku

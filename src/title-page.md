@@ -1,19 +1,7 @@
-# Praktická robotika a zpracování obrazu (BPC-PRP) online skripta
+# Practical Robotics and Computer Vision (BPC-PRP)
 
-Tento text představuje online skripta předmětu BPC-PRP - povinného předmětu 3. rocniku bakalářského studijního oboru Automatizační a měřicí technika na Fakultě elektrotechniky a komunikačních technologií Vysokého Učení Technického v Brně.
+## Authors
 
-Skripta rovněž obsahují texty týkajici se dalších oblastí robotiky, které již ale nejsou vyžadovány samotnou náplní předmětu.
+ - Ing. Adam Ligocki, Ph.D.
+ - ...
 
-## Autoři
-
-Ing. Adam Ligocki, Ph.D.
-
-Ing. Tomáš Lázna
-
-Ing. Petr Gábrlík
-
-Ing. Tomáš Jílek, Ph.D.
-
-Ing. František Burian, Ph.D.
-
-Ing. Tomáš Horeličan

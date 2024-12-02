@@ -1,1 +1,0 @@
-# Standardní algoritmy v C++
