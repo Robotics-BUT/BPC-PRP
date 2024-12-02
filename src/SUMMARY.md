@@ -23,6 +23,6 @@
     - [Linux](3_others/text/1_linux.md)
     - [C++](3_others/text/2_cpp.md)
     - [Git](3_others/text/3_git.md)
-    - [Clion](3_others/text/4_clion.md)
+    - [CLion](3_others/text/4_clion.md)
     - [Visual Code](3_others/text/5_visual_code.md)
     - [ROS 2](3_others/text/6_ros_2.md)
