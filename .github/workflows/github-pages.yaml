@@ -1,21 +1,21 @@
-name: github pages
+name: GitHub Pages
 
 on:
   push:
     branches:
+      - main
       - master
 
 jobs:
   deploy:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
 
       - name: Setup mdBook
-        uses: peaceiris/actions-mdbook@v1
+        uses: peaceiris/actions-mdbook@v2
         with:
-          mdbook-version: '0.4.24'
-          # mdbook-version: 'latest'
+          mdbook-version: '0.4.10'
 
       - run: mdbook build
 
