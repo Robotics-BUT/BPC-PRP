@@ -174,7 +174,57 @@
 <p>Confirm and wait until writing is finished.</p>
 <img src="../images/rpi_install_writing.png" width="300">
 <p>Now put the SD card into the RPi and power on.</p>
-<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<p>In case of problems, please visit <a href="https://www.raspberrypi.com/documentation/computers/getting-started.html#install-using-imager">Official Documentation</a> </p>
+<h2 id="os-configuration"><a class="header" href="#os-configuration">OS Configuration</a></h2>
+<p>Connect to the raspberry pi</p>
+<pre><code>ssh &lt;user&gt;@&lt;ip_address&gt;
+</code></pre>
+<p>Install basics</p>
+<pre><code>sudo apt update
+sudo apt install -y git vim raspi-config htop locales software-properties-common curl libopencv-dev build-essential wiringpi v4l-utils i2c-tools
+sudo apt install -y gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
+</code></pre>
+<p>Optional: Add swap space if RAM is too small (4GB and less)</p>
+<pre><code>sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+# check system
+htop 
+</code></pre>
+<p>Install ROS2</p>
+<pre><code>locale
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+locale  # verify settings
+
+#ros
+sudo apt install -y software-properties-common
+sudo add-apt-repository universe
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+
+echo &quot;deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release &amp;&amp; echo $UBUNTU_CODENAME) main&quot; | sudo tee /etc/apt/sources.list.d/ros2.list &gt; /dev/null
+
+sudo apt update
+sudo apt install -y ros-jazzy-ros-base ros-jazzy-cv-bridge ros-jazzy-image-transport
+
+source /opt/ros/jazzy/setup.bash
+
+# Colcon
+curl -s https://packagecloud.io/install/repositories/dirk-thomas/colcon/script.deb.sh | sudo bash
+sudo apt install -y python3-colcon-common-extensions
+</code></pre>
+<p>Install Python tools and dependences</p>
+<pre><code># Python-pip
+sudo apt install -y python3-pip
+
+# Dependences
+pip3 install board rpi_ws281x adafruit-circuitpython-neopixel adafruit-circuitpython-bme280 adafruit-circuitpython-ads1x15 adafruit-circuitpython-mpu6050 adafruit-circuitpython-ds3231 RPLCD smbus2 pynmea2 --break-system-packages 
+</code></pre>
+<p>Now the system is installed.</p>
+<h2 id="setting-up-robot"><a class="header" href="#setting-up-robot">Setting Up Robot</a></h2>
 <p>TODO ...</p>
 
                     </main>
