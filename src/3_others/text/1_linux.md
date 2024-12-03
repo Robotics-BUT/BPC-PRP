@@ -1,3 +1,0 @@
-# Linux
-
-Lorem impsum

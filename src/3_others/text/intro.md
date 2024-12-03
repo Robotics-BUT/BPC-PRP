@@ -1,3 +1,0 @@
-# Others Intro
-
-Lorem Ipsum

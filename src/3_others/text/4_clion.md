@@ -1,3 +1,0 @@
-# CLion
-
-Lorem ipsum
