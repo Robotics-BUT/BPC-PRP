@@ -41,7 +41,7 @@ Click Next -> Edit Settings
 
 <img src="../images/rpi_install_settings.png" width="300">
 
-Setup WiFi and SSH
+Setup user, password, WiFi and SSH
 
 <img src="../images/rpi_install_config_wifi.png" width="300">
 
