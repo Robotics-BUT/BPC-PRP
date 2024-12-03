@@ -25,7 +25,7 @@ Select Device (Raspberry Pi 4)
 
 <img src="../images/rpi_install_select_device.png" width="300">
 
-Select OS (Others General Purpose OS -> Ubuntu -> Ubuntu Desktop 24.04.1 LTS (64b))
+Select OS (Others General Purpose OS -> Ubuntu -> Ubuntu Server 24.04.1 LTS (64b))
 
 <img src="../images/rpi_install_select_os_1.png" width="300">
 
