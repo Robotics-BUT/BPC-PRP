@@ -143,8 +143,39 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="docs-1"><a class="header" href="#docs-1">Docs 1</a></h1>
-<p>Lorem ipsum</p>
+                        <h1 id="rpi-installation"><a class="header" href="#rpi-installation">RPi Installation</a></h1>
+<h2 id="required-hw"><a class="header" href="#required-hw">Required HW</a></h2>
+<ul>
+<li>Respberry Pi 4B (8GB RAM recommended)</li>
+<li>Micro SD Card (minimal 16GB, 64GB recommended)</li>
+<li>SD Card to USB Adapter</li>
+</ul>
+<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
+<p>Install RPi-Imager on your Linux PC</p>
+<pre><code>sudo apt install rpi-imager
+</code></pre>
+<p>Run RPi-Imager</p>
+<pre><code>rpi-imager
+</code></pre>
+<img src="../images/rpi_install_imager.png" width="300">
+<p>Select Device (Raspberry Pi 4)</p>
+<img src="../images/rpi_install_select_device.png" width="300">
+<p>Select OS (Others General Purpose OS -&gt; Ubuntu -&gt; Ubuntu Desktop 24.04.1 LTS (64b))</p>
+<img src="../images/rpi_install_select_os_1.png" width="300">
+<img src="../images/rpi_install_select_os_2.png" width="300">
+<img src="../images/rpi_install_select_os_3.png" width="300">
+<p>Select target device (SD Card)</p>
+<img src="../images/rpi_install_select_msd.png" width="300">
+<p>Click Next -&gt; Edit Settings</p>
+<img src="../images/rpi_install_settings.png" width="300">
+<p>Setup WiFi and SSH</p>
+<img src="../images/rpi_install_config_wifi.png" width="300">
+<img src="../images/rpi_install_config_ssh.png" width="300">
+<p>Confirm and wait until writing is finished.</p>
+<img src="../images/rpi_install_writing.png" width="300">
+<p>Now put the SD card into the RPi and power on.</p>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<p>TODO ...</p>
 
                     </main>
 
