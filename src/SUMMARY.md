@@ -14,10 +14,13 @@
     - [Lab 11 - Camera Data Processing](1_labs/text/11_lab.md)
     - [Lab 12 - Exam (Corridor Following)](1_labs/text/12_lab.md)
 
-- [Others](2_others/text/intro.md)
-    - [Linux](2_others/text/1_linux.md)
-    - [C++](2_others/text/2_cpp.md)
-    - [Git](2_others/text/3_git.md)
-    - [CLion](2_others/text/4_clion.md)
-    - [Visual Code](2_others/text/5_visual_code.md)
-    - [ROS 2](2_others/text/6_ros_2.md)
+- [Others](2_navigation/text/intro.md)
+    -   
+
+- [Others](3_others/text/intro.md)
+    - [Linux](3_others/text/1_linux.md)
+    - [C++](3_others/text/2_cpp.md)
+    - [Git](3_others/text/3_git.md)
+    - [CLion](3_others/text/4_clion.md)
+    - [Visual Code](3_others/text/5_visual_code.md)
+    - [ROS 2](3_others/text/6_ros_2.md)
