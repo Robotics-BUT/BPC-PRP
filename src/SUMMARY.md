@@ -13,9 +13,15 @@
     - [Lab 10 - Inertial Measurement Unit (IMU)](1_labs/text/10_lab.md)
     - [Lab 11 - Camera Data Processing](1_labs/text/11_lab.md)
     - [Lab 12 - Exam (Corridor Following)](1_labs/text/12_lab.md)
+    - [Main Exam - Maze Escape](1_labs/text/13_exam.md)
 
 - [Others](2_navigation/text/intro.md)
-    -   
+    - [Differential Chassis](2_navigation/text/1_differential_chassis.md)
+    - [PID](2_navigation/text/2_pid.md)
+    - [Line Following](2_navigation/text/3_line_following.md)
+    - [Corridor Following](2_navigation/text/4_corridor_following.md)
+    - [IMU](2_navigation/text/5_imu.md)
+    - [Maze Escape](2_navigation/text/6_maze_escape.md)
 
 - [Others](3_others/text/intro.md)
     - [Linux](3_others/text/1_linux.md)
