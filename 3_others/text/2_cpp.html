@@ -144,7 +144,243 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="c"><a class="header" href="#c">C++</a></h1>
-<p>Lorem Ipsum</p>
+<h2 id="warmup-quiz"><a class="header" href="#warmup-quiz">Warmup Quiz</a></h2>
+<ol>
+<li>What will be the output of the following code?</li>
+</ol>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+int main() {
+    int x = 5;
+    int* p = &amp;x;
+    *p = 10;
+    std::cout &lt;&lt; x &lt;&lt; '\n';
+    return 0;
+}
+</code></pre>
+<ol start="2">
+<li>
+<p>What does the <code>const</code> keyword do when applied to a variable?</p>
+</li>
+<li>
+<p>What is the difference between <code>struct</code> and <code>class</code> in C++?</p>
+</li>
+<li>
+<p>What is the purpose of a constructor in a class?</p>
+</li>
+<li>
+<p>Explain the difference between the <code>pointer</code> and <code>reference</code>.</p>
+</li>
+<li>
+<p>What will be the output of the following code?</p>
+</li>
+</ol>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+int main() {
+    std::vector&lt;int&gt; v = {1, 2, 3};
+    for (auto it = v.begin(); it != v.end(); ++it) {
+        std::cout &lt;&lt; *it &lt;&lt; &quot; &quot;;
+    }
+    return 0;
+}
+</code></pre>
+<ol start="7">
+<li>
+<p>In your onw words, explain what is the Standard Template Library (STL).</p>
+</li>
+<li>
+<p>What will be the output of the following code?</p>
+</li>
+</ol>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+class Base {
+public:
+    virtual void print() {
+        std::cout &lt;&lt; &quot;Base class\n&quot;;
+    }
+};
+
+class Derived : public Base {
+public:
+    void print() override {
+        std::cout &lt;&lt; &quot;Derived class\n&quot;;
+    }
+};
+
+int main() {
+    Base* b = new Derived();
+    b-&gt;print();
+    delete b;
+    return 0;
+}
+</code></pre>
+<ol start="9">
+<li>
+<p>Explain difference between <code>std::array&lt;T, N&gt;</code> and <code>std::vector&lt;T&gt;</code>.</p>
+</li>
+<li>
+<p>Explain the output of following Lambda-function based code.</p>
+</li>
+</ol>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+int main() {
+    int a = 10, b = 20;
+    auto sum = [&amp;]() -&gt; int { return a + b; };
+    b = 30;
+    std::cout &lt;&lt; sum() &lt;&lt; '\n';
+    return 0;
+}
+</code></pre>
+<h2 id="revisiting-fundamentals"><a class="header" href="#revisiting-fundamentals">Revisiting Fundamentals</a></h2>
+<h3 id="functions-and-pointers"><a class="header" href="#functions-and-pointers">Functions and Pointers</a></h3>
+<p>Functions are the building blocks of C++ programs, and pointers are fundamental for memory management. Let’s revisit these concepts with an example.&quot;</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+void swap(int* a, int* b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    int x = 5, y = 10;
+    std::cout &lt;&lt; &quot;Before swap: x = &quot; &lt;&lt; x &lt;&lt; &quot;, y = &quot; &lt;&lt; y &lt;&lt; '\n';
+    swap(&amp;x, &amp;y);
+    std::cout &lt;&lt; &quot;After swap: x = &quot; &lt;&lt; x &lt;&lt; &quot;, y = &quot; &lt;&lt; y &lt;&lt; '\n';
+    return 0;
+}
+</code></pre>
+<p>Discussion Points:</p>
+<ul>
+<li>What happens when you pass pointers versus values?</li>
+<li>When would you use references instead of pointers?</li>
+</ul>
+<h3 id="object-oriented-programming-oop"><a class="header" href="#object-oriented-programming-oop">Object-Oriented Programming (OOP)</a></h3>
+<p>Object-oriented programming is key to structuring large projects in C++. Let’s review how classes and inheritance work.</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class BankAccount {
+private:
+    std::string owner;
+    double balance;
+
+public:
+    BankAccount(const std::string&amp; owner, double balance) 
+        : owner(owner), balance(balance) {}
+
+    void deposit(double amount) {
+        balance += amount;
+    }
+
+    void withdraw(double amount) {
+        if (amount &lt;= balance)
+            balance -= amount;
+        else
+            std::cout &lt;&lt; &quot;Insufficient funds!\n&quot;;
+    }
+
+    void display() const {
+        std::cout &lt;&lt; owner &lt;&lt; &quot;'s balance: $&quot; &lt;&lt; balance &lt;&lt; '\n';
+    }
+};
+
+int main() {
+    BankAccount account(&quot;John Doe&quot;, 1000.0);
+    account.display();
+    account.deposit(500);
+    account.withdraw(300);
+    account.display();
+    return 0;
+}
+</code></pre>
+<p>Discussion Points:</p>
+<ul>
+<li>What is the purpose of the private keyword?</li>
+<li>How does the const qualifier ensure safety in display()?</li>
+</ul>
+<h3 id="modern-c-features"><a class="header" href="#modern-c-features">Modern C++ Features</a></h3>
+<p>Raw pointers are error-prone. Smart pointers, introduced in C++11, simplify memory management.</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+class MyClass {
+public:
+    MyClass() { std::cout &lt;&lt; &quot;Constructor called\n&quot;; }
+    ~MyClass() { std::cout &lt;&lt; &quot;Destructor called\n&quot;; }
+};
+
+int main() {
+    std::unique_ptr&lt;MyClass&gt; ptr = std::make_unique&lt;MyClass&gt;();
+    // ptr goes out of scope, destructor is called automatically
+    return 0;
+}
+</code></pre>
+<p>Discussion Points:</p>
+<ul>
+<li>What happens when the std::unique_ptr goes out of scope?</li>
+<li>Compare std::shared_ptr and std::unique_ptr.</li>
+</ul>
+<p>Example of lambda function usage:</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+int main() {
+    std::vector&lt;int&gt; nums = {5, 2, 8, 3, 1};
+
+    std::sort(nums.begin(), nums.end(), [](int a, int b) { return a &lt; b; });
+
+    for (int num : nums) {
+        std::cout &lt;&lt; num &lt;&lt; ' ';
+    }
+    return 0;
+}
+</code></pre>
+<p>Discussion Points:</p>
+<ul>
+<li>How does the lambda function work in std::sort?</li>
+<li>When should you use lambdas over named functions?</li>
+</ul>
+<h3 id="coding-challenge"><a class="header" href="#coding-challenge">Coding Challenge</a></h3>
+<p>Task: Create a simple program to manage student records, including adding and displaying students.</p>
+<ul>
+<li>Use a Student class with properties for name, age, and grades.</li>
+<li>Store students in a std::vector.</li>
+<li>Implement a menu-driven program for user interaction.</li>
+</ul>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+class Student {
+private:
+    std::string name;
+    int age;
+    std::vector&lt;int&gt; grades;
+
+public:
+    Student(const std::string&amp; name, int age) : name(name), age(age) {}
+
+    void addGrade(int grade) {
+        grades.push_back(grade);
+    }
+
+    void display() const {
+        std::cout &lt;&lt; &quot;Name: &quot; &lt;&lt; name &lt;&lt; &quot;, Age: &quot; &lt;&lt; age &lt;&lt; &quot;, Grades: &quot;;
+        for (int grade : grades) {
+            std::cout &lt;&lt; grade &lt;&lt; ' ';
+        }
+        std::cout &lt;&lt; '\n';
+    }
+};
+
+int main() {
+    std::vector&lt;Student&gt; students;
+
+    // Add menu-driven functionality here
+    return 0;
+}
+</code></pre>
 
                     </main>
 
