@@ -143,10 +143,55 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="lab-1---laboratory-introduction--linux-installation"><a class="header" href="#lab-1---laboratory-introduction--linux-installation">Lab 1 - Laboratory Introduction &amp; Linux Installation</a></h1>
-<p>Lorem ipsum</p>
-<h2 id="linux-installation"><a class="header" href="#linux-installation">Linux Installation</a></h2>
-<p>Lorem ipsum</p>
+                        <h1 id="lab-1---laboratory-introduction--linux"><a class="header" href="#lab-1---laboratory-introduction--linux">Lab 1 - Laboratory Introduction &amp; Linux</a></h1>
+<p>This lab is going to make a brief introduction onto the environment that will be used for development and testing through the entire BPC-PRP course.</p>
+<p>The following 3 chapters will take you through the installation and setup of the basic environment and you will practice the Linux CLI</p>
+<h2 id="linux-1h"><a class="header" href="#linux-1h">Linux (1h)</a></h2>
+<h3 id="installation-optional"><a class="header" href="#installation-optional">Installation (optional)</a></h3>
+<p>To Install the Linux, please follow the <a href="../../3_others/text/1_linux.html">Linux</a> chapter.</p>
+<h3 id="exercise"><a class="header" href="#exercise">Exercise</a></h3>
+<ul>
+<li>Get familiar with the system's GUI.</li>
+<li>Open the command line and try navigating the file system.</li>
+<li>Practice your CLI skills. Commands overview in <a href="../../3_others/text/1_linux.html">Linux</a> chapter.
+<ul>
+<li>check you current working directory <code>pwd</code></li>
+<li>create directory <code>mkdir</code></li>
+<li>enter created directory <code>cd</code></li>
+<li>create file <code>touch</code></li>
+<li>list directory content <code>ls</code></li>
+<li>rename file <code>mv</code></li>
+<li>copy file <code>cp</code></li>
+<li>remove file <code>rm</code></li>
+<li>create and remove directory <code>mkdir</code> and <code>rm</code></li>
+<li>...</li>
+</ul>
+</li>
+<li>try some text editor <code>nano</code>, <code>vim</code></li>
+</ul>
+<details> <summary>I installed vim and accidentally opened it. What now?</summary>
+You can exit vim with the following sequence: press ESC, release it, then hold LSHIFT and press Z twice.
+For those interested, a tutorial on using vim can be found here.
+</details>
+<p>More details about the Linux is going to be introduced during the course</p>
+<h2 id="ros2-30-min"><a class="header" href="#ros2-30-min">ROS2 (30 min)</a></h2>
+<p>The ROS 2 (Robot Operating System 2) framework is a modern, open-source platform for developing robotic systems. It builds on the success of the original ROS while addressing the limitations of its predecessor, particularly in scalability, security, and real-time performance. Designed for a wide range of robotic applications, ROS 2 is suitable for research, education, and industrial use.</p>
+<p>Key features of ROS 2 include a distributed architecture for modular development, enabling nodes (individual processes) to communicate efficiently. It employs the Data Distribution Service (DDS) middleware standard, providing robust and flexible communication mechanisms, including publish/subscribe and service/request paradigms.</p>
+<p>ROS 2 supports multiple platforms, such as Linux, Windows, and macOS, making it versatile for diverse hardware and software ecosystems. It integrates well with modern tools and languages, offering Python and C++ APIs, among others. Real-time capabilities are significantly improved, ensuring precise control and response in time-critical robotic systems.</p>
+<p>The framework includes a rich ecosystem of libraries and tools, such as Gazebo for simulation, RViz for visualization, and Nav2 for navigation. Its modular design encourages collaboration and code reuse, fostering an active global community. With ROS 2, developers can create scalable, reliable, and innovative robotics applications tailored to real-world challenges.</p>
+<p>For installation and commands overview, please follow the chapter: <a href="../../3_others/text/6_ros_2.html">Robotic Operating System</a>.</p>
+<h2 id="clion-sdk-45-min"><a class="header" href="#clion-sdk-45-min">CLion SDK (45 min)</a></h2>
+<h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
+<p>Install CLion using the Snap package manager:</p>
+<pre><code class="language-shell">sudo snap install --classic clion
+</code></pre>
+<p>Alternatively, download the CLion IDE from the <a href="https://www.jetbrains.com/clion/">official website</a> and get familiar with it (see <a href="../chap_1_software/text/clion.html">CLion IDE</a>). By registering with your school email, you can obtain a free software license.</p>
+<h3 id="exercise-1"><a class="header" href="#exercise-1">Exercise</a></h3>
+<ul>
+<li>Create a simple &quot;Hello, World!&quot; program by working solely in the terminal and compile it using the <code>g++</code> compiler. Test the functionality of the program.</li>
+<li>Implement the same &quot;Hello, World!&quot; program in the CLion development environment. Compile it and verify its functionality.</li>
+<li>Discuss the advantages of working with an IDE compared to compiling from the command line.</li>
+</ul>
 
                     </main>
 

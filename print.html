@@ -152,10 +152,55 @@
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="labs-intro"><a class="header" href="#labs-intro">Labs Intro</a></h1>
 <p>Lorem ipsum</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="lab-1---laboratory-introduction--linux-installation"><a class="header" href="#lab-1---laboratory-introduction--linux-installation">Lab 1 - Laboratory Introduction &amp; Linux Installation</a></h1>
-<p>Lorem ipsum</p>
-<h2 id="linux-installation"><a class="header" href="#linux-installation">Linux Installation</a></h2>
-<p>Lorem ipsum</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="lab-1---laboratory-introduction--linux"><a class="header" href="#lab-1---laboratory-introduction--linux">Lab 1 - Laboratory Introduction &amp; Linux</a></h1>
+<p>This lab is going to make a brief introduction onto the environment that will be used for development and testing through the entire BPC-PRP course.</p>
+<p>The following 3 chapters will take you through the installation and setup of the basic environment and you will practice the Linux CLI</p>
+<h2 id="linux-1h"><a class="header" href="#linux-1h">Linux (1h)</a></h2>
+<h3 id="installation-optional"><a class="header" href="#installation-optional">Installation (optional)</a></h3>
+<p>To Install the Linux, please follow the <a href="1_labs/text/../../3_others/text/1_linux.html">Linux</a> chapter.</p>
+<h3 id="exercise"><a class="header" href="#exercise">Exercise</a></h3>
+<ul>
+<li>Get familiar with the system's GUI.</li>
+<li>Open the command line and try navigating the file system.</li>
+<li>Practice your CLI skills. Commands overview in <a href="1_labs/text/../../3_others/text/1_linux.html">Linux</a> chapter.
+<ul>
+<li>check you current working directory <code>pwd</code></li>
+<li>create directory <code>mkdir</code></li>
+<li>enter created directory <code>cd</code></li>
+<li>create file <code>touch</code></li>
+<li>list directory content <code>ls</code></li>
+<li>rename file <code>mv</code></li>
+<li>copy file <code>cp</code></li>
+<li>remove file <code>rm</code></li>
+<li>create and remove directory <code>mkdir</code> and <code>rm</code></li>
+<li>...</li>
+</ul>
+</li>
+<li>try some text editor <code>nano</code>, <code>vim</code></li>
+</ul>
+<details> <summary>I installed vim and accidentally opened it. What now?</summary>
+You can exit vim with the following sequence: press ESC, release it, then hold LSHIFT and press Z twice.
+For those interested, a tutorial on using vim can be found here.
+</details>
+<p>More details about the Linux is going to be introduced during the course</p>
+<h2 id="ros2-30-min"><a class="header" href="#ros2-30-min">ROS2 (30 min)</a></h2>
+<p>The ROS 2 (Robot Operating System 2) framework is a modern, open-source platform for developing robotic systems. It builds on the success of the original ROS while addressing the limitations of its predecessor, particularly in scalability, security, and real-time performance. Designed for a wide range of robotic applications, ROS 2 is suitable for research, education, and industrial use.</p>
+<p>Key features of ROS 2 include a distributed architecture for modular development, enabling nodes (individual processes) to communicate efficiently. It employs the Data Distribution Service (DDS) middleware standard, providing robust and flexible communication mechanisms, including publish/subscribe and service/request paradigms.</p>
+<p>ROS 2 supports multiple platforms, such as Linux, Windows, and macOS, making it versatile for diverse hardware and software ecosystems. It integrates well with modern tools and languages, offering Python and C++ APIs, among others. Real-time capabilities are significantly improved, ensuring precise control and response in time-critical robotic systems.</p>
+<p>The framework includes a rich ecosystem of libraries and tools, such as Gazebo for simulation, RViz for visualization, and Nav2 for navigation. Its modular design encourages collaboration and code reuse, fostering an active global community. With ROS 2, developers can create scalable, reliable, and innovative robotics applications tailored to real-world challenges.</p>
+<p>For installation and commands overview, please follow the chapter: <a href="1_labs/text/../../3_others/text/6_ros_2.html">Robotic Operating System</a>.</p>
+<h2 id="clion-sdk-45-min"><a class="header" href="#clion-sdk-45-min">CLion SDK (45 min)</a></h2>
+<h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
+<p>Install CLion using the Snap package manager:</p>
+<pre><code class="language-shell">sudo snap install --classic clion
+</code></pre>
+<p>Alternatively, download the CLion IDE from the <a href="https://www.jetbrains.com/clion/">official website</a> and get familiar with it (see <a href="1_labs/text/../chap_1_software/text/clion.html">CLion IDE</a>). By registering with your school email, you can obtain a free software license.</p>
+<h3 id="exercise-1"><a class="header" href="#exercise-1">Exercise</a></h3>
+<ul>
+<li>Create a simple &quot;Hello, World!&quot; program by working solely in the terminal and compile it using the <code>g++</code> compiler. Test the functionality of the program.</li>
+<li>Implement the same &quot;Hello, World!&quot; program in the CLion development environment. Compile it and verify its functionality.</li>
+<li>Discuss the advantages of working with an IDE compared to compiling from the command line.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-2---ide-c--cmake"><a class="header" href="#lab-2---ide-c--cmake">Lab 2 - IDE, C++ &amp; CMake</a></h1>
 <h2 id="ide-integrated-development-environment"><a class="header" href="#ide-integrated-development-environment">IDE (Integrated Development Environment)</a></h2>
 <p>Lorem ipsum</p>
@@ -245,7 +290,7 @@ Right wheel angular velocity: <code>ωR</code></p>
     v_R = v + (omega * L / 2)
     return v_L, v_R
 </code></pre>
-<h2 id="exercise"><a class="header" href="#exercise">Exercise</a></h2>
+<h2 id="exercise-2"><a class="header" href="#exercise-2">Exercise</a></h2>
 <p>Write program which simulates differential chassis based on given input parameters.</p>
 <h3 id="simulation-parameters"><a class="header" href="#simulation-parameters">Simulation Parameters</a></h3>
 <ul>
@@ -515,7 +560,121 @@ plt.show()
 <div style="break-before: page; page-break-before: always;"></div><h1 id="others-intro"><a class="header" href="#others-intro">Others Intro</a></h1>
 <p>Lorem Ipsum</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="linux"><a class="header" href="#linux">Linux</a></h1>
-<p>Lorem impsum</p>
+<h2 id="installation-1"><a class="header" href="#installation-1">Installation</a></h2>
+<p>To install Linux Ubuntu, please follow the <a href="https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview">official documentation</a>.</p>
+<h3 id="virtualbox-installation-vb"><a class="header" href="#virtualbox-installation-vb">VirtualBox Installation (VB)</a></h3>
+<p>In case you have no physical computer available for clean Linux installation nor the possibility for a dual boot, consider installing the Linux into the virtual machine.</p>
+<p>The VirtualBox is and example of the virtual machine engine that allows you to run Linux on a different host system.</p>
+<p>Install VirtualBox following the instructions for your respective operating system.</p>
+<p>Steps for <a href="https://www.virtualbox.org/wiki/Downloads">Windows a Mac</a>.</p>
+<p>For Linux, the installation process depends on your distribution and package management system. On Debian, use the command sudo apt install virtualbox. After installation, you can launch VirtualBox either from the terminal by typing virtualbox or by clicking its icon in the list of installed programs.</p>
+<p>To install the Ubuntu Linux into the virtual machine, please follow the <a href="https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview">official documentation</a></p>
+<h2 id="cli-command-line-interface"><a class="header" href="#cli-command-line-interface">CLI (Command Line Interface)</a></h2>
+<p>Consider this chapter as a guide for working in the Linux operating system.</p>
+<p>You don't need to memorize all the commands and their parameters, but you should be familiar with them and able to look up their </p>
+<p>For more details, please find the detail <a href="https://assets.ubuntu.com/v1/2950553c-OpenStack%20cheat%20sheet%20-%20revised%20v3.pdf?_gl=1*112oq19*_gcl_au*MTE5NjAyMjU0Ni4xNzM1OTQyNzI4&amp;_ga=2.153041082.2070240710.1735942727-373166696.1735942726">cheat sheet</a> at official web site</p>
+<h3 id="command"><a class="header" href="#command">Command</a></h3>
+<p>Explanation of function</p>
+<pre><code>Example usage      ...      Explanation
+</code></pre>
+<h3 id="ls---list"><a class="header" href="#ls---list">ls - (list)</a></h3>
+<p>Displays all files and directories (a directory is also a type of file) in the current point of the file system.</p>
+<pre><code>ls
+ls -la      ...      lists all files, including hidden ones, and provides detailed information
+</code></pre>
+<h3 id="cd---change-directory"><a class="header" href="#cd---change-directory">cd - (change directory)</a></h3>
+<p>Changes the current directory.</p>
+<pre><code>cd my_directory      ...      moves into the directory named &quot;my_directory&quot;
+cd ~                 ...      returns to the home directory (referred to as &quot;home&quot; in Linux)
+cd ..                ...      moves up one directory level
+cd /                 ...      returns to the root of the file system (called &quot;root&quot; in Linux)
+cd ../my_folder      ...      moves up one directory level and then into the &quot;my_folder&quot; directory
+cd .                 ...      stays in the current directory. Essentially does nothing, illustrating the use of &quot;.&quot; for the current directory.
+</code></pre>
+<h3 id="pwd---print-working-directory"><a class="header" href="#pwd---print-working-directory">pwd - print working directory</a></h3>
+<p>Displays the current position in the file system.</p>
+<pre><code>pwd
+</code></pre>
+<h3 id="mkdir---make-directory"><a class="header" href="#mkdir---make-directory">mkdir - (make directory)</a></h3>
+<p>Creates a new directory.</p>
+<pre><code>mkdir my_folder      ...      creates a new directory named &quot;my_folder&quot;
+</code></pre>
+<h3 id="cp---copy"><a class="header" href="#cp---copy">cp - (copy</a></h3>
+<p>Copies a file.</p>
+<pre><code>cp source_file destination_file                    ...      creates a new copy of &quot;source_file&quot; named &quot;destination_file&quot;
+cp ../secret.txt secret_folder/supersecret.txt      ...      takes the &quot;secret.txt&quot; file located one directory up and copies it to the &quot;secret_folder&quot;. The copy will be named &quot;supersecret.txt&quot;.
+</code></pre>
+<h3 id="mv---move"><a class="header" href="#mv---move">mv - (move)</a></h3>
+<p>Originally used for moving files, but is now primarily used to rename files.</p>
+<pre><code>mv old_name.txt new_name.html      ...      renames the file &quot;old_name.txt&quot; to &quot;new_name.html&quot;
+</code></pre>
+<h3 id="rm---remove"><a class="header" href="#rm---remove">rm - (remove)</a></h3>
+<p>Deletes a file or directory.</p>
+<pre><code>rm old_file.txt      ...      deletes the file &quot;old_file.txt&quot;
+rm -r my_folder      ...      deletes a directory. The recursive modifier (-r) must always be used to delete a directory, as it specifies that the directory's contents should also be deleted.
+</code></pre>
+<h3 id="chmod---change-mode"><a class="header" href="#chmod---change-mode">chmod - (change mode)</a></h3>
+<p>Changes file access permissions.</p>
+<pre><code>chmod 777 /dev/ttyUSB0      ...      grants all users access to USB port 0. For details on file system permissions, see [7].
+</code></pre>
+<h3 id="sudo"><a class="header" href="#sudo">sudo</a></h3>
+<p>A meta command. Operations executed with this command are performed with administrator privileges. Commonly used for modifying system files.</p>
+<pre><code>sudo mkdir /etc/config      ...      creates a &quot;config&quot; directory in the system folder &quot;/etc&quot;.
+sudo rm -r /                ...      recursively deletes the root directory (essentially wipes the entire disk, including the OS).
+</code></pre>
+<h3 id="cat---concatenate-files-to-standard-output"><a class="header" href="#cat---concatenate-files-to-standard-output">cat - (Concatenate FILE(s) to standard output)</a></h3>
+<p>Displays the contents of a file in the terminal.</p>
+<pre><code>cat ~/my_config_file.txt      ...      prints the contents of the specified file in the terminal
+</code></pre>
+<h3 id="man---manual-referenční-manuál-operačního-systému"><a class="header" href="#man---manual-referenční-manuál-operačního-systému">man - (manual) referenční manuál operačního systému</a></h3>
+<p>Quick help if you forget how to use a specific program.</p>
+<pre><code>man ls      ...      prints the manual for the &quot;ls&quot; program in the terminal
+</code></pre>
+<h3 id="linux-distributions"><a class="header" href="#linux-distributions">Linux Distributions</a></h3>
+<p>When we talk about Linux, we refer to the kernel of the operating system, which is managed by an authority (its creator, Linus Torvalds) that ensures the integrity of all code integrated into the OS kernel.</p>
+<p>Above the operating system kernel lies an additional layer of package management systems, graphical interfaces, and other supporting software. A &quot;distribution&quot; in Linux refers to a bundle of these supporting software components, provided and guaranteed by a specific legal entity (commercial company, organization, etc.).</p>
+<p>Commonly used distributions:</p>
+<ul>
+<li>Debian - The most widespread Linux distribution.</li>
+<li>Ubuntu - A derivative of Debian. The most popular distribution for home workstations.</li>
+<li>Mint - A derivative of Ubuntu. Its GUI is similar to Windows.</li>
+<li>RaspberryOS (formerly Raspbian) - A Debian derivative for Raspberry Pi.</li>
+<li>Arch Linux - A distribution aimed at advanced users, offering great freedom in system configuration.</li>
+<li>Fedora - An alternative to Debian.</li>
+<li>ElementaryOS - A minimalist and fast distribution. Suitable for low-performance computers.</li>
+<li>... and many more.</li>
+</ul>
+<h2 id="essential-programs"><a class="header" href="#essential-programs">Essential Programs</a></h2>
+<h3 id="apt"><a class="header" href="#apt">apt</a></h3>
+<p>This is Debian's package management system. On Linux, we typically install programs by downloading them from a public repository, which is usually a verified and secure server.</p>
+<p>You always need administrative privileges to install programs.</p>
+<p>Example of installing Git:</p>
+<pre><code>sudo apt update
+sudo apt install git
+</code></pre>
+<p>This means: &quot;With administrative privileges, run the apt program to update repository records&quot; and &quot;With administrative privileges, run the apt program to install Git.&quot;</p>
+<h3 id="nano"><a class="header" href="#nano">nano</a></h3>
+<p>A text editor similar to Notepad.</p>
+<ul>
+<li>Ctrl + X - Exits the program. It will ask if you want to save changes.</li>
+</ul>
+<h3 id="vim"><a class="header" href="#vim">vim</a></h3>
+<p>A professional text editor. However, its operation is somewhat complex and requires an understanding of several principles. Working with vim is significantly faster than with nano. Before using it, it is recommended to go through any &quot;vim noob tutorial&quot; on YouTube.</p>
+<p>If you accidentally open vim, you can close it with the key combination <strong>Shift + Z + Z</strong> (hold Shift and press 'Z' twice).</p>
+<h3 id="mc"><a class="header" href="#mc">mc</a></h3>
+<p><strong>Midnight Commander</strong> - A graphical interface for navigating the file system, resembling MS-DOS.</p>
+<ul>
+<li>Exits with the <strong>F10</strong> key.</li>
+</ul>
+<h3 id="curl"><a class="header" href="#curl">curl</a></h3>
+<p>A command-line tool for transferring data using various protocols. Curl is often used for HTTP communication, installing programs, or downloading files.</p>
+<h3 id="wget"><a class="header" href="#wget">wget</a></h3>
+<p>A program for downloading files from the internet.
+Example of downloading the latest WordPress release:</p>
+<pre><code>wget https://wordpress.org/latest.zip
+</code></pre>
+<h2 id="final-words"><a class="header" href="#final-words">Final Words</a></h2>
+<p>If you're new to Linux, don't be afraid to experiment. Ideally, install the system in VirtualBox and create a backup of the virtual disk. If you manage to mess up the system, simply restore the backup and continue working.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="c"><a class="header" href="#c">C++</a></h1>
 <h2 id="warmup-quiz"><a class="header" href="#warmup-quiz">Warmup Quiz</a></h2>
 <ol>
