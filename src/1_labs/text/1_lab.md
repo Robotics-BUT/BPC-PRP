@@ -46,7 +46,7 @@ The framework includes a rich ecosystem of libraries and tools, such as Gazebo f
 
 For installation and commands overview, please follow the chapter: [Robotic Operating System](../../3_others/text/6_ros_2.md).
 
-## CLion SDK (45 min)
+## CLion SDK (15 min)
 
 ### Installation
 
@@ -57,8 +57,3 @@ sudo snap install --classic clion
 ```
 
 Alternatively, download the CLion IDE from the [official website](https://www.jetbrains.com/clion/) and get familiar with it (see [CLion IDE](../chap_1_software/text/clion.md)). By registering with your school email, you can obtain a free software license.
-
-### Exercise
- - Create a simple "Hello, World!" program by working solely in the terminal and compile it using the `g++` compiler. Test the functionality of the program.
- - Implement the same "Hello, World!" program in the CLion development environment. Compile it and verify its functionality.
- - Discuss the advantages of working with an IDE compared to compiling from the command line.

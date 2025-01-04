@@ -26,6 +26,7 @@
 - [Others](3_others/text/intro.md)
     - [Linux](3_others/text/1_linux.md)
     - [C++](3_others/text/2_cpp.md)
+    - [CMake](3_others/text/7_cmake.md)
     - [Git](3_others/text/3_git.md)
     - [CLion](3_others/text/4_clion.md)
     - [Visual Code](3_others/text/5_visual_code.md)
