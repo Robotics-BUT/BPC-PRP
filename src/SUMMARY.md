@@ -15,7 +15,7 @@
     - [Lab 12 - Exam (Corridor Following)](1_labs/text/12_lab.md)
     - [Main Exam - Maze Escape](1_labs/text/13_exam.md)
 
-- [Others](2_navigation/text/intro.md)
+- [Robotic Topics](2_navigation/text/intro.md)
     - [Differential Chassis](2_navigation/text/1_differential_chassis.md)
     - [PID](2_navigation/text/2_pid.md)
     - [Line Following](2_navigation/text/3_line_following.md)
