@@ -224,4 +224,4 @@ Několik scénářů se kterými se můžete během vývoje software potkat. Vyz
 
 [Oficiální dokumentace Gitu](https://git.com)
 
-[Užitečný rádce při potížích s Gitem (cs)](https://ohshithit.com/cs)
+[Užitečný rádce při potížích s Gitem (cs)](https://ohshitgit.com/)
