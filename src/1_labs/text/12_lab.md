@@ -9,13 +9,13 @@ Up to 50 points can be earned through two practical demonstrations of task solut
 ## Corridor Following Rules
 
 There are 3 tracks:
-- Straight Corridor (5 points)
-- Simple Loop (10 points)
-- Complex Loop (10 points)
+ - Straight Corridor (5 points)
+ - Simple Loop (10 points)
+ - Complex Loop (10 points)
 
 All tracks are in rectangular grid of 40x40cm
 
-Full points are awarded only for completing the entire track.
+The points are awarded only for completing the entire track.
 
 Teams have 3 attempts per track, with a time limit of 3 minutes per attempt.
 

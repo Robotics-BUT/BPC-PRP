@@ -15,7 +15,7 @@ There are 3 tracks:
 
 All tracks are in rectangular grid of 40x40cm
 
-Full points are awarded only for completing the entire track.
+The points are awarded only for completing the entire track.
 
 Teams have 3 attempts per track, with a time limit of 3 minutes per attempt.
 
