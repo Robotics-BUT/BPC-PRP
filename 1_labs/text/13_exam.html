@@ -143,8 +143,55 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="exam-13---maze-escape"><a class="header" href="#exam-13---maze-escape">Exam 13 - Maze Escape</a></h1>
+                        <h1 id="final-exam---maze-escape"><a class="header" href="#final-exam---maze-escape">Final Exam - Maze Escape</a></h1>
+<p>The final exam is organized as a competition. Each team has 3 attempts to escape the maze with their robot, using the robot's full sensor capabilities. The score for the exam is based on the best of the three attempts.</p>
+<ul>
+<li>The robot starts inside the maze, randomly placed within a 2x2 cell area.</li>
+<li>There is always only one escape path from the maze.</li>
+<li>The maze contains no loops.</li>
+</ul>
+<p>In total for final exam the team can earn up to 50 points</p>
+<ul>
+<li>Maze escape up to 40 points</li>
+<li>Git and project documentation quality up to 10 points</li>
+</ul>
+<h2 id="attempt-rules"><a class="header" href="#attempt-rules">Attempt Rules</a></h2>
+<ul>
+<li>
+<p>Teams have at least 45 minutes between attempts to modify their program.</p>
+</li>
+<li>
+<p>The code used during the competition must be uploaded to Git by 11:59 PM on the same day.</p>
+</li>
+<li>
+<p>The competition code must not contain specific information about the maze (e.g., paths, minotaur locations). Pre-known information, such as cell size, may be included.</p>
+</li>
+<li>
+<p>There are 3 randomly placed minotaurs and 1 treasure.</p>
+<ul>
+<li>Each encounter with a minotaur results in a 30-second penalty.</li>
+<li>Finding the treasure reduces the final time by 1 minute.</li>
+</ul>
+</li>
+<li>
+<p>The maze consists of 8x8 cells, with each cell measuring 40x40 cm. Black lines on the floor mark the boundaries between cells.</p>
+</li>
+<li>
+<p>ArUco tags will be placed on the maze ground, providing hints about the escape route, the presence of minotaurs, or the path to the treasure.</p>
+</li>
+<li>
+<p>The formula for calculating the score is: <code>y=min(max(kx+q),0,40)</code></p>
+</li>
+</ul>
 <h2 id="maze-visualization"><a class="header" href="#maze-visualization">Maze Visualization</a></h2>
+<p>Example of possible maze.</p>
+<ul>
+<li>Walls - red lines</li>
+<li>Escape path - green line</li>
+<li>Start - green cell</li>
+<li>Treasure (bonus) - blue cell</li>
+<li>Minotaur (penalty) - red cell</li>
+</ul>
 <p><img src="../images/maze.png" alt="Maze" /></p>
 
                     </main>
