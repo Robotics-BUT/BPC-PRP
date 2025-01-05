@@ -1,4 +1,4 @@
-# Lab 2 - IDE, C++ & CMake
+# Lab 2 - C++, CMake & IDE
 
 If you are not familiar with Linux CLI commands, please follow the [Linux](../../3_others/text/1_linux.md) chapter.
 

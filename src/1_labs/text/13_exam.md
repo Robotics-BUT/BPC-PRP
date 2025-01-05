@@ -1,3 +1,5 @@
 # Exam 13 - Maze Escape
 
-Lorem ipsum
+## Maze Visualization
+
+![Maze](../images/maze.png)

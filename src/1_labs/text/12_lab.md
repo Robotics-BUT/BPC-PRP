@@ -1,3 +1,5 @@
 # Lab 12 - Exam (Corridor Following)
 
-Lorem ipsum
+## Test Tracks
+
+![Test Track](../images/test_track.png)
