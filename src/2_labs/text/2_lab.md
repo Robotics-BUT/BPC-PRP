@@ -1,6 +1,6 @@
 # Lab 2 - C++, CMake & IDE
 
-If you are not familiar with Linux CLI commands, please follow the [Linux](../../3_others/text/1_linux.md) chapter.
+If you are not familiar with Linux CLI commands, please follow the [Linux](../../4_others/text/1_linux.md) chapter.
 
 ## CLI Compilation (45 min)
 
@@ -58,7 +58,7 @@ There are other alternatives, like [CLang](https://clang.llvm.org/), [LLVM](http
 
 ## CMake Project (30 min)
 
-Before reading following text, please get familiar with [CMake](../../3_others/text/7_cmake.md).
+Before reading following text, please get familiar with [CMake](../../4_others/text/7_cmake.md).
 
 Now let's create a similar project, but using `CMake`.
 
@@ -117,4 +117,4 @@ g++ <source1 source2 source3 ...> -I <include_directory> -o <output_binary>
 
 Create a same project using the CLion IDE. 
 
-To learn how to control CLion, please take a look on [](../../3_others/text/4_clion.md) tutorial.
+To learn how to control CLion, please take a look on [](../../4_others/text/4_clion.md) tutorial.

@@ -8,13 +8,13 @@ The following 3 chapters will take you through the installation and setup of the
 
 ### Installation (optional)
 
-To Install the Linux, please follow the [Linux](../../3_others/text/1_linux.md) chapter.
+To Install the Linux, please follow the [Linux](../../4_others/text/1_linux.md) chapter.
 
 ### Exercise
 
 - Get familiar with the system's GUI.
 - Open the command line and try navigating the file system.
-- Practice your CLI skills. Commands overview in [Linux](../../3_others/text/1_linux.md) chapter.
+- Practice your CLI skills. Commands overview in [Linux](../../4_others/text/1_linux.md) chapter.
   - check you current working directory `pwd`
   - create directory `mkdir`
   - enter created directory `cd`
@@ -44,7 +44,7 @@ ROS 2 supports multiple platforms, such as Linux, Windows, and macOS, making it 
 
 The framework includes a rich ecosystem of libraries and tools, such as Gazebo for simulation, RViz for visualization, and Nav2 for navigation. Its modular design encourages collaboration and code reuse, fostering an active global community. With ROS 2, developers can create scalable, reliable, and innovative robotics applications tailored to real-world challenges.
 
-For installation and commands overview, please follow the chapter: [Robotic Operating System](../../3_others/text/6_ros_2.md).
+For installation and commands overview, please follow the chapter: [Robotic Operating System](../../4_others/text/6_ros_2.md).
 
 ## CLion SDK (15 min)
 

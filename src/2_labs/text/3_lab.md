@@ -2,7 +2,7 @@
 
 ## Git (1h 30min)
 
-First, read the [Git Tutorial](../../3_others/text/3_git.md) chapter to get familiar with the workflow and commands
+First, read the [Git Tutorial](../../4_others/text/3_git.md) chapter to get familiar with the workflow and commands
 
 ### Exercise
 
