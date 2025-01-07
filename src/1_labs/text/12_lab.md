@@ -16,6 +16,8 @@ There are 3 tracks:
 All tracks are in rectangular grid of 40x40cm
 
 The points are awarded only for completing the entire track.
+ - pass straight corridor without touching the wall
+ - pass full loop without entering one cell multiple times
 
 Teams have 3 attempts per track, with a time limit of 3 minutes per attempt.
 
@@ -23,4 +25,4 @@ All 3 attempts have to be performed during a single lab.
 
 ## Test Tracks
 
-![Test Track](../images/test_track.png)
+![Test Track](../images/corridor_tracks.png)

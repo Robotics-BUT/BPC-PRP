@@ -13,7 +13,7 @@ There are 3 tracks:
  - Simple Loop (10 points)
  - Complex Loop (10 points)
 
-All tracks are in rectangular grid of 40x40cm
+To pass the track robot have to follow the full length of the line
 
 The points are awarded only for completing the entire track.
 
@@ -23,4 +23,4 @@ All 3 attempts have to be performed during a single lab.
 
 ## Test Tracks
 
-![Test Track](../images/test_track.png)
+![Test Track](../images/line_tracks.png)
