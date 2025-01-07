@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Linux - BPC-PRP - Practical Robotics and Computer Vision</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../../favicon.svg">
+                        <link rel="shortcut icon" href="../../favicon.png">
+                <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+                <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../title-page.html">Introduction</a></li><li class="chapter-item expanded "><a href="../../1_lectures/text/intro.html"><strong aria-hidden="true">1.</strong> Lectures</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/intro.html"><strong aria-hidden="true">2.</strong> Labs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../2_labs/text/1_lab.html"><strong aria-hidden="true">2.1.</strong> Lab 1 - Introduction &amp; Linux Installation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/2_lab.html"><strong aria-hidden="true">2.2.</strong> Lab 2 - IDE, C++ &amp; CMake</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/3_lab.html"><strong aria-hidden="true">2.3.</strong> Lab 3 - Git &amp; C++ Project Template</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/4_lab.html"><strong aria-hidden="true">2.4.</strong> Lab 4 - Data Capture &amp; Visualization (ROS)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/5_lab.html"><strong aria-hidden="true">2.5.</strong> Lab 5 - Motor, Kinematics &amp; Gamepad</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/6_lab.html"><strong aria-hidden="true">2.6.</strong> Lab 6 - Line Estimation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/7_lab.html"><strong aria-hidden="true">2.7.</strong> Lab 7 - Line Following &amp; PID</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/8_lab.html"><strong aria-hidden="true">2.8.</strong> Lab 8 - Exam (Line Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/9_lab.html"><strong aria-hidden="true">2.9.</strong> Lab 9 - LiDAR</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/10_lab.html"><strong aria-hidden="true">2.10.</strong> Lab 10 - Inertial Measurement Unit (IMU)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/11_lab.html"><strong aria-hidden="true">2.11.</strong> Lab 11 - Camera Data Processing</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/12_lab.html"><strong aria-hidden="true">2.12.</strong> Lab 12 - Exam (Corridor Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/13_exam.html"><strong aria-hidden="true">2.13.</strong> Main Exam - Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../3_navigation/text/intro.html"><strong aria-hidden="true">3.</strong> Robotic Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../3_navigation/text/1_differential_chassis.html"><strong aria-hidden="true">3.1.</strong> Differential Chassis</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/2_pid.html"><strong aria-hidden="true">3.2.</strong> PID</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/3_line_following.html"><strong aria-hidden="true">3.3.</strong> Line Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/4_corridor_following.html"><strong aria-hidden="true">3.4.</strong> Corridor Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/5_imu.html"><strong aria-hidden="true">3.5.</strong> IMU</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/6_maze_escape.html"><strong aria-hidden="true">3.6.</strong> Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../4_others/text/intro.html"><strong aria-hidden="true">4.</strong> Others</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../4_others/text/1_linux.html" class="active"><strong aria-hidden="true">4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../../4_others/text/2_cpp.html"><strong aria-hidden="true">4.2.</strong> C++</a></li><li class="chapter-item expanded "><a href="../../4_others/text/7_cmake.html"><strong aria-hidden="true">4.3.</strong> CMake</a></li><li class="chapter-item expanded "><a href="../../4_others/text/3_git.html"><strong aria-hidden="true">4.4.</strong> Git</a></li><li class="chapter-item expanded "><a href="../../4_others/text/4_clion.html"><strong aria-hidden="true">4.5.</strong> CLion</a></li><li class="chapter-item expanded "><a href="../../4_others/text/5_visual_code.html"><strong aria-hidden="true">4.6.</strong> Visual Code</a></li><li class="chapter-item expanded "><a href="../../4_others/text/6_ros_2.html"><strong aria-hidden="true">4.7.</strong> ROS 2</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">BPC-PRP - Practical Robotics and Computer Vision</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="linux"><a class="header" href="#linux">Linux</a></h1>
+<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
+<p>To install Linux Ubuntu, please follow the <a href="https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview">official documentation</a>.</p>
+<h3 id="virtualbox-installation-vb"><a class="header" href="#virtualbox-installation-vb">VirtualBox Installation (VB)</a></h3>
+<p>In case you have no physical computer available for clean Linux installation nor the possibility for a dual boot, consider installing the Linux into the virtual machine.</p>
+<p>The VirtualBox is and example of the virtual machine engine that allows you to run Linux on a different host system.</p>
+<p>Install VirtualBox following the instructions for your respective operating system.</p>
+<p>Steps for <a href="https://www.virtualbox.org/wiki/Downloads">Windows a Mac</a>.</p>
+<p>For Linux, the installation process depends on your distribution and package management system. On Debian, use the command sudo apt install virtualbox. After installation, you can launch VirtualBox either from the terminal by typing virtualbox or by clicking its icon in the list of installed programs.</p>
+<p>To install the Ubuntu Linux into the virtual machine, please follow the <a href="https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview">official documentation</a></p>
+<h2 id="cli-command-line-interface"><a class="header" href="#cli-command-line-interface">CLI (Command Line Interface)</a></h2>
+<p>Consider this chapter as a guide for working in the Linux operating system.</p>
+<p>You don't need to memorize all the commands and their parameters, but you should be familiar with them and able to look up their </p>
+<p>For more details, please find the detail <a href="https://assets.ubuntu.com/v1/2950553c-OpenStack%20cheat%20sheet%20-%20revised%20v3.pdf?_gl=1*112oq19*_gcl_au*MTE5NjAyMjU0Ni4xNzM1OTQyNzI4&amp;_ga=2.153041082.2070240710.1735942727-373166696.1735942726">cheat sheet</a> at official web site</p>
+<h3 id="command"><a class="header" href="#command">Command</a></h3>
+<p>Explanation of function</p>
+<pre><code>Example usage      ...      Explanation
+</code></pre>
+<h3 id="ls---list"><a class="header" href="#ls---list">ls - (list)</a></h3>
+<p>Displays all files and directories (a directory is also a type of file) in the current point of the file system.</p>
+<pre><code>ls
+ls -la      ...      lists all files, including hidden ones, and provides detailed information
+</code></pre>
+<h3 id="cd---change-directory"><a class="header" href="#cd---change-directory">cd - (change directory)</a></h3>
+<p>Changes the current directory.</p>
+<pre><code>cd my_directory      ...      moves into the directory named &quot;my_directory&quot;
+cd ~                 ...      returns to the home directory (referred to as &quot;home&quot; in Linux)
+cd ..                ...      moves up one directory level
+cd /                 ...      returns to the root of the file system (called &quot;root&quot; in Linux)
+cd ../my_folder      ...      moves up one directory level and then into the &quot;my_folder&quot; directory
+cd .                 ...      stays in the current directory. Essentially does nothing, illustrating the use of &quot;.&quot; for the current directory.
+</code></pre>
+<h3 id="pwd---print-working-directory"><a class="header" href="#pwd---print-working-directory">pwd - print working directory</a></h3>
+<p>Displays the current position in the file system.</p>
+<pre><code>pwd
+</code></pre>
+<h3 id="mkdir---make-directory"><a class="header" href="#mkdir---make-directory">mkdir - (make directory)</a></h3>
+<p>Creates a new directory.</p>
+<pre><code>mkdir my_folder      ...      creates a new directory named &quot;my_folder&quot;
+</code></pre>
+<h3 id="cp---copy"><a class="header" href="#cp---copy">cp - (copy</a></h3>
+<p>Copies a file.</p>
+<pre><code>cp source_file destination_file                    ...      creates a new copy of &quot;source_file&quot; named &quot;destination_file&quot;
+cp ../secret.txt secret_folder/supersecret.txt      ...      takes the &quot;secret.txt&quot; file located one directory up and copies it to the &quot;secret_folder&quot;. The copy will be named &quot;supersecret.txt&quot;.
+</code></pre>
+<h3 id="mv---move"><a class="header" href="#mv---move">mv - (move)</a></h3>
+<p>Originally used for moving files, but is now primarily used to rename files.</p>
+<pre><code>mv old_name.txt new_name.html      ...      renames the file &quot;old_name.txt&quot; to &quot;new_name.html&quot;
+</code></pre>
+<h3 id="rm---remove"><a class="header" href="#rm---remove">rm - (remove)</a></h3>
+<p>Deletes a file or directory.</p>
+<pre><code>rm old_file.txt      ...      deletes the file &quot;old_file.txt&quot;
+rm -r my_folder      ...      deletes a directory. The recursive modifier (-r) must always be used to delete a directory, as it specifies that the directory's contents should also be deleted.
+</code></pre>
+<h3 id="chmod---change-mode"><a class="header" href="#chmod---change-mode">chmod - (change mode)</a></h3>
+<p>Changes file access permissions.</p>
+<pre><code>chmod 777 /dev/ttyUSB0      ...      grants all users access to USB port 0. For details on file system permissions, see [7].
+</code></pre>
+<h3 id="sudo"><a class="header" href="#sudo">sudo</a></h3>
+<p>A meta command. Operations executed with this command are performed with administrator privileges. Commonly used for modifying system files.</p>
+<pre><code>sudo mkdir /etc/config      ...      creates a &quot;config&quot; directory in the system folder &quot;/etc&quot;.
+sudo rm -r /                ...      recursively deletes the root directory (essentially wipes the entire disk, including the OS).
+</code></pre>
+<h3 id="cat---concatenate-files-to-standard-output"><a class="header" href="#cat---concatenate-files-to-standard-output">cat - (Concatenate FILE(s) to standard output)</a></h3>
+<p>Displays the contents of a file in the terminal.</p>
+<pre><code>cat ~/my_config_file.txt      ...      prints the contents of the specified file in the terminal
+</code></pre>
+<h3 id="man---manual-referenční-manuál-operačního-systému"><a class="header" href="#man---manual-referenční-manuál-operačního-systému">man - (manual) referenční manuál operačního systému</a></h3>
+<p>Quick help if you forget how to use a specific program.</p>
+<pre><code>man ls      ...      prints the manual for the &quot;ls&quot; program in the terminal
+</code></pre>
+<h3 id="linux-distributions"><a class="header" href="#linux-distributions">Linux Distributions</a></h3>
+<p>When we talk about Linux, we refer to the kernel of the operating system, which is managed by an authority (its creator, Linus Torvalds) that ensures the integrity of all code integrated into the OS kernel.</p>
+<p>Above the operating system kernel lies an additional layer of package management systems, graphical interfaces, and other supporting software. A &quot;distribution&quot; in Linux refers to a bundle of these supporting software components, provided and guaranteed by a specific legal entity (commercial company, organization, etc.).</p>
+<p>Commonly used distributions:</p>
+<ul>
+<li>Debian - The most widespread Linux distribution.</li>
+<li>Ubuntu - A derivative of Debian. The most popular distribution for home workstations.</li>
+<li>Mint - A derivative of Ubuntu. Its GUI is similar to Windows.</li>
+<li>RaspberryOS (formerly Raspbian) - A Debian derivative for Raspberry Pi.</li>
+<li>Arch Linux - A distribution aimed at advanced users, offering great freedom in system configuration.</li>
+<li>Fedora - An alternative to Debian.</li>
+<li>ElementaryOS - A minimalist and fast distribution. Suitable for low-performance computers.</li>
+<li>... and many more.</li>
+</ul>
+<h2 id="essential-programs"><a class="header" href="#essential-programs">Essential Programs</a></h2>
+<h3 id="apt"><a class="header" href="#apt">apt</a></h3>
+<p>This is Debian's package management system. On Linux, we typically install programs by downloading them from a public repository, which is usually a verified and secure server.</p>
+<p>You always need administrative privileges to install programs.</p>
+<p>Example of installing Git:</p>
+<pre><code>sudo apt update
+sudo apt install git
+</code></pre>
+<p>This means: &quot;With administrative privileges, run the apt program to update repository records&quot; and &quot;With administrative privileges, run the apt program to install Git.&quot;</p>
+<h3 id="nano"><a class="header" href="#nano">nano</a></h3>
+<p>A text editor similar to Notepad.</p>
+<ul>
+<li>Ctrl + X - Exits the program. It will ask if you want to save changes.</li>
+</ul>
+<h3 id="vim"><a class="header" href="#vim">vim</a></h3>
+<p>A professional text editor. However, its operation is somewhat complex and requires an understanding of several principles. Working with vim is significantly faster than with nano. Before using it, it is recommended to go through any &quot;vim noob tutorial&quot; on YouTube.</p>
+<p>If you accidentally open vim, you can close it with the key combination <strong>Shift + Z + Z</strong> (hold Shift and press 'Z' twice).</p>
+<h3 id="mc"><a class="header" href="#mc">mc</a></h3>
+<p><strong>Midnight Commander</strong> - A graphical interface for navigating the file system, resembling MS-DOS.</p>
+<ul>
+<li>Exits with the <strong>F10</strong> key.</li>
+</ul>
+<h3 id="curl"><a class="header" href="#curl">curl</a></h3>
+<p>A command-line tool for transferring data using various protocols. Curl is often used for HTTP communication, installing programs, or downloading files.</p>
+<h3 id="wget"><a class="header" href="#wget">wget</a></h3>
+<p>A program for downloading files from the internet.
+Example of downloading the latest WordPress release:</p>
+<pre><code>wget https://wordpress.org/latest.zip
+</code></pre>
+<h2 id="final-words"><a class="header" href="#final-words">Final Words</a></h2>
+<p>If you're new to Linux, don't be afraid to experiment. Ideally, install the system in VirtualBox and create a backup of the virtual disk. If you manage to mess up the system, simply restore the backup and continue working.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../../4_others/text/intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../../4_others/text/2_cpp.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../../4_others/text/intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../../4_others/text/2_cpp.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>

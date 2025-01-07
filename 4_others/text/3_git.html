@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Git - BPC-PRP - Practical Robotics and Computer Vision</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../../favicon.svg">
+                        <link rel="shortcut icon" href="../../favicon.png">
+                <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+                <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../title-page.html">Introduction</a></li><li class="chapter-item expanded "><a href="../../1_lectures/text/intro.html"><strong aria-hidden="true">1.</strong> Lectures</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/intro.html"><strong aria-hidden="true">2.</strong> Labs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../2_labs/text/1_lab.html"><strong aria-hidden="true">2.1.</strong> Lab 1 - Introduction &amp; Linux Installation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/2_lab.html"><strong aria-hidden="true">2.2.</strong> Lab 2 - IDE, C++ &amp; CMake</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/3_lab.html"><strong aria-hidden="true">2.3.</strong> Lab 3 - Git &amp; C++ Project Template</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/4_lab.html"><strong aria-hidden="true">2.4.</strong> Lab 4 - Data Capture &amp; Visualization (ROS)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/5_lab.html"><strong aria-hidden="true">2.5.</strong> Lab 5 - Motor, Kinematics &amp; Gamepad</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/6_lab.html"><strong aria-hidden="true">2.6.</strong> Lab 6 - Line Estimation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/7_lab.html"><strong aria-hidden="true">2.7.</strong> Lab 7 - Line Following &amp; PID</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/8_lab.html"><strong aria-hidden="true">2.8.</strong> Lab 8 - Exam (Line Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/9_lab.html"><strong aria-hidden="true">2.9.</strong> Lab 9 - LiDAR</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/10_lab.html"><strong aria-hidden="true">2.10.</strong> Lab 10 - Inertial Measurement Unit (IMU)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/11_lab.html"><strong aria-hidden="true">2.11.</strong> Lab 11 - Camera Data Processing</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/12_lab.html"><strong aria-hidden="true">2.12.</strong> Lab 12 - Exam (Corridor Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/13_exam.html"><strong aria-hidden="true">2.13.</strong> Main Exam - Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../3_navigation/text/intro.html"><strong aria-hidden="true">3.</strong> Robotic Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../3_navigation/text/1_differential_chassis.html"><strong aria-hidden="true">3.1.</strong> Differential Chassis</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/2_pid.html"><strong aria-hidden="true">3.2.</strong> PID</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/3_line_following.html"><strong aria-hidden="true">3.3.</strong> Line Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/4_corridor_following.html"><strong aria-hidden="true">3.4.</strong> Corridor Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/5_imu.html"><strong aria-hidden="true">3.5.</strong> IMU</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/6_maze_escape.html"><strong aria-hidden="true">3.6.</strong> Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../4_others/text/intro.html"><strong aria-hidden="true">4.</strong> Others</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../4_others/text/1_linux.html"><strong aria-hidden="true">4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../../4_others/text/2_cpp.html"><strong aria-hidden="true">4.2.</strong> C++</a></li><li class="chapter-item expanded "><a href="../../4_others/text/7_cmake.html"><strong aria-hidden="true">4.3.</strong> CMake</a></li><li class="chapter-item expanded "><a href="../../4_others/text/3_git.html" class="active"><strong aria-hidden="true">4.4.</strong> Git</a></li><li class="chapter-item expanded "><a href="../../4_others/text/4_clion.html"><strong aria-hidden="true">4.5.</strong> CLion</a></li><li class="chapter-item expanded "><a href="../../4_others/text/5_visual_code.html"><strong aria-hidden="true">4.6.</strong> Visual Code</a></li><li class="chapter-item expanded "><a href="../../4_others/text/6_ros_2.html"><strong aria-hidden="true">4.7.</strong> ROS 2</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">BPC-PRP - Practical Robotics and Computer Vision</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="git---version-control-system"><a class="header" href="#git---version-control-system">Git - Version Control System</a></h1>
+<p>Git is a distributed system for versioning and managing backups of source code. However, Git also works well for versioning any kind of text. The primary motivation for teaching Git in this course is the fact that Git is the most widely used version control system in the commercial sphere today, and there is a vast array of Git-based online version control services available on the web.</p>
+<hr />
+<h2 id="basic-terminology"><a class="header" href="#basic-terminology">Basic Terminology</a></h2>
+<p>Let’s define some basic terms to ensure we’re on the same page.</p>
+<h3 id="repository-repo"><a class="header" href="#repository-repo">Repository (repo)</a></h3>
+<p>A set of versioned files and records of their history. If the repository is stored on our computer, it is called a local repository (local repo). If it is stored on another machine, it is referred to as a remote repository (remote repo).</p>
+<h3 id="cloning"><a class="header" href="#cloning">Cloning</a></h3>
+<p>Downloading a repository from a remote repo. Cloning occurs when the repository does not yet exist on the local machine.</p>
+<h3 id="snapshot"><a class="header" href="#snapshot">Snapshot</a></h3>
+<p>The state of the repository at a specific point in its history.</p>
+<h3 id="diff"><a class="header" href="#diff">Diff</a></h3>
+<p>The difference between two snapshots, i.e., the changes in the state of versioned files.</p>
+<h3 id="commit"><a class="header" href="#commit">Commit</a></h3>
+<p>A record that contains a reference to the previous and next snapshot, as well as the diff between them. Each commit has a unique 20-byte hash that identifies it within the repository.</p>
+<h3 id="push"><a class="header" href="#push">Push</a></h3>
+<p>Uploading new commits to the remote repository.</p>
+<h3 id="fetch"><a class="header" href="#fetch">Fetch</a></h3>
+<p>Downloading commits from a remote repo to the local machine. Fetching is done when the local repository is already cloned but does not have the latest commits downloaded.</p>
+<h3 id="branch"><a class="header" href="#branch">Branch</a></h3>
+<p>A sequence of interconnected commits. By default, every repository has one branch (typically named &quot;master&quot; or &quot;main&quot;). If multiple features are being developed simultaneously, these developments can be divided into separate branches and merged back into the main branch once the feature is complete.</p>
+<h2 id="how-git-works"><a class="header" href="#how-git-works">How Git Works</a></h2>
+<p>The primary function of Git is versioning text files. It is important to note that Git is NOT suitable for versioning binary files. When developing a program and using Git for version control, you should always version source code only, never compiled executable files (binaries).</p>
+<p>Git also enables highly efficient collaboration among multiple people working on the same project (repository). Developers can work together or individually on separate branches. However, a key rule is that two people must not overwrite the same line of code in two different commits, as this will cause a conflict. A general recommendation is that two people should avoid modifying the same file.</p>
+<p>Unlike SVN, Git is a decentralized system. This means there is no superior, central repository or server. All repositories have the same functionality, can maintain the full history of the project, and can seamlessly communicate with all other clones. In practice, however, there is often a repository that acts as a central point for sharing commits between developers, commonly referred to as &quot;origin&quot;.</p>
+<p>It is important to note that any repository can download the complete history from the origin. In the event of an origin failure, no data is lost, as each developer has a complete copy of the repository on their computer.</p>
+<hr />
+<h3 id="typical-workflow-with-git"><a class="header" href="#typical-workflow-with-git">Typical Workflow with Git:</a></h3>
+<ol>
+<li>A repository is created on the server for the project.</li>
+<li>Developers clone the repository to their local machines. From their perspective, the server is referred to as &quot;origin&quot;.</li>
+<li>Developers work on their local machines, creating code and committing changes.</li>
+<li>At the end of the day, each developer pushes their daily commits to the origin.</li>
+<li>The next morning, each developer fetches the commits from their colleagues made the previous day.</li>
+</ol>
+<hr />
+<h2 id="installing-git-on-linux"><a class="header" href="#installing-git-on-linux">Installing Git on Linux</a></h2>
+<p>If you are using a Debian-based distribution, Git can be installed using the following commands:</p>
+<pre><code class="language-bash">sudo apt install git
+</code></pre>
+<p>or</p>
+<pre><code class="language-bash">sudo snap install git
+</code></pre>
+<h2 id="command-overview"><a class="header" href="#command-overview">Command Overview</a></h2>
+<h3 id="git-init"><a class="header" href="#git-init">git init</a></h3>
+<p>Initializes a repository, turning a regular folder in the file system into a repository. A repository differs from a regular folder because it contains a hidden <code>.git</code> folder that stores the repository's history.</p>
+<pre><code class="language-bash">git init     # Initializes a repository
+</code></pre>
+<hr />
+<h3 id="git-add"><a class="header" href="#git-add">git add</a></h3>
+<p>Adds changes made since the last commit to the index. The index is a staging area where changes are prepared for the next commit. This allows selective inclusion of changes in a commit.</p>
+<pre><code class="language-bash">git add myfile.txt     # Adds changes made to 'myfile.txt' to the index
+git add .              # Adds all current changes to the index
+</code></pre>
+<hr />
+<h3 id="git-commit"><a class="header" href="#git-commit">git commit</a></h3>
+<p>Creates a new commit derived from the last commit in the current branch. Includes changes (diffs) staged in the index.</p>
+<pre><code class="language-bash">git commit -m &quot;Commit message&quot;     # Creates a new commit in the current branch
+</code></pre>
+<hr />
+<h3 id="git-checkout"><a class="header" href="#git-checkout">git checkout</a></h3>
+<p>Switches between snapshots.</p>
+<pre><code class="language-bash">git checkout .          # Reverts the branch to the last commit, discarding all changes
+git checkout abcdef     # Switches to the state after commit 'abcdef'
+git checkout master     # Switches to the last available commit in the 'master' branch
+</code></pre>
+<hr />
+<h3 id="git-clone"><a class="header" href="#git-clone">git clone</a></h3>
+<p>Creates a local clone of a remote repository. No need to initialize with <code>git init</code>, as repository metadata is automatically downloaded along with the content.</p>
+<pre><code class="language-bash">git clone https://remote_repo_address.git     # Clones the repository to the local machine
+</code></pre>
+<hr />
+<h3 id="git-remote"><a class="header" href="#git-remote">git remote</a></h3>
+<p>Manages connections to remote repositories.</p>
+<pre><code class="language-bash">git remote -v                                            # Lists the configuration of remote repositories
+git remote add origin https://remote_repo_address.git    # Adds a remote alias named 'origin'
+git remote remove origin                                 # Removes the 'origin' alias
+</code></pre>
+<hr />
+<h3 id="git-push"><a class="header" href="#git-push">git push</a></h3>
+<p>Uploads new commits from the local repository to the remote repository.</p>
+<pre><code class="language-bash">git push origin master     # Pushes new commits from the 'master' branch to the remote repository
+</code></pre>
+<hr />
+<h3 id="git-fetch"><a class="header" href="#git-fetch">git fetch</a></h3>
+<p>Downloads commits from the remote repository to the local repository. These commits are not automatically merged into the current branch.</p>
+<pre><code class="language-bash">git fetch origin           # Fetches all new commits from all branches of the 'origin'
+git fetch origin master    # Fetches new commits for the 'master' branch from the 'origin'
+</code></pre>
+<hr />
+<h3 id="git-merge"><a class="header" href="#git-merge">git merge</a></h3>
+<p>Creates a new commit in the current branch by merging changes from another branch, combining all their changes.</p>
+<pre><code class="language-bash">git merge cool_branch        # Merges the changes from 'cool_branch' into the current branch
+</code></pre>
+<hr />
+<h3 id="git-pull"><a class="header" href="#git-pull">git pull</a></h3>
+<p>Combines <code>git fetch</code> and <code>git merge</code>. Commonly used to pull changes from a remote repository. It fetches commits from the remote repository and then merges them into the current branch.</p>
+<pre><code class="language-bash">git pull origin master        # Fetches and merges commits from 'master' branch of 'origin'
+</code></pre>
+<hr />
+<h3 id="git-diff"><a class="header" href="#git-diff">git diff</a></h3>
+<p>Displays the difference between two snapshots (commits).</p>
+<pre><code class="language-bash">git diff abcdef 012345        # Shows the difference between commits 'abcdef' and '012345'
+</code></pre>
+<hr />
+<h3 id="git-status"><a class="header" href="#git-status">git status</a></h3>
+<p>Shows the current state of changes since the last commit, including changes already staged in the index.</p>
+<pre><code class="language-bash">git status        # Displays the current state of changes
+</code></pre>
+<hr />
+<h3 id="git-log"><a class="header" href="#git-log">git log</a></h3>
+<p>Displays a chronological history of commits along with their metadata (timestamp, commit message, hash, etc.).</p>
+<pre><code class="language-bash">git log        # Displays the history of the current branch
+</code></pre>
+<hr />
+<h3 id="git-stash"><a class="header" href="#git-stash">git stash</a></h3>
+<p>Saves and retrieves changes to/from a stack. Useful when you realize you are working on the wrong branch. Changes can be stashed, allowing you to switch branches and reapply the changes later.</p>
+<pre><code class="language-bash">git stash        # Saves changes to the stack and reverts the branch to its state after the last commit
+git stash pop    # Retrieves changes from the stack and applies them to the current state
+</code></pre>
+<h2 id="exercise"><a class="header" href="#exercise">Exercise</a></h2>
+<h3 id="basic-operations"><a class="header" href="#basic-operations">Basic Operations</a></h3>
+<ol>
+<li>Create a repository.</li>
+<li>Create two text files in the repository and write a few lines in each.</li>
+<li>Add the changes to the index and then commit them.</li>
+<li>Edit one of the files and commit the changes.</li>
+<li>Edit the second file and commit the changes.</li>
+<li>Create an account on <a href="https://github.com">GitHub</a> and create a new repository there.</li>
+<li>Add the remote repository as &quot;origin&quot; to your local repository and push the changes to the origin.</li>
+<li>Verify the repository's contents in the GitHub web interface.</li>
+<li>On another location on your computer, or on a different computer, clone the repository you just pushed.</li>
+<li>In the new clone, make a change, commit it, and push it to the origin.</li>
+<li>In the original folder, pull the new commits from the origin.</li>
+<li>Use the <code>git log</code> command to view the commit history.</li>
+</ol>
+<hr />
+<h3 id="conflict"><a class="header" href="#conflict">Conflict</a></h3>
+<p>An example of what happens when two developers change the same code.</p>
+<ol>
+<li>Following the steps from the previous exercise, create two copies of the repository on the same computer or two different computers, both with the same origin on GitHub.</li>
+<li>In the first clone, modify a specific line in a file, commit the change, and push it to the origin.</li>
+<li>In the second clone, modify the same line, commit the change, and try to push (this will result in an error).</li>
+<li>A conflict has been created. Two conflicting changes occurred at the same point in the repository's branch history.</li>
+<li>Resolve the conflict by pulling from the origin in the second clone where the push failed.</li>
+<li>Open the file containing the conflict. The conflict will be marked with special syntax:
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; local_change
+=======
+change_from_origin
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</code></pre>
+Choose the desired version, remove the conflict markers, and save the file. The conflict is now resolved.</li>
+<li>Run the <code>git commit</code> command without additional parameters to commit the resolved conflict. An automatic commit message will indicate that this is a conflict resolution.</li>
+<li>Push the new commit to the origin, then pull it into the original repository.</li>
+<li>Use the <code>git log</code> command to view the commit history.</li>
+</ol>
+<h2 id="other-resources"><a class="header" href="#other-resources">Other Resources</a></h2>
+<ul>
+<li><a href="https://education.github.com/git-cheat-sheet-education.pdf">Git Cheat Sheet</a></li>
+<li><a href="https://atlassian.com">Atlassian Tutorial</a></li>
+<li><a href="https://git.com">Official Documentation</a></li>
+<li><a href="https://ohshitgit.com/">Helpful Advisor</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../../4_others/text/7_cmake.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../../4_others/text/4_clion.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../../4_others/text/7_cmake.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../../4_others/text/4_clion.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
