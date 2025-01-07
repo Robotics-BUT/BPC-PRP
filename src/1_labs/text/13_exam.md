@@ -21,6 +21,7 @@ In total for final exam the team can earn up to 50 points
  - Teams have at least 45 minutes between attempts to modify their program.
  - The code used during the competition must be uploaded to Git by 11:59 PM on the same day.
  - The competition code must not contain specific information about the maze (e.g., paths, minotaur locations, etc.). Pre-known information, such as cell size, may be included.
+ - Wall touching not allowed
 
 ## Maze Example
  - Walls - red lines

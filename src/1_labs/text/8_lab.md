@@ -13,7 +13,9 @@ There are 3 tracks:
  - Simple Loop (10 points)
  - Complex Loop (10 points)
 
-To pass the track robot have to follow the full length of the line
+To pass the track robot have to follow the full length of the line.
+
+If no part of the robot's body covers the line, attempt fails.
 
 The points are awarded only for completing the entire track.
 
