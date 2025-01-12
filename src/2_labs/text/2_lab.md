@@ -1,5 +1,8 @@
 # Lab 2 - C++, CMake & IDE
 
+Responsible: Ing. Adam Ligocki, Ph.D.
+
+
 If you are not familiar with Linux CLI commands, please follow the [Linux](../../4_others/text/1_linux.md) chapter.
 
 ## CLI Compilation (45 min)

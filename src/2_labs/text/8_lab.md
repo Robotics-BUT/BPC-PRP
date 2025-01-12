@@ -1,5 +1,7 @@
 # Lab 8 - Midterm Test (Line Following)
 
+Responsible: Ing. Adam Ligocki, Ph.D.
+
 Up to 50 points can be earned through two practical demonstrations of task solutions during the semester.
 
 8th week - Line Following (25 points)

@@ -1,4 +1,6 @@
-# Lab 8 - Midterm Test (Corridor Following)
+# Lab 12 - Midterm Test (Corridor Following)
+
+Responsible: Ing. Adam Ligocki, Ph.D.
 
 Up to 50 points can be earned through two practical demonstrations of task solutions during the semester.
 

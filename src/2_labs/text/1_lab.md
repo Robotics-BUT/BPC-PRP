@@ -1,4 +1,6 @@
-# Lab 1 - Laboratory Introduction & Linux 
+# Lab 1 - Laboratory Introduction & Linux
+
+Responsible: Ing. Jakub Minařík
 
 This lab is going to make a brief introduction onto the environment that will be used for development and testing through the entire BPC-PRP course.
 

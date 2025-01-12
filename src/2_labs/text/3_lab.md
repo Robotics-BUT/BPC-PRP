@@ -1,5 +1,7 @@
 # Lab 3 - Git & C++ Project Template
 
+Responsible: Ing. Jakub Minařík
+
 ## Git (1h 30min)
 
 First, read the [Git Tutorial](../../4_others/text/3_git.md) chapter to get familiar with the workflow and commands

@@ -1,5 +1,7 @@
 # Final Exam - Maze Escape
 
+Responsible: Ing. Adam Ligocki, Ph.D.
+
 The final exam is organized as a competition. Each team has 3 attempts to escape the maze with their robot, using the robot's full sensor capabilities. The score for the exam is based on the best of the three attempts.
  - The robot starts inside the maze, in the center of the starting cell.
  - There is only one optimal escape path from the maze.
