@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Communication Buses - BPC-PRP - Practical Robotics and Computer Vision</title>
+                
+
+        <!-- Custom HTML head -->
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+                <link rel="icon" href="../../favicon.svg">
+                        <link rel="shortcut icon" href="../../favicon.png">
+                <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+                <link rel="stylesheet" href="../../css/print.css" media="print">
+        
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+                <link rel="stylesheet" href="../../fonts/fonts.css">
+        
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../title-page.html">Introduction</a></li><li class="chapter-item expanded "><a href="../../1_lectures/text/intro.html"><strong aria-hidden="true">1.</strong> Lectures</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/intro.html"><strong aria-hidden="true">2.</strong> Labs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../2_labs/text/1_lab.html"><strong aria-hidden="true">2.1.</strong> Lab 1 - Introduction &amp; Linux Installation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/2_lab.html"><strong aria-hidden="true">2.2.</strong> Lab 2 - IDE, C++ &amp; CMake</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/3_lab.html"><strong aria-hidden="true">2.3.</strong> Lab 3 - Git &amp; C++ Project Template</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/4_lab.html"><strong aria-hidden="true">2.4.</strong> Lab 4 - Data Capture &amp; Visualization (ROS)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/5_lab.html"><strong aria-hidden="true">2.5.</strong> Lab 5 - Motor, Kinematics &amp; Gamepad</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/6_lab.html"><strong aria-hidden="true">2.6.</strong> Lab 6 - Line Estimation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/7_lab.html"><strong aria-hidden="true">2.7.</strong> Lab 7 - Line Following &amp; PID</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/8_lab.html"><strong aria-hidden="true">2.8.</strong> Lab 8 - Exam (Line Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/9_lab.html"><strong aria-hidden="true">2.9.</strong> Lab 9 - LiDAR</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/10_lab.html"><strong aria-hidden="true">2.10.</strong> Lab 10 - Inertial Measurement Unit (IMU)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/11_lab.html"><strong aria-hidden="true">2.11.</strong> Lab 11 - Camera Data Processing</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/12_lab.html"><strong aria-hidden="true">2.12.</strong> Lab 12 - Exam (Corridor Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/13_exam.html"><strong aria-hidden="true">2.13.</strong> Main Exam - Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../3_navigation/text/intro.html"><strong aria-hidden="true">3.</strong> Robotic Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../3_navigation/text/1_differential_chassis.html"><strong aria-hidden="true">3.1.</strong> Differential Chassis</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/2_pid.html"><strong aria-hidden="true">3.2.</strong> PID</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/3_line_following.html"><strong aria-hidden="true">3.3.</strong> Line Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/4_corridor_following.html"><strong aria-hidden="true">3.4.</strong> Corridor Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/5_imu.html"><strong aria-hidden="true">3.5.</strong> IMU</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/6_maze_escape.html"><strong aria-hidden="true">3.6.</strong> Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../4_others/text/intro.html"><strong aria-hidden="true">4.</strong> Others</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../4_others/text/1_linux.html"><strong aria-hidden="true">4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../../4_others/text/2_cpp.html"><strong aria-hidden="true">4.2.</strong> C++</a></li><li class="chapter-item expanded "><a href="../../4_others/text/7_cmake.html"><strong aria-hidden="true">4.3.</strong> CMake</a></li><li class="chapter-item expanded "><a href="../../4_others/text/3_git.html"><strong aria-hidden="true">4.4.</strong> Git</a></li><li class="chapter-item expanded "><a href="../../4_others/text/4_clion.html"><strong aria-hidden="true">4.5.</strong> CLion</a></li><li class="chapter-item expanded "><a href="../../4_others/text/8_multithreading.html"><strong aria-hidden="true">4.6.</strong> Multithreading</a></li><li class="chapter-item expanded "><a href="../../4_others/text/9_rviz2_visualizations.html"><strong aria-hidden="true">4.7.</strong> RViz2 Visualizations</a></li><li class="chapter-item expanded "><a href="../../4_others/text/10_coordinate_system.html"><strong aria-hidden="true">4.8.</strong> Coordinate Systems</a></li><li class="chapter-item expanded "><a href="../../4_others/text/11_communication_buses.html" class="active"><strong aria-hidden="true">4.9.</strong> Communication Buses</a></li></ol></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">BPC-PRP - Practical Robotics and Computer Vision</h1>
+
+                    <div class="right-buttons">
+                                                <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                                                        
+                    </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="communication-buses"><a class="header" href="#communication-buses">Communication Buses</a></h1>
+<h2 id="uart"><a class="header" href="#uart">UART</a></h2>
+<p>A UART (Universal Asynchronous Receiver/Transmitter) is a simple device used to send and receive data in a serial format. This means it sends information one bit at a time, rather than sending multiple bits at once. It is found in many microcontrollers and computers because it is easy to use and does not require many wires.</p>
+<p>UART topology:
+<img src="../images/uart.png" alt="UART" /></p>
+<p>With UART, the sender and receiver do not share a special clock line. Instead, both sides must agree on a speed called the baud rate. This speed decides how many bits per second they will send or receive. If both sides use the same speed, data moves from one device to the other without confusion.</p>
+<p>A UART usually has two main lines for data: TX (transmit) and RX (receive). When one device transmits through TX, the other device reads the signal on its RX pin. To avoid errors, UART systems often include extra settings such as start bits, stop bits, and parity bits. These help confirm that each bit is received in the correct order.</p>
+<p>Although UART is slower than some other communication methods, it is very popular. It requires few pins, is easy to set up, and works well for many simple and medium-speed data transfers.</p>
+<p>UART timing:
+<img src="../images/uart_timing.png" alt="UART" /></p>
+<p>image source: https://vanhunteradams.com/Protocols/UART/UART.html</p>
+<h2 id="i2c"><a class="header" href="#i2c">I2C</a></h2>
+<p>I2C (Inter-Integrated Circuit) is a simple method for digital devices to talk to each other using just two wires. One wire is called SDA, which carries data. The other wire is called SCL, which provides the clock signal. In I2C, devices use this clock signal to stay in sync, so they can send and receive data at the right time.</p>
+<p>I2C topology:
+<img src="../images/i2c.png" alt="I2C" /></p>
+<p>I2C follows a master-slave setup. The master device generates the clock signal and decides when to start or stop a communication. It also chooses which slave device to talk to by using an address. Each slave device listens for its address, then responds when asked.</p>
+<p>Because I2C only needs two wires, it is a good choice when you want to connect multiple sensors or peripherals without adding many extra pins. It is also fairly easy to set different speeds, so you can adjust it for your needs. Common speeds are known as Standard Mode (up to 100 kHz) and Fast Mode (up to 400 kHz).</p>
+<p>I2C is often found in microcontroller projects, temperature sensors, and various other small components. It helps keep connections simple and allows many devices to share the same two wires for data transfer.</p>
+<p>I2C timing:
+<img src="../images/i2c_timing.png" alt="I2C Timing" /></p>
+<p>image source: https://www.youtube.com/watch?v=CAvawEcxoPU</p>
+<h2 id="spi"><a class="header" href="#spi">SPI</a></h2>
+<p>SPI (Serial Peripheral Interface) is a simple and fast way for digital devices to communicate using at least four main lines. The first line is SCLK (serial clock), which sets the timing for data transfers. MOSI (master out, slave in) is used by the master device to send data out to the slave. MISO (master in, slave out) is used by the slave device to send data back to the master. Finally, SS (slave select) or CS (chip select) is used by the master to choose which slave device to talk to.</p>
+<p>SPI topology:
+<img src="../images/spi.png" alt="SPI" /></p>
+<p>In an SPI setup, the master is in charge of generating the clock signal and deciding when data is sent or received. Data shifts on MOSI and MISO with each clock pulse, allowing both devices to exchange information at the same time. SPI does not use addresses like I2C, so each slave device normally has its own SS line. This can mean extra wiring if you have many devices.</p>
+<p>SPI can run at higher speeds than many other serial interfaces, often reaching several megahertz or more. This makes it good for applications where you need fast data transfers, such as reading data from a sensor or writing to a display. Because it is straightforward and efficient, SPI is frequently used in microcontrollers, sensors, memory chips, and other peripherals that require rapid, reliable communication.</p>
+<p>SPI timing:
+<img src="../images/spi_timing.png" alt="SPI Timing" /></p>
+<p>imabe source: https://www.youtube.com/watch?v=0nVNwozXsIc </p>
+<h2 id="can"><a class="header" href="#can">CAN</a></h2>
+<p>CAN (Controller Area Network) is a communication system originally designed for vehicles, allowing different parts of a car—like the engine, brakes, and airbags—to talk with each other in a reliable way. It uses two main wires, often called CAN High and CAN Low, which together form a robust bus. Unlike protocols that need a separate line for every device, CAN allows multiple nodes to share the same pair of wires.</p>
+<p>CAN topology:
+<img src="../images/can.png" alt="CAN" /></p>
+<p>In a CAN network, any node can send a message whenever the bus is free. Each message has an identifier that shows its priority. If two nodes try to send messages at the same time, the node with the higher-priority message keeps sending, and the lower-priority message waits, ensuring important signals go first. This makes CAN useful in safety-critical systems.</p>
+<p>CAN also includes error detection features. For example, if a node reads back a wrong bit, it flags an error and can resend the message. Because of its high reliability and simplicity, CAN is widely used not only in automobiles but also in industrial equipment, medical devices, and other areas that need dependable data sharing.</p>
+<p>CAN data frame:
+<img src="../images/can_frame.png" alt="CAN Frame" /></p>
+<p>image source: https://en.wikipedia.org</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../../4_others/text/10_coordinate_system.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../../4_others/text/10_coordinate_system.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                            </nav>
+
+        </div>
+
+        
+        
+        
+                <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+        
+                <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
