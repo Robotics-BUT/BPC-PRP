@@ -30,5 +30,8 @@
     - [CMake](4_others/text/7_cmake.md)
     - [Git](4_others/text/3_git.md)
     - [CLion](4_others/text/4_clion.md)
-    - [Visual Code](4_others/text/5_visual_code.md)
-    - [ROS 2](4_others/text/6_ros_2.md)
+    - [Multithreading](4_others/text/8_multithreading.md)
+    - [RViz2 Visualizations](4_others/text/9_rviz2_visualizations.md)
+    - [Coordinate Systems](4_others/text/10_coordinate_system.md)
+    - [Communication Buses](4_others/text/11_communication_buses.md)
+<!---   - [Visual Code](4_others/text/5_visual_code.md) -->
