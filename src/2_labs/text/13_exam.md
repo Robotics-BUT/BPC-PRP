@@ -7,8 +7,8 @@ The final exam is organized as a competition. Each team has 3 attempts to escape
  - There is only one optimal escape path from the maze.
  - The maze contains no loops.
  - There are 3 randomly placed minotaurs and 1 treasure.
-   - Each encounter with a minotaur results in a 30-second penalty.
-   - Finding the treasure reduces the final time by 1 minute.
+   - Each encounter with a minotaur results in a 30 seconds penalty.
+   - Finding the treasure reduces the final time by 30 seconds.
  - The maze consists of 8x8 cells, with each cell measuring 40x40 cm. Black lines on the floor mark the boundaries between cells.
  - ArUco tags will be placed on the maze ground, providing hints about the escape route, the presence of minotaurs, or the path to the treasure.
 
