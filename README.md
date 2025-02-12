@@ -9,4 +9,6 @@ Please follow the given materials:
 
 ## Authors
  - Adam Ligocki
- - ... 
+ - Petr Šopák
+ - Jakub Minařík
+ - ...
