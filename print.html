@@ -1718,22 +1718,81 @@ int main() {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="cmake"><a class="header" href="#cmake">CMake</a></h1>
 <p><a href="https://cmake.org/">CMake</a> is a set of tools that simplifies the compilation of projects and libraries in a way that makes them independent of the operating system and compiler. It works by using a unified configuration file, <code>CMakeLists.txt</code>, to generate a Makefile for UNIX-like systems or MSVC workspaces for Windows.</p>
 <p>A major advantage of CMake is its dependency management. Applications can define the libraries they depend on, and CMake checks if these libraries are available and, importantly, if they meet the required version. Another significant benefit is the ability to create both executable files and libraries using a single, simple configuration in the <code>CMakeLists.txt</code> file.</p>
-<p>Here is an example of a <code>CMakeLists.txt</code> file for an application:</p>
-<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.7)
-project(MyCoolRobot)
-
-set(CMAKE_CXX_STANDARD 17) 
-
-add_executable(MyCoolRobot main.cpp)
+<p>One way to look at CMake is as another programming language - there are variables, functions, conditions and loops.
+The way in which CMake is developed is emphatizing on using targets, because of that most function will begin by <code>target_</code> and the first argument will be target.
+For some of them there is equivalent without it. These function are global and set the parameters, include directories etc. for the file.</p>
+<h2 id="basic-example"><a class="header" href="#basic-example">Basic example</a></h2>
+<p>Made up C++ project stucture:</p>
+<pre><code>MyProject/
+    include/
+        movement/
+            move.hpp
+            turn.hpp
+        talk.hpp
+    src/
+        movement/
+            move.cpp
+            turn.cpp
+        talk.cpp
+        main.cpp
+    CMakeLists.txt
 </code></pre>
-<p>If we have a project that uses CMake and we want to run it, we can do so using the following commands:</p>
-<pre><code class="language-shell">cd MyCoolProject
-mkdir build
+<p>CMakeLists.txt:</p>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.15)
+
+project(MyProject VERSION 1.0
+                  DESCRIPTION &quot;Very nice project&quot;
+                  LANGUAGES CXX)
+set(CXX_STANDARD 17) # Can also set custom variables
+
+add_executable(MyProject src/main.cpp src/talk.cpp src/movement/move.cpp src/movement/turn.cpp)
+target_include_directories(MyProject include)
+</code></pre>
+<p>Lets take a look at the file:</p>
+<pre><code>cmake_minimum_required(VERSION 3.15)
+</code></pre>
+<p>First line tells cmake minimu required version for running the script.</p>
+<pre><code>project(MyProject VERSION 1.0
+                  DESCRIPTION &quot;Very nice project&quot;
+                  LANGUAGES CXX)
+</code></pre>
+<p>Function <code>project</code> have one mandatory argument name of the project. Other arguments are optional. <code>VERSION</code> sets multiple cmake variables like PROJECT_VERSION. Default <code>LANGUAGE</code> is <code>C CXX</code>. The function does not create target <code>MyProject</code> which we will use in other functions.</p>
+<pre><code>set(CXX_STANDARD 17)
+</code></pre>
+<p>This function call to set variable <code>CXX_STANDARD</code>.  This is the simplest way to set C++ standard, but it will set C++ standard globally to whole project. The others ways have little bit more flexibility.</p>
+<pre><code>add_executable(MyProject src/main.cpp src/talk.cpp src/movement/move.cpp src/movement/turn.cpp)
+</code></pre>
+<p>Function target - executable, first argument is the name of target, others argument are all source files in the project. Header files can by also included, but by cmake they are ignored for compilation.</p>
+<pre><code>target_include_directories(MyProject include)
+</code></pre>
+<p>Functions add include directories to target. Any other argument is assumed to be folder with header file.</p>
+<h3 id="build-basic-example-project"><a class="header" href="#build-basic-example-project">Build basic example project</a></h3>
+<p>To run the project:</p>
+<pre><code class="language-shell">cd MyProject
+mkdir build     #create folder build
 cd build
-cmake ..
-make
-./MyCoolProject
+cmake ..        #run cmake
+make            #run make - build project
+./MyCoolProject #run executable
 </code></pre>
+<p>For debuging (eg. <code>gdb</code>) add variable <code>CMAKE_BUILD_TYPE</code> with value <code>Debug</code> - When variable is not specified value used last time is run, if its first run value used is <code>Release</code></p>
+<pre><code>cmake -DCMAKE_BUILD_TYPE=Debug ..
+</code></pre>
+<h2 id="including-libraries"><a class="header" href="#including-libraries">Including libraries</a></h2>
+<p>This example assumes you have installed the library and it's only used to show bare basics, many external libraries have examples how to use and include them.</p>
+<pre><code class="language-cmake">cmake_minimum_required(VERSION 3.15)
+project(MyProject)
+
+find_package( OpenCV REQUIRED ) #find library in the system path if not found cmake will fail
+
+add_executable(MyProject main.cpp)
+
+target_include_directories(MyProject ${OpenCV_INCLUDE_DIRS}) #adds include folders to target
+
+target_link_libraries(MyProject ${OpenCV_LIBS}) #Link library to target
+</code></pre>
+<p>##Resources
+<a href="https://cliutils.gitlab.io/modern-cmake/README.html">An Introduction to Modern CMake</a></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="git---version-control-system"><a class="header" href="#git---version-control-system">Git - Version Control System</a></h1>
 <p>Git is a distributed system for versioning and managing backups of source code. However, Git also works well for versioning any kind of text. The primary motivation for teaching Git in this course is the fact that Git is the most widely used version control system in the commercial sphere today, and there is a vast array of Git-based online version control services available on the web.</p>
 <hr />
