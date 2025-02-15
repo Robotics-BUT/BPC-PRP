@@ -1,47 +1,46 @@
 # CLion
 
-CLion is an integrated development environment (IDE) developed by JetBrains. It offers an interesting alternative to conventional environments such as Eclipse or NetBeans.
+CLion is a program made by JetBrains that helps people write and test code. It is similar to other coding programs like Eclipse or NetBeans but is faster, easier to use, and looks more modern.
 
-Compared to these traditional IDEs, CLion stands out for its speed, clarity, and modern interface. Thanks to its integration with the JetBrains ecosystem, users can install numerous plugins to add support for new languages, developer tools, and more. Another significant advantage is its built-in support for Git.
+Because CLion is part of the JetBrains family, users can add extra tools and languages by installing plugins. It also has built-in support for Git, which helps with managing code changes.
 
-This manual discusses the use of CLion in the context of the BPC-PRP course. The manual begins with a brief overview of the CMake build system.
+This guide explains how to use CLion for the BPC-PRP course. It starts with a short introduction to CMake, a tool used to build programs. Then, it explains how to install CLion, create a simple "Hello World" program, and run it.
 
-Following this, the manual focuses on CLion itself, including instructions for installation, creating a simple "Hello World" project, and getting it running.
-
-The examples in this manual were prepared using CLion version 2018.3, so some procedures may change in future versions.
+The examples in this guide use CLion version 2018.3, so some steps might be different in newer versions.
 
 ## CLion Installation
 
-To install CLion, download the installation package from [https://www.jetbrains.com/clion/](https://www.jetbrains.com/clion/) by clicking on "GET FREE 30 DAY TRIAL."  
-Students are eligible for free use of the full version throughout their studies, which applies to all JetBrains products. You can obtain the full version by following the instructions on [https://www.jetbrains.com/student/](https://www.jetbrains.com/student/).  
-After downloading the installation package, proceed with the installation in the standard way according to the conventions of your operating system.
+There are two ways to install CLion
+ - `sudo snap install clion --classic` in command line
+ - download software from https://www.jetbrains.com/clion/.
+
+Students can use the full version for free while they are studying. 
 
 ## Hello World Project
 
-First, we will create a simple Hello World project to familiarize ourselves with the process of project creation, the environment, and development on a local computer.  
+First, we will make a simple Hello World project to learn how to create a project, use the CLion environment, and develop on a local computer.
 
-When launching CLion, you will be greeted with a welcome screen listing your recently opened projects. Click on the "New Project" button to start.
+When you open CLion, you will see a welcome screen with a list of your recent projects. To start a new project, click the "New Project" button.
 
 ![Welcome screen](../images/clion_welcome.png)
 
-After clicking, a window for configuring the new project will open. Here, you can set the path where you want the project to be created and choose the C++ language standard, which in our case is C++17.
-
+After clicking "New Project", a window will open where you can set up your project. Here, you can choose where to save the project and select the C++ language standard. For this guide, we will use C++17.
 ![Creating a project](../images/clion_new_project.png)
 
-After clicking "Create," the development environment will open, as shown in the image below.
+After clicking "Create," CLion will open the development environment, where you can start working on your project. The interface will look similar to the image below.
 
 ![IDE](../images/clion_home.png)
 
-Let’s take a closer look at what’s on the screen.
+Let's take a closer look at the different parts of the screen and what they do.
 
 ![Clion Controls](../images/clion_controls.png)
 
-1. **Pane with the currently edited source code**
-2. **Currently opened files**
-3. **Files in the project**
-4. **From left to right:** project compilation, target selection, compile and run, compile and run in debug mode.
+1. Pane with the currently edited source code
+2. Currently opened files
+3. Files in the project
+4. From left to right: project compilation, target selection, compile and run, compile and run in debug mode.
 
-When program is started, the console appears.
+When the program starts, the console window appears, displaying the program's output. This is where you can see messages from your code, such as the "Hello, World!" text printed by your program. If there are any errors, they will also appear here, helping you debug your code.
 
 ![Program console](../images/clion_program_terminal.png)
 

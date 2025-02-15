@@ -120,7 +120,7 @@ g++ <source1 source2 source3 ...> -I <include_directory> -o <output_binary>
 
 Create a same project using the CLion IDE. 
 
-To learn how to control CLion, please take a look on [tutorial](../../4_others/text/4_clion.md).
+To learn how to control CLion, please take a look on [tutorial](../../4_others/text/4_clion.md) or [official doc](https://www.jetbrains.com/help/clion/clion-quick-start-guide.html#code-assistance).
 
 ## Unit Tests, GTest (30 min)
 
