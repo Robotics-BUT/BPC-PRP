@@ -6,7 +6,7 @@ Because CLion is part of the JetBrains family, users can add extra tools and lan
 
 This guide explains how to use CLion for the BPC-PRP course. It starts with a short introduction to CMake, a tool used to build programs. Then, it explains how to install CLion, create a simple "Hello World" program, and run it.
 
-The examples in this guide use CLion version 2018.3, so some steps might be different in newer versions.
+The examples in this guide use CLion version 2024.3.3, so some steps might be different in newer versions.
 
 ## CLion Installation
 

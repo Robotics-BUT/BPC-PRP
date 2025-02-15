@@ -5,7 +5,7 @@ Responsible: Ing. Adam Ligocki, Ph.D.
 
 If you are not familiar with Linux CLI commands, please follow the [Linux](../../4_others/text/1_linux.md) chapter.
 
-## CLI Compilation (45 min)
+## CLI Compilation (30 min)
 
 This exercise will show you how to write and compile the most basic c++ project in Linux OS.
 
@@ -222,3 +222,7 @@ You should see the test evaluation.
 You can also evaluate tests in directly in the CLion by reloading the CMake and the test will be available as an executable on the top of the window.
 
 ![CLion Ctest](../images/clion_tests.png)
+
+## C++ Trainig (2h)
+
+Take a look on [basic c++ tutorial](../../4_others/text/2_cpp.md) and more advanced [multithreading tutorial](../../4_others/text/8_multithreading.md).
