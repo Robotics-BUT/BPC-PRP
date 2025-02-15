@@ -120,4 +120,105 @@ g++ <source1 source2 source3 ...> -I <include_directory> -o <output_binary>
 
 Create a same project using the CLion IDE. 
 
-To learn how to control CLion, please take a look on [](../../4_others/text/4_clion.md) tutorial.
+To learn how to control CLion, please take a look on [tutorial](../../4_others/text/4_clion.md).
+
+## Unit Tests, GTest (30 min)
+
+The unit tests are an effective way of developing software. It is called test-oriented-development. First we define the required functionality, than we write a tests that covers requirements and finally we implement the algorithms. When the tests are passing, it means we fulfilled requirements.
+
+In the same time, if we work on large scale projects where many people cooperates and many changes are done, the unit tests allows us to trace the potential bugs that might be introduced with changes. It is called Continuous Integration (CI). 
+
+There are many frameworks that helps implement testing. In this course we are going to use the GTest by Google as it is one of the most common tool in this field.
+
+### GTest Installation
+
+If there is no GTest installed on the system follow these instructions.
+
+```shell
+# install necessary packages 
+sudo apt update
+sudo apt install cmake build-essential libgtest-dev
+
+# compile gtest
+cd /usr/src/gtest
+sudo cmake .
+sudo make
+
+# install libs into system
+sudo cp lib/*.a /usr/lib
+```
+
+Take a look if the libraries are in the system
+
+```shell
+ls /usr/lib | grep gtest
+
+# you shoul see:
+# libgtest.a
+# libgtest_main.a
+```
+
+### Adding Unit Test to Project
+
+In your project directory add the `test` folder.
+
+```
+/MyProject
+ |--include
+ |--src
+ \--test
+```
+
+Add the `add_directory(test)` line at the end of `CMakeLists.txt` file.
+
+Create `CMakeLists.txt` file in the `test` folder.
+
+```cmake
+cmake_minimum_required(VERSION 3.10)
+
+find_package(GTest REQUIRED)
+enable_testing()
+
+add_executable(my_test my_test.cpp)
+target_link_libraries(my_test GTest::GTest GTest::Main)
+gtest_discover_tests(my_test)
+```
+
+Create `my_test.cpp` file.
+
+```c++
+#include <gtest/gtest.h>
+
+float add(float a, float b) {
+    return a + b;
+}
+
+TEST(test, test_should_pass) {
+    EXPECT_EQ(add(5.0f, 10.0), 15.0);
+    EXPECT_NE(add(5.0f, 10.0), 0.0);
+}
+
+TEST(test, test_should_fail) {
+    EXPECT_EQ(add(10.0f, 10.0), 20.0);
+}
+
+int main(int argc, char** argv) {
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+```
+
+In the bottom of the CLion open console and run
+
+```shell
+mkdir build && cd build
+cmake ..
+make
+ctest
+```
+
+You should see the test evaluation.
+
+You can also evaluate tests in directly in the CLion by reloading the CMake and the test will be available as an executable on the top of the window.
+
+![CLion Ctest](../images/clion_tests.png)
