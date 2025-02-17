@@ -464,6 +464,14 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(include/)
 add_executable(my_program src/main.cpp src/lib.cpp)
 </code></pre>
+<p>Now try co compile project. In the project folder follows:</p>
+<pre><code class="language-shell">cd my_project_dir  # go to your project directoyr
+mkdir build  # create build folder
+cd build   # enter the build folder
+cmake ..   # call cmake and search for CMakeLists.txt in the folder above
+make    # build program
+./&lt;binary_name&gt;   # run program
+</code></pre>
 <p>Optional: try to compile program manualy.</p>
 <pre><code class="language-shell">g++ &lt;source1 source2 source3 ...&gt; -I &lt;include_directory&gt; -o &lt;output_binary&gt;
 </code></pre>
