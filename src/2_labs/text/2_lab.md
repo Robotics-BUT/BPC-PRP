@@ -181,7 +181,7 @@ In your project directory add the `test` folder.
  \--test
 ```
 
-Add the `add_directory(test)` line at the end of `CMakeLists.txt` file.
+Add the `add_subdirectory(test)` line at the end of `CMakeLists.txt` file.
 
 Create `CMakeLists.txt` file in the `test` folder.
 
