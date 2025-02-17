@@ -108,6 +108,18 @@ include_directories(include/)
 add_executable(my_program src/main.cpp src/lib.cpp)
 ```
 
+Now try co compile project. In the project folder follows:
+
+```shell
+cd my_project_dir  # go to your project directoyr
+mkdir build  # create build folder
+cd build   # enter the build folder
+cmake ..   # call cmake and search for CMakeLists.txt in the folder above
+make    # build program
+./<binary_name>   # run program
+```
+
+
 Optional: try to compile program manualy.
 
 ```shell
