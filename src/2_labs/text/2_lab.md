@@ -226,6 +226,7 @@ In the bottom of the CLion open console and run
 mkdir build && cd build
 cmake ..
 make
+cd test
 ctest
 ```
 
