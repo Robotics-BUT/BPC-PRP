@@ -1,0 +1,62 @@
+# Build directories
+/build/
+/install/
+/log/
+/dist/
+
+# CMake generated files
+/CMakeCache.txt
+/CMakeFiles/
+/cmake_install.cmake
+
+# ROS2-specific logs and build artifacts
+/colcon.lock
+/.colcon/
+ros_ws/build/
+/ros_ws/install/
+/ros_ws/log/
+
+# CLion-specific files
+/.idea/
+/cmake-build-debug/
+/cmake-build-release/
+/cmake-build-*/  # Ignore any custom build directories
+
+# VS Code-specific files
+/.vscode/
+/.vscode/settings.json
+/.vscode/tasks.json
+/.vscode/launch.json
+/.vscode/c_cpp_properties.json
+
+# Editor/IDE backup files
+*.swp
+*.swo
+*~
+*.bak
+
+# Compiled binaries
+*.o
+*.so
+*.a
+*.exe
+*.out
+*.obj
+*.dll
+
+# Python virtual environments (if applicable)
+venv/
+.env/
+__pycache__/
+*.pyc
+*.pyo
+
+# ROS bag files (if used)
+/*.bag
+/*.bag.active
+/*.bag.index
+/*.db3
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
