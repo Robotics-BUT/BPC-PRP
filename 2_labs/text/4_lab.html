@@ -144,8 +144,619 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="lab-4---data-capture--visualization-ros"><a class="header" href="#lab-4---data-capture--visualization-ros">Lab 4 - Data Capture &amp; Visualization (ROS)</a></h1>
-<p>Responsible: Ing. Petr Šopák</p>
-<p>Lorem ipsum</p>
+<p><strong>Responsible:</strong> Ing. Petr Šopák</p>
+<h3 id="learning-objectives"><a class="header" href="#learning-objectives">Learning Objectives</a></h3>
+<p><strong>1) Fundamentals of ROS 2</strong></p>
+<ul>
+<li>Setting Up a <strong>ROS 2 workspace</strong> (optional)</li>
+<li>Creating a <strong>custom ROS 2 node</strong> - implementing a basic <strong>publisher &amp; subscriber</strong></li>
+<li>Exploring essential <strong>ROS 2 CLI commands</strong></li>
+<li>Utilizing <strong>visualization tools</strong> - <code>rqt_plot</code> and <code>rqt_graph</code></li>
+</ul>
+<p><strong>2) Implementing Basic Behaviour for BPC-PRP robots</strong></p>
+<ul>
+<li>Establishing <strong>connection to the robots</strong></li>
+<li>Implementing <strong>IO node</strong> - Reading button inputs and controlling LEDs</li>
+</ul>
+<p><strong>BONUS: Advanced Visualizations</strong></p>
+<ul>
+<li>Using <code>RViz</code> for graphical representation</li>
+<li>Creating basic graphical objects and defining their behavior</li>
+</ul>
+<blockquote>
+<p>If you are using your own notebook, make sure to configure everything necessary in the Ubuntu environment! Refer to (URL) for details.</p>
+</blockquote>
+<h2 id="fundamentals-of-ros-2-approx-1-hour"><a class="header" href="#fundamentals-of-ros-2-approx-1-hour">Fundamentals of ROS 2 (Approx. 1 Hour)</a></h2>
+<h3 id="setting-up-a-ros-workspace-5-min---optional"><a class="header" href="#setting-up-a-ros-workspace-5-min---optional">Setting Up a ROS Workspace (5 min) - optional</a></h3>
+<p>Last week, you cloned a basic template that we will gradually extend with additional functionalities. The first step is to establish communication between the existing project and <strong>ROS 2</strong>.</p>
+<p>There are many ways to set up a ROS project, but typically, a <a href="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html"><strong>ROS workspace</strong></a> is created, which is a structured directory for managing multiple packages. However, for this course, we <em>do not need a full ROS workspace</em>, as we will be working with only one package. Let’s review the commands from <a href="https://github.com/Robotics-BUT/BPC-PRP/blob/master/src/2_labs/text/1_lab.md"><strong>Lab 1</strong></a>. Using the CLI, create a workspace folder structured as follows:</p>
+<pre><code class="language-shell">mkdir -p ~/ros_w/src
+cd ~/ros_w
+</code></pre>
+<p>Next, copy the folders from previous labs into the src directory or re-clone the repository from Git (<a href="https://github.com/Robotics-BUT/BPC-PRP/blob/master/src/2_labs/text/3_lab.md"><strong>Lab 3</strong></a>). You can rename the template to something like <strong>&quot;ros_package&quot;</strong>, but this is optional.
+Finally, you need to <strong>compile the package</strong> and set up the environment:</p>
+<pre><code class="language-shell">colcon build
+source install/setup.bash
+</code></pre>
+<blockquote>
+<p><strong>Recap Notes: What is a ROS Workspace?</strong></p>
+<p>A <strong>ROS workspace</strong> is a structured environment for developing and managing multiple ROS packages. In this case, we created a workspace named <strong>ros_w</strong> (you can choose any name, but this follows common convention).</p>
+<p>A ROS workspace allows for <strong>unified compilation</strong> and <strong>management</strong> of multiple packages. Each <strong>ROS package</strong> is a <strong>CMake project</strong> stored in the <code>src</code> folder. Packages contain:</p>
+<ul>
+<li>Implementations of <strong>nodes</strong> (executable programs running in ROS),</li>
+<li>Definitions of <strong>messages</strong> (custom data structures used for communication),</li>
+<li>Configuration files,</li>
+<li>Other resources required for running ROS functionalities.</li>
+</ul>
+<p>After (or before) setting up the workspace, <strong>always remember</strong> to source your environment before using ROS:</p>
+<pre><code class="language-shell">source ~/ros_w/install/setup.bash
+</code></pre>
+<p>or add sourcing to your shell startup script</p>
+<pre><code class="language-shell">echo &quot;source /opt/ros/&lt;distro&gt;/setup.bash&quot; &gt;&gt; ~/.bashrc
+</code></pre>
+</blockquote>
+<h1 id="creating-a-custom-node-55-min"><a class="header" href="#creating-a-custom-node-55-min">Creating a custom node (55 min)</a></h1>
+<p>In this section, we will create a <strong>ROS 2 node</strong> that will <strong>publish</strong> and <strong>receive data</strong> (<a href="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.html">info</a>). We will then visualize the data accordingly.</p>
+<p><strong>Required Tools:</strong></p>
+<ul>
+<li><a href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html#rqt-graph"><code>rqt_graph</code></a></li>
+<li><a href="https://wiki.ros.org/rqt_plot"><code>rqt_plot</code></a></li>
+</ul>
+<p><strong>Instructions:</strong></p>
+<ol>
+<li>Open a terminal and set the ROS_DOMAIN_ID to match the ID on your computer’s case:
+<pre><code class="language-shell">export ROS_DOMAIN_ID=&lt;robot_ID&gt;
+</code></pre>
+This change is temporary and applies <strong>only to the current terminal session</strong>. If you want to make it permanent, you need to update your configuration file:
+<pre><code class="language-shell">echo &quot;export ROS_DOMAIN_ID=&lt;robot_ID&gt;&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+To <strong>verify the domain ID</strong>, use:
+<pre><code class="language-shell">echo $ROS_DOMAIN_ID
+</code></pre>
+<blockquote>
+<p>If there are any issues with the .bashrc file, please let me know.</p>
+</blockquote>
+</li>
+<li>Open your <strong>CMake project</strong> in <strong>CLion</strong> or another <strong>Editor/IDE</strong></li>
+<li>Ensure that the <strong>IDE is launched from a terminal where the ROS environment is sourced</strong></li>
+</ol>
+<pre><code class="language-shell">source /opt/ros/&lt;distro&gt;/setup.bash  # We are using the Humble distribution
+</code></pre>
+<ol start="3">
+<li>Write the following code in <code>main.cpp</code>:</li>
+</ol>
+<pre><code class="language-c++">#include &lt;rclcpp/rclcpp.hpp&gt;
+#include &quot;RosExampleClass.h&quot;
+
+int main(int argc, char* argv[]) {
+    rclcpp::init(argc, argv);
+
+    // Create an executor (for handling multiple nodes)
+    auto executor = std::make_shared&lt;rclcpp::executors::MultiThreadedExecutor&gt;();
+
+    // Create multiple nodes
+    auto node1 = std::make_shared&lt;rclcpp::Node&gt;(&quot;node1&quot;);
+    auto node2 = std::make_shared&lt;rclcpp::Node&gt;(&quot;node2&quot;);
+
+    // Create instances of RosExampleClass using the existing nodes
+    auto example_class1 = std::make_shared&lt;RosExampleClass&gt;(node1, &quot;topic1&quot;, 1.0);
+    auto example_class2 = std::make_shared&lt;RosExampleClass&gt;(node2, &quot;topic2&quot;, 2.0);
+
+    // Add nodes to the executor
+    executor-&gt;add_node(node1);
+    executor-&gt;add_node(node2);
+
+    // Run the executor (handles callbacks for both nodes)
+    executor-&gt;spin();
+
+    // Shutdown ROS 2
+    rclcpp::shutdown();
+    return 0;
+}
+</code></pre>
+<ol start="4">
+<li>Create a <strong>header file</strong> in the <code>include</code> directury to ensure the code runs properly.</li>
+<li>Adds the following code tot he header file:</li>
+</ol>
+<pre><code class="language-c++">
+#pragma once
+
+#include &lt;iostream&gt;
+#include &lt;rclcpp/rclcpp.hpp&gt;
+#include &lt;std_msgs/msg/float32.hpp&gt;
+
+class RosExampleClass {
+public:
+    // Constructor takes a shared_ptr to an existing node instead of creating one.
+    RosExampleClass(const rclcpp::Node::SharedPtr &amp;node, const std::string &amp;topic, double freq)
+        : node_(node), start_time_(node_-&gt;now()) {
+
+        // Initialize the publisher
+        publisher_ = node_-&gt;create_publisher&lt;std_msgs::msg::Float32&gt;(topic, 10);
+
+        // Initialize the subscriber
+        subscriber_ = node_-&gt;create_subscription&lt;std_msgs::msg::Float32&gt;(
+            topic, 10, std::bind(&amp;RosExampleClass::subscriber_callback, this, std::placeholders::_1));
+
+        // Create a timer
+        timer_ = node_-&gt;create_wall_timer(
+            std::chrono::milliseconds(static_cast&lt;int&gt;(freq * 1000)),
+            std::bind(&amp;RosExampleClass::timer_callback, this));
+
+        RCLCPP_INFO(node_-&gt;get_logger(), &quot;Node setup complete for topic: %s&quot;, topic.c_str());
+    }
+
+private:
+    void timer_callback() {
+        RCLCPP_INFO(node_-&gt;get_logger(), &quot;Timer triggered. Publishing uptime...&quot;);
+
+        double uptime = (node_-&gt;now() - start_time_).seconds();
+        publish_message(uptime);
+    }
+
+    void subscriber_callback(const std_msgs::msg::Float32::SharedPtr msg) {
+        RCLCPP_INFO(node_-&gt;get_logger(), &quot;Received: %f&quot;, msg-&gt;data);
+    }
+
+    void publish_message(float value_to_publish) {
+        auto msg = std_msgs::msg::Float32();
+        msg.data = value_to_publish;
+        publisher_-&gt;publish(msg);
+        RCLCPP_INFO(node_-&gt;get_logger(), &quot;Published: %f&quot;, msg.data);
+    }
+
+    // Shared pointer to the main ROS node
+    rclcpp::Node::SharedPtr node_;
+
+    // Publisher, subscriber, and timer
+    rclcpp::Publisher&lt;std_msgs::msg::Float32&gt;::SharedPtr publisher_;
+    rclcpp::Subscription&lt;std_msgs::msg::Float32&gt;::SharedPtr subscriber_;
+    rclcpp::TimerBase::SharedPtr timer_;
+
+    // Start time for uptime calculation
+    rclcpp::Time start_time_;
+};
+
+</code></pre>
+<p>At this point, you can <strong>compile and run</strong> your project. Alternatively, you can use the CLI:</p>
+<pre><code class="language-shell">colcon build --packages-select &lt;package_name&gt;
+source install/setup.bash
+ros2 run &lt;package_name&gt; &lt;executable_file&gt;
+</code></pre>
+<p>This will <strong>compile the ROS 2 workspace</strong>, <strong>load the compiled packages</strong>, and <strong>execute the program</strong> from the specified package.</p>
+<hr />
+<p><strong>TASK 1:</strong> </p>
+<ul>
+<li><strong>Review the code</strong> – Try to understand what each part does and connect it with concepts from the lecture.</li>
+<li><strong>Observe the program’s output</strong> in the terminal.</li>
+</ul>
+<hr />
+<p><strong>How to Check Published data</strong></p>
+<p>There are two main ways to analyze and visualize data in ROS 2 - using <strong>CLI commands</strong> in the terminal or <strong>ROS visualization tools</strong>. </p>
+<p><strong>1) Inspecting Published Data via CLI</strong></p>
+<p>In a new terminal (Don't forget to <strong>source the ROS environment!</strong>), you can inspect the data published to a specific topic:</p>
+<pre><code class="language-shell">ros2 topic echo &lt;topic_name&gt;
+</code></pre>
+<p>If you are unsure about the topic name, you can list all available topics:</p>
+<pre><code class="language-shell">ros2 topic list
+</code></pre>
+<blockquote>
+<p>Similar commands exist for <strong>nodes, services, and actions</strong> – refer to the documentation for more details (LINK).</p>
+</blockquote>
+<p><strong>2) Using ROS Visualization Tools</strong></p>
+<p>ROS 2 offers built-in tools for graphical visualization of data and system architecture. <strong>Real-Time Data Visualization</strong> - <code>rqt_plot</code> - allows you to <strong>graphically plot topic values</strong> in real-time:</p>
+<pre><code class="language-shell">ros2 run rqt_plot rqt_plot
+</code></pre>
+<blockquote>
+<p>In the GUI, enter <code>/&lt;topic_name&gt;/data</code> into the <strong>input field</strong>, click <strong>+</strong>, and configure the <strong>X and Y axes</strong> accordingly.</p>
+</blockquote>
+<p><strong>System Architecture Visualization</strong> - <code>rqt_graph</code> - displays the <strong>ROS 2 node connections and data flow</strong> within the system:</p>
+<pre><code class="language-shell">rqt_graph
+</code></pre>
+<blockquote>
+<p>When the system's architecture changes, simply refresh the visualization by clicking the <strong>refresh button</strong>.</p>
+</blockquote>
+<hr />
+<p><strong>TASK 2</strong></p>
+<p>Modify or extend the code to <strong>publish sine wave (or other mathematical function) values</strong>.</p>
+<p><strong>Don't forget to check the results using ROS 2 tools</strong></p>
+<p><em>(Hint: Include the <cmath> library for the mathemtical functions like <code>std::sin</code>)</em></p>
+<p><strong>(Bonus for fast finishers)</strong>: Modify the code so that each node publishes different data, such as two distinct mathematical functions.</p>
+<hr />
+<h2 id="implementing-basic-behaviour-for-bpc-prp-robots-1-hour"><a class="header" href="#implementing-basic-behaviour-for-bpc-prp-robots-1-hour">Implementing Basic Behaviour for BPC-PRP robots (1 hour)</a></h2>
+<p>In this section, we will get familiar with the PRP robot, <strong>learn how to connect to it, explore potential issues, and then write a basic input-output node for handling buttons and LEDs</strong>. Finally, we will experiment with these components.</p>
+<h3 id="connecting-to-the-robot"><a class="header" href="#connecting-to-the-robot">Connecting to the Robot</a></h3>
+<p>The robot operates as an independent unit, meaning it <strong>has its own computing system</strong> (Raspberry Pi) running Ubuntu with an already installed ROS 2 program. <em>Our goal is to connect to the robot and send instructions to control its behavior.</em></p>
+<ol>
+<li>First, power on the robot and connect to it using SSH. Ensure that you are on the same network as the robot.</li>
+</ol>
+<pre><code class="language-shell">   ssh robot@prp-&lt;color&gt;
+</code></pre>
+<blockquote>
+<p>The password will be written on the classroom board.
+The robot may take about a minute to boot up. Please <strong>wait before attempting to connect</strong>.</p>
+</blockquote>
+<ol start="2">
+<li>Once connected to the Robot:</li>
+</ol>
+<ul>
+<li>examine the system architecture to understand which ROS 2 nodes are running on the robot and what topics they publish or subscribe to.</li>
+<li>Additionally, check the important environment variables using:
+<pre><code class="language-shell">env | grep ROS
+</code></pre>
+</li>
+</ul>
+<blockquote>
+<p>The <code>ROS_DOMAIN_ID</code> is particularly important. It is an identifier used by the <code>DDS</code> (Data Distribution Service), which serves as the middleware for communication in ROS 2. <strong>Only ROS 2 nodes with the same ROS_DOMAIN_ID can discover and communicate with each other.</strong></p>
+</blockquote>
+<ol start="3">
+<li>
+<p><em>(if it is necessary)</em> Open a new terminal <strong>on your local machine</strong> (not on the robot) and change the <code>ROS_DOMAIN_ID</code> to match the robot’s domain:</p>
+<pre><code class="language-shell">export ROS_DOMAIN_ID=&lt;robot_ID&gt;
+</code></pre>
+<p>This change is temporary and applies <strong>only to the current terminal session</strong>. If you want to make it permanent, you need to update your configuration file:</p>
+<pre><code class="language-shell">echo &quot;export ROS_DOMAIN_ID=&lt;robot_ID&gt;&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</code></pre>
+<p>Alternatively, you can change it by modifying the .bashrc file:</p>
+<ol>
+<li>Open the ~/.bashrc file in an editor, for example, using nano:</li>
+</ol>
+<pre><code class="language-shell">nano ~/.bashrc
+</code></pre>
+<ol start="2">
+<li>Add/modify the following line at the end of the file:</li>
+</ol>
+<pre><code class="language-shell">export ROS_DOMAIN_ID=&lt;your_ID&gt;
+</code></pre>
+<ol start="3">
+<li>Save the changes and close the editor (in nano, press CTRL+X, then Y to confirm saving, and Enter to finalize).</li>
+<li>To apply the changes, run the following command:</li>
+</ol>
+<pre><code class="language-shell">source ~/.bashrc
+</code></pre>
+<p>To <strong>verify the domain ID</strong>, use:</p>
+<pre><code class="language-shell">echo $ROS_DOMAIN_ID
+</code></pre>
+</li>
+<li>
+<p>After successfully setting the <code>ROS_DOMAIN_ID</code>, verify whether you can see the topics published by the robot from your local machine terminal.</p>
+</li>
+</ol>
+<h3 id="implementing-the-io-node"><a class="header" href="#implementing-the-io-node">Implementing the IO node</a></h3>
+<p>At this point, you should be able to interact with the robot—sending and receiving data. Now, let's set up the basic project structure where you will progressively add files.</p>
+<h4 id="setting-up-the-project-structure"><a class="header" href="#setting-up-the-project-structure">Setting Up the Project Structure</a></h4>
+<ol>
+<li>(Open CLion.) Create a <code>nodes</code> directory inside both the <code>include</code> and <code>src</code> folders of your <strong>CMake project</strong>. These directories will hold your node scripts for different components.</li>
+</ol>
+<blockquote>
+<p>You can also create additional directories such as <code>algorithms</code> if needed.
+2) Inside the <code>nodes</code> directories, create two files:</p>
+</blockquote>
+<ul>
+<li><code>io_node.cpp</code> (for implementation)</li>
+<li><code>io_node.hpp</code> (for declarations)</li>
+</ul>
+<ol start="3">
+<li>Open <code>CMakeLists.txt</code>, review it, and modify it to ensure that your project can be built successfully.</li>
+</ol>
+<blockquote>
+<p><strong>!Remember to update CMakeLists.txt whenever you create new files!</strong></p>
+</blockquote>
+<h4 id="writing-an-io-node-for-buttons"><a class="header" href="#writing-an-io-node-for-buttons">Writing an IO Node for Buttons</a></h4>
+<ol start="4">
+<li>First, gather <strong>information about the published topic</strong> for buttons (<code>/bpc_prp_robot/buttons</code>). Determine the <strong>message type</strong> and its <strong>structure</strong> using the following <a href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html#ros2-topic-info">commands</a>:</li>
+</ol>
+<pre><code class="language-shell">ros2 topic type &lt;topic_name&gt; # Get the type of the message
+ros2 interface show &lt;type_of_msg&gt; # Show the structure of the message
+</code></pre>
+<blockquote>
+<p>Ensure that you are using the correct topic name.</p>
+</blockquote>
+<ol start="5">
+<li>(Optional) To simplify implementation, create a header file named helper.hpp inside the include folder. Copy and paste the provided code snippet into this file. This helper file will assist you in working with topics efficiently.</li>
+</ol>
+<pre><code class="language-c++"> #pragma once
+
+ #include &lt;iostream&gt;
+ 
+ // Main Loop
+ static const int MAIN_LOOP_PERIOD_MS = 50;
+ 
+ // GamepadNode
+ static constexpr size_t GAMEPAD_LOOP_PERIOD_MS = 100;
+ static constexpr float GAMEPAD_JOYSTICK_MAX_VAL = 32768.0;
+ static constexpr float GAMEPAD_JOYSTICK_DEAD_ZONE = 0.1;
+ 
+ // IMU
+ static constexpr size_t IMU_CALIBRATION_SAMPLES = 400;
+ 
+ struct Topic {
+     static std::string adc() { return &quot;/bpc_prp_robot/adc&quot;; };
+ 
+     static std::string air_press() { return &quot;/bpc_prp_robot/air_press&quot;; };
+ 
+     static std::string buttons() { return &quot;/bpc_prp_robot/buttons&quot;; };
+ 
+     static std::string camera() { return &quot;/bpc_prp_robot/camera&quot;; };
+ 
+     static std::string current_probes() { return &quot;/bpc_prp_robot/current_probes&quot;; };
+ 
+     static std::string encoders() { return &quot;/bpc_prp_robot/encoders&quot;; };
+ 
+     static std::string imu() { return &quot;/bpc_prp_robot/imu&quot;; };
+ 
+     static std::string line_sensors() { return &quot;/bpc_prp_robot/line_sensors&quot;; };
+ 
+     static std::string set_lcd_clear() { return &quot;/bpc_prp_robot/set_lcd_clear&quot;; };
+ 
+     static std::string set_lcd_cursor() { return &quot;/bpc_prp_robot/set_lcd_cursor&quot;; };
+ 
+     static std::string set_lcd_text() { return &quot;/bpc_prp_robot/set_lcd_text&quot;; };
+ 
+     static std::string set_motor_speeds() { return &quot;/bpc_prp_robot/set_motor_speeds&quot;; };
+ 
+     static std::string temp() { return &quot;/bpc_prp_robot/temp&quot;; };
+ 
+     static std::string ultrasounds() { return &quot;/bpc_prp_robot/ultrasounds&quot;; };
+ 
+     static std::string gamepad() { return &quot;/bpc_prp_robot/gamepad&quot;; };
+ 
+     static std::string lidar() { return &quot;/bpc_prp_robot/lidar&quot;; };
+ 
+     static std::string set_rgb_leds() { return &quot;/bpc_prp_robot/rgb_leds&quot;; };
+ };
+
+ struct Frame {
+     static std::string origin() { return &quot;origin&quot;; };
+ 
+     static std::string robot() { return &quot;robot&quot;; };
+ 
+     static std::string lidar() { return &quot;lidar&quot;; };
+ };
+</code></pre>
+<hr />
+<p><strong>TASK 3</strong></p>
+<ol>
+<li>Using the previous tasks as a reference, complete the code for <code>io_node.hpp</code> and <code>io_node.cpp</code> to retrieve button press data.
+<blockquote>
+<p>Hint: Below is an example <code>.hpp</code> file. You can use it for inspiration, but modifications are allowed based on your needs.</p>
+<pre><code class="language-c++">#pragma once
+
+#include &lt;rclcpp/rclcpp.hpp&gt;
+#include &lt;std_msgs/msg/u_int8.hpp&gt;
+
+namespace nodes {
+     class IoNode : public rclcpp::Node {
+     public:
+         // Constructor
+         IoNode();
+         // Destructor (default)
+         ~IoNode() override = default;
+
+         // Function to retireve the last pressed button value
+         int get_button_pressed() const;
+ 
+     private:
+         // Variable to store the last received button press value
+         int button_pressed_ = -1;
+
+         // Subscriber for button press messages
+         rclcpp::Subscription&lt;std_msgs::msg::UInt8&gt;::SharedPtr button_subscriber_; 
+ 
+         // Callback - preprocess received message
+         void on_button_callback(const std_msgs::msg::UInt8::SharedPtr msg);
+     };
+ }
+</code></pre>
+</blockquote>
+</li>
+<li>Run your program and check if the button press data is being received and processed as expected.</li>
+</ol>
+<hr />
+<p><strong>TASK 4</strong></p>
+<ol>
+<li>Add Code for Controlling LEDs
+<blockquote>
+<p>Hints: - The robot subscribes to a topic for controlling LEDs.
+- Find out which message type is used for controlling LEDs.
+- Use the CLI to <a href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html#ros2-topic-pub">publish test messages</a> and analyze their effect:</p>
+<pre><code class="language-shell">ros2 topic pub &lt;led_topic&gt; &lt;message_type&gt; &lt;message_data&gt;
+</code></pre>
+</blockquote>
+</li>
+<li>Test LED Functionality with Simple Publishing</li>
+<li>Now, <strong>integrate button input with LED output</strong>:
+<ul>
+<li><strong>Pressing the first button</strong> → All LEDs turn on.</li>
+<li><strong>Pressing the second button</strong> → LEDs cycle through colors in a <strong>your defined sequence</strong>.</li>
+<li><strong>Pressing the third button</strong> → The intensity of <em>each LED color component</em> will change according to a mathematical function, with <strong>each color phase-shifted by one-third of the cycle</strong>.</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h1 id="bonus-advanced-visualizations-30-min"><a class="header" href="#bonus-advanced-visualizations-30-min">BONUS: Advanced Visualizations (30 min)</a></h1>
+<p><strong>Required Tools:</strong> <code>rviz2</code></p>
+<p>In this section, we will learn how to create <strong>visualizations in ROS 2</strong> using <code>RViz</code>. You should refer to the <a href="https://wiki.ros.org/rviz"><strong>official RViz documentation</strong></a> and the <a href="https://wiki.ros.org/rviz/DisplayTypes/Marker"><strong>marker tutorial</strong></a> to get a deeper understanding.</p>
+<p>ROS 2 provides <strong>visualization messages</strong> via the <a href="https://wiki.ros.org/visualization_msgs"><code>visualization_msgs</code></a> package. These messages allow <strong>rendering of various geometric shapes, arrows, lines, polylines, point clouds, text, and mesh grids.</strong></p>
+<p>Our objective will be to implement a <strong>class that visualizes a floating cube in 3D space</strong> while displaying its real-time position next to it.</p>
+<ol>
+<li>
+<p>Create the Header File <code>rviz_example_class.hpp</code>:</p>
+<pre><code class="language-c++"> #pragma once
+
+ #include &lt;iostream&gt;
+ #include &lt;memory&gt;
+ #include &lt;rclcpp/rclcpp.hpp&gt;
+ #include &lt;visualization_msgs/msg/marker_array.hpp&gt;prp_project
+ #include &lt;cmath&gt;
+ #include &lt;iomanip&gt;
+ #include &lt;sstream&gt;
+ 
+ #define FORMAT std::fixed &lt;&lt; std::setw(5) &lt;&lt; std::showpos &lt;&lt; std::setprecision(2)
+ 
+ class RvizExampleClass : public rclcpp::Node {
+ public:
+     RvizExampleClass(const std::string&amp; topic, double freq)
+         : Node(&quot;rviz_example_node&quot;) // Node name in ROS 2
+     {
+         // Create a timer with the specified frequency (Hz)
+         timer_ = this-&gt;create_wall_timer(
+             std::chrono::milliseconds(static_cast&lt;int&gt;(1000.0 / freq)),
+             std::bind(&amp;RvizExampleClass::timer_callback, this)
+         );
+ 
+         // Create a publisher for MarkerArray messages
+         markers_publisher_ = this-&gt;create_publisher&lt;visualization_msgs::msg::MarkerArray&gt;(topic, 10);
+     }
+ 
+ private:
+     class Pose {
+     public:
+         Pose(float x, float y, float z) : x_{x}, y_{y}, z_{z} {}
+         float x() const { return x_; }
+         float y() const { return y_; }
+         float z() const { return z_; }
+     private:
+         const float x_, y_, z_;
+     };
+ 
+     void timer_callback() {
+         auto time = this-&gt;now().seconds();
+         auto pose = Pose(sin(time), cos(time), 0.5 * sin(time * 3));
+ 
+         // Create a MarkerArray message
+         visualization_msgs::msg::MarkerArray msg;
+         msg.markers.push_back(make_cube_marker(pose));
+         msg.markers.push_back(make_text_marker(pose));
+ 
+         // Publish the marker array
+         markers_publisher_-&gt;publish(msg);
+     }
+ 
+     visualization_msgs::msg::Marker make_cube_marker(const Pose&amp; pose) {
+         visualization_msgs::msg::Marker cube;
+ 
+         // Coordinate system
+         cube.header.frame_id = &quot;map&quot;; // In ROS 2, &quot;map&quot; or &quot;odom&quot; is recommended
+         cube.header.stamp = this-&gt;now();
+ 
+         // Marker Type
+         cube.type = visualization_msgs::msg::Marker::CUBE;
+         cube.action = visualization_msgs::msg::Marker::ADD;
+         cube.id = 0;
+ 
+         // Position
+         cube.pose.position.x = pose.x();
+         cube.pose.position.y = pose.y();
+         cube.pose.position.z = pose.z();
+ 
+         // Orientation (Quaternion)
+         cube.pose.orientation.x = 0.0;
+         cube.pose.orientation.y = 0.0;
+         cube.pose.orientation.z = 0.0;
+         cube.pose.orientation.w = 1.0;
+ 
+         // Size
+         cube.scale.x = cube.scale.y = cube.scale.z = 0.1;
+ 
+         // Color
+         cube.color.a = 1.0; // Alpha (visibility)
+         cube.color.r = 0.0;
+         cube.color.g = 1.0;
+         cube.color.b = 0.0;
+ 
+         return cube;
+     }
+ 
+     visualization_msgs::msg::Marker make_text_marker(const Pose&amp; pose) {
+         visualization_msgs::msg::Marker text;
+ 
+         // Coordinate system
+         text.header.frame_id = &quot;map&quot;;
+         text.header.stamp = this-&gt;now();
+ 
+         // Marker Type
+         text.type = visualization_msgs::msg::Marker::TEXT_VIEW_FACING;
+         text.action = visualization_msgs::msg::Marker::ADD;
+         text.id = 1;
+ 
+         // Position (slightly above the cube)
+         text.pose.position.x = pose.x();
+         text.pose.position.y = pose.y();
+         text.pose.position.z = pose.z() + 0.2;
+ 
+         // Size
+         text.scale.z = 0.1;
+ 
+         // Text content
+         std::stringstream stream;
+         stream &lt;&lt; &quot;* Cool Cube *&quot; &lt;&lt; std::endl
+                &lt;&lt; &quot;  x: &quot; &lt;&lt; FORMAT &lt;&lt; pose.x() &lt;&lt; std::endl
+                &lt;&lt; &quot;  y: &quot; &lt;&lt; FORMAT &lt;&lt; pose.y() &lt;&lt; std::endl
+                &lt;&lt; &quot;  z: &quot; &lt;&lt; FORMAT &lt;&lt; pose.z();
+         text.text = stream.str();
+ 
+         // Color
+         text.color.a = 1.0;
+         text.color.r = 1.0;
+         text.color.g = 1.0;
+         text.color.b = 0.0;
+ 
+         return text;
+     }
+ 
+     // ROS 2 timer
+     rclcpp::TimerBase::SharedPtr timer_;
+ 
+     // ROS 2 publisher
+     rclcpp::Publisher&lt;visualization_msgs::msg::MarkerArray&gt;::SharedPtr markers_publisher_;
+ };
+</code></pre>
+</li>
+<li>
+<p>Add the Following Code to <code>main.cpp</code>:</p>
+<pre><code class="language-c++">  #include &quot;rviz_example_class.hpp&quot;
+  #include &lt;rclcpp/rclcpp.hpp&gt;
+
+  int main(int argc, char** argv) {
+      // Initialize ROS 2
+      rclcpp::init(argc, argv);
+  
+      // Create a node and run it
+      auto node = std::make_shared&lt;RvizExampleClass&gt;(&quot;rviz_topic&quot;, 30.0);
+      rclcpp::spin(node);
+  
+      // Shutdown ROS 2
+      rclcpp::shutdown();
+      return 0;
+  }
+</code></pre>
+</li>
+<li>
+<p>Build and run your project. Then open <code>Rviz</code></p>
+<pre><code class="language-shell">rviz2
+</code></pre>
+</li>
+<li>
+<p>Add the Visualization Topic</p>
+<ol>
+<li>In <code>RViz</code>, go to <code>Add</code> → <code>By Topic</code></li>
+<li>Locate the created topic <code>rviz_topic</code></li>
+<li>Select <code>MarkerArray</code> to display the cube and text</li>
+</ol>
+</li>
+</ol>
+<hr />
+<p><strong>TASK BONUS</strong>: </p>
+<ol>
+<li>Check the Code and <code>RViz</code> Features</li>
+<li>Experiment with modifying the code to explore different visualization features. </li>
+</ol>
+<blockquote>
+<p>The goal of this task is to familiarize yourself with RViz. RViz will be used in future exercises, e.g., visualizing LiDAR data.</p>
+</blockquote>
 
                     </main>
 
