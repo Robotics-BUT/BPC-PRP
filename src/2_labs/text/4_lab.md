@@ -32,7 +32,7 @@ There are many ways to set up a ROS project, but typically, a [**ROS workspace**
 mkdir -p ~/ros_w/src
 cd ~/ros_w
 ```
-Next, copy the folders from previous labs into the src directory or re-clone the repository from Git ([**Lab 3**](https://github.com/Robotics-BUT/BPC-PRP/blob/master/src/2_labs/text/3_lab.md)). You can rename the template to something like **"ros_package"**, but this is optional.
+Next, copy the folders from previous labs into the `src` directory or re-clone the repository from Git ([**Lab 3**](https://github.com/Robotics-BUT/BPC-PRP/blob/master/src/2_labs/text/3_lab.md)). You can rename the template to something like **"ros_package"**, but this is optional.
 Finally, you need to **compile the package** and set up the environment:
 
 ```shell
@@ -80,6 +80,12 @@ In this section, we will create a **ROS 2 node** that will **publish** and **rec
    echo "export ROS_DOMAIN_ID=<robot_ID>" >> ~/.bashrc
    source ~/.bashrc
    ```
+   
+   Check the `~/.bashrc` content using. The `~/.bashrc` is a script that runs every time the new bash session (cli) is opened and it is used to setup bash environment.
+   ```
+   cat ~/.bashrc
+   ```
+
    To **verify the domain ID**, use:
     ```shell
    echo $ROS_DOMAIN_ID
@@ -141,11 +147,11 @@ public:
         : node_(node), start_time_(node_->now()) {
 
         // Initialize the publisher
-        publisher_ = node_->create_publisher<std_msgs::msg::Float32>(topic, 10);
+        publisher_ = node_->create_publisher<std_msgs::msg::Float32>(topic, 1);
 
         // Initialize the subscriber
         subscriber_ = node_->create_subscription<std_msgs::msg::Float32>(
-            topic, 10, std::bind(&RosExampleClass::subscriber_callback, this, std::placeholders::_1));
+            topic, 1, std::bind(&RosExampleClass::subscriber_callback, this, std::placeholders::_1));
 
         // Create a timer
         timer_ = node_->create_wall_timer(
@@ -313,8 +319,8 @@ At this point, you should be able to interact with the robot—sending and recei
 1) (Open CLion.) Create a `nodes` directory inside both the `include` and `src` folders of your **CMake project**. These directories will hold your node scripts for different components.
  > You can also create additional directories such as `algorithms` if needed.
 2) Inside the `nodes` directories, create two files:
- - `io_node.cpp` (for implementation)
- - `io_node.hpp` (for declarations)
+ - `src/nodes/io_node.hpp` (for declarations)
+ - `include/nodes/io_node.cpp` (for implementation)
 3) Open `CMakeLists.txt`, review it, and modify it to ensure that your project can be built successfully.
  > **!Remember to update CMakeLists.txt whenever you create new files!**
 
@@ -329,66 +335,26 @@ At this point, you should be able to interact with the robot—sending and recei
 
 5) (Optional) To simplify implementation, create a header file named helper.hpp inside the include folder. Copy and paste the provided code snippet into this file. This helper file will assist you in working with topics efficiently.
 ```c++
- #pragma once
+#pragma once
 
- #include <iostream>
+#include <iostream>
  
- // Main Loop
- static const int MAIN_LOOP_PERIOD_MS = 50;
+static const int MAIN_LOOP_PERIOD_MS = 50;
  
- // GamepadNode
- static constexpr size_t GAMEPAD_LOOP_PERIOD_MS = 100;
- static constexpr float GAMEPAD_JOYSTICK_MAX_VAL = 32768.0;
- static constexpr float GAMEPAD_JOYSTICK_DEAD_ZONE = 0.1;
- 
- // IMU
- static constexpr size_t IMU_CALIBRATION_SAMPLES = 400;
- 
- struct Topic {
-     static std::string adc() { return "/bpc_prp_robot/adc"; };
- 
-     static std::string air_press() { return "/bpc_prp_robot/air_press"; };
- 
-     static std::string buttons() { return "/bpc_prp_robot/buttons"; };
- 
-     static std::string camera() { return "/bpc_prp_robot/camera"; };
- 
-     static std::string current_probes() { return "/bpc_prp_robot/current_probes"; };
- 
-     static std::string encoders() { return "/bpc_prp_robot/encoders"; };
- 
-     static std::string imu() { return "/bpc_prp_robot/imu"; };
- 
-     static std::string line_sensors() { return "/bpc_prp_robot/line_sensors"; };
- 
-     static std::string set_lcd_clear() { return "/bpc_prp_robot/set_lcd_clear"; };
- 
-     static std::string set_lcd_cursor() { return "/bpc_prp_robot/set_lcd_cursor"; };
- 
-     static std::string set_lcd_text() { return "/bpc_prp_robot/set_lcd_text"; };
- 
-     static std::string set_motor_speeds() { return "/bpc_prp_robot/set_motor_speeds"; };
- 
-     static std::string temp() { return "/bpc_prp_robot/temp"; };
- 
-     static std::string ultrasounds() { return "/bpc_prp_robot/ultrasounds"; };
- 
-     static std::string gamepad() { return "/bpc_prp_robot/gamepad"; };
- 
-     static std::string lidar() { return "/bpc_prp_robot/lidar"; };
- 
-     static std::string set_rgb_leds() { return "/bpc_prp_robot/rgb_leds"; };
- };
+namespace Topic {
+   const std::string buttons = "/bpc_prp_robot/buttons";
+   const std::string set_rgb_leds = "/bpc_prp_robot/rgb_leds";
+};
 
- struct Frame {
-     static std::string origin() { return "origin"; };
- 
-     static std::string robot() { return "robot"; };
- 
-     static std::string lidar() { return "lidar"; };
- };
- ```
+namespace Frame {
+    const std::string origin = "origin";
+    const std::string robot = "robot";
+    const std::string lidar = "lidar";
+};
+```
+
 ------------------------------------------------------------------------------------------
+
 **TASK 3**
 1) Using the previous tasks as a reference, complete the code for `io_node.hpp` and `io_node.cpp` to retrieve button press data.
    > Hint: Below is an example `.hpp` file. You can use it for inspiration, but modifications are allowed based on your needs.
@@ -422,6 +388,22 @@ At this point, you should be able to interact with the robot—sending and recei
    >      };
    >  }
    > ```
+   > 
+   > ```c++
+   > #include "my_project/nodes/io_node.hpp"
+   > namespace {
+   >     IoNode::IoNode() {
+   >        // ...
+   >     }
+   > 
+   >     IoNode::get_button_pressed() const {
+   >        // ...
+   >     }
+   > 
+   >     // ...
+   > }   
+   >
+   > > ```
 2) Run your program and check if the button press data is being received and processed as expected.
 -------------------------------------------------------------------------------------------------
 **TASK 4**
@@ -443,6 +425,8 @@ At this point, you should be able to interact with the robot—sending and recei
 # BONUS: Advanced Visualizations (30 min)
 
 **Required Tools:** `rviz2`
+
+Official documentation: [RViz2](https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html).
 
 In this section, we will learn how to create **visualizations in ROS 2** using `RViz`. You should refer to the [**official RViz documentation**](https://wiki.ros.org/rviz) and the [**marker tutorial**](https://wiki.ros.org/rviz/DisplayTypes/Marker) to get a deeper understanding.
 
