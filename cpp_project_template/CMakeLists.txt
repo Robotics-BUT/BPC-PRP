@@ -13,7 +13,7 @@ find_package(cv_bridge REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(SDL2 REQUIRED)
-
+find_package(visualization_msgs REQUIRED)
 
 
 set(SRC
@@ -31,6 +31,8 @@ target_include_directories(prp_lib PUBLIC "/opt/ros/humble/include/cv_bridge/")
 target_include_directories(prp_lib PUBLIC "/opt/ros/humble/include/image_transport/")
 target_include_directories(prp_lib PUBLIC "/opt/ros/humble/include/sensor_msgs/")
 
+ament_target_dependencies(prp_lib ${AMENT_LIBS})
+
 message("* * * *")
 message(${OpenCV_LIBS})
 
@@ -38,7 +40,7 @@ add_executable(${PROJECT_NAME} src/main.cpp)
 
 
 target_link_libraries(${PROJECT_NAME} ${STD_LIBS} prp_lib  ${OpenCV_LIBS} ${SDL2_LIBS})
-ament_target_dependencies(${PROJECT_NAME} ${AMENT_LIBS} rclcpp std_msgs sensor_msgs cv_bridge image_transport)
+ament_target_dependencies(${PROJECT_NAME} ${AMENT_LIBS} rclcpp std_msgs sensor_msgs cv_bridge image_transport visualization_msgs)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION lib/${PROJECT_NAME})
 ament_package()
