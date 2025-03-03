@@ -13,32 +13,23 @@ find_package(cv_bridge REQUIRED)
 find_package(image_transport REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(SDL2 REQUIRED)
-
-
+find_package(visualization_msgs REQUIRED)
 
 set(SRC
-    src/example.cpp
+        src/example.cpp
 )
 
-set(STD_LIBS ${OpenCV_LIBS} ${SDL2_LIBRARIES})
 set(AMENT_LIBS rclcpp std_msgs sensor_msgs cv_bridge image_transport)
 
-add_library(prp_lib STATIC ${SRC})
-target_link_libraries(prp_lib ${STD_LIBS})
-target_include_directories(prp_lib PUBLIC include ${OpenCV_INCLUDE})
-target_include_directories(prp_lib PUBLIC SDL2Test ${SDL2_INCLUDE_DIRS})
-target_include_directories(prp_lib PUBLIC "/opt/ros/humble/include/cv_bridge/")
-target_include_directories(prp_lib PUBLIC "/opt/ros/humble/include/image_transport/")
-target_include_directories(prp_lib PUBLIC "/opt/ros/humble/include/sensor_msgs/")
-
-message("* * * *")
-message(${OpenCV_LIBS})
-
-add_executable(${PROJECT_NAME} src/main.cpp)
-
-
-target_link_libraries(${PROJECT_NAME} ${STD_LIBS} prp_lib  ${OpenCV_LIBS} ${SDL2_LIBS})
-ament_target_dependencies(${PROJECT_NAME} ${AMENT_LIBS} rclcpp std_msgs sensor_msgs cv_bridge image_transport)
+add_executable(${PROJECT_NAME} src/main.cpp ${SRC})
+target_include_directories(${PROJECT_NAME} PUBLIC
+        include
+        ${OpenCV_INCLUDE_DIRS}
+        ${SDL2_INCLUDE_DIRS}
+        /opt/ros/humble/include
+)
+target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} ${SDL2_LIBS})
+ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs sensor_msgs cv_bridge image_transport visualization_msgs)
 
 install(TARGETS ${PROJECT_NAME} DESTINATION lib/${PROJECT_NAME})
 ament_package()
