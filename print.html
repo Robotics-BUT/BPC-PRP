@@ -573,6 +573,28 @@ ctest
 <p>The instructors will have access to all your repositories, including their history, and can monitor your progress, including who, when, and how frequently commits were made.</p>
 <p>Create a repository on the server to maintain your code throughout the course.</p>
 <hr />
+<h3 id="cloning-repository-in-labs"><a class="header" href="#cloning-repository-in-labs">Cloning repository in labs</a></h3>
+<h4 id="https---github-token"><a class="header" href="#https---github-token">HTTPS - GitHub Token</a></h4>
+<p>When cloning a repository via HTTPS, you cannot push changes using your username and password. Instead, you must use a generated GitHub token.</p>
+<p>To generate a token, go to <strong>Profile picture (top-right corner)</strong> &gt; <strong>Settings</strong> &gt; <strong>Developer Settings</strong> &gt; <strong>Personal Access Tokens</strong> &gt; <strong>Tokens (classic)</strong> or click <a href="https://github.com/settings/tokens">here</a>. Your generated token will be shown only once, after which you can use it as a password when pushing changes via HTTPS until the token expires.</p>
+<h4 id="ssh---setting-a-different-key"><a class="header" href="#ssh---setting-a-different-key">SSH - Setting a Different Key</a></h4>
+<p>You can generate an SSH key using the <code>ssh-keygen</code> command. It will prompt you in a single input for both the location and name of your key, followed by a passphrase. For use in a laboratory set a passphrase. The default location where the system recognizes the keys is <code>~/.ssh</code>.</p>
+<p>When cloning a repository via SSH in labs, you may encounter a problem with Git using the wrong SSH key.<br />
+You'll need to configure Git to use your generated key:</p>
+<pre><code class="language-bash">git config core.sshCommand &quot;ssh -i ~/.ssh/&lt;your_key&gt;&quot;
+</code></pre>
+<p>In this command, <code>&lt;your_key&gt;</code> refers to the private part of your generated key.</p>
+<p>On GitHub, you can add the <strong>public</strong> part of your key to either a specific repository or your entire account.</p>
+<ul>
+<li>
+<p><strong>To add a key to a project (repository level):</strong><br />
+Go to <strong>Project</strong> &gt; <strong>Settings</strong> &gt; <strong>Deploy keys</strong> &gt; <strong>Add deploy key</strong>, then check <strong>Allow write access</strong> if needed.</p>
+</li>
+<li>
+<p><strong>To add a key to your GitHub account (global access):</strong><br />
+Go to <strong>Profile picture (top-right corner)</strong> &gt; <strong>Settings</strong> &gt; <strong>SSH and GPG keys</strong> &gt; <strong>New SSH key</strong>.</p>
+</li>
+</ul>
 <h3 id="team-exercise"><a class="header" href="#team-exercise">Team Exercise</a></h3>
 <p>As a team, complete the following steps:</p>
 <ol>
