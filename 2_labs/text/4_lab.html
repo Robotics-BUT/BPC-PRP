@@ -173,7 +173,7 @@
 <pre><code class="language-shell">mkdir -p ~/ros_w/src
 cd ~/ros_w
 </code></pre>
-<p>Next, copy the folders from previous labs into the src directory or re-clone the repository from Git (<a href="https://github.com/Robotics-BUT/BPC-PRP/blob/master/src/2_labs/text/3_lab.md"><strong>Lab 3</strong></a>). You can rename the template to something like <strong>&quot;ros_package&quot;</strong>, but this is optional.
+<p>Next, copy the folders from previous labs into the <code>src</code> directory or re-clone the repository from Git (<a href="https://github.com/Robotics-BUT/BPC-PRP/blob/master/src/2_labs/text/3_lab.md"><strong>Lab 3</strong></a>). You can rename the template to something like <strong>&quot;ros_package&quot;</strong>, but this is optional.
 Finally, you need to <strong>compile the package</strong> and set up the environment:</p>
 <pre><code class="language-shell">colcon build
 source install/setup.bash
@@ -204,22 +204,30 @@ source install/setup.bash
 </ul>
 <p><strong>Instructions:</strong></p>
 <ol>
-<li>Open a terminal and set the ROS_DOMAIN_ID to match the ID on your computer’s case:
+<li>
+<p>Open a terminal and set the ROS_DOMAIN_ID to match the ID on your computer’s case:</p>
 <pre><code class="language-shell">export ROS_DOMAIN_ID=&lt;robot_ID&gt;
 </code></pre>
-This change is temporary and applies <strong>only to the current terminal session</strong>. If you want to make it permanent, you need to update your configuration file:
+<p>This change is temporary and applies <strong>only to the current terminal session</strong>. If you want to make it permanent, you need to update your configuration file:</p>
 <pre><code class="language-shell">echo &quot;export ROS_DOMAIN_ID=&lt;robot_ID&gt;&quot; &gt;&gt; ~/.bashrc
 source ~/.bashrc
 </code></pre>
-To <strong>verify the domain ID</strong>, use:
+<p>Check the <code>~/.bashrc</code> content using. The <code>~/.bashrc</code> is a script that runs every time the new bash session (cli) is opened and it is used to setup bash environment.</p>
+<pre><code>cat ~/.bashrc
+</code></pre>
+<p>To <strong>verify the domain ID</strong>, use:</p>
 <pre><code class="language-shell">echo $ROS_DOMAIN_ID
 </code></pre>
 <blockquote>
 <p>If there are any issues with the .bashrc file, please let me know.</p>
 </blockquote>
 </li>
-<li>Open your <strong>CMake project</strong> in <strong>CLion</strong> or another <strong>Editor/IDE</strong></li>
-<li>Ensure that the <strong>IDE is launched from a terminal where the ROS environment is sourced</strong></li>
+<li>
+<p>Open your <strong>CMake project</strong> in <strong>CLion</strong> or another <strong>Editor/IDE</strong></p>
+</li>
+<li>
+<p>Ensure that the <strong>IDE is launched from a terminal where the ROS environment is sourced</strong></p>
+</li>
 </ol>
 <pre><code class="language-shell">source /opt/ros/&lt;distro&gt;/setup.bash  # We are using the Humble distribution
 </code></pre>
@@ -273,11 +281,11 @@ public:
         : node_(node), start_time_(node_-&gt;now()) {
 
         // Initialize the publisher
-        publisher_ = node_-&gt;create_publisher&lt;std_msgs::msg::Float32&gt;(topic, 10);
+        publisher_ = node_-&gt;create_publisher&lt;std_msgs::msg::Float32&gt;(topic, 1);
 
         // Initialize the subscriber
         subscriber_ = node_-&gt;create_subscription&lt;std_msgs::msg::Float32&gt;(
-            topic, 10, std::bind(&amp;RosExampleClass::subscriber_callback, this, std::placeholders::_1));
+            topic, 1, std::bind(&amp;RosExampleClass::subscriber_callback, this, std::placeholders::_1));
 
         // Create a timer
         timer_ = node_-&gt;create_wall_timer(
@@ -435,8 +443,8 @@ source ~/.bashrc
 2) Inside the <code>nodes</code> directories, create two files:</p>
 </blockquote>
 <ul>
-<li><code>io_node.cpp</code> (for implementation)</li>
-<li><code>io_node.hpp</code> (for declarations)</li>
+<li><code>src/nodes/io_node.hpp</code> (for declarations)</li>
+<li><code>include/nodes/io_node.cpp</code> (for implementation)</li>
 </ul>
 <ol start="3">
 <li>Open <code>CMakeLists.txt</code>, review it, and modify it to ensure that your project can be built successfully.</li>
@@ -457,64 +465,22 @@ ros2 interface show &lt;type_of_msg&gt; # Show the structure of the message
 <ol start="5">
 <li>(Optional) To simplify implementation, create a header file named helper.hpp inside the include folder. Copy and paste the provided code snippet into this file. This helper file will assist you in working with topics efficiently.</li>
 </ol>
-<pre><code class="language-c++"> #pragma once
+<pre><code class="language-c++">#pragma once
 
- #include &lt;iostream&gt;
+#include &lt;iostream&gt;
  
- // Main Loop
- static const int MAIN_LOOP_PERIOD_MS = 50;
+static const int MAIN_LOOP_PERIOD_MS = 50;
  
- // GamepadNode
- static constexpr size_t GAMEPAD_LOOP_PERIOD_MS = 100;
- static constexpr float GAMEPAD_JOYSTICK_MAX_VAL = 32768.0;
- static constexpr float GAMEPAD_JOYSTICK_DEAD_ZONE = 0.1;
- 
- // IMU
- static constexpr size_t IMU_CALIBRATION_SAMPLES = 400;
- 
- struct Topic {
-     static std::string adc() { return &quot;/bpc_prp_robot/adc&quot;; };
- 
-     static std::string air_press() { return &quot;/bpc_prp_robot/air_press&quot;; };
- 
-     static std::string buttons() { return &quot;/bpc_prp_robot/buttons&quot;; };
- 
-     static std::string camera() { return &quot;/bpc_prp_robot/camera&quot;; };
- 
-     static std::string current_probes() { return &quot;/bpc_prp_robot/current_probes&quot;; };
- 
-     static std::string encoders() { return &quot;/bpc_prp_robot/encoders&quot;; };
- 
-     static std::string imu() { return &quot;/bpc_prp_robot/imu&quot;; };
- 
-     static std::string line_sensors() { return &quot;/bpc_prp_robot/line_sensors&quot;; };
- 
-     static std::string set_lcd_clear() { return &quot;/bpc_prp_robot/set_lcd_clear&quot;; };
- 
-     static std::string set_lcd_cursor() { return &quot;/bpc_prp_robot/set_lcd_cursor&quot;; };
- 
-     static std::string set_lcd_text() { return &quot;/bpc_prp_robot/set_lcd_text&quot;; };
- 
-     static std::string set_motor_speeds() { return &quot;/bpc_prp_robot/set_motor_speeds&quot;; };
- 
-     static std::string temp() { return &quot;/bpc_prp_robot/temp&quot;; };
- 
-     static std::string ultrasounds() { return &quot;/bpc_prp_robot/ultrasounds&quot;; };
- 
-     static std::string gamepad() { return &quot;/bpc_prp_robot/gamepad&quot;; };
- 
-     static std::string lidar() { return &quot;/bpc_prp_robot/lidar&quot;; };
- 
-     static std::string set_rgb_leds() { return &quot;/bpc_prp_robot/rgb_leds&quot;; };
- };
+namespace Topic {
+   const std::string buttons = &quot;/bpc_prp_robot/buttons&quot;;
+   const std::string set_rgb_leds = &quot;/bpc_prp_robot/rgb_leds&quot;;
+};
 
- struct Frame {
-     static std::string origin() { return &quot;origin&quot;; };
- 
-     static std::string robot() { return &quot;robot&quot;; };
- 
-     static std::string lidar() { return &quot;lidar&quot;; };
- };
+namespace Frame {
+    const std::string origin = &quot;origin&quot;;
+    const std::string robot = &quot;robot&quot;;
+    const std::string lidar = &quot;lidar&quot;;
+};
 </code></pre>
 <hr />
 <p><strong>TASK 3</strong></p>
@@ -550,6 +516,21 @@ namespace nodes {
      };
  }
 </code></pre>
+<pre><code class="language-c++">#include &quot;my_project/nodes/io_node.hpp&quot;
+namespace {
+    IoNode::IoNode() {
+       // ...
+    }
+
+    IoNode::get_button_pressed() const {
+       // ...
+    }
+
+    // ...
+}   
+
+&gt; ```
+</code></pre>
 </blockquote>
 </li>
 <li>Run your program and check if the button press data is being received and processed as expected.</li>
@@ -578,6 +559,7 @@ namespace nodes {
 <hr />
 <h1 id="bonus-advanced-visualizations-30-min"><a class="header" href="#bonus-advanced-visualizations-30-min">BONUS: Advanced Visualizations (30 min)</a></h1>
 <p><strong>Required Tools:</strong> <code>rviz2</code></p>
+<p>Official documentation: <a href="https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html">RViz2</a>.</p>
 <p>In this section, we will learn how to create <strong>visualizations in ROS 2</strong> using <code>RViz</code>. You should refer to the <a href="https://wiki.ros.org/rviz"><strong>official RViz documentation</strong></a> and the <a href="https://wiki.ros.org/rviz/DisplayTypes/Marker"><strong>marker tutorial</strong></a> to get a deeper understanding.</p>
 <p>ROS 2 provides <strong>visualization messages</strong> via the <a href="https://wiki.ros.org/visualization_msgs"><code>visualization_msgs</code></a> package. These messages allow <strong>rendering of various geometric shapes, arrows, lines, polylines, point clouds, text, and mesh grids.</strong></p>
 <p>Our objective will be to implement a <strong>class that visualizes a floating cube in 3D space</strong> while displaying its real-time position next to it.</p>
