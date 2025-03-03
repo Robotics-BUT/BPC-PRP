@@ -23,6 +23,35 @@ Create a repository on the server to maintain your code throughout the course.
 
 ---
 
+### Cloning repository in labs
+
+#### HTTPS - GitHub Token  
+
+When cloning a repository via HTTPS, you cannot push changes using your username and password. Instead, you must use a generated GitHub token.  
+
+To generate a token, go to **Profile picture (top-right corner)** > **Settings** > **Developer Settings** > **Personal Access Tokens** > **Tokens (classic)** or click [here](https://github.com/settings/tokens). Your generated token will be shown only once, after which you can use it as a password when pushing changes via HTTPS until the token expires.  
+
+#### SSH - Setting a Different Key  
+
+You can generate an SSH key using the `ssh-keygen` command. It will prompt you in a single input for both the location and name of your key, followed by a passphrase. For use in a laboratory set a passphrase. The default location where the system recognizes the keys is `~/.ssh`.  
+
+When cloning a repository via SSH in labs, you may encounter a problem with Git using the wrong SSH key.  
+You'll need to configure Git to use your generated key:  
+```bash
+git config core.sshCommand "ssh -i ~/.ssh/<your_key>"
+```
+In this command, `<your_key>` refers to the private part of your generated key.  
+
+On GitHub, you can add the **public** part of your key to either a specific repository or your entire account.  
+
+- **To add a key to a project (repository level):**  
+  Go to **Project** > **Settings** > **Deploy keys** > **Add deploy key**, then check **Allow write access** if needed.  
+
+- **To add a key to your GitHub account (global access):**  
+  Go to **Profile picture (top-right corner)** > **Settings** > **SSH and GPG keys** > **New SSH key**.  
+
+
+
 ### Team Exercise
 
 As a team, complete the following steps:
@@ -83,3 +112,5 @@ Makefile
 ```
 5. 
 6. Commit and push your project to the server and share it with other members of the team.
+
+
