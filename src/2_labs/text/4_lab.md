@@ -18,7 +18,7 @@
  -  Using `RViz` for graphical representation
  -  Creating basic graphical objects and defining their behavior
 
-> If you are using your own notebook, make sure to configure everything necessary in the Ubuntu environment! Refer to (URL) for details.
+> If you are using your own notebook, make sure to configure everything necessary in the Ubuntu environment! Refer to [Ubuntu Environment Chapter](../../4_others/text/12_ubuntu_environment.md) for details.
 
 ## Fundamentals of ROS 2 (Approx. 1 Hour)
 
@@ -225,7 +225,7 @@ If you are unsure about the topic name, you can list all available topics:
 ```shell
 ros2 topic list
 ```
-> Similar commands exist for **nodes, services, and actions** – refer to the documentation for more details (LINK).
+> Similar commands exist for **nodes, services, and actions** – refer to the [documentation](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html) for more details.
 
 **2) Using ROS Visualization Tools**
 
@@ -319,8 +319,8 @@ At this point, you should be able to interact with the robot—sending and recei
 1) (Open CLion.) Create a `nodes` directory inside both the `include` and `src` folders of your **CMake project**. These directories will hold your node scripts for different components.
  > You can also create additional directories such as `algorithms` if needed.
 2) Inside the `nodes` directories, create two files:
- - `src/nodes/io_node.hpp` (for declarations)
- - `include/nodes/io_node.cpp` (for implementation)
+ - `include/nodes/io_node.hpp` (for declarations)
+ - `src/nodes/io_node.cpp` (for implementation)
 3) Open `CMakeLists.txt`, review it, and modify it to ensure that your project can be built successfully.
  > **!Remember to update CMakeLists.txt whenever you create new files!**
 
@@ -388,6 +388,7 @@ namespace Frame {
    >      };
    >  }
    > ```
+   > Here is an example of a `.cpp` file. However, you need to complete it yourself before you can compile it.
    > 
    > ```c++
    > #include "my_project/nodes/io_node.hpp"
