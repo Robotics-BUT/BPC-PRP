@@ -676,7 +676,7 @@ Makefile
 <li>Creating basic graphical objects and defining their behavior</li>
 </ul>
 <blockquote>
-<p>If you are using your own notebook, make sure to configure everything necessary in the Ubuntu environment! Refer to (URL) for details.</p>
+<p>If you are using your own notebook, make sure to configure everything necessary in the Ubuntu environment! Refer to <a href="2_labs/text/../../4_others/text/12_ubuntu_environment.html">Ubuntu Environment Chapter</a> for details.</p>
 </blockquote>
 <h2 id="fundamentals-of-ros-2-approx-1-hour"><a class="header" href="#fundamentals-of-ros-2-approx-1-hour">Fundamentals of ROS 2 (Approx. 1 Hour)</a></h2>
 <h3 id="setting-up-a-ros-workspace-5-min---optional"><a class="header" href="#setting-up-a-ros-workspace-5-min---optional">Setting Up a ROS Workspace (5 min) - optional</a></h3>
@@ -862,7 +862,7 @@ ros2 run &lt;package_name&gt; &lt;executable_file&gt;
 <pre><code class="language-shell">ros2 topic list
 </code></pre>
 <blockquote>
-<p>Similar commands exist for <strong>nodes, services, and actions</strong> – refer to the documentation for more details (LINK).</p>
+<p>Similar commands exist for <strong>nodes, services, and actions</strong> – refer to the <a href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html">documentation</a> for more details.</p>
 </blockquote>
 <p><strong>2) Using ROS Visualization Tools</strong></p>
 <p>ROS 2 offers built-in tools for graphical visualization of data and system architecture. <strong>Real-Time Data Visualization</strong> - <code>rqt_plot</code> - allows you to <strong>graphically plot topic values</strong> in real-time:</p>
@@ -955,8 +955,8 @@ source ~/.bashrc
 2) Inside the <code>nodes</code> directories, create two files:</p>
 </blockquote>
 <ul>
-<li><code>src/nodes/io_node.hpp</code> (for declarations)</li>
-<li><code>include/nodes/io_node.cpp</code> (for implementation)</li>
+<li><code>include/nodes/io_node.hpp</code> (for declarations)</li>
+<li><code>src/nodes/io_node.cpp</code> (for implementation)</li>
 </ul>
 <ol start="3">
 <li>Open <code>CMakeLists.txt</code>, review it, and modify it to ensure that your project can be built successfully.</li>
@@ -1028,6 +1028,7 @@ namespace nodes {
      };
  }
 </code></pre>
+<p>Here is an example of a <code>.cpp</code> file. However, you need to complete it yourself before you can compile it.</p>
 <pre><code class="language-c++">#include &quot;my_project/nodes/io_node.hpp&quot;
 namespace {
     IoNode::IoNode() {
