@@ -3,7 +3,8 @@
 Responsible: Ing. Jakub Minařík
 
 
-## Tasks  
+## Tasks
+End result of this laboratory should be estimate of position in Cartesian coordinates with origin in start position after driving robot.
 
 ### 1. Motor Node Implementation  
 - Develop a **motor node** that publishes wheel velocity commands to a ROS topic (`/bpc_prp_robot/set_motor_speeds`).  
@@ -138,5 +139,34 @@ TEST(KinematicsTest, ForwardAndBackwardEncoderDiff) {
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
+}
+```
+## Kinematics Header Example
+Only example of header - types needs to be corrected. Instead of structures you can use for example `std::pair`. Funtion working with coordinates are working with differences.
+```c++
+ struct RobotSpeed{
+  double v; //linear
+  double w; //angluar
+ }
+
+ struct WheelSpeed{
+  double l; //left
+  double r; //right
+ }
+
+struct Encoders{
+  int l; //left
+  int r; //right
+}
+Coordinates{
+  double x; 
+  double y;
+}
+
+class Kinematics{
+  RobotSpeed forward(WheelSpeed);
+  WheelSpeed inverse(RobotSpeed);
+  Coordinates forward(Encoders);
+  Encoders inverse(Coordinates);
 }
 ```
