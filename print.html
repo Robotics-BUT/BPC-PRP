@@ -1254,17 +1254,17 @@ namespace {
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-5---motor-kinematics--gamepad-1"><a class="header" href="#lab-5---motor-kinematics--gamepad-1">Lab 5 - Motor, Kinematics &amp; Gamepad</a></h1>
 <p>Responsible: Ing. Jakub Minařík</p>
-<h2 id="tasks"><a class="header" href="#tasks"><strong>Tasks</strong></a></h2>
-<h3 id="1-motor-node-implementation"><a class="header" href="#1-motor-node-implementation"><strong>1. Motor Node Implementation</strong></a></h3>
+<h2 id="tasks"><a class="header" href="#tasks">Tasks</a></h2>
+<h3 id="1-motor-node-implementation"><a class="header" href="#1-motor-node-implementation">1. Motor Node Implementation</a></h3>
 <ul>
 <li>Develop a <strong>motor node</strong> that publishes wheel velocity commands to a ROS topic (<code>/bpc_prp_robot/set_motor_speeds</code>).</li>
 <li>Ensure the node can send appropriate velocity commands to drive the robot’s wheels.</li>
 </ul>
-<h3 id="2-encoder-node-implementation"><a class="header" href="#2-encoder-node-implementation"><strong>2. Encoder Node Implementation</strong></a></h3>
+<h3 id="2-encoder-node-implementation"><a class="header" href="#2-encoder-node-implementation">2. Encoder Node Implementation</a></h3>
 <ul>
-<li>Extend the <strong>motor node</strong>  or create separate <strong>encoder node</strong>to <strong>subscribe</strong> to an encoder topic for both wheels(<code>/bpc_prp_robot/encoders</code>).</li>
+<li>Extend the <strong>motor node</strong>  or create separate <strong>encoder node</strong>to subscribe to an encoder topic for both wheels(<code>/bpc_prp_robot/encoders</code>).</li>
 </ul>
-<h3 id="3-robot-parameter-estimation"><a class="header" href="#3-robot-parameter-estimation"><strong>3. Robot Parameter Estimation</strong></a></h3>
+<h3 id="3-robot-parameter-estimation"><a class="header" href="#3-robot-parameter-estimation">3. Robot Parameter Estimation</a></h3>
 <ul>
 <li>Measure, estimate, or derive key robot parameters, such as:
 <ul>
@@ -1281,37 +1281,37 @@ namespace {
 </ul>
 </li>
 <li>The robot should execute the commanded speed for 1 second before stopping.</li>
-<li>Gearbox ration should be 1:48 and number of poles is propably 3 pairs of poles. Best is to test if number of tics makes full rotation of wheel</li>
+<li>Gearbox ration should be 1:48 and number of poles is propably 3 pairs of poles. Recomended to test if number of ticks makes full rotation of wheel.</li>
 <li>Test whether the number of encoder ticks corresponds to a full wheel rotation by counting the ticks per revolution.</li>
 <li>For additional information, refer to the motor datasheets and check the <a href="https://github.com/Robotics-BUT/fenrir-project">robot's repository</a>.</li>
 </ul>
-<h3 id="4-kinematics-and-odometry-computation"><a class="header" href="#4-kinematics-and-odometry-computation"><strong>4. Kinematics and Odometry Computation</strong></a></h3>
+<h3 id="4-kinematics-and-odometry-computation"><a class="header" href="#4-kinematics-and-odometry-computation">4. Kinematics and Odometry Computation</a></h3>
 <ul>
 <li>Implement a <strong>class for kinematics and odometry calculations</strong> for a differential drive robot.</li>
 <li>Compute the robot's pose (position and orientation) based on wheel velocities and time.</li>
 <li>Implement dead reckoning using wheel encoders.</li>
 </ul>
-<h3 id="5-encoder-data-processing"><a class="header" href="#5-encoder-data-processing"><strong>5. Encoder Data Processing</strong></a></h3>
+<h3 id="5-encoder-data-processing"><a class="header" href="#5-encoder-data-processing">5. Encoder Data Processing</a></h3>
 <ul>
-<li>Develop a <strong>class for processing encoder data</strong>:
+<li>Develop a <strong>class for processing encoder data</strong> or add to kinematics/odometry class:
 <ul>
 <li>Estimate the robot’s displacement and position.</li>
 <li>Apply correction mechanisms using encoder feedback to improve localization accuracy.</li>
 </ul>
 </li>
 </ul>
-<h3 id="6-optional-gamepad-control"><a class="header" href="#6-optional-gamepad-control"><strong>6. (Optional) Gamepad Control</strong></a></h3>
+<h3 id="6-optional-gamepad-control"><a class="header" href="#6-optional-gamepad-control">6. (Optional) Gamepad Control</a></h3>
 <ul>
 <li>Implement a <strong>gamepad</strong> node to manually control the robot’s movement.</li>
 <li>Handle relevant gamepad events and publish speed for them.</li>
 </ul>
-<h2 id="instruction-for-gamepad---sdl2"><a class="header" href="#instruction-for-gamepad---sdl2">Instruction for Gamepad - SDL2</a></h2>
+<h4 id="instruction-for-gamepad---sdl2"><a class="header" href="#instruction-for-gamepad---sdl2">Instruction for Gamepad - SDL2</a></h4>
 <ul>
 <li>Include SLD2 library <code>#include &lt;SDL2/SDL.h&gt;</code></li>
 <li>Inicialize SDL2 - <code>SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER)</code></li>
 <li>Find if joystick/gamepad is connected - <code>SDL_NumJoysticks()</code></li>
 <li>Create gamepad object - <code>SDL_GameControllerOpen(0)</code></li>
-<li>Poll events
+<li>Poll events in time loop - made using ROS2 timer
 <ul>
 <li>Create event object - <code>SDL_Event</code></li>
 <li>Poll events - <code>SDL_PollEvent()</code></li>
@@ -1320,7 +1320,89 @@ namespace {
 <li>publish ROS2 message</li>
 </ul>
 </li>
+<li>Close gamepad object correctly - <code>SDL_GameControllerClose()</code></li>
 </ul>
+<h2 id="tests-example"><a class="header" href="#tests-example">Tests Example</a></h2>
+<p>You can copy and create a test file from the example. You may also rename the Kinematics class and its methods or correct parameter types as needed.</p>
+<pre><code class="language-c++">#include &lt;gtest/gtest.h&gt;
+#include &quot;solution/algorithms/kinematics.hpp&quot;
+#include &lt;cmath&gt;
+
+using namespace algorithms;
+
+constexpr float ERROR = 0.001;
+constexpr float WHEEL_BASE = 0.12;
+constexpr float WHEEL_RADIUS = 0.033;
+constexpr float WHEEL_CIRCUMFERENCE = 2 * M_PI * WHEEL_RADIUS;
+constexpr int32_t PULSES_PER_ROTATION = 550;
+
+TEST(KinematicsTest, BackwardZeroVelocitySI) {
+    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+    auto result = kin.backward(Kinematics::LinearAngularSpeed{.linear=0.0, .angular=0.0});
+    EXPECT_NEAR(result.left, 0.0, ERROR);
+    EXPECT_NEAR(result.right, 0.0, ERROR);
+}
+
+TEST(KinematicsTest, BackwardPositiveLinearVelocitySI) {
+    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+    auto result = kin.backward(Kinematics::LinearAngularSpeed{.linear=1.0, .angular=0.0});
+    EXPECT_NEAR(result.left, 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI, ERROR);
+    EXPECT_NEAR(result.right, 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI, ERROR);
+}
+
+TEST(KinematicsTest, BackwardPositiveAngularVelocitySI) {
+    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+    auto result = kin.backward(Kinematics::LinearAngularSpeed{.linear=0.0, .angular=1.0});
+    EXPECT_NEAR(result.left, -(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI), ERROR);
+    EXPECT_NEAR(result.right, +(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI), ERROR);
+}
+
+TEST(KinematicsTest, ForwardZeroWheelSpeedSI) {
+    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+    auto result = kin.forward(Kinematics::WheelsAngSpeed{.left=0.0, .right=0.0});
+    EXPECT_NEAR(result.linear, 0.0, ERROR);
+    EXPECT_NEAR(result.angular, 0.0, ERROR);
+}
+
+TEST(KinematicsTest, ForwardEqualWheelSpeedsSI) {
+    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+    auto result = kin.forward(Kinematics::WheelsAngSpeed{.left=1.0, .right=1.0});
+    EXPECT_NEAR(result.linear, WHEEL_RADIUS, ERROR);
+    EXPECT_NEAR(result.angular, 0.0, ERROR);
+}
+
+TEST(KinematicsTest, ForwardOppositeWheelSpeedsSI) {
+    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+    auto result = kin.forward(Kinematics::WheelsAngSpeed{.left=-1.0, .right=1.0});
+    EXPECT_NEAR(result.linear, 0.0, ERROR);
+    EXPECT_NEAR(result.angular, (WHEEL_RADIUS / (0.5 * WHEEL_BASE)), ERROR);
+}
+
+TEST(KinematicsTest, ForwardAndBackwardSI) {
+    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+    auto wheels = Kinematics::WheelsAngSpeed{.left=1.0, .right=-0.5};
+    auto lin_ang = kin.forward(wheels);
+    auto result = kin.backward(lin_ang);
+    EXPECT_NEAR(result.left, wheels.left, ERROR);
+    EXPECT_NEAR(result.right, wheels.right, ERROR);
+}
+
+
+TEST(KinematicsTest, ForwardAndBackwardEncoderDiff) {
+    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+    auto encoders_diff = Kinematics::EncoderDiff{.left=0, .right=550};
+    auto d_robot_pose = kin.forward(encoders_diff);
+    auto result = kin.backward(d_robot_pose);
+    EXPECT_NEAR(result.left, encoders_diff.left, 1);
+    EXPECT_NEAR(result.right, encoders_diff.right, 1);
+}
+
+// Main function to run all tests
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&amp;argc, argv);
+    return RUN_ALL_TESTS();
+}
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-6---line-estimation-1"><a class="header" href="#lab-6---line-estimation-1">Lab 6 - Line Estimation</a></h1>
 <p>Responsible: Ing. Adam Ligocki, Ph.D.</p>
 <p>Lorem ipsum</p>
