@@ -145,7 +145,73 @@
                     <main>
                         <h1 id="lab-5---motor-kinematics--gamepad"><a class="header" href="#lab-5---motor-kinematics--gamepad">Lab 5 - Motor, Kinematics &amp; Gamepad</a></h1>
 <p>Responsible: Ing. Jakub Minařík</p>
-<p>Lorem ipsum</p>
+<h2 id="tasks"><a class="header" href="#tasks"><strong>Tasks</strong></a></h2>
+<h3 id="1-motor-node-implementation"><a class="header" href="#1-motor-node-implementation"><strong>1. Motor Node Implementation</strong></a></h3>
+<ul>
+<li>Develop a <strong>motor node</strong> that publishes wheel velocity commands to a ROS topic (<code>/bpc_prp_robot/set_motor_speeds</code>).</li>
+<li>Ensure the node can send appropriate velocity commands to drive the robot’s wheels.</li>
+</ul>
+<h3 id="2-encoder-node-implementation"><a class="header" href="#2-encoder-node-implementation"><strong>2. Encoder Node Implementation</strong></a></h3>
+<ul>
+<li>Extend the <strong>motor node</strong>  or create separate <strong>encoder node</strong>to <strong>subscribe</strong> to an encoder topic for both wheels(<code>/bpc_prp_robot/encoders</code>).</li>
+</ul>
+<h3 id="3-robot-parameter-estimation"><a class="header" href="#3-robot-parameter-estimation"><strong>3. Robot Parameter Estimation</strong></a></h3>
+<ul>
+<li>Measure, estimate, or derive key robot parameters, such as:
+<ul>
+<li>The relationship between commanded wheel velocity and actual wheel rotation speed.</li>
+<li>The relationship between wheel velocity, wheel radius, and chassis dimensions.</li>
+<li>The kinematic constraints affecting the robot’s movement.</li>
+</ul>
+</li>
+<li>Motor control values are represented as unsigned 8-bit integers (0–255):
+<ul>
+<li>A value of 127 corresponds to a neutral state (motors do not move).</li>
+<li>Values greater than 127 cause the wheels to rotate forward.</li>
+<li>Values less than 127 cause the wheels to rotate backward.</li>
+</ul>
+</li>
+<li>The robot should execute the commanded speed for 1 second before stopping.</li>
+<li>Gearbox ration should be 1:48 and number of poles is propably 3 pairs of poles. Best is to test if number of tics makes full rotation of wheel</li>
+<li>Test whether the number of encoder ticks corresponds to a full wheel rotation by counting the ticks per revolution.</li>
+<li>For additional information, refer to the motor datasheets and check the <a href="https://github.com/Robotics-BUT/fenrir-project">robot's repository</a>.</li>
+</ul>
+<h3 id="4-kinematics-and-odometry-computation"><a class="header" href="#4-kinematics-and-odometry-computation"><strong>4. Kinematics and Odometry Computation</strong></a></h3>
+<ul>
+<li>Implement a <strong>class for kinematics and odometry calculations</strong> for a differential drive robot.</li>
+<li>Compute the robot's pose (position and orientation) based on wheel velocities and time.</li>
+<li>Implement dead reckoning using wheel encoders.</li>
+</ul>
+<h3 id="5-encoder-data-processing"><a class="header" href="#5-encoder-data-processing"><strong>5. Encoder Data Processing</strong></a></h3>
+<ul>
+<li>Develop a <strong>class for processing encoder data</strong>:
+<ul>
+<li>Estimate the robot’s displacement and position.</li>
+<li>Apply correction mechanisms using encoder feedback to improve localization accuracy.</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-optional-gamepad-control"><a class="header" href="#6-optional-gamepad-control"><strong>6. (Optional) Gamepad Control</strong></a></h3>
+<ul>
+<li>Implement a <strong>gamepad</strong> node to manually control the robot’s movement.</li>
+<li>Handle relevant gamepad events and publish speed for them.</li>
+</ul>
+<h2 id="instruction-for-gamepad---sdl2"><a class="header" href="#instruction-for-gamepad---sdl2">Instruction for Gamepad - SDL2</a></h2>
+<ul>
+<li>Include SLD2 library <code>#include &lt;SDL2/SDL.h&gt;</code></li>
+<li>Inicialize SDL2 - <code>SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER)</code></li>
+<li>Find if joystick/gamepad is connected - <code>SDL_NumJoysticks()</code></li>
+<li>Create gamepad object - <code>SDL_GameControllerOpen(0)</code></li>
+<li>Poll events
+<ul>
+<li>Create event object - <code>SDL_Event</code></li>
+<li>Poll events - <code>SDL_PollEvent()</code></li>
+<li>check event types - e.g. <code>SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLERBUTTONUP,SDL_CONTROLLERAXISMOTION</code></li>
+<li>handle the events and set speed and rotation</li>
+<li>publish ROS2 message</li>
+</ul>
+</li>
+</ul>
 
                     </main>
 
