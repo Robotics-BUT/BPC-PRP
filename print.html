@@ -1255,6 +1255,7 @@ namespace {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-5---motor-kinematics--gamepad-1"><a class="header" href="#lab-5---motor-kinematics--gamepad-1">Lab 5 - Motor, Kinematics &amp; Gamepad</a></h1>
 <p>Responsible: Ing. Jakub Minařík</p>
 <h2 id="tasks"><a class="header" href="#tasks">Tasks</a></h2>
+<p>End result of this laboratory should be estimate of position in Cartesian coordinates with origin in start position after driving robot.</p>
 <h3 id="1-motor-node-implementation"><a class="header" href="#1-motor-node-implementation">1. Motor Node Implementation</a></h3>
 <ul>
 <li>Develop a <strong>motor node</strong> that publishes wheel velocity commands to a ROS topic (<code>/bpc_prp_robot/set_motor_speeds</code>).</li>
@@ -1401,6 +1402,34 @@ TEST(KinematicsTest, ForwardAndBackwardEncoderDiff) {
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&amp;argc, argv);
     return RUN_ALL_TESTS();
+}
+</code></pre>
+<h2 id="kinematics-header-example"><a class="header" href="#kinematics-header-example">Kinematics Header Example</a></h2>
+<p>Only example of header - types needs to be corrected. Instead of structures you can use for example <code>std::pair</code>. Funtion working with coordinates are working with differences.</p>
+<pre><code class="language-c++"> struct RobotSpeed{
+  double v; //linear
+  double w; //angluar
+ }
+
+ struct WheelSpeed{
+  double l; //left
+  double r; //right
+ }
+
+struct Encoders{
+  int l; //left
+  int r; //right
+}
+Coordinates{
+  double x; 
+  double y;
+}
+
+class Kinematics{
+  RobotSpeed forward(WheelSpeed);
+  WheelSpeed inverse(RobotSpeed);
+  Coordinates forward(Encoders);
+  Encoders inverse(Coordinates);
 }
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-6---line-estimation-1"><a class="header" href="#lab-6---line-estimation-1">Lab 6 - Line Estimation</a></h1>
