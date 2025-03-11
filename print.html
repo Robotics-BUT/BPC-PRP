@@ -1470,6 +1470,25 @@ class Kinematics{
   Encoders inverse(Coordinates x) const;
 }
 </code></pre>
+<h2 id="be-aware-of-parallel-programming"><a class="header" href="#be-aware-of-parallel-programming">Be Aware of Parallel Programming</a></h2>
+<p>When a variable is accessed by multiple threads—such as in the case of an encoder node, where a callback writes the encoder’s value to a variable while another thread reads it—you must use std::mutex or std::atomic to ensure thread safety. More about parallel computing in <a href="2_labs/text/../../4_others/text/8_multithreading.html">Multithreading</a>.</p>
+<h3 id="atomic-variables"><a class="header" href="#atomic-variables">Atomic variables</a></h3>
+<p>Atomic variables are thread save, but only simple types such as int, float. 
+Name is from atomic operation/instruction - this type of instruction cannot be interrupted when executed, so its blocks the memory until done and other threads are waiting.</p>
+<pre><code class="language-c++">std::atomic&lt;int&gt; atomic_int;
+</code></pre>
+<h3 id="mutex"><a class="header" href="#mutex">Mutex</a></h3>
+<p>Mutex can be used to safely modify complex data structures such as std::vector or std::map.
+A mutex works by locking a resource when a thread accesses it and unlocking it after the operation is complete. Other threads attempting to access the resource must wait until the mutex is released.</p>
+<pre><code class="language-c++">std::mutex mtx;
+int shared_value = 0;
+
+void increment()
+{
+    std::lock_guard&lt;std::mutex&gt; lock(mtx); 
+    shared_value++;
+}
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-6---line-estimation-1"><a class="header" href="#lab-6---line-estimation-1">Lab 6 - Line Estimation</a></h1>
 <p>Responsible: Ing. Adam Ligocki, Ph.D.</p>
 <p>Lorem ipsum</p>
