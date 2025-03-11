@@ -60,7 +60,7 @@ End result of this laboratory should be estimate of position in Cartesian coordi
 
 
 ## Tests Example
-You can copy and create a test file from the example. You may also rename the Kinematics class and its methods or correct parameter types as needed.
+You can copy and create a test file from the example. You will propably need to rename the Kinematics class and its methods or correct parameter types as needed.
 ```c++
 #include <gtest/gtest.h>
 #include "solution/algorithms/kinematics.hpp"
@@ -74,65 +74,102 @@ constexpr float WHEEL_RADIUS = 0.033;
 constexpr float WHEEL_CIRCUMFERENCE = 2 * M_PI * WHEEL_RADIUS;
 constexpr int32_t PULSES_PER_ROTATION = 550;
 
+
+
 TEST(KinematicsTest, BackwardZeroVelocitySI) {
+    const float linear = 0;
+    const float angular = 0;
+    const float expected_l = 0;
+    const float expected_r = 0;
+
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.backward(Kinematics::LinearAngularSpeed{.linear=0.0, .angular=0.0});
-    EXPECT_NEAR(result.left, 0.0, ERROR);
-    EXPECT_NEAR(result.right, 0.0, ERROR);
+    auto result = kin.inverse({linear, angular});
+    EXPECT_NEAR(result.l, expected_l, ERROR);
+    EXPECT_NEAR(result.r, expected_r, ERROR);
 }
 
 TEST(KinematicsTest, BackwardPositiveLinearVelocitySI) {
+    const float linear = 1.0;
+    const float angular = 0;
+    const float expected_l = 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI;
+    const float expected_r = 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI;
+    
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.backward(Kinematics::LinearAngularSpeed{.linear=1.0, .angular=0.0});
-    EXPECT_NEAR(result.left, 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI, ERROR);
-    EXPECT_NEAR(result.right, 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI, ERROR);
+    auto result = kin.inverse({linear,angular});
+    EXPECT_NEAR(result.l, expected_l, ERROR);
+    EXPECT_NEAR(result.r, expected_r, ERROR);
 }
 
 TEST(KinematicsTest, BackwardPositiveAngularVelocitySI) {
+    const float linear = 1.0;
+    const float angular = 0;
+    const float expected_l = -(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
+    const float expected_r = +(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
+
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.backward(Kinematics::LinearAngularSpeed{.linear=0.0, .angular=1.0});
-    EXPECT_NEAR(result.left, -(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI), ERROR);
-    EXPECT_NEAR(result.right, +(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI), ERROR);
+    auto result = kin.inverse({linear, angular});
+    EXPECT_NEAR(result.l, expected_l, ERROR);
+    EXPECT_NEAR(result.r, expected_r, ERROR);
 }
 
 TEST(KinematicsTest, ForwardZeroWheelSpeedSI) {
+    const float wheel_l = 0;
+    const float wheel_r = 0;
+    const float expected_l = 0;
+    const float expected_a= 0;  
+
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.forward(Kinematics::WheelsAngSpeed{.left=0.0, .right=0.0});
-    EXPECT_NEAR(result.linear, 0.0, ERROR);
-    EXPECT_NEAR(result.angular, 0.0, ERROR);
+    auto result = kin.forward({wheel_l,wheel_r});
+    EXPECT_NEAR(result.v, expected_l, ERROR);
+    EXPECT_NEAR(result.w, expected_a, ERROR);
 }
 
 TEST(KinematicsTest, ForwardEqualWheelSpeedsSI) {
+    const float wheel_l = 1;
+    const float wheel_r = 1;
+    const float expected_l = WHEEL_RADIUS;
+    const float expected_a= 0;
+
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.forward(Kinematics::WheelsAngSpeed{.left=1.0, .right=1.0});
-    EXPECT_NEAR(result.linear, WHEEL_RADIUS, ERROR);
-    EXPECT_NEAR(result.angular, 0.0, ERROR);
+    auto result = kin.forward({wheel_l,wheel_r});
+    EXPECT_NEAR(result.v, expected_l, ERROR);
+    EXPECT_NEAR(result.w, expected_a, ERROR);
 }
 
 TEST(KinematicsTest, ForwardOppositeWheelSpeedsSI) {
+  TEST(KinematicsTest, ForwardEqualWheelSpeedsSI) {
+    const float wheel_l = -1;
+    const float wheel_r = 1;
+    const float expected_l = 0;
+    const float expected_a= (WHEEL_RADIUS / (0.5 * WHEEL_BASE));
+
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.forward(Kinematics::WheelsAngSpeed{.left=-1.0, .right=1.0});
-    EXPECT_NEAR(result.linear, 0.0, ERROR);
-    EXPECT_NEAR(result.angular, (WHEEL_RADIUS / (0.5 * WHEEL_BASE)), ERROR);
+    auto result = kin.forward({wheel_l,wheel_r});
+    EXPECT_NEAR(result.v, expected_l, ERROR);
+    EXPECT_NEAR(result.w, expected_a, ERROR);;
 }
 
 TEST(KinematicsTest, ForwardAndBackwardSI) {
+    const float wheel_l = 1;
+    const float wheel_r = -0.5;
+
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto wheels = Kinematics::WheelsAngSpeed{.left=1.0, .right=-0.5};
-    auto lin_ang = kin.forward(wheels);
+    auto lin_ang = kin.forward({wheel_l,wheel_r});
     auto result = kin.backward(lin_ang);
-    EXPECT_NEAR(result.left, wheels.left, ERROR);
-    EXPECT_NEAR(result.right, wheels.right, ERROR);
+    EXPECT_NEAR(result.l, wheels_l, ERROR);
+    EXPECT_NEAR(result.r, wheels_r, ERROR);
 }
 
 
 TEST(KinematicsTest, ForwardAndBackwardEncoderDiff) {
+    const int encoder_l = 0;
+    const int encoder_r = 550;
+
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto encoders_diff = Kinematics::EncoderDiff{.left=0, .right=550};
-    auto d_robot_pose = kin.forward(encoders_diff);
+    auto d_robot_pose = kin.forward({encoder_l,encoder_r});
     auto result = kin.backward(d_robot_pose);
-    EXPECT_NEAR(result.left, encoders_diff.left, 1);
-    EXPECT_NEAR(result.right, encoders_diff.right, 1);
+    EXPECT_NEAR(result.l, encoder_l, 1);
+    EXPECT_NEAR(result.r, encoder_r, 1);
 }
 
 // Main function to run all tests
@@ -145,28 +182,29 @@ int main(int argc, char **argv) {
 Only example of header - types needs to be corrected. Instead of structures you can use for example `std::pair`. Funtion working with coordinates are working with differences.
 ```c++
  struct RobotSpeed{
-  double v; //linear
-  double w; //angluar
+  float v; //linear
+  float w; //angluar
  }
 
- struct WheelSpeed{
-  double l; //left
-  double r; //right
+ struct WheelSpeed{ //depends on you in what units
+  float l; //left
+  float r; //right
  }
 
 struct Encoders{
   int l; //left
   int r; //right
 }
-Coordinates{
-  double x; 
-  double y;
+Coordinates{ //Cartesian coordinates
+  float x; 
+  float y;
 }
 
 class Kinematics{
-  RobotSpeed forward(WheelSpeed);
-  WheelSpeed inverse(RobotSpeed);
-  Coordinates forward(Encoders);
-  Encoders inverse(Coordinates);
+  Kinematics(double wheel_radius, double wheel_base, int ticks_revolution);
+  RobotSpeed forward(WheelSpeed x) const;
+  WheelSpeed inverse(RobotSpeed x) const;
+  Coordinates forward(Encoders x) const;
+  Encoders inverse(Coordinates x) const;
 }
 ```
