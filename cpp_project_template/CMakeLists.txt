@@ -19,11 +19,14 @@ set(SRC
         src/example.cpp
         include/nodes/io_node.hpp
         src/nodes/io_node.cpp
+        include/nodes/motor.hpp
+        src/nodes/motor.cpp
+        src/nodes/motor.h
 )
 
 set(AMENT_LIBS rclcpp std_msgs sensor_msgs cv_bridge image_transport)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/nodes/io_node.cpp ${SRC})
+add_executable(${PROJECT_NAME} src/main.cpp src/nodes/io_node.cpp src/nodes/motor.cpp ${SRC})
 target_include_directories(${PROJECT_NAME} PUBLIC
         include
         ${OpenCV_INCLUDE_DIRS}
