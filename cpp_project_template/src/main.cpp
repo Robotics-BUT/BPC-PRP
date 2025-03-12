@@ -13,19 +13,26 @@ int main(int argc, char* argv[]) {
 
     std::thread executor_thread([executor]() { executor->spin(); });
 
-    std::vector<uint8_t> motor_speeds = {0, 0}; // Počiatočné rýchlosti motorov
 
-    while (rclcpp::ok()) {
-            motor_speeds[0] += 10;
-            motor_speeds[1] += 10;
-            motor_controller->set_motor_speeds({static_cast<float>(motor_speeds[0]), static_cast<float>(motor_speeds[1])});
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    }
+    // Vypočíta rozdiel medzi aktuálnymi a počiatočnými hodnotami enkodérov
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    std::vector<uint8_t> motor_speeds = {0, 0};
+
+
+        motor_speeds[0] = 160;
+        motor_speeds[1] = 160;
+
+        // Nastaví rýchlosť motorov
+        motor_controller->set_motor_speeds({static_cast<float>(motor_speeds[0]), static_cast<float>(motor_speeds[1])});
+
+
+
 
     rclcpp::shutdown();
     executor_thread.join();
     return 0;
-}
+    }
 
 
 
