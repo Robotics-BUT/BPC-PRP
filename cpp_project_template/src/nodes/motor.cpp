@@ -4,9 +4,9 @@ using namespace nodes;
 
 MotorController::MotorController()
     : Node("motor_controller") {
-    motor_publisher_ = this->create_publisher<std_msgs::msg::UInt8MultiArray>("motor_speeds", 10);
+    motor_publisher_ = this->create_publisher<std_msgs::msg::UInt8MultiArray>("/bpc_prp_robot/set_motor_speeds", 10);
     encoder_subscriber_ = this->create_subscription<std_msgs::msg::UInt32MultiArray>(
-        "encoder_data", 10, std::bind(&MotorController::encoder_callback, this, std::placeholders::_1));
+        "/bpc_prp_robot/encoders", 10, std::bind(&MotorController::encoder_callback, this, std::placeholders::_1));
 }
 
 void MotorController::set_motor_speeds(const WheelSpeed& speeds) {
