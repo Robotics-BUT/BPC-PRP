@@ -146,26 +146,89 @@
                         <h1 id="lab-6---line-estimation"><a class="header" href="#lab-6---line-estimation">Lab 6 - Line Estimation</a></h1>
 <p>Responsible: Ing. Adam Ligocki, Ph.D.</p>
 <h2 id="line-sensor-usage-1h"><a class="header" href="#line-sensor-usage-1h">Line Sensor Usage (1h)</a></h2>
-<p>Lorem Ipsum</p>
+<p>In the first section we are going to write a basic interface with the line sensor backend and we will study the raw data.</p>
 <h3 id="line-sensor-explained"><a class="header" href="#line-sensor-explained">Line Sensor Explained</a></h3>
-<p>Lorem Ipsum</p>
+<p>We are using the <code>TCRT5000</code> line sensor. </p>
+<p>It consists of an infrared LED and a phototransistor placed next to each other. When powered, the LED emits infrared light, and if a reflective surface (such as a white line) is placed in front of it, the phototransistor detects the reflected signal. The amount of reflected light changes depending on the color and surface characteristics of the object below the sensor, allowing the TCRT5000 to distinguish between light and dark areas. By interpreting the output of the phototransistor, microcontrollers or other circuitry can determine whether the sensor is over a reflective (light) line or a non-reflective (dark) background, enabling robust line tracking and detection functionality.</p>
+<p><img src="../images/line_sensor_schematics.png" alt="" /></p>
+<p>Schamatics from: https://osoyoo.com/2017/08/15/tcrt5000-infrared-line-tracking-sensor/</p>
+<p>To understand the output value of the line sensor, please study and understand the following sensor characteristics.</p>
+<p><img src="../images/line_sensor_char.png" alt="" /></p>
+<p>If the sensor is above the dark line, there is no interaction between the IR LED and phototransisor. The phototransistor is closed and the voltage produce large voltage on the analog output.</p>
+<p>If the sensor is above the white (reflective) surface, the IR light from photodiode opens transistor and the analog output <code>A0</code> is grounded. The voltage drops low.</p>
+<p>Study the slope of the characteristics and discuss the sensor range.</p>
 <h3 id="differential-sensor-usage"><a class="header" href="#differential-sensor-usage">Differential Sensor Usage</a></h3>
-<p>Lorem Ipsum</p>
+<p>Consider using two line sensors in the differential connection. One sensor is considered as a signal with positive sign and the other sensor is considered as a sensor with negative sign.</p>
+<p>If we make a cleaver design, we can get a very good guess of robot's position relative to the line just by adding the sensor output values together.</p>
+<p><img src="../images/line_sensor_diff.png" alt="" />.</p>
+<p>What about the gap in between the sensors? How it effects line following process?</p>
 <h3 id="line-node-implementation"><a class="header" href="#line-node-implementation">Line Node Implementation</a></h3>
-<p>Lorem Ipsum</p>
+<p>Now it is time to implement the <code>LineNode</code>, the class that will receive data and encapsulate the line estimation process for the rest of the program.</p>
+<p>Create a new files according to you project's code conventions and implement the data receiving from the <code>/bpc_prp_robot/line_sensors</code>.</p>
+<p>The message on the <code>/bpc_prp_robot/line_sensors</code> topic is of the <code>std_msgs::msg::UInt16MultiArray</code> type.</p>
+<pre><code class="language-c++">    enum class DiscreteLinePose {
+        LineOnLeft,
+        LineOnRight,
+        LineNone,
+        LineBoth,
+    };
+    
+    class LineNode : public rclcpp::Node {
+    public:
+        
+        LineNode();
+        
+        ~LineNode();
+
+        // relative pose to line in meters
+        float get_continuous_line_pose() const;
+    
+        DiscreteLinePose get_discrete_line_pose() const;
+    
+    private:
+  
+        rclcpp::Subscription&lt;std_msgs::msg::UInt16MultiArray&gt;::SharedPtr line_sensors_subscriber_;
+    
+        void on_line_sensors_msg(std::shared_ptr&lt;std_msgs::msg::UInt16MultiArray&gt; msg);
+    
+        float estimate_continuous_line_pose(float left_value, float right_value);
+    
+        DiscreteLinePose estimate_descrete_line_pose(float l_norm, float r_norm);
+    };
+</code></pre>
+<p>Run the program and try to print out the measured values.</p>
 <h2 id="line-position-estimation-1h"><a class="header" href="#line-position-estimation-1h">Line Position Estimation (1H)</a></h2>
-<p>Lorem Ipsum</p>
+<p>In this section we will focus on the line position estimation. Our target is to write a class that will encapsulate line position estimation. The input of this algorithm is the left and right sensor values. The output is both, the discrete or Continuous position of the robot relativelly to the line.</p>
+<p>Try to develop this class by the <a href="https://en.wikipedia.org/wiki/Test-driven_development">Test Driven Development</a>. First write tests, than implement the algorithm.</p>
+<pre><code class="language-c++">
+#include &lt;iostream&gt;
+#include &lt;gtest/gtest.h&gt;
+TEST(LineEstimator, line_estimator_test_1) {
+    uint16_t left_value = 0;
+    uint16_t right_value = 1024;
+    auto result = LineEstimator::estimate_discrete(left, right);
+    
+    EXPECT_EQ(result, /* ... */);
+}
+
+// ...
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&amp;argc, argv);
+    return RUN_ALL_TESTS();
+}
+</code></pre>
+<p>By separating the line estimation algorithm into separated class, you will improve the test writing experience compared to the line estimation directly in the <code>LineNode</code> class.</p>
 <h3 id="discrete-approach"><a class="header" href="#discrete-approach">Discrete Approach</a></h3>
-<p>Lorem Ipsum</p>
+<p>Write and test method that will provide your future program with discrete position of the robot relative to the line. See previous examples. </p>
 <h3 id="continuous-approach"><a class="header" href="#continuous-approach">Continuous Approach</a></h3>
-<p>Lorem Ipsum</p>
+<p>Try the same for the continuous domain. Sensor's raw values on input and float or double value on the output. Tip: scale output to SI units.</p>
 <h2 id="line-sensor-calibration-and-arrangement-1h"><a class="header" href="#line-sensor-calibration-and-arrangement-1h">Line Sensor Calibration and Arrangement (1h)</a></h2>
 <p>Lorem Ipsum</p>
 <h3 id="how-to-calibrate-sensor"><a class="header" href="#how-to-calibrate-sensor">How to calibrate sensor</a></h3>
 <p>Lorem Ipsum</p>
 <h3 id="sensor-arrangement"><a class="header" href="#sensor-arrangement">Sensor arrangement</a></h3>
 <p>Lorem Ipsum</p>
-<p>Lorem ipsum</p>
 
                     </main>
 
