@@ -35,12 +35,13 @@ Responsible: Ing. Petr Šopák
  - Motor Control
  - Forward and Inverse Kinematics
  - Gamepad
- - 
+
 Responsible: Ing. Jakub Minařík
 
 ### Lab 6 - Line Estimation
  - Line Sensor Usage
  - Line Position Estimation
+ - Line Sensor Calibration
 
 Responsible: Ing. Adam Ligocki, Ph.D.
 
