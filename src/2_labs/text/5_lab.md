@@ -2,16 +2,15 @@
 
 Responsible: Ing. Jakub Minařík
 
-
 ## Tasks
 End result of this laboratory should be estimate of position in Cartesian coordinates with origin in start position after driving robot.
 
-### 1. Motor Node Implementation  
+### 1. Motor publisher Implementation  
 - Develop a **motor node** that publishes wheel velocity commands to a ROS topic (`/bpc_prp_robot/set_motor_speeds`).  
 - Ensure the node can send appropriate velocity commands to drive the robot’s wheels.
 
 
-### 2. Encoder Node Implementation  
+### 2. Encoder subscriber Implementation  
 - Extend the **motor node**  or create separate **encoder node**to subscribe to an encoder topic for both wheels(`/bpc_prp_robot/encoders`).
 
 
@@ -63,7 +62,7 @@ End result of this laboratory should be estimate of position in Cartesian coordi
 You can copy and create a test file from the example. You will propably need to rename the Kinematics class and its methods or correct parameter types as needed.
 ```c++
 #include <gtest/gtest.h>
-#include "solution/algorithms/kinematics.hpp"
+#include "../include/kinematics.hpp"
 #include <cmath>
 
 using namespace algorithms;
@@ -75,99 +74,97 @@ constexpr float WHEEL_CIRCUMFERENCE = 2 * M_PI * WHEEL_RADIUS;
 constexpr int32_t PULSES_PER_ROTATION = 550;
 
 
-
 TEST(KinematicsTest, BackwardZeroVelocitySI) {
-    const float linear = 0;
-    const float angular = 0;
-    const float expected_l = 0;
-    const float expected_r = 0;
+    constexpr float linear = 0;
+    constexpr float angular = 0;
+    constexpr float expected_l = 0;
+    constexpr float expected_r = 0;
 
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.inverse({linear, angular});
+    auto result = kin.inverse(RobotSpeed {linear, angular});
     EXPECT_NEAR(result.l, expected_l, ERROR);
     EXPECT_NEAR(result.r, expected_r, ERROR);
 }
 
 TEST(KinematicsTest, BackwardPositiveLinearVelocitySI) {
-    const float linear = 1.0;
-    const float angular = 0;
-    const float expected_l = 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI;
-    const float expected_r = 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI;
-    
+    constexpr float linear = 1.0;
+    constexpr float angular = 0;
+    constexpr float expected_l = 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI;
+    constexpr float expected_r = 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI;
+
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.inverse({linear,angular});
+    auto result = kin.inverse(RobotSpeed {linear,angular});
     EXPECT_NEAR(result.l, expected_l, ERROR);
     EXPECT_NEAR(result.r, expected_r, ERROR);
 }
 
 TEST(KinematicsTest, BackwardPositiveAngularVelocitySI) {
-    const float linear = 1.0;
-    const float angular = 0;
-    const float expected_l = -(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
-    const float expected_r = +(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
+    constexpr float linear = 1.0;
+    constexpr float angular = 0;
+    constexpr float expected_l = -(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
+    constexpr float expected_r = +(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
 
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.inverse({linear, angular});
+    auto result = kin.inverse(RobotSpeed{linear, angular});
     EXPECT_NEAR(result.l, expected_l, ERROR);
     EXPECT_NEAR(result.r, expected_r, ERROR);
 }
 
 TEST(KinematicsTest, ForwardZeroWheelSpeedSI) {
-    const float wheel_l = 0;
-    const float wheel_r = 0;
-    const float expected_l = 0;
-    const float expected_a= 0;  
+    constexpr float wheel_l = 0;
+    constexpr float wheel_r = 0;
+    constexpr float expected_l = 0;
+    constexpr float expected_a= 0;
 
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.forward({wheel_l,wheel_r});
+    auto result = kin.forward(WheelSpeed {wheel_l,wheel_r});
     EXPECT_NEAR(result.v, expected_l, ERROR);
     EXPECT_NEAR(result.w, expected_a, ERROR);
 }
 
 TEST(KinematicsTest, ForwardEqualWheelSpeedsSI) {
-    const float wheel_l = 1;
-    const float wheel_r = 1;
-    const float expected_l = WHEEL_RADIUS;
-    const float expected_a= 0;
+    constexpr float wheel_l = 1;
+    constexpr float wheel_r = 1;
+    constexpr float expected_l = WHEEL_RADIUS;
+    constexpr float expected_a= 0;
 
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.forward({wheel_l,wheel_r});
+    auto result = kin.forward(WheelSpeed {wheel_l,wheel_r});
     EXPECT_NEAR(result.v, expected_l, ERROR);
     EXPECT_NEAR(result.w, expected_a, ERROR);
 }
 
 TEST(KinematicsTest, ForwardOppositeWheelSpeedsSI) {
-  TEST(KinematicsTest, ForwardEqualWheelSpeedsSI) {
-    const float wheel_l = -1;
-    const float wheel_r = 1;
-    const float expected_l = 0;
-    const float expected_a= (WHEEL_RADIUS / (0.5 * WHEEL_BASE));
+    constexpr float wheel_l = -1;
+    constexpr float wheel_r = 1;
+    constexpr float expected_l = 0;
+    constexpr float expected_a= (WHEEL_RADIUS / (0.5 * WHEEL_BASE));
 
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.forward({wheel_l,wheel_r});
+    auto result = kin.forward(WheelSpeed {wheel_l,wheel_r});
     EXPECT_NEAR(result.v, expected_l, ERROR);
     EXPECT_NEAR(result.w, expected_a, ERROR);;
 }
 
 TEST(KinematicsTest, ForwardAndBackwardSI) {
-    const float wheel_l = 1;
-    const float wheel_r = -0.5;
+    constexpr float wheel_l = 1;
+    constexpr float wheel_r = -0.5;
 
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto lin_ang = kin.forward({wheel_l,wheel_r});
-    auto result = kin.backward(lin_ang);
-    EXPECT_NEAR(result.l, wheels_l, ERROR);
-    EXPECT_NEAR(result.r, wheels_r, ERROR);
+    auto lin_ang = kin.forward(WheelSpeed {wheel_l,wheel_r});
+    auto result = kin.inverse(lin_ang);
+    EXPECT_NEAR(result.l, wheel_l, ERROR);
+    EXPECT_NEAR(result.r, wheel_r, ERROR);
 }
 
 
 TEST(KinematicsTest, ForwardAndBackwardEncoderDiff) {
-    const int encoder_l = 0;
-    const int encoder_r = 550;
+    constexpr int encoder_l = 0;
+    constexpr int encoder_r = 550;
 
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto d_robot_pose = kin.forward({encoder_l,encoder_r});
-    auto result = kin.backward(d_robot_pose);
+    auto d_robot_pose = kin.forward(Encoders {encoder_l,encoder_r});
+    auto result = kin.inverse(d_robot_pose);
     EXPECT_NEAR(result.l, encoder_l, 1);
     EXPECT_NEAR(result.r, encoder_r, 1);
 }
