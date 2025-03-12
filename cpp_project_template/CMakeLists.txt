@@ -21,7 +21,6 @@ set(SRC
         src/nodes/io_node.cpp
         include/nodes/motor.hpp
         src/nodes/motor.cpp
-        src/nodes/motor.h
 )
 
 set(AMENT_LIBS rclcpp std_msgs sensor_msgs cv_bridge image_transport)

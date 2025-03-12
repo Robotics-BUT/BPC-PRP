@@ -23,5 +23,5 @@ namespace nodes {
     }
 }
 
-
-
+// KINEMATICS/ODOMETRY
+// dve funkce na uhlovou a linearni rychlost z rychlosti kol
