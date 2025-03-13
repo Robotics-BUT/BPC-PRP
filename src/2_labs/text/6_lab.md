@@ -110,18 +110,48 @@ By separating the line estimation algorithm into separated class, you will impro
 
 Write and test method that will provide your future program with discrete position of the robot relative to the line. See previous examples. 
 
+```c++
+    class LineEstimator {
+    
+        static DiscreteLinePose estimate_discrete_line_pose(uint16_t left_val, uint16_t right_val);
+    
+    };
+```
+
 ### Continuous Approach
 
 Try the same for the continuous domain. Sensor's raw values on input and float or double value on the output. Tip: scale output to SI units.
 
+```c++
+    class LineEstimator {
+    
+        static float estimate_continuous_line_pose(uint16_t left_val, uint16_t right_val);
+    
+    };
+```
+
 ## Line Sensor Calibration and Arrangement (1h)
 
-Lorem Ipsum
+Now it is time to take a closer look on the sensor setup. On every robot the sensors are places a little bit differently (different place, rotation, height above the ground, different electrical composition (wiring, resistos values, ICs, etc.). 
+
+At the beginning of each ride, you should calibrate the sensors, so the algorithm can expect similar if not the same values on thi input,
 
 ### How to calibrate sensor
 
-Lorem Ipsum
+Basically, the most important is to catch the maximum and minimum sensor response (max reflexcion and minimum leflexion) an normalize the output, so your algorithm always works with same data range.
+
+```c++
+    auto calibrated_val = (raw_val - min_val) / (max_val - min_val);
+```
+
+The sensor output value normalized in this vay will always be truncated in range or <0.0, 1.0>
 
 ### Sensor arrangement
 
-Lorem Ipsum
+On the robot there is several spots to put the sensors on. Think how the sensor position, it's range and dynamic range influence your line following algorithm.
+
+What about the dead zone between the sensors?
+
+What if you put sensors to close to each other?
+
+Should one of the sensors has amplified output compared to the other one?
