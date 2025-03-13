@@ -221,14 +221,33 @@ int main(int argc, char **argv) {
 <p>By separating the line estimation algorithm into separated class, you will improve the test writing experience compared to the line estimation directly in the <code>LineNode</code> class.</p>
 <h3 id="discrete-approach"><a class="header" href="#discrete-approach">Discrete Approach</a></h3>
 <p>Write and test method that will provide your future program with discrete position of the robot relative to the line. See previous examples. </p>
+<pre><code class="language-c++">    class LineEstimator {
+    
+        static DiscreteLinePose estimate_discrete_line_pose(uint16_t left_val, uint16_t right_val);
+    
+    };
+</code></pre>
 <h3 id="continuous-approach"><a class="header" href="#continuous-approach">Continuous Approach</a></h3>
 <p>Try the same for the continuous domain. Sensor's raw values on input and float or double value on the output. Tip: scale output to SI units.</p>
+<pre><code class="language-c++">    class LineEstimator {
+    
+        static float estimate_continuous_line_pose(uint16_t left_val, uint16_t right_val);
+    
+    };
+</code></pre>
 <h2 id="line-sensor-calibration-and-arrangement-1h"><a class="header" href="#line-sensor-calibration-and-arrangement-1h">Line Sensor Calibration and Arrangement (1h)</a></h2>
-<p>Lorem Ipsum</p>
+<p>Now it is time to take a closer look on the sensor setup. On every robot the sensors are places a little bit differently (different place, rotation, height above the ground, different electrical composition (wiring, resistos values, ICs, etc.). </p>
+<p>At the beginning of each ride, you should calibrate the sensors, so the algorithm can expect similar if not the same values on thi input,</p>
 <h3 id="how-to-calibrate-sensor"><a class="header" href="#how-to-calibrate-sensor">How to calibrate sensor</a></h3>
-<p>Lorem Ipsum</p>
+<p>Basically, the most important is to catch the maximum and minimum sensor response (max reflexcion and minimum leflexion) an normalize the output, so your algorithm always works with same data range.</p>
+<pre><code class="language-c++">    auto calibrated_val = (raw_val - min_val) / (max_val - min_val);
+</code></pre>
+<p>The sensor output value normalized in this vay will always be truncated in range or &lt;0.0, 1.0&gt;</p>
 <h3 id="sensor-arrangement"><a class="header" href="#sensor-arrangement">Sensor arrangement</a></h3>
-<p>Lorem Ipsum</p>
+<p>On the robot there is several spots to put the sensors on. Think how the sensor position, it's range and dynamic range influence your line following algorithm.</p>
+<p>What about the dead zone between the sensors?</p>
+<p>What if you put sensors to close to each other?</p>
+<p>Should one of the sensors has amplified output compared to the other one?</p>
 
                     </main>
 
