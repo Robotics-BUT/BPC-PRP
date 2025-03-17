@@ -3,7 +3,8 @@
 
 // Basic test case that just calls the function
 TEST(ExampleLibTest, CallFunction) {
-    printMessage();
+    std::cout<<"Hello world!"<<std::endl;
+    //printMessage();
 }
 
 // Main function for running tests

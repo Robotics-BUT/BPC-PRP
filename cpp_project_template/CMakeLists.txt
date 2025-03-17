@@ -21,11 +21,13 @@ set(SRC
         src/nodes/io_node.cpp
         include/nodes/motor.hpp
         src/nodes/motor.cpp
+        include/nodes/kinematics_odometry.hpp
+        src/nodes/kinematics_odometry.cpp
 )
 
 set(AMENT_LIBS rclcpp std_msgs sensor_msgs cv_bridge image_transport)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/nodes/io_node.cpp src/nodes/motor.cpp ${SRC})
+add_executable(${PROJECT_NAME} src/main.cpp src/nodes/io_node.cpp src/nodes/motor.cpp src/nodes/kinematics_odometry.cpp ${SRC})
 target_include_directories(${PROJECT_NAME} PUBLIC
         include
         ${OpenCV_INCLUDE_DIRS}
