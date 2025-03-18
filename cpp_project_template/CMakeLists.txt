@@ -23,6 +23,8 @@ set(SRC
         src/nodes/motor.cpp
         include/nodes/kinematics_odometry.hpp
         src/nodes/kinematics_odometry.cpp
+        include/nodes/line.hpp
+        src/nodes/line.cpp
 )
 
 set(AMENT_LIBS rclcpp std_msgs sensor_msgs cv_bridge image_transport)
