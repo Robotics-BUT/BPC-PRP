@@ -14,6 +14,17 @@ KinematicsOdometry::KinematicsOdometry(double wheel_radius, double wheel_base, i
         std::bind(&KinematicsOdometry::encoderCallback, this, std::placeholders::_1));
 }
 
+/**
+    MotorController::MotorController()
+        : Node("motor_controller") {
+    motor_publisher_ = this->create_publisher<std_msgs::msg::UInt8MultiArray>("/bpc_prp_robot/set_motor_speeds", 10);
+    encoder_subscriber_ = this->create_subscription<std_msgs::msg::UInt32MultiArray>(
+        "/bpc_prp_robot/encoders", 10, std::bind(&MotorController::encoder_callback, this, std::placeholders::_1));
+**/
+
+
+
+
 void KinematicsOdometry::encoderCallback(const std_msgs::msg::Int32MultiArray::SharedPtr msg) {
     if (msg->data.size() >= 2) {
         updateEncoders(msg->data[0], msg->data[1]);

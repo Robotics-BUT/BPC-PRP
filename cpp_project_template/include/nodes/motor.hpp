@@ -46,15 +46,9 @@ namespace nodes {
         ~MotorController() override = default;
 
         void set_motor_speeds(const WheelSpeed& speeds);
-        Encoders get_encoder_data() const;
 
     private:
-        rclcpp::Subscription<std_msgs::msg::UInt32MultiArray>::SharedPtr encoder_subscriber_;
         rclcpp::Publisher<std_msgs::msg::UInt8MultiArray>::SharedPtr motor_publisher_;
-
-        Encoders encoders_ = {0, 0};
-
-        void encoder_callback(const std_msgs::msg::UInt32MultiArray::SharedPtr msg);
     };
 }
 
