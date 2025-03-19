@@ -1,36 +1,31 @@
-// line_follower.hpp
-#ifndef LINE_FOLLOWER_HPP
-#define LINE_FOLLOWER_HPP
+// line_sensor_listener.hpp
+#ifndef LINE_SENSOR_LISTENER_HPP
+#define LINE_SENSOR_LISTENER_HPP
 
-#include <array>
-#include <iostream>
-#include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/u_int16_multi_array.hpp>
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/u_int16_multi_array.hpp"
+#include "motor.hpp"
 
-enum class DiscreteLinePose {
-    LineOnLeft,
-    LineOnRight,
-    LineNone,
-    LineBoth,
-};
+namespace nodes {
+    class LineSensorListener : public rclcpp::Node
+    {
+    public:
+        LineSensorListener();
 
-class LineFollower : public rclcpp::Node {
-public:
-    LineFollower();
-    ~LineFollower();
+    private:
+        void on_line_sensors_msg(std::shared_ptr<std_msgs::msg::UInt16MultiArray> msg);
 
-    float get_continuous_line_pose() const;
-    DiscreteLinePose get_discrete_line_pose() const;
-    std::shared_ptr<std_msgs::msg::UInt16MultiArray> get_line_sensor_data() const;
+        rclcpp::Subscription<std_msgs::msg::UInt16MultiArray>::SharedPtr line_sensors_subscriber_;
+        std::shared_ptr<MotorController> motor_controller_;
 
-private:
-    rclcpp::Subscription<std_msgs::msg::UInt16MultiArray>::SharedPtr line_sensors_subscriber_;
-    std::shared_ptr<std_msgs::msg::UInt16MultiArray> current_sensor_data_;
+        // PID
+        float Kp;
+        float Kd;
+        float base_speed;
+        float last_error;
+    };
+}
+#endif // LINE_SENSOR_LISTENER_HPP
 
-    void on_line_sensors_msg(std::shared_ptr<std_msgs::msg::UInt16MultiArray> msg);
-    float estimate_continuous_line_pose(float left_value, float right_value);
-    DiscreteLinePose estimate_discrete_line_pose(float l_norm, float r_norm);
-};
 
-#endif // LINE_FOLLOWER_HPP
 
