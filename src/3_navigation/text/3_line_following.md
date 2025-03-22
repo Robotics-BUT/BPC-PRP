@@ -41,7 +41,7 @@ Logic Table: Define responses based on sensor inputs:
 | S1 | S2 | Action         |
 |----|----|----------------|
 | 1  | 1  | Move forward   |
-| 1  | 2  | Turn left      |
+| 1  | 0  | Turn left      |
 | 0  | 1  | Turn right     |
 | 0  | 0  | Stop or search |
 
