@@ -15,6 +15,8 @@ In previous lab sessions, *you developed ROS 2 nodes for*:
 
 Now, your task is to develop a **strategy for line following** – that is, responding to the estimated line position and ensuring the robot tracks the line correctly. You will start with the *simplest approach* (Bang-Bang control) and progressively refine it to implement *PID regulation*.
 
+For more details, see the [Line Following section](https://github.com/Robotics-BUT/BPC-PRP/blob/lab_7_branch/src/3_navigation/text/3_line_following.md).
+
 ## Bang-Bang Line Following (Approx. 1 hour)
 
 Bang-Bang is the most basic control method. Instead of smoothly adjusting the speed, the robot makes **hard, discrete decisions** based on sensor readings. Think of it as a light switch – either ON or OFF:
@@ -41,12 +43,12 @@ To fine-tune the performance, it is recommended to start with a **higher thresho
 ----------------------------------------------------------------------------------------------
 **TASK 1**
 1) Project Structure:
-  - Create `.hpp` files (e.g. `control.hpp`) in `algorithms` to contain all necessary implementations for this lab.
-  - Inside the `src` and `include` directories, create a `loops` folder.
-  - In this folder, create `line_loop.cpp` and `line_loop.hpp`, which will define a ROS 2 node
-  - This node should periodically compute the control action and send the corresponding command to the motors.
-2) Implement **Bang-Bang Line Control** based on the provided guidelines.
-3) Observe how this type of control behaves and analyze its **advantages and disadvantages**.
+  - Inside the `src` and `include` directories, create a new folder named `loops`.
+  - In this folder, create two files: `line_loop.cpp` and `line_loop.hpp`.
+  - These files will define a ROS 2 node that implements a periodic control loop using a timer callback (e.g., `line_loop_timer_callback()`).
+  -  The loop should regularly read the estimated line position, compute the control action and send appropriate speed commands to the robot's motors.
+2) Implement **Bang-Bang Line Control** based on the guidelines provided in the lab description.
+3) Experiment with different threshold values and observe how the robot behaves and analyze the **advantages and limitations** of Bang-Bang control.
 
 ## Line Following with P-Control (Approx. 1 hour)
 
@@ -81,10 +83,84 @@ A key part of implementing P-Control is choosing the right value for *K<sub>P</s
 
 ------------------------------------------------------------------
 **TASK 2**
-1) Use the same files and **implement the P-Control Line Follower** according to the previously explained method.
-2) Experiment with different values of the proportional gain *K<sub>P</sub>* and determine the most suitable value.
-3) Try adjusting the robot’s base speed. Changing the speed will also affect the optimal value of *K<sub>P</sub>*.
+1) Insert the provided `pid.hpp` file into the `include/algorithms` directory. This header defines a basic PID controller class, which you will use for both **Task 2 (P-control)** and **Task 3 (full PID)**.
+
+  ```c++
+  #pragma once
+
+  #include <iostream>
+  #include <chrono>
+  
+  namespace algorithms {
+  
+      class Pid {
+      public:
+          Pid(float kp, float ki, float kd)
+              : kp_(kp), ki_(ki), kd_(kd), prev_error_(0), integral_(0) {}
+  
+          float step(float error, float dt) {
+              integral_ += error * dt;
+              float derivative = (error - prev_error_) / dt;
+              float output = kp_ * error + ki_ * integral_ + kd_ * derivative;
+              prev_error_ = error;
+              return output;
+          }
+  
+          void reset() {
+              prev_error_ = 0;
+              integral_ = 0;
+          }
+  
+      private:
+          float kp_;
+          float ki_;
+          float kd_;
+          float prev_error_;
+          float integral_;
+      };
+  }
+  ```
+
+2) Reuse your `Lineloop` class from Task 1 and modify the control logic inside `line_loop_timer_callback()` to implement a **Proportional controller**.
+3) Experiment with different values of the proportional gain *K<sub>P</sub>* and determine the most suitable value.
 4) Observe the performance and assess if further refinement is needed.
+5) Write simple unit tests for the `Pid` class in a separate file named `pid_test.cpp`. Here's an example that tests the response of the P-controller to a unit step input:
+
+  ```c++
+  #include "solution/algorithms/pid.hpp"
+  #include <iostream>
+  #include <cassert>
+  #include <cmath>
+  
+  using namespace algorithms;
+  
+  bool nearly_equal(float a, float b, float eps = 1e-5f) {
+      return std::fabs(a - b) < eps;
+  }
+  
+  // Unit step input (constant error = 1.0)
+  void test_unit_step() {
+      Pid pid(2.0f, 0.0f, 0.0f); // P-only
+      float dt = 0.1f;
+  
+      float error = 1.0f;
+  
+      for (int i = 0; i < 5; ++i) {
+          float output = pid.step(error, dt);
+          assert(nearly_equal(output, 2.0f));
+      }
+  
+      std::cout << "[PASS]\n";
+  }
+
+  int main() {
+      test_unit_step();
+  
+      std::cout << "All P-controller tests passed.\n";
+      return 0;
+  }
+
+  ```
 
 ## Line Following with PID Control (Approx. 1 hour)
 
@@ -117,7 +193,8 @@ Tuning *K<sub>P</sub>*, *K<sub>i</sub>*, *K<sub>d</sub>* is essential for optima
 
 -----------------------------------------------------------------------------------------------
 **TASK 3**
-1) As in the previous tasks, **implement PID Control** in the same files.
+1) Just like in the previous tasks, extend your `LineLoop` class to **implement full PID control** using the provided `Pid` class. Also, don’t forget to **extend your unit tests** (`pid_test.cpp`) to verify the behavior of all PID components.
 2) Choose a **tuning method** (either manual tuning or the Ziegler-Nichols method) and find the optimal values for *K<sub>P</sub>*, *K<sub>i</sub>*, *K<sub>d</sub>*.
-3) If possible, **increase the robot's base speed** and re-optimize the PID constants accordingly.
-4) Observe the differences between PID control and the previous line-following methods. Analyze how each component affects the robot’s performance.
+3) Observe the differences between PID control and the previous line-following methods. Analyze how each component affects the robot’s performance.
+4) (Optional) Implement output saturation (clamping). Real robots cannot turn infinitely fast. If your PID controller outputs a very large value (e.g. due to a sharp error), you should **limit (saturate) it to a safe range.**
+5) (Optional) Implement Anti-Windup. The integral term in a PID controller can sometimes accumulate too much (especially when the output is saturated), which leads to overshooting or instability. This is called integral windup. To prevent this, implement anti-windup, for example disabling integration when output is saturated or limiting the maximum integral value
