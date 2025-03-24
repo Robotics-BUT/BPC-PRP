@@ -1593,8 +1593,182 @@ int main(int argc, char **argv) {
 <p>What if you put sensors to close to each other?</p>
 <p>Should one of the sensors has amplified output compared to the other one?</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-7---line-following--pid-1"><a class="header" href="#lab-7---line-following--pid-1">Lab 7 - Line Following &amp; PID</a></h1>
-<p>Responsible: Ing. Petr Šopák</p>
-<p>Lorem ipsum</p>
+<p><strong>Responsible:</strong> Ing. Petr Šopák</p>
+<h3 id="learning-objectives-1"><a class="header" href="#learning-objectives-1">Learning Objectives</a></h3>
+<ol>
+<li><strong>Bang-Bang Line Following (ON/OFF Control)</strong></li>
+<li><strong>Line Following with P-Control</strong></li>
+<li><strong>Line Following with PID Control</strong></li>
+</ol>
+<p>In previous lab sessions, <em>you developed ROS 2 nodes for</em>:</p>
+<ul>
+<li><em>Collecting data</em> from reflection-based sensors</li>
+<li><em>Estimating the position</em> of a line</li>
+<li><em>Controlling the robot's motion</em></li>
+</ul>
+<p>Now, your task is to develop a <strong>strategy for line following</strong> – that is, responding to the estimated line position and ensuring the robot tracks the line correctly. You will start with the <em>simplest approach</em> (Bang-Bang control) and progressively refine it to implement <em>PID regulation</em>.</p>
+<p>For more details, see the <a href="https://github.com/Robotics-BUT/BPC-PRP/blob/lab_7_branch/src/3_navigation/text/3_line_following.md">Line Following section</a>.</p>
+<h2 id="bang-bang-line-following-approx-1-hour"><a class="header" href="#bang-bang-line-following-approx-1-hour">Bang-Bang Line Following (Approx. 1 hour)</a></h2>
+<p>Bang-Bang is the most basic control method. Instead of smoothly adjusting the speed, the robot makes <strong>hard, discrete decisions</strong> based on sensor readings. Think of it as a light switch – either ON or OFF:</p>
+<ol>
+<li>Line is detected on the left → Turn right</li>
+<li>Line is detected on the right → Turn left</li>
+<li>Line is centered → Move straight</li>
+</ol>
+<p>This method <strong>can be implemented using either digital or analog sensor outputs</strong>. Since digital outputs already behave like ON/OFF signals, Bang-Bang logic is straightforward. However, in this lab, we will focus on the <strong>analog output</strong>, which requires setting a threshold to decide when the robot should turn.</p>
+<p>The entire algorithm is illustrated in <a href="2_labs/text/bangDiagram">Figure 1</a>. The process consists of reading the estimated line position and comparing it to a <strong>user-defined threshold</strong>. Based on this comparison, the robot's movement is determined.</p>
+<p>The flowchart provides a <strong>generalized structure</strong> for Bang-Bang control. However, the specific <strong>comparison logic</strong> and the <strong>velocity values</strong> sent to the wheels <strong>depend on your own implementation</strong>. It is up to you to decide how to structure the control logic in your code.</p>
+<p id="bangDiagram" align="center">
+  <img src="2_labs/text/../images/bang_bang_flowchart.png" alt="alt text" width="450" height="400">
+</p>
+<p align="center">
+    <em> Figure 1: Flowchart for Bang-Bang Control </em>
+</p>
+<p>To fine-tune the performance, it is recommended to start with a <strong>higher threshold and gradually decrease it</strong>. Observe how the robot’s behavior changes and try to understand why this approach leads to better results.</p>
+<hr />
+<p><strong>TASK 1</strong></p>
+<ol>
+<li>Project Structure:</li>
+</ol>
+<ul>
+<li>Inside the <code>src</code> and <code>include</code> directories, create a new folder named <code>loops</code>.</li>
+<li>In this folder, create two files: <code>line_loop.cpp</code> and <code>line_loop.hpp</code>.</li>
+<li>These files will define a ROS 2 node that implements a periodic control loop using a timer callback (e.g., <code>line_loop_timer_callback()</code>).</li>
+<li>The loop should regularly read the estimated line position, compute the control action and send appropriate speed commands to the robot's motors.</li>
+</ul>
+<ol start="2">
+<li>Implement <strong>Bang-Bang Line Control</strong> based on the guidelines provided in the lab description.</li>
+<li>Experiment with different threshold values and observe how the robot behaves and analyze the <strong>advantages and limitations</strong> of Bang-Bang control.</li>
+</ol>
+<h2 id="line-following-with-p-control-approx-1-hour"><a class="header" href="#line-following-with-p-control-approx-1-hour">Line Following with P-Control (Approx. 1 hour)</a></h2>
+<p>Now you will refine your line-following strategy by implementing <strong>Proportional Control (P-Control)</strong>. Unlike Bang-Bang control, which causes abrupt movements, P-Control allows the robot to adjust its movement smoothly based on how far the estimated line position deviates from the robot’s center. The goal is to achieve smoother and more stable tracking of the line.</p>
+<p><strong>Previously you implemented Bang-Bang control</strong>, which relied on strict ON/OFF decisions. This approach worked but led to <strong>oscillations and jerky movement</strong>, as the robot continuously switched between turning left and right. These issues make it <strong>difficult for the robot to follow curves or move efficiently at higher speeds</strong>.</p>
+<p>Proportional control solves this by introducing a <strong>continuous adjustment</strong> to the robot’s turning speed. Instead of making binary decisions, the angular velocity <em>ω</em> is determined using a <strong>proportional gain <em>K<sub>P</sub></em></strong> and the error <em>e</em>, which represents the difference between the estimated line position <em>x</em> and the robot's center <em>x<sub>0</sub></em>:</p>
+<p>$$
+e = x - x_{0}
+$$</p>
+<p>By multiplying this error by <em>K<sub>P</sub></em>, we obtain the angular velocity:</p>
+<p>$$
+ω = K_{P} \cdot e
+$$</p>
+<p>This means that when the robot is <strong>far from the center</strong>, it <strong>turns more sharply</strong>. When it is <strong>close to the center</strong>, it makes <strong>minor corrections</strong>. If the line is perfectly centered, the robot moves straight. The higher the proportional gain <em>K<sub>P</sub></em>, the stronger the response to the error. However, if <em>K<sub>P</sub></em> is too high, the robot may start oscillating.</p>
+<p>The process of P-Control is illustrated in <a href="2_labs/text/pContDiagram">Figure 2</a>. The robot reads the estimated position of the line, calculates the error, applies the proportional formula to determine angular velocity, and then sends this velocity to the motion control node, which executes the movement.</p>
+<p id="pContDiagram" align="center">
+  <img src="2_labs/text/../images/p_control_flowchart.png" alt="P Control Flowchart" width="200" height="350">
+</p>
+<p align="center">
+    <em> Figure 2: Flowchart for P-Control Line Follower </em>
+</p>
+<p>A key part of implementing P-Control is choosing the right value for <em>K<sub>P</sub></em>. If <em>K<sub>P</sub></em> is too small, the robot will react very slowly and may fail to follow the line accurately. If <em>K<sub>P</sub></em> is too large, the robot might oscillate too much and become unstable. The best approach is to start with a low value of <em>K<sub>P</sub></em> and gradually increase it, observing how the robot’s movement improves.</p>
+<hr />
+<p><strong>TASK 2</strong></p>
+<ol>
+<li>Insert the provided <code>pid.hpp</code> file into the <code>include/algorithms</code> directory. This header defines a basic PID controller class, which you will use for both <strong>Task 2 (P-control)</strong> and <strong>Task 3 (full PID)</strong>.</li>
+</ol>
+<pre><code class="language-c++">#pragma once
+
+#include &lt;iostream&gt;
+#include &lt;chrono&gt;
+
+namespace algorithms {
+
+    class Pid {
+    public:
+        Pid(float kp, float ki, float kd)
+            : kp_(kp), ki_(ki), kd_(kd), prev_error_(0), integral_(0) {}
+
+        float step(float error, float dt) {
+            integral_ += error * dt;
+            float derivative = (error - prev_error_) / dt;
+            float output = kp_ * error + ki_ * integral_ + kd_ * derivative;
+            prev_error_ = error;
+            return output;
+        }
+
+        void reset() {
+            prev_error_ = 0;
+            integral_ = 0;
+        }
+
+    private:
+        float kp_;
+        float ki_;
+        float kd_;
+        float prev_error_;
+        float integral_;
+    };
+}
+</code></pre>
+<ol start="2">
+<li>Reuse your <code>Lineloop</code> class from Task 1 and modify the control logic inside <code>line_loop_timer_callback()</code> to implement a <strong>Proportional controller</strong>.</li>
+<li>Experiment with different values of the proportional gain <em>K<sub>P</sub></em> and determine the most suitable value.</li>
+<li>Observe the performance and assess if further refinement is needed.</li>
+<li>Write simple unit tests for the <code>Pid</code> class in a separate file named <code>pid_test.cpp</code>. Here's an example that tests the response of the P-controller to a unit step input:</li>
+</ol>
+<pre><code class="language-c++">#include &quot;solution/algorithms/pid.hpp&quot;
+#include &lt;iostream&gt;
+#include &lt;cassert&gt;
+#include &lt;cmath&gt;
+
+using namespace algorithms;
+
+bool nearly_equal(float a, float b, float eps = 1e-5f) {
+    return std::fabs(a - b) &lt; eps;
+}
+
+// Unit step input (constant error = 1.0)
+void test_unit_step() {
+    Pid pid(2.0f, 0.0f, 0.0f); // P-only
+    float dt = 0.1f;
+
+    float error = 1.0f;
+
+    for (int i = 0; i &lt; 5; ++i) {
+        float output = pid.step(error, dt);
+        assert(nearly_equal(output, 2.0f));
+    }
+
+    std::cout &lt;&lt; &quot;[PASS]\n&quot;;
+}
+
+int main() {
+    test_unit_step();
+
+    std::cout &lt;&lt; &quot;All P-controller tests passed.\n&quot;;
+    return 0;
+}
+
+</code></pre>
+<h2 id="line-following-with-pid-control-approx-1-hour"><a class="header" href="#line-following-with-pid-control-approx-1-hour">Line Following with PID Control (Approx. 1 hour)</a></h2>
+<p>In this part, you will refine your <strong>P-Control implementation</strong> by adding <strong>Integral (I)</strong> and <strong>Derivative (D)</strong> components, creating a <strong>PID controller</strong>. This will improve stability, reduce oscillations, and enhance the robot’s ability to follow curves accurately.</p>
+<p>While <strong>P-Control</strong> adjusts the robot’s angular velocity based on the current error, it <strong>does not account for past errors or predict future corrections</strong>. This can result in oscillations or slow responses in certain situations. <strong>PID control</strong> solves these issues by incorporating two additional terms:</p>
+<p>$$
+ω = K_{P}e + K_{i}\int e dt + K_{d}\frac{de}{dt}
+$$</p>
+<ul>
+<li><strong>$$K_{P}e$$ (Proportional term)</strong>: Reacts to the current error.</li>
+<li><strong>$$K_{i}\int e dt$$ (Integral term)</strong>: Corrects accumulated past errors.</li>
+<li><strong>$$K_{d}\frac{de}{dt}$$ (Derivative term)</strong>: Predicts future errors and reduces overshooting.</li>
+</ul>
+<p>The <strong>integral term</strong> helps eliminate steady-state errors, ensuring the robot remains centered over time. The <strong>derivative term</strong> improves responsiveness by counteracting rapid changes, preventing overshooting and oscillations.</p>
+<p>The overall process is illustrated in <a href="2_labs/text/pidContDiagram">Figure 3</a>. The robot reads the estimated line position, computes the error, applies the PID formula, and sends the adjusted velocity command to the motion control node.</p>
+<p id="pidContDiagram" align="center">
+  <img src="2_labs/text/../images/pid_flowchart.png" alt="PID Control Flowchart" width="200" height="400">
+</p>
+<p align="center">
+    <em> Figure 3:  Flowchart for PID Control </em>
+</p>
+<p>Tuning <em>K<sub>P</sub></em>, <em>K<sub>i</sub></em>, <em>K<sub>d</sub></em> is essential for optimal performance. If <em>K<sub>P</sub></em> is too high, the robot may oscillate. If <em>K<sub>i</sub></em> is too high, the robot may overcorrect. If <em>K<sub>d</sub></em> is too high, the robot may become too sensitive to small errors. A common approach is to start with only <em>K<sub>P</sub></em>, then add <em>K<sub>d</sub></em>, and finally fine-tune <em>K<sub>d</sub></em> to eliminate steady-state error.</p>
+<p><strong>For more information on PID Control implementation and tuning methods, please refer to the <a href="https://github.com/Robotics-BUT/BPC-PRP/blob/master/src/3_navigation/text/2_pid.md"><strong>PID section</strong></a></strong></p>
+<hr />
+<p><strong>TASK 3</strong></p>
+<ol>
+<li>Just like in the previous tasks, extend your <code>LineLoop</code> class to <strong>implement full PID control</strong> using the provided <code>Pid</code> class. Also, don’t forget to <strong>extend your unit tests</strong> (<code>pid_test.cpp</code>) to verify the behavior of all PID components.</li>
+<li>Choose a <strong>tuning method</strong> (either manual tuning or the Ziegler-Nichols method) and find the optimal values for <em>K<sub>P</sub></em>, <em>K<sub>i</sub></em>, <em>K<sub>d</sub></em>.</li>
+<li>Observe the differences between PID control and the previous line-following methods. Analyze how each component affects the robot’s performance.</li>
+<li>(Optional) Implement output saturation (clamping). Real robots cannot turn infinitely fast. If your PID controller outputs a very large value (e.g. due to a sharp error), you should <strong>limit (saturate) it to a safe range.</strong></li>
+<li>(Optional) Implement Anti-Windup. The integral term in a PID controller can sometimes accumulate too much (especially when the output is saturated), which leads to overshooting or instability. This is called integral windup. To prevent this, implement anti-windup, for example disabling integration when output is saturated or limiting the maximum integral value</li>
+</ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-8---midterm-test-line-following-1"><a class="header" href="#lab-8---midterm-test-line-following-1">Lab 8 - Midterm Test (Line Following)</a></h1>
 <p>Responsible: Ing. Adam Ligocki, Ph.D.</p>
 <p>Up to 50 points can be earned through two practical demonstrations of task solutions during the semester.</p>
