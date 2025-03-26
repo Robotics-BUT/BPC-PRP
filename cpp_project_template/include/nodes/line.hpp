@@ -21,8 +21,10 @@ namespace nodes {
         // PID
         float Kp;
         float Kd;
+        float Ki;
         float base_speed;
         float last_error;
+        float integral_;
     };
 }
 #endif // LINE_SENSOR_LISTENER_HPP
