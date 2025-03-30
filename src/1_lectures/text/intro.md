@@ -48,14 +48,15 @@ Responsible: Ing. Petr Šopák
 ### Week 7 - Control Loop
  - Line following principles
  - Bang-bang controller
- - P(I)D controller
+ - PID controller
 
 Responsible: Ing. Adam Ligocki, Ph.D.
 
 ### Week 8 - ROS2 Advanced
- - Advanced concepts in ROS2
- - ...
-
+ - DDS, node discovery
+ - launch system
+ - Visualization (markers, TFs, URDF, ...)
+ - Gazebo
 Responsible: Ing. Jakub Minařík
 
 ### Week 9 - Robot's Sensory Equipment
