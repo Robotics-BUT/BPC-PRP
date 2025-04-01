@@ -12,6 +12,10 @@ LineSensorListener::LineSensorListener() : Node("line_sensor_listener"), Kp(0.07
     motor_controller_ = std::make_shared<MotorController>();
 }
 
+void LineSensorListener::reset_integral() {
+    integral_=0.0f;
+}
+
 void LineSensorListener::on_line_sensors_msg(std::shared_ptr<std_msgs::msg::UInt16MultiArray> msg)
 {
     if (msg->data.size() >= 2)
@@ -38,9 +42,9 @@ void LineSensorListener::on_line_sensors_msg(std::shared_ptr<std_msgs::msg::UInt
 
         float right_motor_speed;
         float left_motor_speed;
-        float sensor_threshhold=600;    // jsem na krizi -> nechci zatacet
+        float sensor_threshhold=300;    // jsem na krizi -> nechci zatacet
 
-        if (error==0 || left_value>sensor_threshhold || right_value>sensor_threshhold) {
+        if (error==0 || (left_value>sensor_threshhold && right_value>sensor_threshhold)) {
             // dostal jsem se na kriz nebo jedu dobre, tak chci rovne
             right_motor_speed = base_speed;//+Ki*integral_;
             left_motor_speed = base_speed;//-Ki*integral_;

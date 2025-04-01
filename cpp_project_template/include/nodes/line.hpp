@@ -11,6 +11,7 @@ namespace nodes {
     {
     public:
         LineSensorListener();
+        void reset_integral();
 
     private:
         void on_line_sensors_msg(std::shared_ptr<std_msgs::msg::UInt16MultiArray> msg);

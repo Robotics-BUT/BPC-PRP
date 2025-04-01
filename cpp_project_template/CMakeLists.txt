@@ -25,6 +25,8 @@ set(SRC
         src/nodes/kinematics_odometry.cpp
         include/nodes/line.hpp
         src/nodes/line.cpp
+        include/nodes/button.hpp
+        src/nodes/button.cpp
 )
 
 set(AMENT_LIBS rclcpp std_msgs sensor_msgs cv_bridge image_transport)
