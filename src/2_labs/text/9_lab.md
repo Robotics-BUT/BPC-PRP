@@ -38,18 +38,22 @@ LiDAR sensors are commonly used in robotics to **measure precise distances to su
 
 ----------------------------------------------------------------------------------------------
 **TASK 1 - A**
-1) **Explore the data** provided by the sensor - Inspect the raw data in the terminal (Refer to the datasheet if needed to understand parameters) 
+1) **Explore the data** provided by the sensor - Inspect the raw data in the terminal (Refer to the datasheet if needed to understand parameters)
+   > Understand the meaning of the main fields in the message: `angle_min`, `angle_max`, `angle_increment`, `ranges[]`, `range_max`, `range_min`.
 2) **Visualize the LiDAR data** in `RViz 2`
-    1) Launch `RViz 2` and add a `LaserScan` display
-    2) Set the correct topic name
+    1) Launch `RViz 2` and add a `LaserScan` display (add->By Topic->LaserScan)
+    2) Set the correct topic name and `Fixed Frame` as `lidar`
     3) (Optional) Customize the display: point size, color, decay time, etc.
+    > Don’t forget to launch RViz in a sourced terminal, otherwise topics will not be visible.
 3) **Create a new `ROS 2` node** for your LiDAR processing
-  - Create `lidar_node.hpp` and `lidar_node.cpp` in `nodes` directories
-  - In this node, **subscribe to the LiDAR topic and process incoming data**
+    - Create `lidar_node.hpp` and `lidar_node.cpp` in `nodes` directories
+    - In this node, **subscribe to the LiDAR topic and process incoming data**
 4) **Think critically about the data**
-  - Are all the LiDAR readings useful?
-  - Do they represent directions that matter for your robot's task?
-  - If needed, implement a simple filtering algorithm to reduce noise or focus only on relevant angles (e.g. front, sides)
+    - Are all values in `ranges[]` useful for your application?
+    > **TIP:** LiDAR may return very small values (e.g. 0) or extremely large values (inf). These are usually best ignored.
+    - Do all directions matter for your robot’s task?
+    > **TIP:** You can filter only specific angular sectors depending on what you need. (e.g. Front, Right, Left, Back)
+    - If needed, implement a simple **filtering algorithm** to average or clean the data in the selected regions. This will be useful for obstacle detection and corridor following in the next tasks.
     
 ### B) Ultrasonic sensors
 
@@ -60,39 +64,36 @@ Ultrasonic sensors are widely used in robotics for short-range obstacle detectio
 ----------------------------------------------------------------------------------------------
 **TASK 1 - B**
 1) **Explore the data** provided by the sensor - Inspect the raw data in the terminal (Refer to the datasheet if needed to understand parameters - max/min measurable range, FOW, etc.)
-2) **Visualize the data** in `rqt` (or `Rviz` - use `Range` display
+2) **Visualize the data** in `rqt` (or `Rviz` - use `Range` display)
 3) **Create a new ROS 2 node** for processing ultrasonic data
     - Create `ultrasonic_node.hpp` and `ultrasonic_node.cpp` in `nodes` directories
     - In this node, **subscribe to the topic and process incoming data**
 4) **Think critically about the data**
-  - What do the sensor values actually represent?
-  - Are the sensor readings stable and consistent over time?
-  - If needed, implement a simple filtering algorithm to reduce noise or focus only on relevant angles (e.g. front, sides)
+    - What do the sensor values actually represent?
+    - Are the sensor readings stable and consistent over time?
+    > **TIP:** Data is often affected by noise, reflections, and material properties. You may want to ignore extreme or invalid values. Consider applying filtering, such as a moving average or median filter
+    - If needed, implement a simple filtering algorithm to reduce noise or focus only on relevant angles (e.g. front, sides)
 
 ## Implementing basic Obstacle Detection (Approx. 40 minutes)
 
-Detecting nearby obstacles is a fundamental capability for any mobile robot. In this task, you will implement a simple logic that checks whether something is too close to the robot based on your chosen sensor (LiDAR or ultrasonic). If an obstacle is detected, the robot can react to the object - stop or trigger another reaction. This is often the first step toward more advanced behaviors such as **obstacle avoidance** or **path planning**.
-
-The goal of this task is to extract meaningful information from sensor readings (Obstacle Detection) — for example, determining "Is there something less than 30 cm in front of me?" — and react accordingly (basic Obstacle avoidance) - for example, stopping before reaching the obstacle.
+Use your chosen sensor (LiDAR or ultrasonic) to detect whether an object is too close to the robot — for example, less than 30 cm in front. If an obstacle is detected, the robot should stop and wait instead of continuing forward. This simple reactive behavior is an essential first step toward more advanced navigation strategies such as obstacle avoidance, corridor following, or autonomous path planning.
 
 ----------------------------------------------------------------------------------------------
 **TASK 2**
-1) **Create a new ROS 2 node** called `corridor_loop` in the `loops` directory. This file should be similar to the `line_loop` from the previous labs. In this node, you will gradually implement the entire functionality for Corridor Following
-2) Use the sensor data that you implemented in Task 1. Based on this data, **implement a simple algorithm for Obstacle Detection**:
+1) **Create a new ROS 2 node** called `corridor_loop` in the `loops` directory. This node should be similar to the `line_loop` from the previous labs. In this node, you will gradually implement the entire functionality for *Corridor Following*
+2) Use the sensor data from *Task 1*. Based on this data, **implement a simple algorithm for Obstacle Detection**:
   1) Retrieve the data from the sensors
-  2) If the sensor readings are **below a threshold you define**, this indicates the **robot is close enough to detect the obstacle**
+  2) If the reading is **below a threshold you define**, this means the **robot is close enough to detect the obstacle**
 3) **Test the obstacle detection** to ensure the robot detects objects correctly when they are within the defined range.
 4) **Create basic obstacle avoidance** logic:
   1) Make the robot drive forward
-  2) When an obstacle is detected, the robot ** must stop and not continue moving!**
+  2) When an obstacle is detected, the robot **must stop and not continue moving!**
 
 > More **advanced avoidance behaviors** (e.g., turning) will be covered in next lab.
 
 ## Implementing Corridor Following behavior (Approx. 60 minutes)
 
-*Corridor following* is a fundamental behavior for mobile robots, allowing them to **autonomously navigate through constrained spaces**, such as hallways or corridors. The objective is for the robot to *maintain a constant distance from the walls on either side*, ensuring it remains centered between them as it moves. This task is typically achieved by using range sensors, such as LiDAR or ultrasonic sensors, to measure the distance to the walls and adjust the robot's trajectory accordingly.
-
-In this task, you will develop a **basic corridor following algorithm** using the sensor data you previously implemented. This assignment will talk about simple proportional control to adjust the robot's heading based on the distance measurements from the left and right sides, keeping the robot on course in a corridor. You can also experiment with alternative control methods.
+*Corridor following* allows the robot to stay centered between two walls by adjusting its heading based on distance measurements from both sides. In this task, you will use your sensor data (e.g. LiDAR or ultrasonic) to calculate the lateral error (difference between left and right distances) and correct the robot’s trajectory using proportional control.
 
 <p id="bangDiagram" align="center">
   <img src="../images/corridor_following.png" alt="alt text" width="660" height="410">
