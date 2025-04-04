@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Lab 10 - Inertial Measurement Unit (IMU) - BPC-PRP - Practical Robotics and Computer Vision</title>
+        <title>Lab 10 - Orientation-Aware Corridor Navigation - BPC-PRP - Practical Robotics and Computer Vision</title>
                 
 
         <!-- Custom HTML head -->
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../title-page.html">Introduction</a></li><li class="chapter-item expanded "><a href="../../1_lectures/text/intro.html"><strong aria-hidden="true">1.</strong> Lectures</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/intro.html"><strong aria-hidden="true">2.</strong> Labs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../2_labs/text/1_lab.html"><strong aria-hidden="true">2.1.</strong> Lab 1 - Introduction &amp; Linux Installation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/2_lab.html"><strong aria-hidden="true">2.2.</strong> Lab 2 - IDE, C++ &amp; CMake</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/3_lab.html"><strong aria-hidden="true">2.3.</strong> Lab 3 - Git &amp; C++ Project Template</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/4_lab.html"><strong aria-hidden="true">2.4.</strong> Lab 4 - Data Capture &amp; Visualization (ROS)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/5_lab.html"><strong aria-hidden="true">2.5.</strong> Lab 5 - Motor, Kinematics &amp; Gamepad</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/6_lab.html"><strong aria-hidden="true">2.6.</strong> Lab 6 - Line Estimation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/7_lab.html"><strong aria-hidden="true">2.7.</strong> Lab 7 - Line Following &amp; PID</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/8_lab.html"><strong aria-hidden="true">2.8.</strong> Lab 8 - Exam (Line Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/9_lab.html"><strong aria-hidden="true">2.9.</strong> Lab 9 - LiDAR</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/10_lab.html" class="active"><strong aria-hidden="true">2.10.</strong> Lab 10 - Inertial Measurement Unit (IMU)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/11_lab.html"><strong aria-hidden="true">2.11.</strong> Lab 11 - Camera Data Processing</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/12_lab.html"><strong aria-hidden="true">2.12.</strong> Lab 12 - Exam (Corridor Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/13_exam.html"><strong aria-hidden="true">2.13.</strong> Main Exam - Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../3_navigation/text/intro.html"><strong aria-hidden="true">3.</strong> Robotic Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../3_navigation/text/1_differential_chassis.html"><strong aria-hidden="true">3.1.</strong> Differential Chassis</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/2_pid.html"><strong aria-hidden="true">3.2.</strong> PID</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/3_line_following.html"><strong aria-hidden="true">3.3.</strong> Line Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/4_corridor_following.html"><strong aria-hidden="true">3.4.</strong> Corridor Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/5_imu.html"><strong aria-hidden="true">3.5.</strong> IMU</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/6_maze_escape.html"><strong aria-hidden="true">3.6.</strong> Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../4_others/text/intro.html"><strong aria-hidden="true">4.</strong> Others</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../4_others/text/1_linux.html"><strong aria-hidden="true">4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../../4_others/text/2_cpp.html"><strong aria-hidden="true">4.2.</strong> C++</a></li><li class="chapter-item expanded "><a href="../../4_others/text/7_cmake.html"><strong aria-hidden="true">4.3.</strong> CMake</a></li><li class="chapter-item expanded "><a href="../../4_others/text/3_git.html"><strong aria-hidden="true">4.4.</strong> Git</a></li><li class="chapter-item expanded "><a href="../../4_others/text/4_clion.html"><strong aria-hidden="true">4.5.</strong> CLion</a></li><li class="chapter-item expanded "><a href="../../4_others/text/8_multithreading.html"><strong aria-hidden="true">4.6.</strong> Multithreading</a></li><li class="chapter-item expanded "><a href="../../4_others/text/9_rviz2_visualizations.html"><strong aria-hidden="true">4.7.</strong> RViz2 Visualizations</a></li><li class="chapter-item expanded "><a href="../../4_others/text/10_coordinate_system.html"><strong aria-hidden="true">4.8.</strong> Coordinate Systems</a></li><li class="chapter-item expanded "><a href="../../4_others/text/11_communication_buses.html"><strong aria-hidden="true">4.9.</strong> Communication Buses</a></li><li class="chapter-item expanded "><a href="../../4_others/text/12_ubuntu_environment.html"><strong aria-hidden="true">4.10.</strong> Ubuntu Environment</a></li></ol></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../title-page.html">Introduction</a></li><li class="chapter-item expanded "><a href="../../1_lectures/text/intro.html"><strong aria-hidden="true">1.</strong> Lectures</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/intro.html"><strong aria-hidden="true">2.</strong> Labs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../2_labs/text/1_lab.html"><strong aria-hidden="true">2.1.</strong> Lab 1 - Introduction &amp; Linux Installation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/2_lab.html"><strong aria-hidden="true">2.2.</strong> Lab 2 - IDE, C++ &amp; CMake</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/3_lab.html"><strong aria-hidden="true">2.3.</strong> Lab 3 - Git &amp; C++ Project Template</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/4_lab.html"><strong aria-hidden="true">2.4.</strong> Lab 4 - Data Capture &amp; Visualization (ROS)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/5_lab.html"><strong aria-hidden="true">2.5.</strong> Lab 5 - Motor, Kinematics &amp; Gamepad</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/6_lab.html"><strong aria-hidden="true">2.6.</strong> Lab 6 - Line Estimation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/7_lab.html"><strong aria-hidden="true">2.7.</strong> Lab 7 - Line Following &amp; PID</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/8_lab.html"><strong aria-hidden="true">2.8.</strong> Lab 8 - Exam (Line Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/9_lab.html"><strong aria-hidden="true">2.9.</strong> Lab 9 - Obstacle Detection &amp; Corridor Following</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/10_lab.html" class="active"><strong aria-hidden="true">2.10.</strong> Lab 10 - Orientation-Aware Corridor Navigation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/11_lab.html"><strong aria-hidden="true">2.11.</strong> Lab 11 - Camera Data Processing</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/12_lab.html"><strong aria-hidden="true">2.12.</strong> Lab 12 - Exam (Corridor Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/13_exam.html"><strong aria-hidden="true">2.13.</strong> Main Exam - Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../3_navigation/text/intro.html"><strong aria-hidden="true">3.</strong> Robotic Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../3_navigation/text/1_differential_chassis.html"><strong aria-hidden="true">3.1.</strong> Differential Chassis</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/2_pid.html"><strong aria-hidden="true">3.2.</strong> PID</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/3_line_following.html"><strong aria-hidden="true">3.3.</strong> Line Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/4_corridor_following.html"><strong aria-hidden="true">3.4.</strong> Corridor Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/5_imu.html"><strong aria-hidden="true">3.5.</strong> IMU</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/6_maze_escape.html"><strong aria-hidden="true">3.6.</strong> Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../4_others/text/intro.html"><strong aria-hidden="true">4.</strong> Others</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../4_others/text/1_linux.html"><strong aria-hidden="true">4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../../4_others/text/2_cpp.html"><strong aria-hidden="true">4.2.</strong> C++</a></li><li class="chapter-item expanded "><a href="../../4_others/text/7_cmake.html"><strong aria-hidden="true">4.3.</strong> CMake</a></li><li class="chapter-item expanded "><a href="../../4_others/text/3_git.html"><strong aria-hidden="true">4.4.</strong> Git</a></li><li class="chapter-item expanded "><a href="../../4_others/text/4_clion.html"><strong aria-hidden="true">4.5.</strong> CLion</a></li><li class="chapter-item expanded "><a href="../../4_others/text/8_multithreading.html"><strong aria-hidden="true">4.6.</strong> Multithreading</a></li><li class="chapter-item expanded "><a href="../../4_others/text/9_rviz2_visualizations.html"><strong aria-hidden="true">4.7.</strong> RViz2 Visualizations</a></li><li class="chapter-item expanded "><a href="../../4_others/text/10_coordinate_system.html"><strong aria-hidden="true">4.8.</strong> Coordinate Systems</a></li><li class="chapter-item expanded "><a href="../../4_others/text/11_communication_buses.html"><strong aria-hidden="true">4.9.</strong> Communication Buses</a></li><li class="chapter-item expanded "><a href="../../4_others/text/12_ubuntu_environment.html"><strong aria-hidden="true">4.10.</strong> Ubuntu Environment</a></li></ol></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,9 +143,181 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="lab-10---inertial-measurement-unit-imu"><a class="header" href="#lab-10---inertial-measurement-unit-imu">Lab 10 - Inertial Measurement Unit (IMU)</a></h1>
-<p>Responsible: Ing. Petr Šopák</p>
-<p>Lorem ipsum</p>
+                        <h1 id="lab-10--orientation-aware-corridor-navigation"><a class="header" href="#lab-10--orientation-aware-corridor-navigation">Lab 10 – Orientation-Aware Corridor Navigation</a></h1>
+<p><strong>Responsible:</strong> Ing. Petr Šopák</p>
+<h3 id="learning-objectives"><a class="header" href="#learning-objectives">Learning Objectives</a></h3>
+<p><strong>1) Understanding robot orientation using IMU (MPU6050)</strong></p>
+<ul>
+<li>Interpreting raw gyroscope data</li>
+<li>Calibrating and integrating gyro values to estimate yaw</li>
+</ul>
+<p><strong>2) Extending corridor following with corner handling</strong></p>
+<ul>
+<li>Detecting turns (e.g. 90° corners) using range sensors</li>
+<li>Executing rotation using IMU feedback</li>
+</ul>
+<p><strong>3) Implementing a state-based navigation strategy</strong></p>
+<ul>
+<li>Designing a simple state machine</li>
+<li>Switching between corridor following and turning behavior</li>
+</ul>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>In <strong>Lab 9</strong>, you implemented a basic reactive controller that allowed the robot to follow straight corridors using range sensors such as LiDAR or ultrasonic. However, that approach assumed a straight path and could not handle corners or sharper turns.</p>
+<p>In this lab, you will extend that behavior by enabling your robot to detect and turn into new corridor directions (e.g., 90° left or right turns). To accomplish this, you will use an <strong>Inertial Measurement Unit (IMU)</strong> — specifically the <strong>MPU6050</strong> (<a href="https://www.alldatasheet.com/datasheet-pdf/pdf/1132807/TDK/MPU-6050.html#:%7E:text=Part%20#:%20MPU-6050.%20Download.%20File%20Size:%20905Kbytes.%20Page:,MotionTracking%20Device%20with%20DMP%20(MPU-6050/-6000).%20Manufacturer:%20TDK%20Electronics.">LINK</a>) — to estimate the robot's yaw (rotation around the vertical axis).</p>
+<p>The robot will:</p>
+<ul>
+<li>Follow the corridor as before</li>
+<li>Detect the corner</li>
+<li>Rotate in place until it is aligned with the new corridor direction</li>
+<li>Resume forward motion</li>
+</ul>
+<p>To implement this, you will also develop a simple <strong>finite state machine</strong> with at least two states: <em>CORRIDOR_FOLLOWING</em> and <em>TURNING</em>.</p>
+<h2 id="imu-and-orientation-estimation"><a class="header" href="#imu-and-orientation-estimation">IMU and Orientation Estimation</a></h2>
+<p>The MPU6050 sensor provides raw data from a gyroscope and accelerometer. Unlike more advanced IMUs, it does not provide direct orientation estimates such as yaw, pitch, or roll.</p>
+<p>To estimate yaw (rotation angle), you will:</p>
+<ol>
+<li><strong>Read the raw gyroscope value for the z-axis</strong> (<code>gyro_z</code>), which represents angular velocity around the vertical axis.</li>
+<li><strong>Calibrate</strong>:
+<ul>
+<li>Keep the robot still for 2–5 seconds after startup.</li>
+<li>Collect multiple <code>gyro_z</code> values.</li>
+<li>Compute the average value as the <code>gyro_offset</code>.</li>
+</ul>
+</li>
+<li><strong>Integrate over time</strong>:
+<ul>
+<li>Subtract the offset from each reading.</li>
+<li>Multiply by the time delta (<code>dt</code>) to obtain the yaw angle increment.</li>
+<li>Accumulate this over time to estimate the current yaw:</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-cpp">yaw += (gyro_z - offset) * dt;
+</code></pre>
+<h3 id="practical-integration-tip"><a class="header" href="#practical-integration-tip">Practical Integration Tip</a></h3>
+<p>In this lab, you are required to implement the yaw integration yourself. No sensor fusion libraries will be used. Keep in mind that this method is sensitive to drift, so proper calibration is critical.</p>
+<h3 id="corner-detection"><a class="header" href="#corner-detection">Corner Detection</a></h3>
+<p>When following a corridor, the robot can monitor the side range sensors. If a wall suddenly &quot;disappears&quot; on one side (i.e., the distance becomes much larger), and the front is also open, it likely means the corridor turns in that direction.</p>
+<p>An alternative strategy is to detect a wall in front of the robot (i.e., front distance drops below a defined threshold), and then search for an opening on the sides to determine where the corridor continues. However, this method is problematic in case of intersections, as the robot may overshoot the corner and fail to turn properly. </p>
+<hr />
+<p><strong>TASK 1 – IMU Integration and Yaw Estimation</strong></p>
+<ol>
+<li>Create a new ROS 2 node for the IMU (e.g., imu_node)</li>
+<li><strong>Subscribe to the MPU6050 data</strong> and read <code>gyro_z</code> values from the topic</li>
+<li><strong>Implement calibration</strong>:
+<ul>
+<li>At the beginning of the program, keep the robot completely still for 2–5 seconds</li>
+<li>During this time, collect several <code>gyro_z</code> values.</li>
+<li>Compute the average of these samples to obtain the gyroscope offset <code>gyro_offset</code>.</li>
+</ul>
+<blockquote>
+<p>You will subtract this offset from all future gyro readings to reduce drift</p>
+</blockquote>
+</li>
+<li><strong>Estimate yaw (heading)</strong>:
+<ul>
+<li>In a timed loop, Subtract the <code>gyro_offset</code> from the current <code>gyro_z</code> value to get the <strong>corrected angular velocity</strong></li>
+<li>Multiply the corrected value by the time delta <code>dt</code> to get the yaw increment</li>
+<li>Accumulate this increment into a variable yaw that represents the current robot orientation (the formula was described before)</li>
+</ul>
+</li>
+<li><strong>Test IMU-based yaw estimation and implement basic heading correction</strong>
+<ol>
+<li><strong>Manual Rotation test</strong>
+<ul>
+<li>Calibrate the IMU and after store the current yaw</li>
+<li>Pick up or gently rotate the robot by approximately 90° (by hand)</li>
+<li>The robot should detect the yaw error:
+<pre><code class="language-c++">float yaw_error = yaw_ref - current_yaw;
+</code></pre>
+</li>
+<li>If the error exceeds a threshold (e.g. 5°), apply a corrective rotation using differential motor speeds:
+<pre><code class="language-c++">float correction = Kp * yaw_error;
+motor_node-&gt;set_motor_speed(127 - correction, 127 + correction);
+</code></pre>
+</li>
+<li><strong>The robot should rotate back toward its original orientation</strong></li>
+</ul>
+</li>
+<li><strong>External Disturbance test</strong>
+<ul>
+<li>While the robot is driving straight or standing still, apply a light push to rotate it</li>
+<li>The robot should detect the change in yaw and try to rotate back to its original heading based on the integrated yaw </li>
+</ul>
+<blockquote>
+<p><strong>Never forget the calibration</strong> — without it, even small disturbances will cause large drift!</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="state-machine-for-corridor-navigation"><a class="header" href="#state-machine-for-corridor-navigation">State Machine for Corridor Navigation</a></h2>
+<p>If you have implemented the IMU, you are now ready to <strong>extend your corridor-following behavior</strong>. In this lab, you will implement a simple <strong>state machine</strong> to structure the robot's behavior during navigation. Instead of relying on a single control strategy, your robot will dynamically switch between multiple modes:</p>
+<ul>
+<li><strong>CALIBRATION</strong> – the robot stays still and computes IMU offset before navigation begins</li>
+<li><strong>CORRIDOR_FOLLOWING</strong> – the robot drives straight and uses side range sensors to stay centered between walls</li>
+<li><strong>TURNING</strong> – the robot rotates in place using the IMU until a 90° turn is completed</li>
+<li><em>(Later additions:)</em> <strong>INTERSECTION_HANDLING</strong>, <strong>DEAD_END_HANDLING</strong>, etc.</li>
+</ul>
+<p>This modular architecture will make your logic easier to extend in future — for example, adding states <strong>INTERSECTION_HANDLING</strong> (dvě či tři cesty), <strong>DEAD_END_HANDLING</strong> (slepá ulička) and more...</p>
+<p id="state_machine" align="center">
+  <img src="../images/lab_10_state_machine.png" alt="alt text" width="400" height="200">
+</p>
+<p align="center">
+    <em> Figure 1: Example state diagram for corridor-following behavior </em>
+</p>
+<blockquote>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>The structure below is just an example. You are free to design your own solution — <strong>don’t feel limited by this template!</strong></li>
+<li>Keep your implementation modular so it can be extended in future</li>
+<li>Always calibrate the IMU at startup to avoid drift in yaw estimation</li>
+</ul>
+</blockquote>
+<hr />
+<p><strong>TASK 2 - Implementing Corner Detection and Turning</strong></p>
+<ol>
+<li>In your <strong>corridor loop node</strong>, integrate the <strong>state machine logic</strong>
+<ul>
+<li>Example Structure:
+<pre><code class="language-c++"> switch (state) {
+  case CALIBRATION:
+ // Wait until enough samples are collected
+ // Once done, switch to CORRIDOR_FOLLOWING
+ break;
+
+   case CORRIDOR_FOLLOWING:
+     // Keep centered using P/PID based on side distances
+     // If front is blocked and one side is open → switch to TURNING
+     break;
+ 
+   case TURNING:
+     // Use IMU to track rotation
+     // Rotate until yaw changes by ±90°
+     // Then return to CORRIDOR_FOLLOWING
+     break;
+ }
+</code></pre>
+</li>
+</ul>
+</li>
+<li>In the <code>CORRIDOR_FOLLOWING</code> state:
+<ul>
+<li>Use side range sensor data to stay centered between walls.</li>
+<li><strong>Monitor the front sensor</strong>: if the front distance falls below a threshold (e.g., &lt; 10 cm) and one side is open, detect a corner</li>
+<li>Based on which side is open, decide the direction to turn (left or right)</li>
+<li>Switch to the <code>TURNING</code> state</li>
+</ul>
+</li>
+<li>In the <code>TURNING</code> state:
+<ul>
+<li>Store the current yaw as <code>yaw_start</code></li>
+<li>Command the robot to rotate</li>
+<li>Continuously read yaw and compare with <code>yaw_start</code></li>
+<li>When the yaw change reaches ~90°, stop the rotation and switch back to <code>CORRIDOR_FOLLOWING</code></li>
+</ul>
+</li>
+</ol>
 
                     </main>
 
