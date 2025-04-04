@@ -45,7 +45,7 @@ Given the robot's current pose `(x,y,θ)`, the new pose after a small time step 
 
 <p><img src="../images/dif_chass_update.png" alt="pose update"/></p>
 
-##Inverse Kinematics
+## Inverse Kinematics
 
 Inverse kinematics computes the wheel velocities required to achieve a desired linear and angular velocity.
 
