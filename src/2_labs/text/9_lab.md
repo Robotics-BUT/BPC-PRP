@@ -53,7 +53,60 @@ LiDAR sensors are commonly used in robotics to **measure precise distances to su
     > **TIP:** LiDAR may return very small values (e.g. 0) or extremely large values (inf). These are usually best ignored.
     - Do all directions matter for your robot’s task?
     > **TIP:** You can filter only specific angular sectors depending on what you need. (e.g. Front, Right, Left, Back)
-    - If needed, implement a simple **filtering algorithm** to average or clean the data in the selected regions. This will be useful for obstacle detection and corridor following in the next tasks.
+    - (Optional) Example skeleton for implementing sector-based LiDAR filtering. You may use this as inspiration or create your own version:
+    ```c++
+    #include <cmath>
+    #include <vector>
+    #include <numeric>
+    
+    namespace algorithms {
+    
+        // Structure to store filtered average distances in key directions
+        struct LidarFiltrResults {
+            float front;
+            float back;
+            float left;
+            float right;
+        };
+    
+        class LidarFiltr {
+        public:
+            LidarFiltr() = default;
+    
+            LidarFiltrResults apply_filter(std::vector<float> points, float angle_start, float angle_end) {
+    
+                // Create containers for values in different directions
+                std::vector<float> left{};
+                std::vector<float> right{};
+                std::vector<float> front{};
+                std::vector<float> back{};
+    
+                // TODO: Define how wide each directional sector should be (in radians)
+                constexpr float angle_range = ;
+    
+                // Compute the angular step between each range reading
+                auto angle_step = (angle_end - angle_start) / points.size();
+    
+                for (size_t i = 0; i < points.size(); ++i) {
+                    auto angle = angle_start + i * angle_step;
+    
+                    // TODO: Skip invalid (infinite) readings
+    
+                    // TODO: Sort the value into the correct directional bin based on angle
+                    
+                }
+    
+                // TODO: Return the average of each sector (basic mean filter)
+                return LidarFiltrResults{
+                    .front = ,
+                    .back = ,
+                    .left = ,
+                    .right = ,
+                };
+            }
+        };
+    }
+    ```
     
 ### B) Ultrasonic sensors
 
@@ -96,7 +149,7 @@ Use your chosen sensor (LiDAR or ultrasonic) to detect whether an object is too 
 *Corridor following* allows the robot to stay centered between two walls by adjusting its heading based on distance measurements from both sides. In this task, you will use your sensor data (e.g. LiDAR or ultrasonic) to calculate the lateral error (difference between left and right distances) and correct the robot’s trajectory using proportional control.
 
 <p id="bangDiagram" align="center">
-  <img src="../images/corridor_following.png" alt="alt text" width="660" height="410">
+  <img src="../images/corridor_following.png" alt="alt text" width="620" height="410">
 </p>
 <p align="center">
     <em> Figure 1: Corridor following Behavior. a) <strong>Flowchart</strong> of the corridor following algorithm; b) Robot behavior based on the computed lateral error <code>e</code> </em>
