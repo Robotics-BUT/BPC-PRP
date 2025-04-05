@@ -1992,8 +1992,8 @@ namespace algorithms {
 <li>Switching between corridor following and turning behavior</li>
 </ul>
 <h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
-<p>In <strong>Lab 9</strong>, you implemented a basic reactive controller that allowed the robot to follow straight corridors using range sensors such as LiDAR or ultrasonic. However, that approach assumed a straight path and could not handle corners or sharper turns.</p>
-<p>In this lab, you will extend that behavior by enabling your robot to detect and turn into new corridor directions (e.g., 90° left or right turns). To accomplish this, you will use an <strong>Inertial Measurement Unit (IMU)</strong> — specifically the <strong>MPU6050</strong> (<a href="https://www.alldatasheet.com/datasheet-pdf/pdf/1132807/TDK/MPU-6050.html#:%7E:text=Part%20#:%20MPU-6050.%20Download.%20File%20Size:%20905Kbytes.%20Page:,MotionTracking%20Device%20with%20DMP%20(MPU-6050/-6000).%20Manufacturer:%20TDK%20Electronics.">LINK</a>) — to estimate the robot's yaw (rotation around the vertical axis).</p>
+<p>In <strong>Lab 9</strong>, you implemented a basic reactive controller that allowed the robot to follow straight corridors using range sensors such as LiDAR or ultrasonic. However, this approach assumes that the path is straight and cannot handle corners or sharp turns.</p>
+<p>In this lab, you will enhance that behavior by enabling your robot to detect and turn into new corridor directions (e.g., 90° left or right turns). To accomplish this, you will use an <strong>Inertial Measurement Unit (IMU)</strong> — specifically the <strong>MPU6050</strong> (<a href="https://www.alldatasheet.com/datasheet-pdf/pdf/1132807/TDK/MPU-6050.html#:%7E:text=Part%20#:%20MPU-6050.%20Download.%20File%20Size:%20905Kbytes.%20Page:,MotionTracking%20Device%20with%20DMP%20(MPU-6050/-6000).%20Manufacturer:%20TDK%20Electronics.">LINK</a>) — to estimate the robot's yaw (rotation around the vertical axis).</p>
 <p>The robot will:</p>
 <ul>
 <li>Follow the corridor as before</li>
@@ -2002,7 +2002,7 @@ namespace algorithms {
 <li>Resume forward motion</li>
 </ul>
 <p>To implement this, you will also develop a simple <strong>finite state machine</strong> with at least two states: <em>CORRIDOR_FOLLOWING</em> and <em>TURNING</em>.</p>
-<h2 id="imu-and-orientation-estimation"><a class="header" href="#imu-and-orientation-estimation">IMU and Orientation Estimation</a></h2>
+<h2 id="imu-and-orientation-estimation-approx-70-minutes"><a class="header" href="#imu-and-orientation-estimation-approx-70-minutes">IMU and Orientation Estimation (Approx. 70 minutes)</a></h2>
 <p>The MPU6050 sensor provides raw data from a gyroscope and accelerometer. Unlike more advanced IMUs, it does not provide direct orientation estimates such as yaw, pitch, or roll.</p>
 <p>To estimate yaw (rotation angle), you will:</p>
 <ol>
@@ -2033,8 +2033,8 @@ namespace algorithms {
 <p><strong>TASK 1 – IMU Integration and Yaw Estimation</strong></p>
 <ol>
 <li>Create a new ROS 2 node for the IMU (e.g., imu_node)</li>
-<li><strong>Subscribe to the MPU6050 data</strong> and read <code>gyro_z</code> values from the topic</li>
-<li><strong>Implement calibration</strong>:
+<li><strong>Subscribe to the MPU6050 data</strong> and read <code>gyro_z</code> values from the topic. <em>A suggested node structure and a helper class are provided below this task</em></li>
+<li><strong>Implement gyroscope calibration</strong>:
 <ul>
 <li>At the beginning of the program, keep the robot completely still for 2–5 seconds</li>
 <li>During this time, collect several <code>gyro_z</code> values.</li>
@@ -2075,13 +2075,88 @@ motor_node-&gt;set_motor_speed(127 - correction, 127 + correction);
 <li>The robot should detect the change in yaw and try to rotate back to its original heading based on the integrated yaw </li>
 </ul>
 <blockquote>
-<p><strong>Never forget the calibration</strong> — without it, even small disturbances will cause large drift!</p>
+<p><strong>Always calibrate the IMU at the beginning</strong> — without proper calibration, even small disturbances will cause significant drift over time!</p>
 </blockquote>
 </li>
 </ol>
 </li>
 </ol>
-<h2 id="state-machine-for-corridor-navigation"><a class="header" href="#state-machine-for-corridor-navigation">State Machine for Corridor Navigation</a></h2>
+<p>Example of <code>imu_node.hpp</code>:</p>
+<pre><code class="language-c++">#include &lt;rclcpp/rclcpp.hpp&gt;
+#include &lt;sensor_msgs/msg/imu.hpp&gt;
+#include &quot;solution/algorithms/planar_imu_integrator.hpp&quot;
+
+namespace nodes {
+
+    enum class ImuNodeMode {
+        CALIBRATE,
+        INTEGRATE,
+    };
+
+    class ImuNode : public rclcpp::Node {
+    public:
+        ImuNode();
+        ~ImuNode() override = default;
+
+        // Set the IMU Mode
+        void setMode(const ImuNodeMode setMode)
+
+        // Get the current IMU Mode
+        ImuNodeMode getMode();
+
+        // Get the results after Integration
+        auto getIntegratedResults();
+
+        // Reset the class
+        void reset_imu();
+
+    private:
+
+        void calibrate();
+        void integrate();
+
+        ImuNodeMode mode = ImuNodeMode::INTEGRATE;
+
+        rclcpp::Subscription&lt;sensor_msgs::msg::Imu&gt;::SharedPtr imu_subscriber_;
+        algorithms::PlanarImuIntegrator planar_integrator_;
+
+        std::vector&lt;float&gt; gyro_calibration_samples_;
+
+        void on_imu_msg(const sensor_msgs::msg::Imu::SharedPtr msg);
+    };
+}
+</code></pre>
+<p>To simplify your IMU logic, use a helper class <code>planar_imu_integrator.hpp</code> to encapsulate yaw estimation. If you later want to include velocity or position tracking, you’ll need to extend the structure. (Don't forget to write the tests)</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+#include &lt;numeric&gt;
+
+namespace algorithms {
+
+    class PlanarImuIntegrator {
+    public:
+
+        PlanarImuIntegrator() : theta_(0.0f), gyro_offset_(0.0f) {}
+
+        // TODO: Call this regularly to integrate gyro_z over time
+        void update(float gyro_z, double dt);
+
+        // TODO: Calibrate the gyroscope by computing average from static samples
+        void setCalibration(std::vector&lt;float&gt; gyro);
+
+        // TODO: Return the current estimated yaw
+        [[nodiscard]] float getYaw() const;
+
+        // TODO: Reset orientation and calibration
+        void reset();
+
+    private:
+        float theta_;       // Integrated yaw angle (radians)
+        float gyro_offset_; // Estimated gyro bias
+    };
+}
+</code></pre>
+<h2 id="state-machine-for-corridor-navigation-approx-70-minutes"><a class="header" href="#state-machine-for-corridor-navigation-approx-70-minutes">State Machine for Corridor Navigation (Approx. 70 minutes)</a></h2>
 <p>If you have implemented the IMU, you are now ready to <strong>extend your corridor-following behavior</strong>. In this lab, you will implement a simple <strong>state machine</strong> to structure the robot's behavior during navigation. Instead of relying on a single control strategy, your robot will dynamically switch between multiple modes:</p>
 <ul>
 <li><strong>CALIBRATION</strong> – the robot stays still and computes IMU offset before navigation begins</li>
