@@ -17,7 +17,7 @@ namespace nodes {
 
     class LidarFiltr {
     public:
-        LidarFiltrResults apply_filter(const std::vector<float>& points, float angle_start, float angle_end);
+        LidarFiltrResults apply_filter(const std::vector<float>& points, float angle_start, float angle_end, float range_min, float range_max);
     };
 
     class LidarFilterNode : public rclcpp::Node {
