@@ -27,6 +27,8 @@ set(SRC
         src/nodes/line.cpp
         include/nodes/button.hpp
         src/nodes/button.cpp
+        src/nodes/lidar.cpp
+        include/nodes/lidar.hpp
 )
 
 set(AMENT_LIBS rclcpp std_msgs sensor_msgs cv_bridge image_transport)
