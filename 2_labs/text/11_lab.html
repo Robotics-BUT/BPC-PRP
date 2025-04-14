@@ -143,9 +143,146 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="lab-11---camera-data-processing"><a class="header" href="#lab-11---camera-data-processing">Lab 11 - Camera Data Processing</a></h1>
+                        <h1 id="lab-11---visual-navigation-using-aruco-markers"><a class="header" href="#lab-11---visual-navigation-using-aruco-markers">Lab 11 - Visual Navigation Using ArUco Markers</a></h1>
 <p>Responsible: Ing. Petr Šopák</p>
-<p>Lorem ipsum</p>
+<h3 id="learning-objectives"><a class="header" href="#learning-objectives">Learning Objectives</a></h3>
+<p><strong>1) Camera-based detection of visual markers</strong></p>
+<ul>
+<li>Subscribing to a camera image topic</li>
+<li>Converting ROS image messages to OpenCV format</li>
+<li>Detecting ArUco markers using a provided detector</li>
+</ul>
+<p><strong>2) Using markers for high-level decision making</strong></p>
+<ul>
+<li>Associating marker IDs with semantic instructions (e.g., “turn left”, “goal”)</li>
+<li>Storing and reusing symbolic information</li>
+<li>Implementing logic that uses past observations during navigation</li>
+</ul>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>In previous labs, you explored sensor-based navigation using range sensors and IMUs. These approaches allowed the robot to react to its surroundings, but they did not provide access to symbolic information or long-term guidance.</p>
+<p>In this lab, your robot will <strong>navigate through a maze where ArUco markers act as visual hints</strong>. These markers are placed at strategic locations and convey semantic instructions, such as which direction to take at an intersection, or where a shortcut to a goal (e.g., treasure) can be found.</p>
+<p>The robot’s goal is to <strong>detect the markers, interpret their meaning, and use this information later</strong> when making decisions in the maze. This symbolic memory allows the robot to act in a more informed and efficient way, rather than relying solely on reactive behaviors.</p>
+<h2 id="camera-and-marker-detection-approx-50-minutes"><a class="header" href="#camera-and-marker-detection-approx-50-minutes">Camera and Marker Detection (Approx. 50 minutes)</a></h2>
+<p>In the first part of the lab, you will implement a ROS 2 node (<code>CameraNode</code>) that subscribes to a camera image stream, converts the received image into OpenCV format, and detects ArUco markers.</p>
+<h2 id="you-are-provided-with-a-partial-implementation-of-the-arucodetector-class-your-task-is-to-complete-this-class-and-integrate-it-into-your-ros-node"><a class="header" href="#you-are-provided-with-a-partial-implementation-of-the-arucodetector-class-your-task-is-to-complete-this-class-and-integrate-it-into-your-ros-node">You are provided with a partial implementation of the <code>ArucoDetector</code> class. Your task is to complete this class and integrate it into your ROS node.</a></h2>
+<p><strong>TASK 1 – Camera Subscription and Marker Detection</strong></p>
+<ol>
+<li>Create a new ROS 2 node - <code>camera_node</code>
+<ul>
+<li>Subscribe to a camera image topic using <code>image_transport</code></li>
+<li>In the callback, convert the incoming message to a <code>cv::Mat</code> (OpenCV image)</li>
+<li>Make sure the encoding is <code>bgr8</code> before accessing raw data</li>
+</ul>
+</li>
+<li><strong>Detect ArUco markers in the image</strong>:
+<ul>
+<li>Use the provided <code>aruco_detector.hpp</code> (insert it to <code>algorithms</code> folder) and complete the class</li>
+<li>The detector will return a list of marker IDs and corner coordinates
+<pre><code class="language-c++"> #include &lt;opencv2/opencv.hpp&gt;
+ #include &lt;opencv2/aruco.hpp&gt;
+ 
+ namespace algorithms {
+ 
+     class ArucoDetector {
+     public:
+ 
+         // Represents one detected marker
+         struct Aruco {
+             int id;
+             std::vector&lt;cv::Point2f&gt; corners;
+         };
+ 
+         ArucoDetector() {
+             // Initialize dictionary with 4x4 markers (50 possible IDs)
+             dictionary_ = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_4X4_50);
+         }
+ 
+         ~ArucoDetector() = default;
+ 
+         // Detect markers in the input image
+         std::vector&lt;Aruco&gt; detect(cv::Mat frame) {
+             std::vector&lt;Aruco&gt; arucos;
+ 
+             std::vector&lt;int&gt; marker_ids;
+             std::vector&lt;std::vector&lt;cv::Point2f&gt;&gt; marker_corners;
+ 
+             // TODO: Detect markers using OpenCV
+             // cv::aruco::detectMarkers(...);
+ 
+             if (!marker_ids.empty()) {
+                 std::cout &lt;&lt; &quot;Arucos found: &quot;;
+                 for (size_t i = 0; i &lt; marker_ids.size(); i++) {
+                     std::cout &lt;&lt; marker_ids[i] &lt;&lt; &quot; &quot;;
+ 
+                     // TODO: Create Aruco struct and add to result vector
+                     // arucos.emplace_back(...);
+                 }
+                 std::cout &lt;&lt; std::endl;
+             }
+ 
+             return arucos;
+         }
+ 
+     private:
+         cv::Ptr&lt;cv::aruco::Dictionary&gt; dictionary_;
+     };
+ }
+</code></pre>
+</li>
+</ul>
+</li>
+<li><strong>Store the last frame and detection results</strong>:
+<ul>
+<li>Save the latest image (<code>cv::Mat</code>) and detection data (<code>std::vector&lt;Aruco&gt;</code>)</li>
+</ul>
+</li>
+<li><strong>Visualize the incoming camera stream</strong>
+<ul>
+<li>Publish the (optionally annotated) image using <code>image_transport::Publisher</code></li>
+<li>View the image in <strong>rqt_image_view</strong> or <strong>RViz</strong> for debugging</li>
+<li>(Optional) Overlay detected markers on the image using <code>cv::aruco::drawDetectedMarkers</code> before publishing</li>
+</ul>
+</li>
+</ol>
+<h2 id="symbolic-navigation-logic-approx-40-minutes"><a class="header" href="#symbolic-navigation-logic-approx-40-minutes">Symbolic Navigation Logic (Approx. 40 minutes)</a></h2>
+<p>In the second part of the lab, you will design logic that interprets the detected ArUco markers as instructions for maze navigation. Some markers indicate directions that lead to the exit, while others point toward the treasure. Your robot must recognize and remember these instructions, and then apply them later at decision points.</p>
+<p>As illustrated in the figure 1, each instruction obtained from an ArUco marker is <strong>always intended for the next upcoming intersection</strong>. The robot must remember the marker’s content and apply it at the first junction it encounters after reading the marker.</p>
+<p id="state_machine" align="center">
+  <img src="../images/lab11_maze_example.png" alt="alt text" width="450" height="600">
+</p>
+<p align="center">
+    <em> Figure 1: Example of decision-making using ArUco markers in a maze </em>
+</p>
+<hr />
+<p><strong>TASK 2 - Maze Logic and Decision Making</strong></p>
+<ol>
+<li>In your <strong>maze loop node</strong> (or a separate logic node):
+<ul>
+<li>Use the data obtained from the previous task</li>
+<li>Define a mapping between marker IDs and symbolic instructions (see table below)</li>
+<li>Remember that there are two types of markers: one for the <strong>exit path</strong>, and one for the <strong>treasure path</strong></li>
+</ul>
+<pre><code class="language-c++">Escape path:              Treasure Path:
+ID = 1 -&gt; straight        ID = 10 -&gt; straight
+ID = 2 -&gt; left            ID = 11 -&gt; left
+ID = 3 -&gt; right           ID = 12 -&gt; right
+</code></pre>
+</li>
+<li>Integrate the symbolic information into navigation logic
+<ul>
+<li>When a marker is detected, store the ID and its meaning</li>
+<li>When the robot reaches the first intersection or decision point, use the stored instruction to select the direction</li>
+<li>Based on the instruction (e.g., turn left), command the robot to rotate and follow the chosen path</li>
+</ul>
+<blockquote>
+<p>TIP: Define which path (escape or treasure) has higher priority</p>
+</blockquote>
+</li>
+<li>Test your logic and outputs</li>
+</ol>
+<h2 id="final-note"><a class="header" href="#final-note">Final Note</a></h2>
+<p>This is the last lab in the course. We hope it helped you better understand the connection between perception, memory, and decision-making in robotics. You’ve now completed a full pipeline—from reading sensor data to interpreting symbolic cues and applying them in complex navigation tasks.</p>
+<p>Good luck with your upcoming <strong>exam and final evaluation</strong>. Stay curious, keep experimenting, and don’t be afraid to challenge your solutions. We’ll be happy to see if you decide to join another course from our <strong>Robotics group</strong> in the future.</p>
 
                     </main>
 
