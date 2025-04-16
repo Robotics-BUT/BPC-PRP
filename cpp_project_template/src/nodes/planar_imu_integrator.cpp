@@ -19,7 +19,15 @@ namespace algorithms {
     }
 
     float PlanarImuIntegrator::getYaw() const {
-        return theta_;  // yaw angle in radians
+        float normalized = std::fmod(theta_, 2 * static_cast<float>(M_PI));
+
+        if (normalized <= -M_PI) {
+            normalized += 2 * static_cast<float>(M_PI);
+        } else if (normalized > M_PI) {
+            normalized -= 2 * static_cast<float>(M_PI);
+        }
+
+        return normalized;
     }
 
     void PlanarImuIntegrator::reset() {
