@@ -29,6 +29,10 @@ set(SRC
         src/nodes/button.cpp
         src/nodes/lidar.cpp
         include/nodes/lidar.hpp
+        src/nodes/imu_node.cpp
+        include/nodes/imu_node.hpp
+        include/nodes/planar_imu_integrator.hpp
+        src/nodes/planar_imu_integrator.cpp
 )
 
 set(AMENT_LIBS rclcpp std_msgs sensor_msgs cv_bridge image_transport)
