@@ -23,9 +23,9 @@ namespace nodes {
             while (angle < -PI) angle += 2 * PI;
 
             if (std::abs(angle) <= angle_range) {
-                front.push_back(distance);
-            } else if (std::abs(angle - PI) <= angle_range || std::abs(angle + PI) <= angle_range) {
                 back.push_back(distance);
+            } else if (std::abs(angle - PI) <= angle_range || std::abs(angle + PI) <= angle_range) {
+                front.push_back(distance);
             } else if (angle > angle_range + angle_offset && angle < PI - angle_range + angle_offset) {
                 left.push_back(distance);
             } else if (angle < -angle_range - angle_offset && angle > -PI + angle_range - angle_offset) {

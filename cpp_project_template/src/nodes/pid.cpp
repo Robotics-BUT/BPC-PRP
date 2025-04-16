@@ -33,19 +33,23 @@ namespace nodes {
         float right = result.right;
 
         if (state_ == DriveState::DRIVE_FORWARD) {
-            if (front < 0.1f) {
-                // Prekážka, otoč sa
+            if (front < 0.4f) {
+                // Zastavíme pred otočkou
+                motor_controller_->set_motor_speeds({128.0f, 128.0f});
+
+                // Pripravíme otočku
                 state_ = DriveState::TURNING;
                 turn_start_yaw_ = imu_node_->getIntegratedResults();
 
                 // Vyber smer s väčším priestorom
                 turn_direction_ = (left > right) ? 1 : -1;
 
-                RCLCPP_INFO(this->get_logger(), "Zacínam otáčať o 90° do %s strany", (turn_direction_ == 1 ? "lava" : "prava"));
+                RCLCPP_INFO(this->get_logger(), "Prekážka vpredu, zastavenie. Začínam otáčať o 90° do %s strany",
+                            (turn_direction_ == 1 ? "lava" : "prava"));
                 return;
             }
 
-            // Jazda PID reguláciou
+            // Jazda PID reguláciou (nezmenené)
             float error = right - left;
             float error_avg = (error + last_error) / 2.0f;
             float d_error = error_avg - last_error;
@@ -77,9 +81,9 @@ namespace nodes {
             while (delta_yaw > PI) delta_yaw -= 2 * PI;
             while (delta_yaw < -PI) delta_yaw += 2 * PI;
 
-            float target_yaw = turn_direction_ * (PI / 2.0f);  // ±90°
+            float target_yaw = turn_direction_ * (PI / 4.0f);  // ±90°
 
-            if (std::abs(delta_yaw) >= std::abs(target_yaw) * 0.95f) {
+            if (std::abs(delta_yaw) >= std::abs(target_yaw) * 0.85f) {
                 // Otočené
                 state_ = DriveState::DRIVE_FORWARD;
                 last_error = 0;
@@ -89,16 +93,15 @@ namespace nodes {
             }
 
             // Otáčaj podľa smeru
-            float turn_speed = 5.0f;
+            float turn_speed = 3.0f;
             if (turn_direction_ == 1) {
-                motor_controller_->set_motor_speeds({128 - turn_speed, 128 + turn_speed});
-            } else {
                 motor_controller_->set_motor_speeds({128 + turn_speed, 128 - turn_speed});
+            } else {
+                motor_controller_->set_motor_speeds({128 - turn_speed, 128 + turn_speed});
             }
 
             RCLCPP_INFO(this->get_logger(), "[TURNING] Yaw: %.2f ΔYaw: %.2f", current_yaw, delta_yaw);
         }
     }
+
 }
-
-
