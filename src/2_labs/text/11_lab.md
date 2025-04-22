@@ -116,9 +116,9 @@ As illustrated in the figure 1, each instruction obtained from an ArUco marker i
     - Remember that there are two types of markers: one for the **exit path**, and one for the **treasure path**
     ```c++
     Escape path:              Treasure Path:
-    ID = 1 -> straight        ID = 10 -> straight
-    ID = 2 -> left            ID = 11 -> left
-    ID = 3 -> right           ID = 12 -> right
+    ID = 0 -> straight        ID = 10 -> straight
+    ID = 1 -> left            ID = 11 -> left
+    ID = 2 -> right           ID = 12 -> right
     ```
 2. Integrate the symbolic information into navigation logic
     - When a marker is detected, store the ID and its meaning
