@@ -163,6 +163,19 @@
 <pre><code class="language-shell">sudo apt update
 sudo apt install ros-humble-image-transport-plugins -y
 </code></pre>
+<p>To check all availabel transport pugins run</p>
+<pre><code>ros2 run image_transport list
+</code></pre>
+<p>You should see a printout similar to </p>
+<pre><code>Declared transports:
+image_transport/compressed
+image_transport/compressedDepth
+image_transport/raw
+image_transport/theora
+
+Details:
+...
+</code></pre>
 <h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
 <p>In previous labs, you explored sensor-based navigation using range sensors and IMUs. These approaches allowed the robot to react to its surroundings, but they did not provide access to symbolic information or long-term guidance.</p>
 <p>In this lab, your robot will <strong>navigate through a maze where ArUco markers act as visual hints</strong>. These markers are placed at strategic locations and convey semantic instructions, such as which direction to take at an intersection, or where a shortcut to a goal (e.g., treasure) can be found.</p>
