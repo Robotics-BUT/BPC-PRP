@@ -93,6 +93,7 @@ You are provided with a partial implementation of the `ArucoDetector` class. You
 4. **Visualize the incoming camera stream**
    - Publish the (optionally annotated) image using `image_transport::Publisher`
    - View the image in **rqt_image_view** or **RViz** for debugging
+   > **RViz Tip:** Add -> By Topic -> Image -> Rewrite Image Topic (in Displays) to `/bpc_prp_robot/camera/compressed`
    - (Optional) Overlay detected markers on the image using `cv::aruco::drawDetectedMarkers` before publishing
 
 ## Symbolic Navigation Logic (Approx. 40 minutes)
