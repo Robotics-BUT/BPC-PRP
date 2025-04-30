@@ -14,6 +14,14 @@ Responsible: Ing. Petr Šopák
   - Storing and reusing symbolic information
   - Implementing logic that uses past observations during navigation
 
+## Requirement
+
+For this lab, you need to have the `image transport compressed package` installed:
+```shell
+sudo apt update
+sudo apt install ros-humble-image-transport-plugins -y
+```
+
 ## Introduction
 
 In previous labs, you explored sensor-based navigation using range sensors and IMUs. These approaches allowed the robot to react to its surroundings, but they did not provide access to symbolic information or long-term guidance.
