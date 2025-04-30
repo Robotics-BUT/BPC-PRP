@@ -21,6 +21,22 @@ For this lab, you need to have the `image transport compressed package` installe
 sudo apt update
 sudo apt install ros-humble-image-transport-plugins -y
 ```
+To check all availabel transport pugins run
+```
+ros2 run image_transport list
+```
+
+You should see a printout similar to 
+```
+Declared transports:
+image_transport/compressed
+image_transport/compressedDepth
+image_transport/raw
+image_transport/theora
+
+Details:
+...
+```
 
 ## Introduction
 
