@@ -163,19 +163,6 @@
 <pre><code class="language-shell">sudo apt update
 sudo apt install ros-humble-image-transport-plugins -y
 </code></pre>
-<p>To check all availabel transport pugins run</p>
-<pre><code>ros2 run image_transport list
-</code></pre>
-<p>You should see a printout similar to </p>
-<pre><code>Declared transports:
-image_transport/compressed
-image_transport/compressedDepth
-image_transport/raw
-image_transport/theora
-
-Details:
-...
-</code></pre>
 <h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
 <p>In previous labs, you explored sensor-based navigation using range sensors and IMUs. These approaches allowed the robot to react to its surroundings, but they did not provide access to symbolic information or long-term guidance.</p>
 <p>In this lab, your robot will <strong>navigate through a maze where ArUco markers act as visual hints</strong>. These markers are placed at strategic locations and convey semantic instructions, such as which direction to take at an intersection, or where a shortcut to a goal (e.g., treasure) can be found.</p>
@@ -187,9 +174,9 @@ Details:
 <ol>
 <li>Create a new ROS 2 node - <code>camera_node</code>
 <ul>
-<li>Subscribe to a camera image topic using <code>image_transport</code></li>
-<li>In the callback, convert the incoming message to a <code>cv::Mat</code> (OpenCV image)</li>
-<li>Make sure the encoding is <code>bgr8</code> before accessing raw data</li>
+<li>Subscribe to a camera image topic (<code>/bpc_prp_robot/camera/compressed</code>) using <code>sensor_msgs/msg/compressed_image.hpp</code></li>
+<li>In the callback, decode the incoming compressed image message using <code>cv::imdecode</code> to obtain a <code>cv::Mat</code> in <code>BGR</code> format (equivalent to <code>bgr8</code>)</li>
+<li>Check if the decoded image is valid (not empty) before processing</li>
 </ul>
 </li>
 <li><strong>Detect ArUco markers in the image</strong>:
