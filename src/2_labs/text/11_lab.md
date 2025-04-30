@@ -21,22 +21,6 @@ For this lab, you need to have the `image transport compressed package` installe
 sudo apt update
 sudo apt install ros-humble-image-transport-plugins -y
 ```
-To check all availabel transport pugins run
-```
-ros2 run image_transport list
-```
-
-You should see a printout similar to 
-```
-Declared transports:
-image_transport/compressed
-image_transport/compressedDepth
-image_transport/raw
-image_transport/theora
-
-Details:
-...
-```
 
 ## Introduction
 
@@ -55,9 +39,9 @@ You are provided with a partial implementation of the `ArucoDetector` class. You
 **TASK 1 – Camera Subscription and Marker Detection**
 
 1. Create a new ROS 2 node - `camera_node`
-    - Subscribe to a camera image topic using `image_transport`
-    - In the callback, convert the incoming message to a `cv::Mat` (OpenCV image)
-    - Make sure the encoding is `bgr8` before accessing raw data
+    - Subscribe to a camera image topic (`/bpc_prp_robot/camera/compressed`) using `sensor_msgs/msg/compressed_image.hpp`
+    - In the callback, decode the incoming compressed image message using `cv::imdecode` to obtain a `cv::Mat` in `BGR` format (equivalent to `bgr8`)
+    - Check if the decoded image is valid (not empty) before processing
 2. **Detect ArUco markers in the image**:
    - Use the provided `aruco_detector.hpp` (insert it to `algorithms` folder) and complete the class
    - The detector will return a list of marker IDs and corner coordinates
