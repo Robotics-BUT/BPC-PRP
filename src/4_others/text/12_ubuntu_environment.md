@@ -43,4 +43,7 @@ sudo snap install clion --classic
 sudo snap install pycharm-community --classic
 sudo snap install rustrover --classic
 
+sudo apt update
+sudo apt install ros-humble-image-transport-plugins -y
+
 ```
