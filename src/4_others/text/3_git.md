@@ -268,8 +268,8 @@ An example of what happens when two developers change the same code.
 
 ## Other Resources
 
- - [Git Cheat Sheet](https://education.github.com/git-cheat-sheet-education.pdf)
- - [Atlassian Tutorial](https://atlassian.com)
- - [Official Documentation](https://git.com)
- - [Helpful Advisor](https://ohshitgit.com/)
+ - Git Cheat Sheet: https://education.github.com/git-cheat-sheet-education.pdf
+ - Atlassian Git Tutorials: https://www.atlassian.com/git/tutorials
+ - Official Git Documentation: https://git-scm.com/doc
+ - Oh Shit, Git!? A helpful guide: https://ohshitgit.com/
 
