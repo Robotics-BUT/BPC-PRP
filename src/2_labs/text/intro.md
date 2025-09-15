@@ -5,7 +5,7 @@
 ### Lab 1 - Laboratory Introduction & Linux
  - Introduction to laboratory
  - Linux installation
- - Linuc Command Line Interface (CLI)
+ - Linux Command Line Interface (CLI)
 
 Responsible: Ing. Jakub Minařík
 
@@ -25,7 +25,7 @@ Responsible: Ing. Adam Ligocki, Ph.D.
 Responsible: Ing. Jakub Minařík
 
 ### Lab 4 - Data Capture & Visualization (ROS)
- - ROS2 in CLI
+ - ROS 2 in CLI
  - Simple Node, Publisher, Subscriber
  - RViz, Data Visualization
 

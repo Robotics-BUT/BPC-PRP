@@ -49,7 +49,7 @@ End result of this laboratory should be estimate of position in Cartesian coordi
 - Inicialize SDL2 - `SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER)`
 - Find if joystick/gamepad is connected - `SDL_NumJoysticks()`
 - Create gamepad object - `SDL_GameControllerOpen(0)`
-- Poll events in time loop - made using ROS2 timer
+- Poll events in a time loop — made using a ROS 2 timer
   - Create event object - `SDL_Event`
   - Poll events - `SDL_PollEvent()`
   - check event types - e.g. `SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLERBUTTONUP,SDL_CONTROLLERAXISMOTION`

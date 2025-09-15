@@ -4,13 +4,13 @@ Responsible: Ing. Jakub Minařík
 
 ## Git (1h 30min)
 
-First, read the [Git Tutorial](../../4_others/text/3_git.md) chapter to get familiar with the workflow and commands
+First, read the [Git tutorial](../../4_others/text/3_git.md) to get familiar with the workflow and commands.
 
 ### Exercise
 
 ### Sign On 
 
-Select any of the following free Git Services and register for it
+Select one of the following free Git services and register.
  - [GitHub](https://github.com/)
  - [GitLab](https://about.gitlab.com/)
  - [Bitbucket](https://bitbucket.org/product/)
@@ -23,7 +23,7 @@ Create a repository on the server to maintain your code throughout the course.
 
 ---
 
-### Cloning repository in labs
+### Cloning the repository in the lab
 
 #### HTTPS - GitHub Token  
 
@@ -33,9 +33,9 @@ To generate a token, go to **Profile picture (top-right corner)** > **Settings**
 
 #### SSH - Setting a Different Key  
 
-You can generate an SSH key using the `ssh-keygen` command. It will prompt you in a single input for both the location and name of your key, followed by a passphrase. For use in a laboratory set a passphrase. The default location where the system recognizes the keys is `~/.ssh`.  
+You can generate an SSH key using the `ssh-keygen` command. It will prompt you for the file location/name and then for a passphrase. For lab use, set a passphrase. The default location is `~/.ssh`.  
 
-When cloning a repository via SSH in labs, you may encounter a problem with Git using the wrong SSH key.  
+When cloning a repository via SSH in the lab, you may encounter a problem with Git using the wrong SSH key.  
 You'll need to configure Git to use your generated key:  
 ```bash
 git config core.sshCommand "ssh -i ~/.ssh/<your_key>"
@@ -71,10 +71,11 @@ As a team, complete the following steps:
 Now it is time to create your main project for this course.
 
 1. Create a project on the web page of your Git service.
-2. Clone project to the local
+2. Clone the project to your local machine.
 3. Create the following project structure
 
-```/bpc-prp-project-team-x
+```
+/bpc-prp-project-team-x
  |--docs
  | \--placeholder
  |--README.md
@@ -89,12 +90,12 @@ Now it is time to create your main project for this course.
 ```
 
 4. Fill all required files
- - README.md is a brief description and how-to-use your project.
- - folder `docs` will be used later. Now just create file `placeholder`. 
- - Write some basic code into the `cpp` adn `hpp` files.
- - Fill the `.gitignore` file. It is used to inform `git` to ignore some files, folders or extensions, not to commit it into the repository.
+ - README.md: a brief description and how to use your project.
+ - The `docs` folder will be used later. For now, just create a file named `placeholder`.
+ - Write some basic code into the `cpp` and `hpp` files.
+ - Fill the `.gitignore` file to keep build artifacts and IDE files out of the repository.
 
-```.gitignore
+```gitignore
 # Ignore build directories
 /build/
 /cmake-build-debug/
@@ -110,7 +111,6 @@ Makefile
 .idea/
 *.iml
 ```
-5. 
-6. Commit and push your project to the server and share it with other members of the team.
+5. Commit and push your project to the server and share it with other members of the team.
 
 

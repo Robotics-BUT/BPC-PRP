@@ -17,19 +17,19 @@ Responsible: Ing. Petr Šopák
 ## Requirement
 
 For this lab, you need to have the `image transport compressed package` installed:
-```shell
+```bash
 sudo apt update
 sudo apt install ros-humble-image-transport-plugins -y
 ```
 To check all available transport plugins, run:
 
-```shell
+```bash
 ros2 run image_transport list
 ```
 
 You should see an output similar to:
 
-```shell
+```bash
 Declared transports:
 image_transport/compressed
 image_transport/compressedDepth
@@ -128,10 +128,10 @@ In the second part of the lab, you will design logic that interprets the detecte
 
 As illustrated in the figure 1, each instruction obtained from an ArUco marker is **always intended for the next upcoming intersection**. The robot must remember the marker’s content and apply it at the first junction it encounters after reading the marker.
 
-<p id="state_machine" align="center">
+<p id="state_machine">
   <img src="../images/lab11_maze_example.png" alt="alt text" width="450" height="600">
 </p>
-<p align="center">
+<p>
     <em> Figure 1: Example of decision-making using ArUco markers in a maze </em>
 </p>
 
