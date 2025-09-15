@@ -2,34 +2,35 @@
 
 Responsible: Ing. Adam Ligocki, Ph.D.
 
-The final exam is organized as a competition. Each team has 3 attempts to escape the maze with their robot, using the robot's full sensor capabilities. The score for the exam is based on the best of the three attempts.
- - The robot starts inside the maze, in the center of the starting cell.
- - There is only one optimal escape path from the maze.
- - The maze contains no loops.
- - There are 3 randomly placed minotaurs and 1 treasure.
-   - Each encounter with a minotaur results in a 30 seconds penalty.
-   - Finding the treasure reduces the final time by 30 seconds.
- - The maze consists of 8x8 cells, with each cell measuring 40x40 cm. Black lines on the floor mark the boundaries between cells.
- - ArUco tags will be placed on the maze ground, providing hints about the escape route, the presence of minotaurs, or the path to the treasure.
+The final exam is a competition. Each team has up to 3 attempts to escape the maze using the robot’s sensors. The final score is based on the best attempt.
+- The robot starts in the center of the starting cell.
+- There is one optimal escape path.
+- The maze contains no loops.
+- There are 3 randomly placed minotaurs and 1 treasure.
+  - Each minotaur encounter adds a 30 s penalty.
+  - Finding the treasure subtracts 30 s from the final time.
+- The maze consists of 8 × 8 cells; each cell is 0.40 × 0.40 m. Black tape on the floor marks the boundaries between cells.
+- ArUco tags are placed on the floor and provide hints about the escape route, minotaurs, or treasure.
 
+## Scoring
 
-In total for final exam the team can earn up to 50 points
- - Maze escape up to 40 points
-   - The formula for calculating the score is: `y=min(max(kx+q),0,40)`
- - Git and project documentation quality gives up to 10 points
+In total, a team can earn up to 50 points:
+- Maze escape: up to 40 points.
+  - Score is calculated as `y = min(max(kx + q, 0), 40)`.
+- Git and project documentation quality: up to 10 points.
 
-## Attempt Rules
+## Attempt rules
 
- - Teams have at least 45 minutes between attempts to modify their program.
- - The code used during the competition must be uploaded to Git by 11:59 PM on the same day.
- - The competition code must not contain specific information about the maze (e.g., paths, minotaur locations, etc.). Pre-known information, such as cell size, may be included.
- - Wall touching not allowed
+- Teams have at least 45 minutes between attempts to modify their program.
+- The competition code must be uploaded to Git by 23:59 on the same day.
+- The competition code must not contain specific information about the maze (e.g., paths, minotaur locations). Pre‑known constants (e.g., cell size) may be included.
+- Do not touch the walls.
 
-## Maze Example
- - Walls - red lines
- - Escape path - green line
- - Start - green cell
- - Treasure (bonus) - blue cell
- - Minotaur (penalty) - red cell
+## Maze example
+- Walls: red lines
+- Escape path: green line
+- Start: green cell
+- Treasure (bonus): blue cell
+- Minotaur (penalty): red cell
 
-![Maze](../images/maze.png)
+![Maze example with walls, path, start, treasure, and minotaurs](../images/maze.png)

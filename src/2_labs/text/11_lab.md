@@ -2,7 +2,7 @@
 
 Responsible: Ing. Petr Šopák
 
-### Learning Objectives
+## Learning objectives
 
 **1) Camera-based detection of visual markers**
   - Subscribing to a camera image topic
@@ -14,9 +14,9 @@ Responsible: Ing. Petr Šopák
   - Storing and reusing symbolic information
   - Implementing logic that uses past observations during navigation
 
-## Requirement
+## Requirements
 
-For this lab, you need to have the `image transport compressed package` installed:
+For this lab, you need to have the image transport plugins package installed:
 ```bash
 sudo apt update
 sudo apt install ros-humble-image-transport-plugins -y
@@ -119,20 +119,20 @@ You are provided with a partial implementation of the `ArucoDetector` class. You
 4. **Visualize the incoming camera stream**
    - Publish the (optionally annotated) image using `image_transport::Publisher`
    - View the image in **rqt_image_view** or **RViz** for debugging
-   > **RViz Tip:** Add -> By Topic -> Image -> Rewrite Image Topic (in Displays) to `/bpc_prp_robot/camera/compressed`
+   > **RViz2 tip:** Add → By Topic → Image, then set Image Topic (in Displays) to `/bpc_prp_robot/camera/compressed`
    - (Optional) Overlay detected markers on the image using `cv::aruco::drawDetectedMarkers` before publishing
 
 ## Symbolic Navigation Logic (Approx. 40 minutes)
 
 In the second part of the lab, you will design logic that interprets the detected ArUco markers as instructions for maze navigation. Some markers indicate directions that lead to the exit, while others point toward the treasure. Your robot must recognize and remember these instructions, and then apply them later at decision points.
 
-As illustrated in the figure 1, each instruction obtained from an ArUco marker is **always intended for the next upcoming intersection**. The robot must remember the marker’s content and apply it at the first junction it encounters after reading the marker.
+As illustrated in Figure 1, each instruction obtained from an ArUco marker is **always intended for the next upcoming intersection**. The robot must remember the marker’s content and apply it at the first junction it encounters after reading the marker.
 
 <p id="state_machine">
-  <img src="../images/lab11_maze_example.png" alt="alt text" width="450" height="600">
+  <img src="../images/lab11_maze_example.png" alt="Maze with ArUco hints and decision points" width="450" height="600">
 </p>
 <p>
-    <em> Figure 1: Example of decision-making using ArUco markers in a maze </em>
+    <em> Figure 1: Example of decision-making using ArUco markers in a maze.</em>
 </p>
 
 ----------------------------------------------------------------------------------------------
@@ -154,7 +154,7 @@ As illustrated in the figure 1, each instruction obtained from an ArUco marker i
     > TIP: Define which path (escape or treasure) has higher priority
 3. Test your logic and outputs
 
-## Final Note
+## Final note
 This is the last lab in the course. We hope it helped you better understand the connection between perception, memory, and decision-making in robotics. You’ve now completed a full pipeline—from reading sensor data to interpreting symbolic cues and applying them in complex navigation tasks.
 
 Good luck with your upcoming **exam and final evaluation**. Stay curious, keep experimenting, and don’t be afraid to challenge your solutions. We’ll be happy to see if you decide to join another course from our **Robotics group** in the future.

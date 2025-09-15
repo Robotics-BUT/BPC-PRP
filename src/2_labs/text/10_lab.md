@@ -2,7 +2,7 @@
 
 **Responsible:** Ing. Petr Šopák
 
-### Learning Objectives
+## Learning objectives
 
 **1) Understanding robot orientation using IMU (MPU6050)**
   - Interpreting raw gyroscope data
@@ -20,7 +20,7 @@
 
 In **Lab 9**, you implemented a basic reactive controller that allowed the robot to follow straight corridors using range sensors such as LiDAR or ultrasonic. However, this approach assumes that the path is straight and cannot handle corners or sharp turns.
 
-In this lab, you will enhance that behavior by enabling your robot to detect and turn into new corridor directions (e.g., 90° left or right turns). To accomplish this, you will use an **Inertial Measurement Unit (IMU)** — specifically the **MPU6050** ([LINK](https://www.alldatasheet.com/datasheet-pdf/pdf/1132807/TDK/MPU-6050.html#:~:text=Part%20#:%20MPU-6050.%20Download.%20File%20Size:%20905Kbytes.%20Page:,MotionTracking%20Device%20with%20DMP%20(MPU-6050/-6000).%20Manufacturer:%20TDK%20Electronics.)) — to estimate the robot's yaw (rotation around the vertical axis).
+In this lab, you will enhance that behavior by enabling your robot to detect and turn into new corridor directions (e.g., 90° left or right turns). To accomplish this, you will use an **Inertial Measurement Unit (IMU)** — specifically the **MPU‑6050** ([MPU‑6050 datasheet](https://www.alldatasheet.com/datasheet-pdf/pdf/1132807/TDK/MPU-6050.html#:~:text=Part%20#:%20MPU-6050.%20Download.%20File%20Size:%20905Kbytes.%20Page:,MotionTracking%20Device%20with%20DMP%20(MPU-6050/-6000).%20Manufacturer:%20TDK%20Electronics.)) — to estimate the robot's yaw (rotation around the vertical axis).
 
 The robot will:
 - Follow the corridor as before
@@ -31,7 +31,7 @@ The robot will:
 To implement this, you will also develop a simple **finite state machine** with at least two states: *CORRIDOR_FOLLOWING* and *TURNING*.
 
 
-## IMU and Orientation Estimation (Approx. 70 minutes)
+## IMU and orientation estimation (Approx. 70 minutes)
 
 The MPU6050 sensor provides raw data from a gyroscope and accelerometer. Unlike more advanced IMUs, it does not provide direct orientation estimates such as yaw, pitch, or roll.
 
@@ -46,7 +46,7 @@ To estimate yaw (rotation angle), you will:
    - Multiply by the time delta (`dt`) to obtain the yaw angle increment.
    - Accumulate this over time to estimate the current yaw:
 
-```cpp
+```c++
 yaw += (gyro_z - offset) * dt;
 ```
 
@@ -75,7 +75,7 @@ An alternative strategy is to detect a wall in front of the robot (i.e., front d
    - Accumulate this increment into a variable yaw that represents the current robot orientation (the formula was described before)
 5. **Test IMU-based yaw estimation and implement basic heading correction**
    1) **Manual Rotation test**
-      - Calibrate the IMU and after store the current yaw
+      - Calibrate the IMU and store the current yaw
       - Pick up or gently rotate the robot by approximately 90° (by hand)
       - The robot should detect the yaw error:
         ```c++
@@ -96,7 +96,7 @@ Example of `imu_node.hpp`:
   ```c++
   #include <rclcpp/rclcpp.hpp>
   #include <sensor_msgs/msg/imu.hpp>
-  #include "solution/algorithms/planar_imu_integrator.hpp"
+  #include "algorithms/planar_imu_integrator.hpp"
   
   namespace nodes {
   
@@ -110,13 +110,13 @@ Example of `imu_node.hpp`:
           ImuNode();
           ~ImuNode() override = default;
   
-          // Set the IMU Mode
-          void setMode(const ImuNodeMode setMode)
+          // Set the IMU mode
+          void setMode(ImuNodeMode mode);
   
-          // Get the current IMU Mode
+          // Get the current IMU mode
           ImuNodeMode getMode();
   
-          // Get the results after Integration
+          // Get the results after integration
           auto getIntegratedResults();
   
           // Reset the class
@@ -171,7 +171,7 @@ To simplify your IMU logic, use a helper class `planar_imu_integrator.hpp` to en
   }
   ```
 
-## State Machine for Corridor Navigation (Approx. 70 minutes)
+## State machine for corridor navigation (Approx. 70 minutes)
 
 If you have implemented the IMU, you are now ready to **extend your corridor-following behavior**. In this lab, you will implement a simple **state machine** to structure the robot's behavior during navigation. Instead of relying on a single control strategy, your robot will dynamically switch between multiple modes:
   - **CALIBRATION** – the robot stays still and computes IMU offset before navigation begins
@@ -179,12 +179,12 @@ If you have implemented the IMU, you are now ready to **extend your corridor-fol
   - **TURNING** – the robot rotates in place using the IMU until a 90° turn is completed
   - *(Later additions:)* **INTERSECTION_HANDLING**, **DEAD_END_HANDLING**, etc.
 
-This modular architecture will make your logic easier to extend in future — for example, adding states **INTERSECTION_HANDLING** (dvě či tři cesty), **DEAD_END_HANDLING** (slepá ulička) and more...
+This modular architecture will make your logic easier to extend in future — for example, adding states **INTERSECTION_HANDLING** (two or three paths), **DEAD_END_HANDLING** (dead end).
 
-<p id="state_machine" align="center">
-  <img src="../images/lab_10_state_machine.png" alt="alt text" width="400" height="200">
+<p id="state_machine">
+  <img src="../images/lab_10_state_machine.png" alt="Corridor navigation state machine" width="400" height="200">
 </p>
-<p align="center">
+<p>
     <em> Figure 1: Example state diagram for corridor-following behavior </em>
 </p>
 
@@ -218,7 +218,7 @@ This modular architecture will make your logic easier to extend in future — fo
       ```
 2. In the `CORRIDOR_FOLLOWING` state:
     - Use side range sensor data to stay centered between walls.
-    - **Monitor the front sensor**: if the front distance falls below a threshold (e.g., < 10 cm) and one side is open, detect a corner
+    - **Monitor the front sensor**: if the front distance falls below a threshold (e.g., < 0.10 m) and one side is open, detect a corner
     - Based on which side is open, decide the direction to turn (left or right)
     - Switch to the `TURNING` state
 3. In the `TURNING` state:

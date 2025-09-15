@@ -2,39 +2,39 @@
 
 Responsible: Ing. Adam Ligocki, Ph.D.
 
-Up to 50 points can be earned through two practical demonstrations of task solutions during the semester.
+Up to 50 points can be earned through two practical demonstrations during the semester.
 
-8th week - Line Following (25 points)
+Week 8 — Line following (25 points)
 
-12th week - Corridor Following (25 points)
+Week 12 — Corridor following (25 points)
 
-## Corridor Following Rules
+## Corridor following rules
 
 There are 3 tracks:
- - Straight Corridor (5 points)
- - Simple Loop (10 points)
- - Complex Loop (10 points)
+- Straight corridor (5 points)
+- Simple loop (10 points)
+- Complex loop (10 points)
 
-Corridor is defined by walls.
+The corridor is defined by walls.
 
-All tracks are in rectangular grid of 40x40cm
+All tracks use a rectangular grid of 0.40 × 0.40 m.
 
 Cells are marked by black tape on the ground.
 
-The points are awarded only for completing the entire track.
- - pass straight corridor without touching the wall
- - pass full loop
- - no wall touch allowed
- - no multiple cell entrance allowed
+Points are awarded only for completing the entire track:
+- Pass the straight corridor without touching the wall.
+- Complete the full loop.
+- Do not touch the walls.
+- Do not enter the same cell more than once.
 
 Teams have 3 attempts per track, with a time limit of 3 minutes per attempt.
 
-All 3 attempts have to be performed during a single lab.
+All 3 attempts must be performed during a single lab session.
 
-## Test Tracks
+## Test tracks
 
-- Walls - red lines
-- Path - green line
-- Start - green cell
+- Walls: red lines
+- Path: green line
+- Start: green cell
 
-![Test Track](../images/corridor_tracks.png)
+![Corridor following test tracks](../images/corridor_tracks.png)
