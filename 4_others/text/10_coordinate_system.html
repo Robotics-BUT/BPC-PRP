@@ -144,6 +144,93 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="coordinate-system"><a class="header" href="#coordinate-system">Coordinate System</a></h1>
+<p>Understanding coordinate systems is essential for robotics, computer vision, and navigation. Coordinates let us describe where things are and how they are oriented in space. This chapter summarizes the most useful concepts and conventions you will meet in practice.</p>
+<h2 id="frames-axes-and-handedness"><a class="header" href="#frames-axes-and-handedness">Frames, Axes, and Handedness</a></h2>
+<ul>
+<li>Frame (coordinate frame): A local reference defined by an origin and three perpendicular axes (x, y, z). In 2D, you have two axes (x, y).</li>
+<li>Global vs. local: A global frame is a common reference for the whole scene (e.g., “map”). Local frames are attached to moving objects (e.g., “base_link” on a robot, “camera_link” on a camera).</li>
+<li>Handedness: The orientation of axes can be right‑handed or left‑handed. Most robotics software (ROS, linear algebra libraries) uses a right‑handed system.
+<ul>
+<li>Right‑hand rule: Point index finger along +x, middle finger along +y, then the thumb gives +z.</li>
+</ul>
+</li>
+</ul>
+<p>Why it matters: Mixing left‑ and right‑handed systems or unclear axis labels causes mirrored motions, flipped images, and hard‑to‑debug sign errors.</p>
+<h2 id="2d-vs-3d"><a class="header" href="#2d-vs-3d">2D vs. 3D</a></h2>
+<ul>
+<li>2D pose: (x, y, θ), where θ is heading/yaw about z.</li>
+<li>3D pose: position (x, y, z) + orientation (rotation in 3D).</li>
+<li>Units: Use meters for distances and radians for angles unless otherwise documented. Be explicit.</li>
+</ul>
+<h2 id="orientations-in-3d"><a class="header" href="#orientations-in-3d">Orientations in 3D</a></h2>
+<p>There are several equivalent ways to represent 3D rotation. Choose the one that fits your computations and interfaces.</p>
+<ul>
+<li>Euler angles (roll, pitch, yaw): Rotations about axes (commonly x, y, z). Easy to read; prone to gimbal lock and ambiguity (intrinsic vs. extrinsic, order matters: XYZ ≠ ZYX). Good for UI or logs, not for core math.</li>
+<li>Axis–angle: A unit axis vector â and an angle θ describe a single rotation about â. Compact and geometric.</li>
+<li>Rotation matrix R (3×3): Orthogonal matrix with det(R)=+1. Converts vectors between frames: v_B = R_AB · v_A (vector expressed in frame A to frame B). Great for composition; expensive to store many of them.</li>
+<li>Quaternion q = [w, x, y, z]: A unit quaternion encodes rotation without gimbal lock and composes efficiently. Preferred for interpolation and filtering.</li>
+</ul>
+<p>Tip: Store orientation as a quaternion internally; convert to Euler only when needed for display.</p>
+<h2 id="homogeneous-coordinates-and-transforms"><a class="header" href="#homogeneous-coordinates-and-transforms">Homogeneous Coordinates and Transforms</a></h2>
+<p>To represent position and orientation together, we use a 4×4 homogeneous transform T:</p>
+<ul>
+<li>Form: T = [ R  t; 0  0  0  1 ], where R is 3×3 rotation and t is 3×1 translation.</li>
+<li>Applying a transform: In homogeneous coordinates p' = T · p, with p = [x, y, z, 1]^T.</li>
+<li>Composition: T_AC = T_AB · T_BC. Note the order: matrix multiplication is not commutative.</li>
+<li>Inverse: T_AB⁻¹ = [ Rᵀ  −Rᵀ t; 0 0 0 1 ]. Use it to “go back” from B to A.</li>
+</ul>
+<p>Interpretation: T_AB “takes” coordinates of a point expressed in frame B and returns coordinates expressed in frame A.</p>
+<h2 id="composing-and-chaining-frames-tf"><a class="header" href="#composing-and-chaining-frames-tf">Composing and Chaining Frames (TF)</a></h2>
+<p>In robotics you often maintain a tree of frames (a “TF tree” in ROS terminology). Examples: map → odom → base_link → sensor frames.</p>
+<ul>
+<li>Composition rule: To express something in a different frame, multiply along the path in the correct order.</li>
+<li>Static vs. dynamic transforms: Some transforms are constant (sensor mounting), others change over time (robot motion). Time stamps matter when synchronizing sensors.</li>
+<li>Visualization: Tools like RViz2 can display axes for frames and arrows for transforms, helping you verify conventions early.</li>
+</ul>
+<h2 id="common-frames-in-robotics-ros-conventions"><a class="header" href="#common-frames-in-robotics-ros-conventions">Common Frames in Robotics (ROS conventions)</a></h2>
+<p>ROS REP‑103 defines standard frames and axis directions (right‑handed, meters, radians):</p>
+<ul>
+<li>map: A world‑fixed frame; global, not required to be continuous.</li>
+<li>odom: A world‑fixed frame with continuous, drift‑accumulating motion estimate (no jumps).</li>
+<li>base_link: The robot body frame; usually at the robot’s geometric center on the ground plane.</li>
+<li>camera_link / camera_optical_frame: Camera frames; optical frame typically has +z forward (optical axis), +x right, +y down in ROS.</li>
+<li>imu_link, laser, wheel frames, etc., attached as children of base_link.</li>
+</ul>
+<p>Always document where the origin is and how axes are oriented for each sensor. This makes extrinsic calibration reproducible.</p>
+<h2 id="conventions-and-best-practices"><a class="header" href="#conventions-and-best-practices">Conventions and Best Practices</a></h2>
+<ul>
+<li>Be explicit about units (m, rad) and handedness (right‑hand).</li>
+<li>Name frames consistently and publish a TF tree that matches your documentation.</li>
+<li>Keep transforms orthonormal: re‑normalize quaternions; ensure RᵀR ≈ I.</li>
+<li>Use consistent rotation order if using Euler angles; document it (e.g., XYZ intrinsic).</li>
+<li>Prefer quaternions for computation and interpolation; convert to Euler only for human‑readable outputs.</li>
+<li>Validate with visualization; a simple mistake (e.g., swapped axes) is obvious in RViz2.</li>
+</ul>
+<h2 id="typical-pitfalls"><a class="header" href="#typical-pitfalls">Typical Pitfalls</a></h2>
+<ul>
+<li>Degrees vs. radians: Many libraries expect radians; mixing them leads to large errors.</li>
+<li>Gimbal lock with Euler angles: Avoid for continuous orientation tracking.</li>
+<li>Flipped camera axes: Image coordinates (u, v) vs. camera optical frames can differ; check your library’s convention.</li>
+<li>Frame direction confusion: Clarify whether T_AB maps B→A or A→B. Name accordingly (read subscripts left‑to‑right for mapping direction).</li>
+<li>Non‑commutativity: R1·R2 ≠ R2·R1. Keep multiplication order straight.</li>
+</ul>
+<h2 id="quick-cheat-sheet"><a class="header" href="#quick-cheat-sheet">Quick Cheat Sheet</a></h2>
+<ul>
+<li>Right‑hand rule: x × y = z.</li>
+<li>Transform a point: p_A = T_AB · p_B.</li>
+<li>Compose transforms: T_AC = T_AB · T_BC.</li>
+<li>Inverse transform: T_BA = T_AB⁻¹ = [ Rᵀ  −Rᵀ t; 0 0 0 1 ].</li>
+<li>Quaternion normalization: q ← q / ||q|| before use.</li>
+<li>From yaw (2D): R(θ) = [[cosθ, −sinθ],[sinθ, cosθ]].</li>
+</ul>
+<h2 id="further-reading"><a class="header" href="#further-reading">Further Reading</a></h2>
+<ul>
+<li>ROS REP‑103 (Standard Units of Measure and Coordinate Conventions): https://www.ros.org/reps/rep-0103.html</li>
+<li>A gentle quaternion primer (Eigen): https://eigen.tuxfamily.org/dox/classEigen_1_1Quaternion.html</li>
+<li>3D Rotations, matrices, and quaternions (Wikipedia overview): https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions</li>
+<li>tf2 tutorials (ROS2): https://docs.ros.org/en/foxy/Tutorials/tf2.html</li>
+<li>RViz2 basics: see “9_rviz2_visualizations.md” in this repository.</li>
+</ul>
 
                     </main>
 

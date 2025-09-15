@@ -4238,48 +4238,176 @@ int main() {
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rviz2-visualizations"><a class="header" href="#rviz2-visualizations">RViz2 Visualizations</a></h1>
 <p>Lorem Ipsum</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="coordinate-system"><a class="header" href="#coordinate-system">Coordinate System</a></h1>
+<p>Understanding coordinate systems is essential for robotics, computer vision, and navigation. Coordinates let us describe where things are and how they are oriented in space. This chapter summarizes the most useful concepts and conventions you will meet in practice.</p>
+<h2 id="frames-axes-and-handedness"><a class="header" href="#frames-axes-and-handedness">Frames, Axes, and Handedness</a></h2>
+<ul>
+<li>Frame (coordinate frame): A local reference defined by an origin and three perpendicular axes (x, y, z). In 2D, you have two axes (x, y).</li>
+<li>Global vs. local: A global frame is a common reference for the whole scene (e.g., “map”). Local frames are attached to moving objects (e.g., “base_link” on a robot, “camera_link” on a camera).</li>
+<li>Handedness: The orientation of axes can be right‑handed or left‑handed. Most robotics software (ROS, linear algebra libraries) uses a right‑handed system.
+<ul>
+<li>Right‑hand rule: Point index finger along +x, middle finger along +y, then the thumb gives +z.</li>
+</ul>
+</li>
+</ul>
+<p>Why it matters: Mixing left‑ and right‑handed systems or unclear axis labels causes mirrored motions, flipped images, and hard‑to‑debug sign errors.</p>
+<h2 id="2d-vs-3d"><a class="header" href="#2d-vs-3d">2D vs. 3D</a></h2>
+<ul>
+<li>2D pose: (x, y, θ), where θ is heading/yaw about z.</li>
+<li>3D pose: position (x, y, z) + orientation (rotation in 3D).</li>
+<li>Units: Use meters for distances and radians for angles unless otherwise documented. Be explicit.</li>
+</ul>
+<h2 id="orientations-in-3d"><a class="header" href="#orientations-in-3d">Orientations in 3D</a></h2>
+<p>There are several equivalent ways to represent 3D rotation. Choose the one that fits your computations and interfaces.</p>
+<ul>
+<li>Euler angles (roll, pitch, yaw): Rotations about axes (commonly x, y, z). Easy to read; prone to gimbal lock and ambiguity (intrinsic vs. extrinsic, order matters: XYZ ≠ ZYX). Good for UI or logs, not for core math.</li>
+<li>Axis–angle: A unit axis vector â and an angle θ describe a single rotation about â. Compact and geometric.</li>
+<li>Rotation matrix R (3×3): Orthogonal matrix with det(R)=+1. Converts vectors between frames: v_B = R_AB · v_A (vector expressed in frame A to frame B). Great for composition; expensive to store many of them.</li>
+<li>Quaternion q = [w, x, y, z]: A unit quaternion encodes rotation without gimbal lock and composes efficiently. Preferred for interpolation and filtering.</li>
+</ul>
+<p>Tip: Store orientation as a quaternion internally; convert to Euler only when needed for display.</p>
+<h2 id="homogeneous-coordinates-and-transforms"><a class="header" href="#homogeneous-coordinates-and-transforms">Homogeneous Coordinates and Transforms</a></h2>
+<p>To represent position and orientation together, we use a 4×4 homogeneous transform T:</p>
+<ul>
+<li>Form: T = [ R  t; 0  0  0  1 ], where R is 3×3 rotation and t is 3×1 translation.</li>
+<li>Applying a transform: In homogeneous coordinates p' = T · p, with p = [x, y, z, 1]^T.</li>
+<li>Composition: T_AC = T_AB · T_BC. Note the order: matrix multiplication is not commutative.</li>
+<li>Inverse: T_AB⁻¹ = [ Rᵀ  −Rᵀ t; 0 0 0 1 ]. Use it to “go back” from B to A.</li>
+</ul>
+<p>Interpretation: T_AB “takes” coordinates of a point expressed in frame B and returns coordinates expressed in frame A.</p>
+<h2 id="composing-and-chaining-frames-tf"><a class="header" href="#composing-and-chaining-frames-tf">Composing and Chaining Frames (TF)</a></h2>
+<p>In robotics you often maintain a tree of frames (a “TF tree” in ROS terminology). Examples: map → odom → base_link → sensor frames.</p>
+<ul>
+<li>Composition rule: To express something in a different frame, multiply along the path in the correct order.</li>
+<li>Static vs. dynamic transforms: Some transforms are constant (sensor mounting), others change over time (robot motion). Time stamps matter when synchronizing sensors.</li>
+<li>Visualization: Tools like RViz2 can display axes for frames and arrows for transforms, helping you verify conventions early.</li>
+</ul>
+<h2 id="common-frames-in-robotics-ros-conventions"><a class="header" href="#common-frames-in-robotics-ros-conventions">Common Frames in Robotics (ROS conventions)</a></h2>
+<p>ROS REP‑103 defines standard frames and axis directions (right‑handed, meters, radians):</p>
+<ul>
+<li>map: A world‑fixed frame; global, not required to be continuous.</li>
+<li>odom: A world‑fixed frame with continuous, drift‑accumulating motion estimate (no jumps).</li>
+<li>base_link: The robot body frame; usually at the robot’s geometric center on the ground plane.</li>
+<li>camera_link / camera_optical_frame: Camera frames; optical frame typically has +z forward (optical axis), +x right, +y down in ROS.</li>
+<li>imu_link, laser, wheel frames, etc., attached as children of base_link.</li>
+</ul>
+<p>Always document where the origin is and how axes are oriented for each sensor. This makes extrinsic calibration reproducible.</p>
+<h2 id="conventions-and-best-practices"><a class="header" href="#conventions-and-best-practices">Conventions and Best Practices</a></h2>
+<ul>
+<li>Be explicit about units (m, rad) and handedness (right‑hand).</li>
+<li>Name frames consistently and publish a TF tree that matches your documentation.</li>
+<li>Keep transforms orthonormal: re‑normalize quaternions; ensure RᵀR ≈ I.</li>
+<li>Use consistent rotation order if using Euler angles; document it (e.g., XYZ intrinsic).</li>
+<li>Prefer quaternions for computation and interpolation; convert to Euler only for human‑readable outputs.</li>
+<li>Validate with visualization; a simple mistake (e.g., swapped axes) is obvious in RViz2.</li>
+</ul>
+<h2 id="typical-pitfalls"><a class="header" href="#typical-pitfalls">Typical Pitfalls</a></h2>
+<ul>
+<li>Degrees vs. radians: Many libraries expect radians; mixing them leads to large errors.</li>
+<li>Gimbal lock with Euler angles: Avoid for continuous orientation tracking.</li>
+<li>Flipped camera axes: Image coordinates (u, v) vs. camera optical frames can differ; check your library’s convention.</li>
+<li>Frame direction confusion: Clarify whether T_AB maps B→A or A→B. Name accordingly (read subscripts left‑to‑right for mapping direction).</li>
+<li>Non‑commutativity: R1·R2 ≠ R2·R1. Keep multiplication order straight.</li>
+</ul>
+<h2 id="quick-cheat-sheet"><a class="header" href="#quick-cheat-sheet">Quick Cheat Sheet</a></h2>
+<ul>
+<li>Right‑hand rule: x × y = z.</li>
+<li>Transform a point: p_A = T_AB · p_B.</li>
+<li>Compose transforms: T_AC = T_AB · T_BC.</li>
+<li>Inverse transform: T_BA = T_AB⁻¹ = [ Rᵀ  −Rᵀ t; 0 0 0 1 ].</li>
+<li>Quaternion normalization: q ← q / ||q|| before use.</li>
+<li>From yaw (2D): R(θ) = [[cosθ, −sinθ],[sinθ, cosθ]].</li>
+</ul>
+<h2 id="further-reading"><a class="header" href="#further-reading">Further Reading</a></h2>
+<ul>
+<li>ROS REP‑103 (Standard Units of Measure and Coordinate Conventions): https://www.ros.org/reps/rep-0103.html</li>
+<li>A gentle quaternion primer (Eigen): https://eigen.tuxfamily.org/dox/classEigen_1_1Quaternion.html</li>
+<li>3D Rotations, matrices, and quaternions (Wikipedia overview): https://en.wikipedia.org/wiki/Rotation_formalisms_in_three_dimensions</li>
+<li>tf2 tutorials (ROS2): https://docs.ros.org/en/foxy/Tutorials/tf2.html</li>
+<li>RViz2 basics: see “9_rviz2_visualizations.md” in this repository.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="communication-buses"><a class="header" href="#communication-buses">Communication Buses</a></h1>
+<p>This chapter summarizes four common serial buses used in embedded systems and robotics: UART, I2C, SPI, and CAN. For each, you’ll find the wiring, what problem it solves, typical speeds, and practical tips.</p>
 <h2 id="uart"><a class="header" href="#uart">UART</a></h2>
-<p>A UART (Universal Asynchronous Receiver/Transmitter) is a simple device used to send and receive data in a serial format. This means it sends information one bit at a time, rather than sending multiple bits at once. It is found in many microcontrollers and computers because it is easy to use and does not require many wires.</p>
+<p>A UART (Universal Asynchronous Receiver/Transmitter) sends and receives serial data one bit at a time over two data lines without a shared clock.</p>
 <p>UART topology:
 <img src="4_others/text/../images/uart.png" alt="UART" /></p>
-<p>With UART, the sender and receiver do not share a special clock line. Instead, both sides must agree on a speed called the baud rate. This speed decides how many bits per second they will send or receive. If both sides use the same speed, data moves from one device to the other without confusion.</p>
-<p>A UART usually has two main lines for data: TX (transmit) and RX (receive). When one device transmits through TX, the other device reads the signal on its RX pin. To avoid errors, UART systems often include extra settings such as start bits, stop bits, and parity bits. These help confirm that each bit is received in the correct order.</p>
-<p>Although UART is slower than some other communication methods, it is very popular. It requires few pins, is easy to set up, and works well for many simple and medium-speed data transfers.</p>
+<p>Key characteristics:</p>
+<ul>
+<li>Asynchronous: No clock line. Both ends must agree on the baud rate (bits per second).</li>
+<li>Signals: TX (transmit), RX (receive). Optional flow control lines RTS/CTS may be present.</li>
+<li>Frame format: start bit, 5–9 data bits (commonly 8), optional parity (even/odd/none), and one or two stop bits. Example: 8N1 = 8 data bits, no parity, 1 stop bit.</li>
+<li>Voltage levels: Commonly TTL/CMOS (e.g., 3.3 V or 5 V) on microcontrollers; classic RS‑232 levels are higher and inverted and require a level shifter (e.g., MAX232).</li>
+<li>Typical speeds: 9,600; 57,600; 115,200 baud; many MCUs support higher.</li>
+</ul>
+<p>With UART, reliable communication requires matching configuration on both ends (baud rate, data bits, parity, stop bits). Parity can detect single‑bit errors but not correct them.</p>
 <p>UART timing:
 <img src="4_others/text/../images/uart_timing.png" alt="UART" /></p>
-<p>image source: https://vanhunteradams.com/Protocols/UART/UART.html</p>
+<p>Image source: https://vanhunteradams.com/Protocols/UART/UART.html</p>
 <h2 id="i2c"><a class="header" href="#i2c">I2C</a></h2>
-<p>I2C (Inter-Integrated Circuit) is a simple method for digital devices to talk to each other using just two wires. One wire is called SDA, which carries data. The other wire is called SCL, which provides the clock signal. In I2C, devices use this clock signal to stay in sync, so they can send and receive data at the right time.</p>
+<p>I2C (Inter‑Integrated Circuit) is a synchronous two‑wire bus intended for short‑range, on‑board communication.</p>
 <p>I2C topology:
 <img src="4_others/text/../images/i2c.png" alt="I2C" /></p>
-<p>I2C follows a master-slave setup. The master device generates the clock signal and decides when to start or stop a communication. It also chooses which slave device to talk to by using an address. Each slave device listens for its address, then responds when asked.</p>
-<p>Because I2C only needs two wires, it is a good choice when you want to connect multiple sensors or peripherals without adding many extra pins. It is also fairly easy to set different speeds, so you can adjust it for your needs. Common speeds are known as Standard Mode (up to 100 kHz) and Fast Mode (up to 400 kHz).</p>
-<p>I2C is often found in microcontroller projects, temperature sensors, and various other small components. It helps keep connections simple and allows many devices to share the same two wires for data transfer.</p>
+<p>Key characteristics:</p>
+<ul>
+<li>Wires: SDA (data) and SCL (clock). Lines are open‑drain/open‑collector and require pull‑up resistors.</li>
+<li>Roles: Master and slave; multi‑master is supported by the spec but less common in simple designs.</li>
+<li>Addressing: 7‑bit (typical). Devices respond to their address; no separate chip‑select lines.</li>
+<li>Speeds: Standard (100 kHz), Fast (400 kHz), Fast Mode Plus (1 MHz), High‑Speed (3.4 MHz). Effective throughput is lower due to protocol overhead and clock stretching.</li>
+<li>Electrical: Keep bus traces short; choose appropriate pull‑up values based on capacitance and desired rise time.</li>
+</ul>
+<p>Because I2C uses only two wires shared by many devices (and GND), it’s ideal for connecting multiple sensors or peripherals at modest speeds.</p>
 <p>I2C timing:
 <img src="4_others/text/../images/i2c_timing.png" alt="I2C Timing" /></p>
-<p>image source: https://www.youtube.com/watch?v=CAvawEcxoPU</p>
+<p>Image source: https://www.youtube.com/watch?v=CAvawEcxoPU</p>
 <h2 id="spi"><a class="header" href="#spi">SPI</a></h2>
-<p>SPI (Serial Peripheral Interface) is a simple and fast way for digital devices to communicate using at least four main lines. The first line is SCLK (serial clock), which sets the timing for data transfers. MOSI (master out, slave in) is used by the master device to send data out to the slave. MISO (master in, slave out) is used by the slave device to send data back to the master. Finally, SS (slave select) or CS (chip select) is used by the master to choose which slave device to talk to.</p>
+<p>SPI (Serial Peripheral Interface) is a fast, full‑duplex serial bus commonly used for sensors, displays, and memory devices.</p>
 <p>SPI topology:
 <img src="4_others/text/../images/spi.png" alt="SPI" /></p>
-<p>In an SPI setup, the master is in charge of generating the clock signal and deciding when data is sent or received. Data shifts on MOSI and MISO with each clock pulse, allowing both devices to exchange information at the same time. SPI does not use addresses like I2C, so each slave device normally has its own SS line. This can mean extra wiring if you have many devices.</p>
-<p>SPI can run at higher speeds than many other serial interfaces, often reaching several megahertz or more. This makes it good for applications where you need fast data transfers, such as reading data from a sensor or writing to a display. Because it is straightforward and efficient, SPI is frequently used in microcontrollers, sensors, memory chips, and other peripherals that require rapid, reliable communication.</p>
+<p>Key characteristics:</p>
+<ul>
+<li>Wires: SCLK (clock), MOSI (master out, slave in), MISO (master in, slave out), and one CS/SS (chip select) per slave.</li>
+<li>Full‑duplex: Data can be transmitted and received simultaneously.</li>
+<li>Modes: Defined by clock polarity (CPOL) and clock phase (CPHA); four modes (0–3). Master and slave must use the same mode and bit order (MSB‑first is common).</li>
+<li>Speed: Often several MHz to tens of MHz depending on hardware and wiring quality.</li>
+<li>Topology: One CS line per device is simplest. Daisy‑chain is possible with some devices but less common.</li>
+</ul>
+<p>SPI does not use addresses; the master selects a single slave by asserting its CS line.</p>
 <p>SPI timing:
 <img src="4_others/text/../images/spi_timing.png" alt="SPI Timing" /></p>
-<p>imabe source: https://www.youtube.com/watch?v=0nVNwozXsIc </p>
+<p>Image source: https://www.youtube.com/watch?v=0nVNwozXsIc</p>
 <h2 id="can"><a class="header" href="#can">CAN</a></h2>
-<p>CAN (Controller Area Network) is a communication system originally designed for vehicles, allowing different parts of a car—like the engine, brakes, and airbags—to talk with each other in a reliable way. It uses two main wires, often called CAN High and CAN Low, which together form a robust bus. Unlike protocols that need a separate line for every device, CAN allows multiple nodes to share the same pair of wires.</p>
+<p>CAN (Controller Area Network) is a robust, differential multi‑drop bus designed for reliability in noisy environments (originally automotive, now used widely in industry and robotics).</p>
 <p>CAN topology:
 <img src="4_others/text/../images/can.png" alt="CAN" /></p>
-<p>In a CAN network, any node can send a message whenever the bus is free. Each message has an identifier that shows its priority. If two nodes try to send messages at the same time, the node with the higher-priority message keeps sending, and the lower-priority message waits, ensuring important signals go first. This makes CAN useful in safety-critical systems.</p>
-<p>CAN also includes error detection features. For example, if a node reads back a wrong bit, it flags an error and can resend the message. Because of its high reliability and simplicity, CAN is widely used not only in automobiles but also in industrial equipment, medical devices, and other areas that need dependable data sharing.</p>
+<p>Key characteristics:</p>
+<ul>
+<li>Physical layer: Two wires (CAN‑H, CAN‑L) with 120 Ω terminations at both ends of the main bus. Keep stubs short to reduce reflections.</li>
+<li>Arbitration: Messages have identifiers (11‑bit standard, 29‑bit extended). Non‑destructive arbitration ensures that the highest‑priority (lowest ID) message wins if multiple nodes transmit simultaneously.</li>
+<li>Frames and reliability: Frames contain SOF, arbitration field (ID), control/DLC, data (0–8 bytes for Classical CAN), CRC, ACK, and EOF. Strong error detection, automatic retransmission, and error confinement.</li>
+<li>Bit rates: Classical CAN up to 1 Mbit/s on short buses. CAN‑FD increases data field (up to 64 bytes) and allows higher data‑phase bit rates (e.g., 2–5 Mbit/s) on capable hardware.</li>
+</ul>
+<p>Because of its priority‑based arbitration and error handling, CAN is well‑suited for safety‑critical or distributed control systems.</p>
 <p>CAN data frame:
 <img src="4_others/text/../images/can_frame.png" alt="CAN Frame" /></p>
-<p>image source: https://en.wikipedia.org</p>
+<p>Image source: https://en.wikipedia.org/wiki/CAN_bus</p>
+<h2 id="when-to-use-which"><a class="header" href="#when-to-use-which">When to Use Which</a></h2>
+<ul>
+<li>UART: Point‑to‑point links, simple device logs, GPS modules, Bluetooth modules; low pin count, modest speed.</li>
+<li>I2C: Many low/medium‑speed peripherals on the same PCB, minimal wiring; requires pull‑ups; address management needed.</li>
+<li>SPI: High‑speed peripheral access (displays, flash memory, camera); more pins but excellent throughput and timing control.</li>
+<li>CAN: Robust multi‑drop networking with priorities and error handling across meters of cable; ideal for vehicles and industrial robots.</li>
+</ul>
+<h2 id="resources-2"><a class="header" href="#resources-2">Resources</a></h2>
+<ul>
+<li>UART overview: https://vanhunteradams.com/Protocols/UART/UART.html</li>
+<li>I2C specification (NXP user manual): https://www.nxp.com/docs/en/user-guide/UM10204.pdf</li>
+<li>SPI basics (Motorola/NXP app notes): https://www.nxp.com/docs/en/application-note/AN2910.pdf</li>
+<li>CAN bus (Wikipedia, overview): https://en.wikipedia.org/wiki/CAN_bus</li>
+<li>CAN‑FD (Bosch spec summary): https://www.bosch-semiconductors.com/ip-modules/can-fd/</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ubuntu-environment"><a class="header" href="#ubuntu-environment">Ubuntu Environment</a></h1>
 <p>This guide provides step-by-step instructions for setting up the system, installing essential tools, and configuring the environment for ROS2.</p>
-<pre><code class="language-shell">sudo apt update
+<pre><code class="language-bash">sudo apt update
 sudo apt upgrade
 
 #swap
