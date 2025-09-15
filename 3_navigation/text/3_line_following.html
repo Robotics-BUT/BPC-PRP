@@ -155,7 +155,7 @@
 <p>Line sensors detect the contrast between a dark line and a lighter surface. Typically, two sensors are placed near the robot's front. Outputs:</p>
 <p>Left Sensor (S1): Detects the line under the left side.</p>
 <p>Right Sensor (S2): Detects the line under the right side.</p>
-<p>Sensors usually output digital signals (1 for line detected, 0 for no line) or the analog signal (high voltage for line detected, low voltage for no line).</p>
+<p>Sensors usually output digital signals (1 for line detected, 0 for no line) or an analog signal (higher value for line detected, lower for no line), depending on the sensor type.</p>
 <h3 id="control-principles"><a class="header" href="#control-principles">Control Principles</a></h3>
 <p>Robots use control algorithms to maintain their position relative to the line. Key approaches:</p>
 <p>Bang-Bang Control: Simple on/off control based on sensor inputs.</p>
@@ -196,7 +196,7 @@ Right Motor Speed = Base Speed + (Kp * ε + Kd * ∆ε / Δt)
 <h3 id="flowchart-of-the-algorithm"><a class="header" href="#flowchart-of-the-algorithm">Flowchart of the Algorithm</a></h3>
 <ul>
 <li>Read sensor values.</li>
-<li>Calculate the error (∆ε) and its derivative (Δ∆ε / Δt).</li>
+<li>Calculate the error ε and its derivative (dε/dt ≈ Δε/Δt).</li>
 <li>Determine motor speeds using the control formula.</li>
 <li>Drive the motors.</li>
 <li>Repeat.</li>

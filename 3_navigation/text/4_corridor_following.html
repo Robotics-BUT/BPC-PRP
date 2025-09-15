@@ -214,8 +214,9 @@ import motor_control
 
 Kp = 0.5
 Kd = 0.1
-base_speed = 150
-last_error = 0
+base_speed = 150  # actuator units (e.g., PWM)
+last_error = 0.0
+obstacle_threshold = 0.3  # meters
 
 lidar = lidar_library.LIDAR()
 motors = motor_control.MotorDriver()
@@ -223,29 +224,52 @@ motors = motor_control.MotorDriver()
 def detect_walls(scan):
     left_distances = [dist for angle, dist in scan if 80 &lt;= angle &lt;= 100]
     right_distances = [dist for angle, dist in scan if 260 &lt;= angle &lt;= 280]
-    left_wall = min(left_distances)
-    right_wall = min(right_distances)
+    left_wall = min(left_distances) if left_distances else None
+    right_wall = min(right_distances) if right_distances else None
     return left_wall, right_wall
 
 while True:
     scan = lidar.get_scan()
     left_wall, right_wall = detect_walls(scan)
 
-    error = (left_wall - right_wall) / 2
+    # Simple obstacle stop: if something is very close ahead
+    front = [dist for angle, dist in scan if -10 &lt;= angle &lt;= 10 or 350 &lt;= angle &lt;= 360]
+    if front and min(front) &lt; obstacle_threshold:
+        motors.set_speeds(0, 0)
+        continue
+
+    # Define error: positive if closer to right wall (robot needs to steer left)
+    if left_wall is None and right_wall is None:
+        # No walls detected: slow search
+        motors.set_speeds(0, 0)
+        continue
+    elif left_wall is None:
+        error = -(right_wall)  # steer left towards center
+    elif right_wall is None:
+        error = left_wall      # steer right towards center
+    else:
+        error = (left_wall - right_wall) / 2.0
+
     d_error = error - last_error
 
     left_speed = base_speed - (Kp * error + Kd * d_error)
     right_speed = base_speed + (Kp * error + Kd * d_error)
 
+    # Constrain to valid actuator range
+    left_speed = max(0, min(255, left_speed))
+    right_speed = max(0, min(255, right_speed))
+
     motors.set_speeds(left_speed, right_speed)
     last_error = error
 </code></pre>
 <h2 id="grid-pattern-following"><a class="header" href="#grid-pattern-following">Grid Pattern Following</a></h2>
-<p>If the corridor is organized into rectangular grid. The algorithm is getting more complex.</p>
-<p>Think about the corridor as a set of cells that contains spaces or obstacles between each other.</p>
-<p>If the empty space appears on left or right, the algorithm have to overcome this difficulty and consider only existing walls.</p>
-<p>If there is an obstacle in front of the robot, stop and consider turing robot left or right.</p>
-<p>More advanced approach is to think about the grid corridor not as a continuous space, but rather discrete grid-cell space. Than the corridor following algorithm have to control robot during the inter-cell transitions. </p>
+<p>If the corridor network is organized as a rectangular grid, the algorithm becomes more complex.</p>
+<ul>
+<li>View the space as a set of grid cells separated by walls or openings.</li>
+<li>If an opening appears on the left or right, temporarily rely on the existing wall and maintain heading until a new wall segment is detected.</li>
+<li>If there is an obstacle in front of the robot, stop and consider turning left or right based on your navigation policy (e.g., keep following the right wall).</li>
+</ul>
+<p>A more advanced approach is to treat the environment as a discrete grid-cell map and control the robot during inter-cell transitions, using wall detections as events for state updates.</p>
 
                     </main>
 

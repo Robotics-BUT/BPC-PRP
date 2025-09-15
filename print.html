@@ -2477,16 +2477,32 @@ ID = 2 -&gt; right           ID = 12 -&gt; right
 <p>Pose <code>(x,y,θ)</code>: The robot's position <code>(x,y)</code> and orientation <code>θ</code> in a 2D plane. <code>[m, m, rad]</code></p>
 <p>Linear velocity <code>(v)</code>: Forward speed of the robot. <code>[m/s]</code></p>
 <p>Angular velocity <code>(ω)</code>: Rate of rotation of the robot. <code>[rad/s]</code></p>
+<p>Conventions:</p>
+<ul>
+<li>Coordinate frame: x points forward, y points to the left (right-handed frame).</li>
+<li>Positive angular velocity <code>ω</code> is counter-clockwise (CCW).</li>
+<li>Wheel linear speeds <code>v_L</code>, <code>v_R</code> are positive when rolling forward.</li>
+</ul>
 <h2 id="wheel-velocities"><a class="header" href="#wheel-velocities">Wheel Velocities</a></h2>
 <p>Left wheel angular velocity: <code>ωL</code>
 Right wheel angular velocity: <code>ωR</code></p>
-<p>The linear velocities of the wheels are:</p>
-<p><img src="3_navigation/text/../images/dif_chass_vl_vr.png" alt="pid equation"/></p>
+<p>The linear velocities of the wheels are (v_L = r·ω_L, v_R = r·ω_R):</p>
+<p><img src="3_navigation/text/../images/dif_chass_vl_vr.png" alt="wheel linear velocities"/></p>
 <h2 id="forward-kinematics"><a class="header" href="#forward-kinematics">Forward Kinematics</a></h2>
 <p>Forward kinematics calculates the robot's linear and angular velocities based on wheel velocities.</p>
 <h3 id="linear-and-angular-velocities"><a class="header" href="#linear-and-angular-velocities">Linear and Angular Velocities</a></h3>
 <p>The robot's linear velocity <code>(v)</code> and angular velocity <code>(ω)</code> are:</p>
 <p><img src="3_navigation/text/../images/dif_chass_v_omega.png" alt="forward kinematics"/></p>
+<h4 id="turning-radius-and-icc"><a class="header" href="#turning-radius-and-icc">Turning radius and ICC</a></h4>
+<ul>
+<li>Instantaneous Center of Curvature (ICC) lies at distance <code>R = v/ω</code> from the robot center, to the left for <code>ω &gt; 0</code> and to the right for <code>ω &lt; 0</code>.</li>
+<li>Special cases:
+<ul>
+<li>Straight motion: <code>ω = 0</code> → <code>R = ∞</code>.</li>
+<li>In-place rotation: <code>v = 0</code>, <code>ω ≠ 0</code> → <code>R = 0</code> (wheels spin in opposite directions with equal speed).</li>
+</ul>
+</li>
+</ul>
 <h3 id="pose-update"><a class="header" href="#pose-update">Pose Update</a></h3>
 <p>Given the robot's current pose <code>(x,y,θ)</code>, the new pose after a small time step <code>dt</code> can be computed as:</p>
 <p><img src="3_navigation/text/../images/dif_chass_update.png" alt="pose update"/></p>
@@ -2507,10 +2523,17 @@ Right wheel angular velocity: <code>ωR</code></p>
     omega = (v_R - v_L) / L
     return v, omega
 </code></pre>
-<pre><code class="language-python">def update_pose(x, y, theta, v, omega, dt):
+<pre><code class="language-python">import math
+
+def update_pose(x, y, theta, v, omega, dt):
     x_new = x + v * math.cos(theta) * dt
     y_new = y + v * math.sin(theta) * dt
     theta_new = theta + omega * dt
+    # Optional: normalize heading to [-pi, pi)
+    if theta_new &gt; math.pi:
+        theta_new -= 2 * math.pi
+    elif theta_new &lt;= -math.pi:
+        theta_new += 2 * math.pi
     return x_new, y_new, theta_new
 </code></pre>
 <pre><code class="language-python">def inverse_kinematics(v, omega, L):
@@ -2519,7 +2542,7 @@ Right wheel angular velocity: <code>ωR</code></p>
     return v_L, v_R
 </code></pre>
 <h2 id="exercise-2"><a class="header" href="#exercise-2">Exercise</a></h2>
-<p>Write program which simulates differential chassis based on given input parameters.</p>
+<p>Write a program that simulates a differential-drive chassis based on the given input parameters.</p>
 <h3 id="simulation-parameters"><a class="header" href="#simulation-parameters">Simulation Parameters</a></h3>
 <ul>
 <li>Wheel radius: <code>r = 0.1 m</code></li>
@@ -2529,8 +2552,9 @@ Right wheel angular velocity: <code>ωR</code></p>
 <h3 id="tasks-1"><a class="header" href="#tasks-1">Tasks</a></h3>
 <ul>
 <li>Compute the pose of the robot after moving straight for 5 seconds with <code>v = 1 m/s</code>.</li>
-<li>Simulate a circular motion with <code>v = 1 m/s</code> and <code>ω = 0.5 rad/s</code> .</li>
-<li>Simulate a circular motion with <code>ωl = 1 m/s</code> and <code>ωr = 0.5 rad/s</code> .</li>
+<li>Simulate a circular motion with <code>v = 1 m/s</code> and <code>ω = 0.5 rad/s</code>. </li>
+<li>Simulate a circular motion with <code>v_L = 1.0 m/s</code> and <code>v_R = 0.5 m/s</code>.</li>
+<li>Optional: If using wheel angular speeds instead, compute <code>v_L = r·ω_L</code> and <code>v_R = r·ω_R</code> first.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pid"><a class="header" href="#pid">PID</a></h1>
 <p>This tutorial introduces the concept of PID control and demonstrates how to implement it in a step-by-step manner, suitable for university-level students.</p>
@@ -2560,7 +2584,7 @@ Predicts future behavior and reduces overshoot.</p>
 <p><img src="3_navigation/text/../images/pid_d_equation.png" alt="d equation"/></p>
 <h2 id="pid-implementation"><a class="header" href="#pid-implementation">PID Implementation</a></h2>
 <p>In digital systems, the continuous equation is approximated using discrete time intervals (dt):</p>
-<p><img src="3_navigation/text/../images/pid_psd_equation.png" alt="psd equation"/></p>
+<p><img src="3_navigation/text/../images/pid_psd_equation.png" alt="discrete PID equation"/></p>
 <h3 id="algorithm"><a class="header" href="#algorithm">Algorithm</a></h3>
 <ul>
 <li>Measure the current system output <code>y[k]</code>.</li>
@@ -2573,10 +2597,10 @@ Predicts future behavior and reduces overshoot.</p>
 <h2 id="example-code-1"><a class="header" href="#example-code-1">Example Code</a></h2>
 <pre><code class="language-python">class PIDController:
 
-    def __init__(self, kp, ki, kd, setpoint):
-        self.kp = kp 
-        self.ki = ki  
-        self.kd = kd 
+    def __init__(self, kp, ki, kd, setpoint=0.0, output_limits=(None, None), integral_limits=(None, None)):
+        self.kp = kp
+        self.ki = ki
+        self.kd = kd
         self.setpoint = setpoint
 
         self.previous_error = 0
@@ -2599,6 +2623,14 @@ Predicts future behavior and reduces overshoot.</p>
         output = proportional + integral + derivative
         return output
 </code></pre>
+<h3 id="practical-tips"><a class="header" href="#practical-tips">Practical Tips</a></h3>
+<ul>
+<li>Keep units consistent and sample time Δt stable; prefer a monotonic time base.</li>
+<li>Start with small gains to avoid saturation; increase gradually.</li>
+<li>Set <code>output_limits</code> to your actuator range (e.g., PWM 0–255) and use <code>integral_limits</code> to prevent windup.</li>
+<li>Consider computing the derivative on the measurement or apply a small low-pass filter to the D term if the signal is noisy.</li>
+<li>If the process variable is bounded (e.g., angle), consider wrapping errors appropriately.</li>
+</ul>
 <h2 id="pid-tuning"><a class="header" href="#pid-tuning">PID Tuning</a></h2>
 <h3 id="manual-tuning"><a class="header" href="#manual-tuning">Manual Tuning</a></h3>
 <p>Start with <code>Ki = 0</code> and <code>Kd = 0</code>.
@@ -2616,7 +2648,7 @@ Set parameters as:</p>
 <li><code>Kd = Kp * Tu / 8</code></li>
 </ul>
 <h3 id="common-problems"><a class="header" href="#common-problems">Common Problems</a></h3>
-<p><img src="3_navigation/text/../images/pid_plot.png" alt="psd equation"/></p>
+<p><img src="3_navigation/text/../images/pid_plot.png" alt="PID responses under different tunings"/></p>
 <ul>
 <li>Low <code>Kp</code> (slow response): The system reacts very slowly, taking a long time to reach the setpoint.</li>
 <li>High <code>Kp</code> (oscillations): The system overshoots and oscillates around the setpoint without damping.</li>
@@ -2637,7 +2669,7 @@ Set parameters as:</p>
 <p>Line sensors detect the contrast between a dark line and a lighter surface. Typically, two sensors are placed near the robot's front. Outputs:</p>
 <p>Left Sensor (S1): Detects the line under the left side.</p>
 <p>Right Sensor (S2): Detects the line under the right side.</p>
-<p>Sensors usually output digital signals (1 for line detected, 0 for no line) or the analog signal (high voltage for line detected, low voltage for no line).</p>
+<p>Sensors usually output digital signals (1 for line detected, 0 for no line) or an analog signal (higher value for line detected, lower for no line), depending on the sensor type.</p>
 <h3 id="control-principles"><a class="header" href="#control-principles">Control Principles</a></h3>
 <p>Robots use control algorithms to maintain their position relative to the line. Key approaches:</p>
 <p>Bang-Bang Control: Simple on/off control based on sensor inputs.</p>
@@ -2678,7 +2710,7 @@ Right Motor Speed = Base Speed + (Kp * ε + Kd * ∆ε / Δt)
 <h3 id="flowchart-of-the-algorithm"><a class="header" href="#flowchart-of-the-algorithm">Flowchart of the Algorithm</a></h3>
 <ul>
 <li>Read sensor values.</li>
-<li>Calculate the error (∆ε) and its derivative (Δ∆ε / Δt).</li>
+<li>Calculate the error ε and its derivative (dε/dt ≈ Δε/Δt).</li>
 <li>Determine motor speeds using the control formula.</li>
 <li>Drive the motors.</li>
 <li>Repeat.</li>
@@ -2813,8 +2845,9 @@ import motor_control
 
 Kp = 0.5
 Kd = 0.1
-base_speed = 150
-last_error = 0
+base_speed = 150  # actuator units (e.g., PWM)
+last_error = 0.0
+obstacle_threshold = 0.3  # meters
 
 lidar = lidar_library.LIDAR()
 motors = motor_control.MotorDriver()
@@ -2822,31 +2855,54 @@ motors = motor_control.MotorDriver()
 def detect_walls(scan):
     left_distances = [dist for angle, dist in scan if 80 &lt;= angle &lt;= 100]
     right_distances = [dist for angle, dist in scan if 260 &lt;= angle &lt;= 280]
-    left_wall = min(left_distances)
-    right_wall = min(right_distances)
+    left_wall = min(left_distances) if left_distances else None
+    right_wall = min(right_distances) if right_distances else None
     return left_wall, right_wall
 
 while True:
     scan = lidar.get_scan()
     left_wall, right_wall = detect_walls(scan)
 
-    error = (left_wall - right_wall) / 2
+    # Simple obstacle stop: if something is very close ahead
+    front = [dist for angle, dist in scan if -10 &lt;= angle &lt;= 10 or 350 &lt;= angle &lt;= 360]
+    if front and min(front) &lt; obstacle_threshold:
+        motors.set_speeds(0, 0)
+        continue
+
+    # Define error: positive if closer to right wall (robot needs to steer left)
+    if left_wall is None and right_wall is None:
+        # No walls detected: slow search
+        motors.set_speeds(0, 0)
+        continue
+    elif left_wall is None:
+        error = -(right_wall)  # steer left towards center
+    elif right_wall is None:
+        error = left_wall      # steer right towards center
+    else:
+        error = (left_wall - right_wall) / 2.0
+
     d_error = error - last_error
 
     left_speed = base_speed - (Kp * error + Kd * d_error)
     right_speed = base_speed + (Kp * error + Kd * d_error)
 
+    # Constrain to valid actuator range
+    left_speed = max(0, min(255, left_speed))
+    right_speed = max(0, min(255, right_speed))
+
     motors.set_speeds(left_speed, right_speed)
     last_error = error
 </code></pre>
 <h2 id="grid-pattern-following"><a class="header" href="#grid-pattern-following">Grid Pattern Following</a></h2>
-<p>If the corridor is organized into rectangular grid. The algorithm is getting more complex.</p>
-<p>Think about the corridor as a set of cells that contains spaces or obstacles between each other.</p>
-<p>If the empty space appears on left or right, the algorithm have to overcome this difficulty and consider only existing walls.</p>
-<p>If there is an obstacle in front of the robot, stop and consider turing robot left or right.</p>
-<p>More advanced approach is to think about the grid corridor not as a continuous space, but rather discrete grid-cell space. Than the corridor following algorithm have to control robot during the inter-cell transitions. </p>
+<p>If the corridor network is organized as a rectangular grid, the algorithm becomes more complex.</p>
+<ul>
+<li>View the space as a set of grid cells separated by walls or openings.</li>
+<li>If an opening appears on the left or right, temporarily rely on the existing wall and maintain heading until a new wall segment is detected.</li>
+<li>If there is an obstacle in front of the robot, stop and consider turning left or right based on your navigation policy (e.g., keep following the right wall).</li>
+</ul>
+<p>A more advanced approach is to treat the environment as a discrete grid-cell map and control the robot during inter-cell transitions, using wall detections as events for state updates.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="imu-inertial-measurement-unit"><a class="header" href="#imu-inertial-measurement-unit">IMU (Inertial Measurement Unit)</a></h1>
-<p>Note: in this tutorial, by using the &quot;gyroscope&quot; word, we mean angular speed sensor. Properly said, the gyroscope is device that keeps constant orientation.</p>
+<p>Note: In this tutorial, by the term &quot;gyroscope&quot; we mean an angular rate sensor; strictly speaking, a gyroscope is a device that maintains orientation.</p>
 <p>In this tutorial, we will focus on how to process data from an Inertial Measurement Unit (IMU) to estimate orientation and position along a single degree of freedom (DoF). While an actual IMU measures 3-axis accelerations (from an accelerometer) and 3-axis angular velocities (from a gyroscope), we will simplify the problem by considering only one-dimensional motion and rotation. This simplification helps you gain intuition before extending the logic to three dimensions.</p>
 <p>Key concepts:</p>
 <ul>
@@ -2858,7 +2914,7 @@ while True:
 <p>An IMU in one dimension can be thought of as providing two main signals:</p>
 <ul>
 <li>Angular velocity, <code>ω(t)</code>, measured in radians per second <code>(rad/s)</code>. In a real IMU, this would come from the gyroscope (angular speed meter).</li>
-<li>Linear acceleration, <code>a(t)</code>, measured in meters per second squared <code>(ms^-2)</code>. In a real IMU, this would come from the accelerometer.</li>
+<li>Linear acceleration, <code>a(t)</code>, measured in meters per second squared <code>(m/s^2)</code>. In a real IMU, this would come from the accelerometer.</li>
 </ul>
 <p>Assumptions to Simplify the Task:</p>
 <ul>
@@ -2881,7 +2937,7 @@ while True:
 <p><img src="3_navigation/text/../images/imu_angular_speed_int.png" alt="Integration of angular velocity"/></p>
 <p>If you sample <code>ω</code> at discrete time steps <code>tk = kΔt</code> (where <code>Δt</code> is the sampling period), you can approximate the integral numerically. A simple numerical integration (Euler method) is:</p>
 <p><img src="3_navigation/text/../images/imu_orientatoin_int.png" alt="Integration of orientation"/></p>
-<p>Here, <code>θk</code> and <code>ωk</code> are the angle and angular velocity at the kk-th timestep.</p>
+<p>Here, <code>θk</code> and <code>ωk</code> are the angle and angular velocity at the k-th time step.</p>
 <h2 id="from-linear-acceleration-to-position"><a class="header" href="#from-linear-acceleration-to-position">From Linear Acceleration to Position</a></h2>
 <p>The position is related to acceleration by two integrations:</p>
 <p>Acceleration to velocity:</p>
@@ -2901,7 +2957,7 @@ while True:
 <h2 id="step-by-step-example"><a class="header" href="#step-by-step-example">Step-by-Step Example</a></h2>
 <h3 id="setup"><a class="header" href="#setup">Setup:</a></h3>
 <p>Assume a sampling frequency of <code>fs = 100 Hz</code> (<code>Δt = 0.01s</code>).</p>
-<p>Suppose we have a constant angular velocity <code>ω = 0.1 rad/s</code> and a constant acceleration <code>a = 0.2 m/s</code>.</p>
+<p>Suppose we have a constant angular velocity <code>ω = 0.1 rad/s</code> and a constant acceleration <code>a = 0.2 m/s^2</code>. </p>
 <p>Initial orientation: <code>θ0 = 0 rad</code>.</p>
 <p>Initial velocity: <code>v0 = 0 m/s</code>.</p>
 <p>Initial position: <code>x0 = 0 m</code>.</p>
@@ -2924,7 +2980,7 @@ while True:
 <h2 id="practical-considerations"><a class="header" href="#practical-considerations">Practical Considerations</a></h2>
 <ul>
 <li>Noise and Biases: Real IMU data is noisy. Integrating noisy data leads to drift. In practice, filtering (e.g., using a Kalman filter or complementary filter) is essential.</li>
-<li>Gravity Compensation: If you are working in 3D, you must subtract the gravity vector from the accelerometer reading to isolate the linear acceleration. In 1D, if your axis is aligned vertically, you must subtract out <code>g = 9.81 ms^-2</code>.</li>
+<li>Gravity Compensation: If you are working in 3D, you must subtract the gravity vector from the accelerometer reading to isolate the linear acceleration. In 1D, if your axis is aligned vertically, you must subtract out <code>g = 9.81 m/s^2</code>. </li>
 <li>Sampling Rate and Integration Method: We used a simple Euler method. More accurate integration schemes (e.g., trapezoidal, Runge-Kutta) can improve accuracy.</li>
 </ul>
 <h2 id="example-code-2"><a class="header" href="#example-code-2">Example Code</a></h2>
@@ -3000,7 +3056,48 @@ plt.show()
 <li>Implement full 3D orientation estimation with drift compensation (lin acc to estimate gravity direction, gyro for quick orientation updates).</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="maze-escape"><a class="header" href="#maze-escape">Maze Escape</a></h1>
-<p>Lorem Ipsum</p>
+<p>This short guide outlines a simple strategy for escaping a maze with a differential-drive robot using the right-hand rule (wall following). It is intentionally minimal and practical.</p>
+<h2 id="idea"><a class="header" href="#idea">Idea</a></h2>
+<ul>
+<li>Keep your right side close to a wall and keep moving forward.</li>
+<li>When you hit an opening on the right, turn right and follow the new corridor.</li>
+<li>If you reach a dead end, turn around and continue following the right wall.</li>
+</ul>
+<p>This works in simply-connected mazes (no isolated loops). In general mazes with loops, it still explores systematically but may revisit areas.</p>
+<h2 id="sensing-options"><a class="header" href="#sensing-options">Sensing Options</a></h2>
+<ul>
+<li>Proximity sensors or bumpers (short range): detect walls and contacts.</li>
+<li>IR/ultrasonic rangefinders: measure distance to right/left/front walls.</li>
+<li>2D LIDAR: robust wall detection with angles and distances.</li>
+</ul>
+<h2 id="minimal-right-hand-rule-pseudocode"><a class="header" href="#minimal-right-hand-rule-pseudocode">Minimal Right-Hand Rule (pseudocode)</a></h2>
+<pre><code class="language-python">RIGHT = 1     # sensor index or side identifier
+FRONT = 0
+
+while True:
+    right_clear = sense_opening(side=RIGHT)
+    front_clear = sense_opening(side=FRONT)
+
+    if right_clear:
+        turn_right()
+        drive_forward()
+    elif front_clear:
+        drive_forward()
+    else:
+        turn_left()  # or turn around if completely blocked
+</code></pre>
+<h2 id="practical-tips-1"><a class="header" href="#practical-tips-1">Practical Tips</a></h2>
+<ul>
+<li>Maintain a small, roughly constant right-wall distance if you have distance sensors; a simple PD controller on lateral error improves stability.</li>
+<li>Use a minimum forward speed to avoid stalling, and cap turn rates for smooth motion.</li>
+<li>Debounce sensor changes and use timeouts to avoid oscillations at junctions.</li>
+</ul>
+<h2 id="troubleshooting-1"><a class="header" href="#troubleshooting-1">Troubleshooting</a></h2>
+<ul>
+<li>Robot gets stuck oscillating at corners: reduce speed, add a short delay after turns, and/or add hysteresis to “opening detected.”</li>
+<li>Loses the wall at gaps/doorways: keep moving forward briefly while searching for the wall again; if not found, slow down and rotate to reacquire.</li>
+<li>Drifts into walls: add a small proportional correction on measured right-wall distance.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="others-intro"><a class="header" href="#others-intro">Others Intro</a></h1>
 <p>Lorem Ipsum</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="linux"><a class="header" href="#linux">Linux</a></h1>

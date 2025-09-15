@@ -171,7 +171,7 @@ Predicts future behavior and reduces overshoot.</p>
 <p><img src="../images/pid_d_equation.png" alt="d equation"/></p>
 <h2 id="pid-implementation"><a class="header" href="#pid-implementation">PID Implementation</a></h2>
 <p>In digital systems, the continuous equation is approximated using discrete time intervals (dt):</p>
-<p><img src="../images/pid_psd_equation.png" alt="psd equation"/></p>
+<p><img src="../images/pid_psd_equation.png" alt="discrete PID equation"/></p>
 <h3 id="algorithm"><a class="header" href="#algorithm">Algorithm</a></h3>
 <ul>
 <li>Measure the current system output <code>y[k]</code>.</li>
@@ -184,10 +184,10 @@ Predicts future behavior and reduces overshoot.</p>
 <h2 id="example-code"><a class="header" href="#example-code">Example Code</a></h2>
 <pre><code class="language-python">class PIDController:
 
-    def __init__(self, kp, ki, kd, setpoint):
-        self.kp = kp 
-        self.ki = ki  
-        self.kd = kd 
+    def __init__(self, kp, ki, kd, setpoint=0.0, output_limits=(None, None), integral_limits=(None, None)):
+        self.kp = kp
+        self.ki = ki
+        self.kd = kd
         self.setpoint = setpoint
 
         self.previous_error = 0
@@ -210,6 +210,14 @@ Predicts future behavior and reduces overshoot.</p>
         output = proportional + integral + derivative
         return output
 </code></pre>
+<h3 id="practical-tips"><a class="header" href="#practical-tips">Practical Tips</a></h3>
+<ul>
+<li>Keep units consistent and sample time Δt stable; prefer a monotonic time base.</li>
+<li>Start with small gains to avoid saturation; increase gradually.</li>
+<li>Set <code>output_limits</code> to your actuator range (e.g., PWM 0–255) and use <code>integral_limits</code> to prevent windup.</li>
+<li>Consider computing the derivative on the measurement or apply a small low-pass filter to the D term if the signal is noisy.</li>
+<li>If the process variable is bounded (e.g., angle), consider wrapping errors appropriately.</li>
+</ul>
 <h2 id="pid-tuning"><a class="header" href="#pid-tuning">PID Tuning</a></h2>
 <h3 id="manual-tuning"><a class="header" href="#manual-tuning">Manual Tuning</a></h3>
 <p>Start with <code>Ki = 0</code> and <code>Kd = 0</code>.
@@ -227,7 +235,7 @@ Set parameters as:</p>
 <li><code>Kd = Kp * Tu / 8</code></li>
 </ul>
 <h3 id="common-problems"><a class="header" href="#common-problems">Common Problems</a></h3>
-<p><img src="../images/pid_plot.png" alt="psd equation"/></p>
+<p><img src="../images/pid_plot.png" alt="PID responses under different tunings"/></p>
 <ul>
 <li>Low <code>Kp</code> (slow response): The system reacts very slowly, taking a long time to reach the setpoint.</li>
 <li>High <code>Kp</code> (oscillations): The system overshoots and oscillates around the setpoint without damping.</li>
