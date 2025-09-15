@@ -271,6 +271,7 @@ int main(int argc, char* argv[]) {
 #pragma once
 
 #include &lt;iostream&gt;
+#include &lt;string&gt;
 #include &lt;rclcpp/rclcpp.hpp&gt;
 #include &lt;std_msgs/msg/float32.hpp&gt;
 #include &lt;chrono&gt;
@@ -290,7 +291,7 @@ public:
 
         // Create a timer
         timer_ = node_-&gt;create_wall_timer(
-            std::chrono::milliseconds(static_cast&lt;int&gt;(freq * 1000)),
+            std::chrono::milliseconds(static_cast&lt;int&gt;(1000.0 / freq)),
             std::bind(&amp;RosExampleClass::timer_callback, this));
 
         RCLCPP_INFO(node_-&gt;get_logger(), &quot;Node setup complete for topic: %s&quot;, topic.c_str());

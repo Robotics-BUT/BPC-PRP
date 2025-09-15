@@ -146,17 +146,17 @@
                         <h1 id="lab-5---motor-kinematics--gamepad"><a class="header" href="#lab-5---motor-kinematics--gamepad">Lab 5 - Motor, Kinematics &amp; Gamepad</a></h1>
 <p>Responsible: Ing. Jakub Minařík</p>
 <h2 id="tasks"><a class="header" href="#tasks">Tasks</a></h2>
-<p>End result of this laboratory should be estimate of position in Cartesian coordinates with origin in start position after driving robot.</p>
-<h3 id="1-motor-publisher-implementation"><a class="header" href="#1-motor-publisher-implementation">1. Motor publisher Implementation</a></h3>
+<p>The end result of this lab should be an estimate of position in Cartesian coordinates with the origin at the start position after driving the robot.</p>
+<h3 id="1-motor-publisher-implementation"><a class="header" href="#1-motor-publisher-implementation">1. Motor publisher implementation</a></h3>
 <ul>
-<li>Develop a <strong>motor node</strong> that publishes wheel velocity commands to a ROS topic (<code>/bpc_prp_robot/set_motor_speeds</code>).</li>
+<li>Develop a motor node that publishes wheel velocity commands to a ROS 2 topic (<code>/bpc_prp_robot/set_motor_speeds</code>).</li>
 <li>Ensure the node can send appropriate velocity commands to drive the robot’s wheels.</li>
 </ul>
-<h3 id="2-encoder-subscriber-implementation"><a class="header" href="#2-encoder-subscriber-implementation">2. Encoder subscriber Implementation</a></h3>
+<h3 id="2-encoder-subscriber-implementation"><a class="header" href="#2-encoder-subscriber-implementation">2. Encoder subscriber implementation</a></h3>
 <ul>
-<li>Extend the <strong>motor node</strong>  or create separate <strong>encoder node</strong>to subscribe to an encoder topic for both wheels(<code>/bpc_prp_robot/encoders</code>).</li>
+<li>Extend the motor node or create a separate encoder node to subscribe to an encoder topic for both wheels (<code>/bpc_prp_robot/encoders</code>).</li>
 </ul>
-<h3 id="3-robot-parameter-estimation"><a class="header" href="#3-robot-parameter-estimation">3. Robot Parameter Estimation</a></h3>
+<h3 id="3-robot-parameter-estimation"><a class="header" href="#3-robot-parameter-estimation">3. Robot parameter estimation</a></h3>
 <ul>
 <li>Measure, estimate, or derive key robot parameters, such as:
 <ul>
@@ -173,91 +173,66 @@
 </ul>
 </li>
 <li>The robot should execute the commanded speed for 1 second before stopping.</li>
-<li>Gearbox ration should be 1:48 and number of poles is propably 3 pairs of poles. Recomended to test if number of ticks makes full rotation of wheel.</li>
+<li>The gearbox ratio is 1:48 and the motor likely has 3 pole pairs. It is recommended to test whether the number of ticks corresponds to one full wheel rotation.</li>
 <li>Test whether the number of encoder ticks corresponds to a full wheel rotation by counting the ticks per revolution.</li>
-<li>For additional information, refer to the motor datasheets and check the <a href="https://github.com/Robotics-BUT/fenrir-project">robot's repository</a>.</li>
+<li>For additional information, refer to the motor datasheets and check the robot repository: https://github.com/Robotics-BUT/fenrir-project</li>
 </ul>
-<h3 id="4-kinematics-and-odometry-computation"><a class="header" href="#4-kinematics-and-odometry-computation">4. Kinematics and Odometry Computation</a></h3>
+<h3 id="4-kinematics-and-odometry-computation"><a class="header" href="#4-kinematics-and-odometry-computation">4. Kinematics and odometry computation</a></h3>
 <ul>
-<li>Implement a <strong>class for kinematics and odometry calculations</strong> for a differential drive robot.</li>
-<li>Compute the robot's pose (position and orientation) based on wheel velocities and time.</li>
+<li>Implement a class for kinematics and odometry calculations for a differential drive robot.</li>
+<li>Compute the robot pose (position and orientation) based on wheel velocities and time.</li>
 <li>Implement dead reckoning using wheel encoders.</li>
 </ul>
-<h3 id="5-encoder-data-processing"><a class="header" href="#5-encoder-data-processing">5. Encoder Data Processing</a></h3>
+<h3 id="5-encoder-data-processing"><a class="header" href="#5-encoder-data-processing">5. Encoder data processing</a></h3>
 <ul>
-<li>Develop a <strong>class for processing encoder data</strong> or add to kinematics/odometry class:
+<li>Develop a class for processing encoder data (or add to the kinematics/odometry class):
 <ul>
-<li>Estimate the robot’s displacement and position.</li>
+<li>Estimate the robot displacement and position.</li>
 <li>Apply correction mechanisms using encoder feedback to improve localization accuracy.</li>
 </ul>
 </li>
 </ul>
-<h3 id="6-optional-gamepad-control"><a class="header" href="#6-optional-gamepad-control">6. (Optional) Gamepad Control</a></h3>
+<h3 id="6-optional-gamepad-control"><a class="header" href="#6-optional-gamepad-control">6. (Optional) Gamepad control</a></h3>
 <ul>
-<li>Implement a <strong>gamepad</strong> node to manually control the robot’s movement.</li>
-<li>Handle relevant gamepad events and publish speed for them.</li>
+<li>Implement a gamepad node to manually control the robot movement.</li>
+<li>Handle relevant gamepad events and publish speeds for them.</li>
 </ul>
-<h4 id="instruction-for-gamepad---sdl2"><a class="header" href="#instruction-for-gamepad---sdl2">Instruction for Gamepad - SDL2</a></h4>
+<h4 id="instructions-for-gamepad--sdl2"><a class="header" href="#instructions-for-gamepad--sdl2">Instructions for gamepad — SDL2</a></h4>
 <ul>
-<li>Include SLD2 library <code>#include &lt;SDL2/SDL.h&gt;</code></li>
-<li>Inicialize SDL2 - <code>SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER)</code></li>
-<li>Find if joystick/gamepad is connected - <code>SDL_NumJoysticks()</code></li>
-<li>Create gamepad object - <code>SDL_GameControllerOpen(0)</code></li>
-<li>Poll events in a time loop — made using a ROS 2 timer
+<li>Include SDL2: <code>#include &lt;SDL2/SDL.h&gt;</code></li>
+<li>Initialize SDL2: <code>SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER)</code></li>
+<li>Check if a joystick/gamepad is connected: <code>SDL_NumJoysticks()</code></li>
+<li>Create a gamepad object: <code>SDL_GameControllerOpen(0)</code></li>
+<li>Poll events in a time loop (e.g., via a ROS 2 timer):
 <ul>
-<li>Create event object - <code>SDL_Event</code></li>
-<li>Poll events - <code>SDL_PollEvent()</code></li>
-<li>check event types - e.g. <code>SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLERBUTTONUP,SDL_CONTROLLERAXISMOTION</code></li>
-<li>handle the events and set speed and rotation</li>
-<li>publish ROS2 message</li>
+<li>Create an event object: <code>SDL_Event</code></li>
+<li>Poll events: <code>SDL_PollEvent()</code></li>
+<li>Check event types, e.g., <code>SDL_CONTROLLERBUTTONDOWN</code>, <code>SDL_CONTROLLERBUTTONUP</code>, <code>SDL_CONTROLLERAXISMOTION</code></li>
+<li>Handle events and set speed and rotation</li>
+<li>Publish a ROS 2 message</li>
 </ul>
 </li>
-<li>Close gamepad object correctly - <code>SDL_GameControllerClose()</code></li>
+<li>Close the gamepad object: <code>SDL_GameControllerClose()</code></li>
 </ul>
-<h2 id="tests-example"><a class="header" href="#tests-example">Tests Example</a></h2>
-<p>You can copy and create a test file from the example. You will propably need to rename the Kinematics class and its methods or correct parameter types as needed.</p>
+<h2 id="tests-example"><a class="header" href="#tests-example">Tests example</a></h2>
+<p>You can copy and create a test file from the example. You will probably need to rename the Kinematics class and its methods or correct parameter types as needed.</p>
 <pre><code class="language-c++">#include &lt;gtest/gtest.h&gt;
 #include &quot;../include/kinematics.hpp&quot;
 #include &lt;cmath&gt;
 
 using namespace algorithms;
 
-constexpr float ERROR = 0.001;
-constexpr float WHEEL_BASE = 0.12;
-constexpr float WHEEL_RADIUS = 0.033;
+constexpr float ERROR = 0.001f;
+constexpr float WHEEL_BASE = 0.12f;
+constexpr float WHEEL_RADIUS = 0.033f;
 constexpr float WHEEL_CIRCUMFERENCE = 2 * M_PI * WHEEL_RADIUS;
 constexpr int32_t PULSES_PER_ROTATION = 550;
 
-
 TEST(KinematicsTest, BackwardZeroVelocitySI) {
-    constexpr float linear = 0;
-    constexpr float angular = 0;
-    constexpr float expected_l = 0;
-    constexpr float expected_r = 0;
-
-    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.inverse(RobotSpeed {linear, angular});
-    EXPECT_NEAR(result.l, expected_l, ERROR);
-    EXPECT_NEAR(result.r, expected_r, ERROR);
-}
-
-TEST(KinematicsTest, BackwardPositiveLinearVelocitySI) {
-    constexpr float linear = 1.0;
-    constexpr float angular = 0;
-    constexpr float expected_l = 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI;
-    constexpr float expected_r = 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI;
-
-    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.inverse(RobotSpeed {linear,angular});
-    EXPECT_NEAR(result.l, expected_l, ERROR);
-    EXPECT_NEAR(result.r, expected_r, ERROR);
-}
-
-TEST(KinematicsTest, BackwardPositiveAngularVelocitySI) {
-    constexpr float linear = 1.0;
-    constexpr float angular = 0;
-    constexpr float expected_l = -(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
-    constexpr float expected_r = +(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
+    constexpr float linear = 0.0f;
+    constexpr float angular = 0.0f;
+    constexpr float expected_l = 0.0f;
+    constexpr float expected_r = 0.0f;
 
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
     auto result = kin.inverse(RobotSpeed{linear, angular});
@@ -265,74 +240,92 @@ TEST(KinematicsTest, BackwardPositiveAngularVelocitySI) {
     EXPECT_NEAR(result.r, expected_r, ERROR);
 }
 
-TEST(KinematicsTest, ForwardZeroWheelSpeedSI) {
-    constexpr float wheel_l = 0;
-    constexpr float wheel_r = 0;
-    constexpr float expected_l = 0;
-    constexpr float expected_a= 0;
+TEST(KinematicsTest, BackwardPositiveLinearVelocitySI) {
+    constexpr float linear = 1.0f;
+    constexpr float angular = 0.0f;
+    constexpr float expected_l = 1.0f / WHEEL_CIRCUMFERENCE * 2 * M_PI;
+    constexpr float expected_r = 1.0f / WHEEL_CIRCUMFERENCE * 2 * M_PI;
 
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.forward(WheelSpeed {wheel_l,wheel_r});
-    EXPECT_NEAR(result.v, expected_l, ERROR);
-    EXPECT_NEAR(result.w, expected_a, ERROR);
+    auto result = kin.inverse(RobotSpeed{linear, angular});
+    EXPECT_NEAR(result.l, expected_l, ERROR);
+    EXPECT_NEAR(result.r, expected_r, ERROR);
 }
 
-TEST(KinematicsTest, ForwardEqualWheelSpeedsSI) {
-    constexpr float wheel_l = 1;
-    constexpr float wheel_r = 1;
-    constexpr float expected_l = WHEEL_RADIUS;
-    constexpr float expected_a= 0;
+TEST(KinematicsTest, BackwardPositiveAngularVelocitySI) {
+    constexpr float linear = 1.0f;
+    constexpr float angular = 0.0f;
+    constexpr float expected_l = -(0.5f * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
+    constexpr float expected_r = +(0.5f * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
 
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.forward(WheelSpeed {wheel_l,wheel_r});
-    EXPECT_NEAR(result.v, expected_l, ERROR);
-    EXPECT_NEAR(result.w, expected_a, ERROR);
-}
-
-TEST(KinematicsTest, ForwardOppositeWheelSpeedsSI) {
-    constexpr float wheel_l = -1;
-    constexpr float wheel_r = 1;
-    constexpr float expected_l = 0;
-    constexpr float expected_a= (WHEEL_RADIUS / (0.5 * WHEEL_BASE));
-
-    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.forward(WheelSpeed {wheel_l,wheel_r});
-    EXPECT_NEAR(result.v, expected_l, ERROR);
-    EXPECT_NEAR(result.w, expected_a, ERROR);;
-}
-
-TEST(KinematicsTest, ForwardAndBackwardSI) {
-    constexpr float wheel_l = 1;
-    constexpr float wheel_r = -0.5;
-
-    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto lin_ang = kin.forward(WheelSpeed {wheel_l,wheel_r});
-    auto result = kin.inverse(lin_ang);
-    EXPECT_NEAR(result.l, wheel_l, ERROR);
-    EXPECT_NEAR(result.r, wheel_r, ERROR);
-}
-
-
-TEST(KinematicsTest, ForwardAndBackwardEncoderDiff) {
-    constexpr int encoder_l = 0;
-    constexpr int encoder_r = 550;
-
-    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto d_robot_pose = kin.forward(Encoders {encoder_l,encoder_r});
-    auto result = kin.inverse(d_robot_pose);
-    EXPECT_NEAR(result.l, encoder_l, 1);
-    EXPECT_NEAR(result.r, encoder_r, 1);
-}
-
-// Main function to run all tests
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&amp;argc, argv);
-    return RUN_ALL_TESTS();
+    auto result = kin.inverse(RobotSpeed{linear, angular});
+    EXPECT_NEAR(result.l, expected_l, ERROR);
+    EXPECT_NEAR(result.r, expected_r, ERROR);
 }
 </code></pre>
-<h2 id="kinematics-header-example"><a class="header" href="#kinematics-header-example">Kinematics Header Example</a></h2>
-<p>Only example of header - types needs to be corrected. Instead of structures you can use for example <code>std::pair</code>. Funtion working with coordinates are working with differences.</p>
-<pre><code class="language-c++"> struct RobotSpeed{
+<p>TEST(KinematicsTest, ForwardZeroWheelSpeedSI) {
+constexpr float wheel_l = 0;
+constexpr float wheel_r = 0;
+constexpr float expected_l = 0;
+constexpr float expected_a= 0;</p>
+<pre><code>Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+auto result = kin.forward(WheelSpeed {wheel_l,wheel_r});
+EXPECT_NEAR(result.v, expected_l, ERROR);
+EXPECT_NEAR(result.w, expected_a, ERROR);
+</code></pre>
+<p>}</p>
+<p>TEST(KinematicsTest, ForwardEqualWheelSpeedsSI) {
+constexpr float wheel_l = 1;
+constexpr float wheel_r = 1;
+constexpr float expected_l = WHEEL_RADIUS;
+constexpr float expected_a= 0;</p>
+<pre><code>Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+auto result = kin.forward(WheelSpeed {wheel_l,wheel_r});
+EXPECT_NEAR(result.v, expected_l, ERROR);
+EXPECT_NEAR(result.w, expected_a, ERROR);
+</code></pre>
+<p>}</p>
+<p>TEST(KinematicsTest, ForwardOppositeWheelSpeedsSI) {
+constexpr float wheel_l = -1;
+constexpr float wheel_r = 1;
+constexpr float expected_l = 0;
+constexpr float expected_a= (WHEEL_RADIUS / (0.5 * WHEEL_BASE));</p>
+<pre><code>Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+auto result = kin.forward(WheelSpeed {wheel_l,wheel_r});
+EXPECT_NEAR(result.v, expected_l, ERROR);
+EXPECT_NEAR(result.w, expected_a, ERROR);;
+</code></pre>
+<p>}</p>
+<p>TEST(KinematicsTest, ForwardAndBackwardSI) {
+constexpr float wheel_l = 1;
+constexpr float wheel_r = -0.5;</p>
+<pre><code>Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+auto lin_ang = kin.forward(WheelSpeed {wheel_l,wheel_r});
+auto result = kin.inverse(lin_ang);
+EXPECT_NEAR(result.l, wheel_l, ERROR);
+EXPECT_NEAR(result.r, wheel_r, ERROR);
+</code></pre>
+<p>}</p>
+<p>TEST(KinematicsTest, ForwardAndBackwardEncoderDiff) {
+constexpr int encoder_l = 0;
+constexpr int encoder_r = 550;</p>
+<pre><code>Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+auto d_robot_pose = kin.forward(Encoders {encoder_l,encoder_r});
+auto result = kin.inverse(d_robot_pose);
+EXPECT_NEAR(result.l, encoder_l, 1);
+EXPECT_NEAR(result.r, encoder_r, 1);
+</code></pre>
+<p>}</p>
+<p>// Main function to run all tests
+int main(int argc, char **argv) {
+::testing::InitGoogleTest(&amp;argc, argv);
+return RUN_ALL_TESTS();
+}</p>
+<pre><code>## Kinematics Header Example
+Only example of header - types needs to be corrected. Instead of structures you can use for example `std::pair`. Funtion working with coordinates are working with differences.
+```c++
+ struct RobotSpeed{
   float v; //linear
   float w; //angluar
  }
