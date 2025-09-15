@@ -20,14 +20,19 @@ Linear velocity `(v)`: Forward speed of the robot. `[m/s]`
 
 Angular velocity `(ω)`: Rate of rotation of the robot. `[rad/s]`
 
+Conventions:
+- Coordinate frame: x points forward, y points to the left (right-handed frame).
+- Positive angular velocity `ω` is counter-clockwise (CCW).
+- Wheel linear speeds `v_L`, `v_R` are positive when rolling forward.
+
 ## Wheel Velocities
 
 Left wheel angular velocity: `ωL`
 Right wheel angular velocity: `ωR`
 
-The linear velocities of the wheels are:
+The linear velocities of the wheels are (v_L = r·ω_L, v_R = r·ω_R):
 
-<p><img src="../images/dif_chass_vl_vr.png" alt="pid equation"/></p>
+<p><img src="../images/dif_chass_vl_vr.png" alt="wheel linear velocities"/></p>
 
 ## Forward Kinematics
 
@@ -38,6 +43,12 @@ Forward kinematics calculates the robot's linear and angular velocities based on
 The robot's linear velocity `(v)` and angular velocity `(ω)` are:
 
 <p><img src="../images/dif_chass_v_omega.png" alt="forward kinematics"/></p>
+
+#### Turning radius and ICC
+- Instantaneous Center of Curvature (ICC) lies at distance `R = v/ω` from the robot center, to the left for `ω > 0` and to the right for `ω < 0`.
+- Special cases:
+  - Straight motion: `ω = 0` → `R = ∞`.
+  - In-place rotation: `v = 0`, `ω ≠ 0` → `R = 0` (wheels spin in opposite directions with equal speed).
 
 ### Pose Update
 
@@ -71,10 +82,17 @@ def forward_kinematics(v_L, v_R, L):
 ```
 
 ```python
+import math
+
 def update_pose(x, y, theta, v, omega, dt):
     x_new = x + v * math.cos(theta) * dt
     y_new = y + v * math.sin(theta) * dt
     theta_new = theta + omega * dt
+    # Optional: normalize heading to [-pi, pi)
+    if theta_new > math.pi:
+        theta_new -= 2 * math.pi
+    elif theta_new <= -math.pi:
+        theta_new += 2 * math.pi
     return x_new, y_new, theta_new
 ```
 
@@ -87,7 +105,7 @@ def inverse_kinematics(v, omega, L):
 
 ## Exercise
 
-Write program which simulates differential chassis based on given input parameters.
+Write a program that simulates a differential-drive chassis based on the given input parameters.
 
 ### Simulation Parameters
 
@@ -98,5 +116,6 @@ Write program which simulates differential chassis based on given input paramete
 ### Tasks
 
  - Compute the pose of the robot after moving straight for 5 seconds with `v = 1 m/s`.
- - Simulate a circular motion with `v = 1 m/s` and `ω = 0.5 rad/s` .
- - Simulate a circular motion with `ωl = 1 m/s` and `ωr = 0.5 rad/s` .
+ - Simulate a circular motion with `v = 1 m/s` and `ω = 0.5 rad/s`. 
+ - Simulate a circular motion with `v_L = 1.0 m/s` and `v_R = 0.5 m/s`.
+ - Optional: If using wheel angular speeds instead, compute `v_L = r·ω_L` and `v_R = r·ω_R` first.

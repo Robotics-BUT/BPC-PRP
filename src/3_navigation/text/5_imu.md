@@ -1,6 +1,6 @@
 # IMU (Inertial Measurement Unit)
 
-Note: in this tutorial, by using the "gyroscope" word, we mean angular speed sensor. Properly said, the gyroscope is device that keeps constant orientation.
+Note: In this tutorial, by the term "gyroscope" we mean an angular rate sensor; strictly speaking, a gyroscope is a device that maintains orientation.
 
 In this tutorial, we will focus on how to process data from an Inertial Measurement Unit (IMU) to estimate orientation and position along a single degree of freedom (DoF). While an actual IMU measures 3-axis accelerations (from an accelerometer) and 3-axis angular velocities (from a gyroscope), we will simplify the problem by considering only one-dimensional motion and rotation. This simplification helps you gain intuition before extending the logic to three dimensions.
 
@@ -15,7 +15,7 @@ This tutorial will walk you through the math and give you a step-by-step procedu
 An IMU in one dimension can be thought of as providing two main signals:
 
  - Angular velocity, `ω(t)`, measured in radians per second `(rad/s)`. In a real IMU, this would come from the gyroscope (angular speed meter).
- - Linear acceleration, `a(t)`, measured in meters per second squared `(ms^-2)`. In a real IMU, this would come from the accelerometer.
+ - Linear acceleration, `a(t)`, measured in meters per second squared `(m/s^2)`. In a real IMU, this would come from the accelerometer.
 
 Assumptions to Simplify the Task:
 
@@ -45,7 +45,7 @@ If you sample `ω` at discrete time steps `tk = kΔt` (where `Δt` is the sampli
 
 <p><img src="../images/imu_orientatoin_int.png" alt="Integration of orientation"/></p>
 
-Here, `θk` and `ωk` are the angle and angular velocity at the kk-th timestep.
+Here, `θk` and `ωk` are the angle and angular velocity at the k-th time step.
 
 ## From Linear Acceleration to Position
 
@@ -86,7 +86,7 @@ But for clarity and consistency, you might update position using the updated vel
 
 Assume a sampling frequency of `fs = 100 Hz` (`Δt = 0.01s`).
 
-Suppose we have a constant angular velocity `ω = 0.1 rad/s` and a constant acceleration `a = 0.2 m/s`.
+Suppose we have a constant angular velocity `ω = 0.1 rad/s` and a constant acceleration `a = 0.2 m/s^2`. 
 
 Initial orientation: `θ0 = 0 rad`.
 
@@ -129,7 +129,7 @@ Next step:
 ## Practical Considerations
 
  - Noise and Biases: Real IMU data is noisy. Integrating noisy data leads to drift. In practice, filtering (e.g., using a Kalman filter or complementary filter) is essential.
- - Gravity Compensation: If you are working in 3D, you must subtract the gravity vector from the accelerometer reading to isolate the linear acceleration. In 1D, if your axis is aligned vertically, you must subtract out `g = 9.81 ms^-2`.
+ - Gravity Compensation: If you are working in 3D, you must subtract the gravity vector from the accelerometer reading to isolate the linear acceleration. In 1D, if your axis is aligned vertically, you must subtract out `g = 9.81 m/s^2`. 
  - Sampling Rate and Integration Method: We used a simple Euler method. More accurate integration schemes (e.g., trapezoidal, Runge-Kutta) can improve accuracy.
 
 ## Example Code

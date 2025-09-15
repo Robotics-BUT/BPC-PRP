@@ -22,7 +22,7 @@ Left Sensor (S1): Detects the line under the left side.
 
 Right Sensor (S2): Detects the line under the right side.
 
-Sensors usually output digital signals (1 for line detected, 0 for no line) or the analog signal (high voltage for line detected, low voltage for no line).
+Sensors usually output digital signals (1 for line detected, 0 for no line) or an analog signal (higher value for line detected, lower for no line), depending on the sensor type.
 
 ### Control Principles
 
@@ -74,7 +74,7 @@ Right Motor Speed = Base Speed + (Kp * ε + Kd * ∆ε / Δt)
 
 ### Flowchart of the Algorithm
  - Read sensor values.
- - Calculate the error (∆ε) and its derivative (Δ∆ε / Δt).
+ - Calculate the error ε and its derivative (dε/dt ≈ Δε/Δt).
  - Determine motor speeds using the control formula.
  - Drive the motors.
  - Repeat.

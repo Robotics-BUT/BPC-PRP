@@ -45,7 +45,7 @@ Predicts future behavior and reduces overshoot.
 
 In digital systems, the continuous equation is approximated using discrete time intervals (dt):
 
-<p><img src="../images/pid_psd_equation.png" alt="psd equation"/></p>
+<p><img src="../images/pid_psd_equation.png" alt="discrete PID equation"/></p>
 
 ### Algorithm
 
@@ -61,10 +61,10 @@ In digital systems, the continuous equation is approximated using discrete time 
 ```python
 class PIDController:
 
-    def __init__(self, kp, ki, kd, setpoint):
-        self.kp = kp 
-        self.ki = ki  
-        self.kd = kd 
+    def __init__(self, kp, ki, kd, setpoint=0.0, output_limits=(None, None), integral_limits=(None, None)):
+        self.kp = kp
+        self.ki = ki
+        self.kd = kd
         self.setpoint = setpoint
 
         self.previous_error = 0
@@ -88,6 +88,13 @@ class PIDController:
         return output
 ```
 
+### Practical Tips
+- Keep units consistent and sample time Δt stable; prefer a monotonic time base.
+- Start with small gains to avoid saturation; increase gradually.
+- Set `output_limits` to your actuator range (e.g., PWM 0–255) and use `integral_limits` to prevent windup.
+- Consider computing the derivative on the measurement or apply a small low-pass filter to the D term if the signal is noisy.
+- If the process variable is bounded (e.g., angle), consider wrapping errors appropriately.
+
 ## PID Tuning
 
 ### Manual Tuning
@@ -109,7 +116,7 @@ Set parameters as:
 
 ### Common Problems
 
-<p><img src="../images/pid_plot.png" alt="psd equation"/></p>
+<p><img src="../images/pid_plot.png" alt="PID responses under different tunings"/></p>
 
  - Low `Kp` (slow response): The system reacts very slowly, taking a long time to reach the setpoint.
  - High `Kp` (oscillations): The system overshoots and oscillates around the setpoint without damping.
