@@ -224,7 +224,6 @@ int main() {
     return 0;
 }
 </code></pre>
-<p>Note: Arguments are passed by value by default. To pass references, use std::ref().</p>
 <h3 id="detaching-threads"><a class="header" href="#detaching-threads">Detaching Threads</a></h3>
 <ul>
 <li><code>t.detach()</code> makes the thread run independently; the main thread does not wait for it.</li>
@@ -233,8 +232,7 @@ int main() {
 <h2 id="synchronization-mechanisms"><a class="header" href="#synchronization-mechanisms">Synchronization Mechanisms</a></h2>
 <h3 id="mutex-and-lock-guards"><a class="header" href="#mutex-and-lock-guards">Mutex and Lock Guards</a></h3>
 <p>To avoid data races, you typically protect shared data with a mutex. Only one thread can lock a mutex at a time.</p>
-<pre><code class="language-c++">`
-// Example 4: Using std::mutex and std::lock_guard
+<pre><code class="language-c++">// Example 4: Using std::mutex and std::lock_guard
 #include &lt;iostream&gt;
 #include &lt;thread&gt;
 #include &lt;mutex&gt;
@@ -284,6 +282,7 @@ int main() {
 #include &lt;mutex&gt;
 #include &lt;condition_variable&gt;
 #include &lt;queue&gt;
+#include &lt;chrono&gt;
 
 std::mutex mtx;
 std::condition_variable cv;
@@ -453,6 +452,14 @@ int main() {
 <li>C++ has a well-defined memory model for atomic operations and synchronization.</li>
 </ul>
 </li>
+</ul>
+<h2 id="resources"><a class="header" href="#resources">Resources</a></h2>
+<ul>
+<li>C++ reference for threads: https://en.cppreference.com/w/cpp/thread</li>
+<li>C++ reference for mutexes and locks: https://en.cppreference.com/w/cpp/thread/mutex</li>
+<li>Condition variables: https://en.cppreference.com/w/cpp/thread/condition_variable</li>
+<li>Atomics and memory order: https://en.cppreference.com/w/cpp/atomic</li>
+<li>ThreadSanitizer (data race detector): https://github.com/google/sanitizers/wiki/ThreadSanitizer</li>
 </ul>
 
                     </main>
