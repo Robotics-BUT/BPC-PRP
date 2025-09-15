@@ -3,63 +3,58 @@
 Responsible: Ing. Jakub Minařík
 
 ## Tasks
-End result of this laboratory should be estimate of position in Cartesian coordinates with origin in start position after driving robot.
+The end result of this lab should be an estimate of position in Cartesian coordinates with the origin at the start position after driving the robot.
 
-### 1. Motor publisher Implementation  
-- Develop a **motor node** that publishes wheel velocity commands to a ROS topic (`/bpc_prp_robot/set_motor_speeds`).  
+### 1. Motor publisher implementation
+- Develop a motor node that publishes wheel velocity commands to a ROS 2 topic (`/bpc_prp_robot/set_motor_speeds`).
 - Ensure the node can send appropriate velocity commands to drive the robot’s wheels.
 
+### 2. Encoder subscriber implementation
+- Extend the motor node or create a separate encoder node to subscribe to an encoder topic for both wheels (`/bpc_prp_robot/encoders`).
 
-### 2. Encoder subscriber Implementation  
-- Extend the **motor node**  or create separate **encoder node**to subscribe to an encoder topic for both wheels(`/bpc_prp_robot/encoders`).
-
-
-
-### 3. Robot Parameter Estimation  
-- Measure, estimate, or derive key robot parameters, such as:  
-  - The relationship between commanded wheel velocity and actual wheel rotation speed.  
-  - The relationship between wheel velocity, wheel radius, and chassis dimensions.  
-  - The kinematic constraints affecting the robot’s movement.  
+### 3. Robot parameter estimation
+- Measure, estimate, or derive key robot parameters, such as:
+  - The relationship between commanded wheel velocity and actual wheel rotation speed.
+  - The relationship between wheel velocity, wheel radius, and chassis dimensions.
+  - The kinematic constraints affecting the robot’s movement.
 - Motor control values are represented as unsigned 8-bit integers (0–255):
   - A value of 127 corresponds to a neutral state (motors do not move).
   - Values greater than 127 cause the wheels to rotate forward.
   - Values less than 127 cause the wheels to rotate backward.
 - The robot should execute the commanded speed for 1 second before stopping.
-- Gearbox ration should be 1:48 and number of poles is propably 3 pairs of poles. Recomended to test if number of ticks makes full rotation of wheel.
+- The gearbox ratio is 1:48 and the motor likely has 3 pole pairs. It is recommended to test whether the number of ticks corresponds to one full wheel rotation.
 - Test whether the number of encoder ticks corresponds to a full wheel rotation by counting the ticks per revolution.
-- For additional information, refer to the motor datasheets and check the [robot's repository](https://github.com/Robotics-BUT/fenrir-project).
+- For additional information, refer to the motor datasheets and check the robot repository: https://github.com/Robotics-BUT/fenrir-project
 
+### 4. Kinematics and odometry computation
+- Implement a class for kinematics and odometry calculations for a differential drive robot.
+- Compute the robot pose (position and orientation) based on wheel velocities and time.
+- Implement dead reckoning using wheel encoders.
 
-### 4. Kinematics and Odometry Computation  
-- Implement a **class for kinematics and odometry calculations** for a differential drive robot.  
-- Compute the robot's pose (position and orientation) based on wheel velocities and time.
-- Implement dead reckoning using wheel encoders.  
+### 5. Encoder data processing
+- Develop a class for processing encoder data (or add to the kinematics/odometry class):
+  - Estimate the robot displacement and position.
+  - Apply correction mechanisms using encoder feedback to improve localization accuracy.
 
-### 5. Encoder Data Processing  
-- Develop a **class for processing encoder data** or add to kinematics/odometry class:  
-  - Estimate the robot’s displacement and position.  
-  - Apply correction mechanisms using encoder feedback to improve localization accuracy.  
+### 6. (Optional) Gamepad control
+- Implement a gamepad node to manually control the robot movement.
+- Handle relevant gamepad events and publish speeds for them.
 
-### 6. (Optional) Gamepad Control  
-- Implement a **gamepad** node to manually control the robot’s movement.  
-- Handle relevant gamepad events and publish speed for them.  
+#### Instructions for gamepad — SDL2
+- Include SDL2: `#include <SDL2/SDL.h>`
+- Initialize SDL2: `SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER)`
+- Check if a joystick/gamepad is connected: `SDL_NumJoysticks()`
+- Create a gamepad object: `SDL_GameControllerOpen(0)`
+- Poll events in a time loop (e.g., via a ROS 2 timer):
+  - Create an event object: `SDL_Event`
+  - Poll events: `SDL_PollEvent()`
+  - Check event types, e.g., `SDL_CONTROLLERBUTTONDOWN`, `SDL_CONTROLLERBUTTONUP`, `SDL_CONTROLLERAXISMOTION`
+  - Handle events and set speed and rotation
+  - Publish a ROS 2 message
+- Close the gamepad object: `SDL_GameControllerClose()`
 
-#### Instruction for Gamepad - SDL2
-- Include SLD2 library `#include <SDL2/SDL.h>`
-- Inicialize SDL2 - `SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER)`
-- Find if joystick/gamepad is connected - `SDL_NumJoysticks()`
-- Create gamepad object - `SDL_GameControllerOpen(0)`
-- Poll events in a time loop — made using a ROS 2 timer
-  - Create event object - `SDL_Event`
-  - Poll events - `SDL_PollEvent()`
-  - check event types - e.g. `SDL_CONTROLLERBUTTONDOWN,SDL_CONTROLLERBUTTONUP,SDL_CONTROLLERAXISMOTION`
-  - handle the events and set speed and rotation
-  - publish ROS2 message
-- Close gamepad object correctly - `SDL_GameControllerClose()`
-
-
-## Tests Example
-You can copy and create a test file from the example. You will propably need to rename the Kinematics class and its methods or correct parameter types as needed.
+## Tests example
+You can copy and create a test file from the example. You will probably need to rename the Kinematics class and its methods or correct parameter types as needed.
 ```c++
 #include <gtest/gtest.h>
 #include "../include/kinematics.hpp"
@@ -67,48 +62,48 @@ You can copy and create a test file from the example. You will propably need to 
 
 using namespace algorithms;
 
-constexpr float ERROR = 0.001;
-constexpr float WHEEL_BASE = 0.12;
-constexpr float WHEEL_RADIUS = 0.033;
+constexpr float ERROR = 0.001f;
+constexpr float WHEEL_BASE = 0.12f;
+constexpr float WHEEL_RADIUS = 0.033f;
 constexpr float WHEEL_CIRCUMFERENCE = 2 * M_PI * WHEEL_RADIUS;
 constexpr int32_t PULSES_PER_ROTATION = 550;
 
-
 TEST(KinematicsTest, BackwardZeroVelocitySI) {
-    constexpr float linear = 0;
-    constexpr float angular = 0;
-    constexpr float expected_l = 0;
-    constexpr float expected_r = 0;
-
-    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.inverse(RobotSpeed {linear, angular});
-    EXPECT_NEAR(result.l, expected_l, ERROR);
-    EXPECT_NEAR(result.r, expected_r, ERROR);
-}
-
-TEST(KinematicsTest, BackwardPositiveLinearVelocitySI) {
-    constexpr float linear = 1.0;
-    constexpr float angular = 0;
-    constexpr float expected_l = 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI;
-    constexpr float expected_r = 1.0 / WHEEL_CIRCUMFERENCE * 2 * M_PI;
-
-    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
-    auto result = kin.inverse(RobotSpeed {linear,angular});
-    EXPECT_NEAR(result.l, expected_l, ERROR);
-    EXPECT_NEAR(result.r, expected_r, ERROR);
-}
-
-TEST(KinematicsTest, BackwardPositiveAngularVelocitySI) {
-    constexpr float linear = 1.0;
-    constexpr float angular = 0;
-    constexpr float expected_l = -(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
-    constexpr float expected_r = +(0.5 * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
+    constexpr float linear = 0.0f;
+    constexpr float angular = 0.0f;
+    constexpr float expected_l = 0.0f;
+    constexpr float expected_r = 0.0f;
 
     Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
     auto result = kin.inverse(RobotSpeed{linear, angular});
     EXPECT_NEAR(result.l, expected_l, ERROR);
     EXPECT_NEAR(result.r, expected_r, ERROR);
 }
+
+TEST(KinematicsTest, BackwardPositiveLinearVelocitySI) {
+    constexpr float linear = 1.0f;
+    constexpr float angular = 0.0f;
+    constexpr float expected_l = 1.0f / WHEEL_CIRCUMFERENCE * 2 * M_PI;
+    constexpr float expected_r = 1.0f / WHEEL_CIRCUMFERENCE * 2 * M_PI;
+
+    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+    auto result = kin.inverse(RobotSpeed{linear, angular});
+    EXPECT_NEAR(result.l, expected_l, ERROR);
+    EXPECT_NEAR(result.r, expected_r, ERROR);
+}
+
+TEST(KinematicsTest, BackwardPositiveAngularVelocitySI) {
+    constexpr float linear = 1.0f;
+    constexpr float angular = 0.0f;
+    constexpr float expected_l = -(0.5f * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
+    constexpr float expected_r = +(0.5f * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
+
+    Kinematics kin(WHEEL_RADIUS, WHEEL_BASE, PULSES_PER_ROTATION);
+    auto result = kin.inverse(RobotSpeed{linear, angular});
+    EXPECT_NEAR(result.l, expected_l, ERROR);
+    EXPECT_NEAR(result.r, expected_r, ERROR);
+}
+```
 
 TEST(KinematicsTest, ForwardZeroWheelSpeedSI) {
     constexpr float wheel_l = 0;

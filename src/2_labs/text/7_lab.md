@@ -2,7 +2,7 @@
 
 **Responsible:** Ing. Petr Šopák
 
-### Learning Objectives
+## Learning objectives
 
 1) **Bang-Bang Line Following (ON/OFF Control)**
 2) **Line Following with P-Control**
@@ -15,7 +15,7 @@ In previous lab sessions, *you developed ROS 2 nodes for*:
 
 Now, your task is to develop a **strategy for line following** – that is, responding to the estimated line position and ensuring the robot tracks the line correctly. You will start with the *simplest approach* (Bang-Bang control) and progressively refine it to implement *PID regulation*.
 
-For more details, see the [Line Following section](https://github.com/Robotics-BUT/BPC-PRP/blob/lab_7_branch/src/3_navigation/text/3_line_following.md).
+For more details, see the Line following chapter: [Line following](../../3_navigation/text/3_line_following.md).
 
 ## Bang-Bang Line Following (Approx. 1 hour)
 
@@ -27,12 +27,12 @@ Bang-Bang is the most basic control method. Instead of smoothly adjusting the sp
 
 This method **can be implemented using either digital or analog sensor outputs**. Since digital outputs already behave like ON/OFF signals, Bang-Bang logic is straightforward. However, in this lab, we will focus on the **analog output**, which requires setting a threshold to decide when the robot should turn.
 
-The entire algorithm is illustrated in [Figure 1](bangDiagram). The process consists of reading the estimated line position and comparing it to a **user-defined threshold**. Based on this comparison, the robot's movement is determined.
+The entire algorithm is illustrated in [Figure 1](#bangDiagram). The process consists of reading the estimated line position and comparing it to a **user-defined threshold**. Based on this comparison, the robot's movement is determined.
 
 The flowchart provides a **generalized structure** for Bang-Bang control. However, the specific **comparison logic** and the **velocity values** sent to the wheels **depend on your own implementation**. It is up to you to decide how to structure the control logic in your code.
 
 <p id="bangDiagram" align="center">
-  <img src="../images/bang_bang_flowchart.png" alt="alt text" width="450" height="400">
+  <img src="../images/bang_bang_flowchart.png" alt="Bang-bang control flowchart" width="450" height="400">
 </p>
 <p align="center">
     <em> Figure 1: Flowchart for Bang-Bang Control </em>
@@ -46,7 +46,7 @@ To fine-tune the performance, it is recommended to start with a **higher thresho
   - Inside the `src` and `include` directories, create a new folder named `loops`.
   - In this folder, create two files: `line_loop.cpp` and `line_loop.hpp`.
   - These files will define a ROS 2 node that implements a periodic control loop using a timer callback (e.g., `line_loop_timer_callback()`).
-  -  The loop should regularly read the estimated line position, compute the control action and send appropriate speed commands to the robot's motors.
+  - The loop should regularly read the estimated line position, compute the control action, and send appropriate speed commands to the robot's motors.
 2) Implement **Bang-Bang Line Control** based on the guidelines provided in the lab description.
 3) Experiment with different threshold values and observe how the robot behaves and analyze the **advantages and limitations** of Bang-Bang control.
 
@@ -70,7 +70,7 @@ $$
 
 This means that when the robot is **far from the center**, it **turns more sharply**. When it is **close to the center**, it makes **minor corrections**. If the line is perfectly centered, the robot moves straight. The higher the proportional gain *K<sub>P</sub>*, the stronger the response to the error. However, if *K<sub>P</sub>* is too high, the robot may start oscillating.
 
-The process of P-Control is illustrated in [Figure 2](pContDiagram). The robot reads the estimated position of the line, calculates the error, applies the proportional formula to determine angular velocity, and then sends this velocity to the motion control node, which executes the movement.
+The process of P-Control is illustrated in [Figure 2](#pContDiagram). The robot reads the estimated position of the line, calculates the error, applies the proportional formula to determine angular velocity, and then sends this velocity to the motion control node, which executes the movement.
 
 <p id="pContDiagram" align="center">
   <img src="../images/p_control_flowchart.png" alt="P Control Flowchart" width="200" height="350">
@@ -121,13 +121,13 @@ A key part of implementing P-Control is choosing the right value for *K<sub>P</s
   }
   ```
 
-2) Reuse your `Lineloop` class from Task 1 and modify the control logic inside `line_loop_timer_callback()` to implement a **Proportional controller**.
+2) Reuse your `LineLoop` class from Task 1 and modify the control logic inside `line_loop_timer_callback()` to implement a **Proportional controller**.
 3) Experiment with different values of the proportional gain *K<sub>P</sub>* and determine the most suitable value.
 4) Observe the performance and assess if further refinement is needed.
 5) Write simple unit tests for the `Pid` class in a separate file named `pid_test.cpp`. Here's an example that tests the response of the P-controller to a unit step input:
 
   ```c++
-  #include "solution/algorithms/pid.hpp"
+  #include "algorithms/pid.hpp"
   #include <iostream>
   #include <cassert>
   #include <cmath>
@@ -178,7 +178,7 @@ $$
 
 The **integral term** helps eliminate steady-state errors, ensuring the robot remains centered over time. The **derivative term** improves responsiveness by counteracting rapid changes, preventing overshooting and oscillations.
 
-The overall process is illustrated in [Figure 3](pidContDiagram). The robot reads the estimated line position, computes the error, applies the PID formula, and sends the adjusted velocity command to the motion control node.
+The overall process is illustrated in [Figure 3](#pidContDiagram). The robot reads the estimated line position, computes the error, applies the PID formula, and sends the adjusted velocity command to the motion control node.
 
 <p id="pidContDiagram" align="center">
   <img src="../images/pid_flowchart.png" alt="PID Control Flowchart" width="200" height="400">
@@ -187,9 +187,9 @@ The overall process is illustrated in [Figure 3](pidContDiagram). The robot read
     <em> Figure 3:  Flowchart for PID Control </em>
 </p>
 
-Tuning *K<sub>P</sub>*, *K<sub>i</sub>*, *K<sub>d</sub>* is essential for optimal performance. If *K<sub>P</sub>* is too high, the robot may oscillate. If *K<sub>i</sub>* is too high, the robot may overcorrect. If *K<sub>d</sub>* is too high, the robot may become too sensitive to small errors. A common approach is to start with only *K<sub>P</sub>*, then add *K<sub>d</sub>*, and finally fine-tune *K<sub>d</sub>* to eliminate steady-state error.
+Tuning *K<sub>P</sub>*, *K<sub>i</sub>*, *K<sub>d</sub>* is essential for optimal performance. If *K<sub>P</sub>* is too high, the robot may oscillate. If *K<sub>i</sub>* is too high, the robot may overcorrect. If *K<sub>d</sub>* is too high, the robot may become too sensitive to small errors. A common approach is to start with only *K<sub>P</sub>*, then add *K<sub>d</sub>*, and finally add *K<sub>i</sub>* to eliminate steady-state error.
 
-**For more information on PID Control implementation and tuning methods, please refer to the [**PID section**](https://github.com/Robotics-BUT/BPC-PRP/blob/master/src/3_navigation/text/2_pid.md)**
+For more information on PID control implementation and tuning methods, see [PID](../../3_navigation/text/2_pid.md).
 
 -----------------------------------------------------------------------------------------------
 **TASK 3**
@@ -197,4 +197,4 @@ Tuning *K<sub>P</sub>*, *K<sub>i</sub>*, *K<sub>d</sub>* is essential for optima
 2) Choose a **tuning method** (either manual tuning or the Ziegler-Nichols method) and find the optimal values for *K<sub>P</sub>*, *K<sub>i</sub>*, *K<sub>d</sub>*.
 3) Observe the differences between PID control and the previous line-following methods. Analyze how each component affects the robot’s performance.
 4) (Optional) Implement output saturation (clamping). Real robots cannot turn infinitely fast. If your PID controller outputs a very large value (e.g. due to a sharp error), you should **limit (saturate) it to a safe range.**
-5) (Optional) Implement Anti-Windup. The integral term in a PID controller can sometimes accumulate too much (especially when the output is saturated), which leads to overshooting or instability. This is called integral windup. To prevent this, implement anti-windup, for example disabling integration when output is saturated or limiting the maximum integral value
+5) (Optional) Implement anti-windup. The integral term in a PID controller can sometimes accumulate too much (especially when the output is saturated), which leads to overshooting or instability. This is called integral windup. To prevent this, implement anti-windup, for example disabling integration when output is saturated or limiting the maximum integral value.

@@ -2,101 +2,94 @@
 
 Responsible: Ing. Adam Ligocki, Ph.D.
 
-## Line Sensor Usage (1h)
+## Line sensor usage (1 h)
 
-In the first section we are going to write a basic interface with the line sensor backend and we will study the raw data.
+In this section, you will create a basic interface to the line sensor backend and inspect raw data.
 
-### Line Sensor Explained
+### Line sensor explained
 
-We are using the `TCRT5000` line sensor. 
+We use the TCRT5000 reflective line sensor.
 
-It consists of an infrared LED and a phototransistor placed next to each other. When powered, the LED emits infrared light, and if a reflective surface (such as a white line) is placed in front of it, the phototransistor detects the reflected signal. The amount of reflected light changes depending on the color and surface characteristics of the object below the sensor, allowing the TCRT5000 to distinguish between light and dark areas. By interpreting the output of the phototransistor, microcontrollers or other circuitry can determine whether the sensor is over a reflective (light) line or a non-reflective (dark) background, enabling robust line tracking and detection functionality.
+It consists of an infrared LED and a phototransistor placed next to each other. The LED emits IR light; a reflective surface (e.g., a white line) bounces light back to the phototransistor. The amount of reflected light depends on the surface, so the sensor distinguishes light vs. dark areas. By reading the phototransistor output, your code can decide whether the sensor is over a reflective (light) line or a non‑reflective (dark) background.
 
-![](../images/line_sensor_schematics.png)
+![TCRT5000 line sensor schematics](../images/line_sensor_schematics.png)
 
-Schamatics from: https://osoyoo.com/2017/08/15/tcrt5000-infrared-line-tracking-sensor/
+Image source: https://osoyoo.com/2017/08/15/tcrt5000-infrared-line-tracking-sensor/
 
-To understand the output value of the line sensor, please study and understand the following sensor characteristics.
+To interpret the output value, study the following characteristic curve.
 
-![](../images/line_sensor_char.png)
+![TCRT5000 response characteristic](../images/line_sensor_char.png)
 
-If the sensor is above the dark line, there is no interaction between the IR LED and phototransisor. The phototransistor is closed and the voltage produce large voltage on the analog output.
+- Over a dark line: little IR returns, the phototransistor is off, and the analog output voltage is high.
+- Over a white (reflective) surface: more IR returns, the phototransistor conducts, and the analog output voltage is low (near ground on A0).
 
-If the sensor is above the white (reflective) surface, the IR light from photodiode opens transistor and the analog output `A0` is grounded. The voltage drops low.
+Discuss the slope of the curve and the usable range for your application.
 
-Study the slope of the characteristics and discuss the sensor range.
+### Differential sensor usage
 
-### Differential Sensor Usage
+Consider using two line sensors in a differential configuration. Treat one sensor as positive and the other as negative. With a clever placement, summing their outputs gives a good estimate of the robot’s lateral position relative to the line.
 
-Consider using two line sensors in the differential connection. One sensor is considered as a signal with positive sign and the other sensor is considered as a sensor with negative sign.
+![Differential line sensor arrangement](../images/line_sensor_diff.png)
 
-If we make a cleaver design, we can get a very good guess of robot's position relative to the line just by adding the sensor output values together.
+What about the gap between sensors? How does it affect the line‑following behavior?
 
-![](../images/line_sensor_diff.png).
+### Line node implementation
 
-What about the gap in between the sensors? How it effects line following process?
+Implement a LineNode class that receives data and encapsulates the line estimation for the rest of the program.
 
-### Line Node Implementation
-
-Now it is time to implement the `LineNode`, the class that will receive data and encapsulate the line estimation process for the rest of the program.
-
-Create a new files according to you project's code conventions and implement the data receiving from the `/bpc_prp_robot/line_sensors`.
-
-The message on the `/bpc_prp_robot/line_sensors` topic is of the `std_msgs::msg::UInt16MultiArray` type.
+- Create new files according to your project’s conventions.
+- Subscribe to the topic `/bpc_prp_robot/line_sensors`.
+- Message type: `std_msgs::msg::UInt16MultiArray`.
 
 ```c++
-    enum class DiscreteLinePose {
-        LineOnLeft,
-        LineOnRight,
-        LineNone,
-        LineBoth,
-    };
-    
-    class LineNode : public rclcpp::Node {
-    public:
-        
-        LineNode();
-        
-        ~LineNode();
+// Public API sketch; adapt to your project
+enum class DiscreteLinePose {
+    LineOnLeft,
+    LineOnRight,
+    LineNone,
+    LineBoth,
+};
 
-        // relative pose to line in meters
-        float get_continuous_line_pose() const;
-    
-        DiscreteLinePose get_discrete_line_pose() const;
-    
-    private:
-  
-        rclcpp::Subscription<std_msgs::msg::UInt16MultiArray>::SharedPtr line_sensors_subscriber_;
-    
-        void on_line_sensors_msg(std::shared_ptr<std_msgs::msg::UInt16MultiArray> msg);
-    
-        float estimate_continuous_line_pose(float left_value, float right_value);
-    
-        DiscreteLinePose estimate_descrete_line_pose(float l_norm, float r_norm);
-    };
+class LineNode : public rclcpp::Node {
+public:
+    LineNode();
+    ~LineNode();
+
+    // Relative pose to line [m]
+    float get_continuous_line_pose() const;
+
+    DiscreteLinePose get_discrete_line_pose() const;
+
+private:
+    rclcpp::Subscription<std_msgs::msg::UInt16MultiArray>::SharedPtr line_sensors_subscriber_;
+
+    void on_line_sensors_msg(const std_msgs::msg::UInt16MultiArray::SharedPtr& msg);
+
+    float estimate_continuous_line_pose(float left_value, float right_value);
+
+    DiscreteLinePose estimate_discrete_line_pose(float l_norm, float r_norm);
+};
 ```
 
-Run the program and try to print out the measured values.
+Run the program and print the measured values for verification.
 
-## Line Position Estimation (1H)
+## Line position estimation (1 h)
 
-In this section we will focus on the line position estimation. Our target is to write a class that will encapsulate line position estimation. The input of this algorithm is the left and right sensor values. The output is both, the discrete or Continuous position of the robot relativelly to the line.  
+Now focus on estimating the line position. Create a class that encapsulates the algorithm. Inputs are left and right sensor values. Outputs are both the discrete and continuous position of the robot relative to the line.
 
-Try to develop this class by the [Test Driven Development](https://en.wikipedia.org/wiki/Test-driven_development). First write tests, than implement the algorithm.
+Use test‑driven development (TDD): write tests first, then implement the algorithm.
 
 ```c++
-
-#include <iostream>
+// Minimal GTest example for a line estimator
+#include <cstdint>
 #include <gtest/gtest.h>
-TEST(LineEstimator, line_estimator_test_1) {
+
+TEST(LineEstimator, BasicDiscreteEstimation) {
     uint16_t left_value = 0;
     uint16_t right_value = 1024;
-    auto result = LineEstimator::estimate_discrete(left, right);
-    
-    EXPECT_EQ(result, /* ... */);
+    auto result = LineEstimator::estimate_discrete(left_value, right_value);
+    EXPECT_EQ(result, /* expected pose */);
 }
-
-// ...
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
@@ -104,54 +97,50 @@ int main(int argc, char **argv) {
 }
 ```
 
-By separating the line estimation algorithm into separated class, you will improve the test writing experience compared to the line estimation directly in the `LineNode` class.
+By separating the algorithm into its own class, you make testing easier than embedding the logic directly inside LineNode.
 
-### Discrete Approach
+### Discrete approach
 
-Write and test method that will provide your future program with discrete position of the robot relative to the line. See previous examples. 
-
-```c++
-    class LineEstimator {
-    
-        static DiscreteLinePose estimate_discrete_line_pose(uint16_t left_val, uint16_t right_val);
-    
-    };
-```
-
-### Continuous Approach
-
-Try the same for the continuous domain. Sensor's raw values on input and float or double value on the output. Tip: scale output to SI units.
+Provide a method that returns a discrete position relative to the line.
 
 ```c++
-    class LineEstimator {
-    
-        static float estimate_continuous_line_pose(uint16_t left_val, uint16_t right_val);
-    
-    };
+class LineEstimator {
+public:
+    static DiscreteLinePose estimate_discrete_line_pose(uint16_t left_val, uint16_t right_val);
+};
 ```
 
-## Line Sensor Calibration and Arrangement (1h)
+### Continuous approach
 
-Now it is time to take a closer look on the sensor setup. On every robot the sensors are places a little bit differently (different place, rotation, height above the ground, different electrical composition (wiring, resistos values, ICs, etc.). 
-
-At the beginning of each ride, you should calibrate the sensors, so the algorithm can expect similar if not the same values on thi input,
-
-### How to calibrate sensor
-
-Basically, the most important is to catch the maximum and minimum sensor response (max reflexcion and minimum leflexion) an normalize the output, so your algorithm always works with same data range.
+Do the same for the continuous case. Use raw sensor values as input and return a floating‑point lateral offset. Tip: scale the output to SI units [m].
 
 ```c++
-    auto calibrated_val = (raw_val - min_val) / (max_val - min_val);
+class LineEstimator {
+public:
+    static float estimate_continuous_line_pose(uint16_t left_val, uint16_t right_val);
+};
 ```
 
-The sensor output value normalized in this vay will always be truncated in range or <0.0, 1.0>
+## Line sensor calibration and arrangement (1 h)
+
+Now review the physical sensor setup. On each robot, sensors may be mounted slightly differently (position, rotation, height above ground, wiring, resistor values, ICs, etc.).
+
+At the start of a run, calibrate the sensors so the algorithm receives comparable values.
+
+### How to calibrate the sensor
+
+Capture the minimum and maximum response (min reflection vs. max reflection) and normalize the output so your algorithm always works in the same range.
+
+```c++
+auto calibrated = (raw - min_val) / (max_val - min_val);
+```
+
+Clamp the normalized value to [0.0, 1.0].
 
 ### Sensor arrangement
 
-On the robot there is several spots to put the sensors on. Think how the sensor position, it's range and dynamic range influence your line following algorithm.
+There are several mounting options on the robot. Consider how sensor position, field of view, and dynamic range influence your line‑following algorithm.
 
-What about the dead zone between the sensors?
-
-What if you put sensors to close to each other?
-
-Should one of the sensors has amplified output compared to the other one?
+- What about the dead zone between sensors?
+- What if sensors are too close to each other?
+- Should one sensor be amplified relative to the other?
