@@ -61,7 +61,7 @@ PD control improves performance by considering how far the robot deviates from t
 
 Error Calculation:
  - Define error as the difference between sensor readings, e.g., ε = S₁ - S₂.
- - Use sensor output characteristics to determinate how far is S1 and S2 from the line center and estimate most probable position of the robot with respect to the line center.
+ - Use sensor output characteristics to determine how far S1 and S2 are from the line center and estimate the most probable robot position relative to the line center.
 
 Control Formula:
  - Adjust motor speeds using:

@@ -27,8 +27,8 @@ Conventions:
 
 ## Wheel Velocities
 
-Left wheel angular velocity: `ωL`
-Right wheel angular velocity: `ωR`
+Left wheel angular velocity: `ω_L`
+Right wheel angular velocity: `ω_R`
 
 The linear velocities of the wheels are (v_L = r·ω_L, v_R = r·ω_R):
 

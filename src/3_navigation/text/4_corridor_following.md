@@ -13,8 +13,9 @@ A differential chassis robot uses two independently controlled wheels to steer. 
 
 ### 2D LIDAR
 A 2D LIDAR scans the environment by emitting laser beams and measuring distances to objects. For a 360-degree LIDAR:
- - Distance Data: Provides distances to nearby obstacles in all directions.
- - Angle Data: Maps each distance reading to a specific angle.
+ - Distance data: Provides distances to nearby obstacles in all directions.
+ - Angle data: Maps each distance reading to a specific angle.
+ - Angle units in examples: degrees [°], 0–360 (0° forward).
 
 ### Rectangular Grid and Corridors
 Corridors on a rectangular grid are linear paths with walls on either side. Key features:
@@ -43,7 +44,7 @@ Corridors on a rectangular grid are linear paths with walls on either side. Key 
 ### Error Calculation
 
   - Define Error: The lateral distance between the robot’s position and the center line.
-  - Angle Deviation: If wall orientation is estimated use it to estimate the angular alignment of the robot relative to the corridor.
+  - Angle deviation: If wall orientation is available, use it to estimate the robot’s angular alignment relative to the corridor.
   - Combined Error: A weighted sum of lateral and angular errors.
 
 ### Control Algorithm
