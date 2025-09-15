@@ -2,7 +2,7 @@
 
 This guide provides step-by-step instructions for setting up the system, installing essential tools, and configuring the environment for ROS2.
 
-```shell
+```bash
 sudo apt update
 sudo apt upgrade
 

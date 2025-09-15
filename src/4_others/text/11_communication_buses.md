@@ -1,70 +1,99 @@
 # Communication Buses
 
+This chapter summarizes four common serial buses used in embedded systems and robotics: UART, I2C, SPI, and CAN. For each, you’ll find the wiring, what problem it solves, typical speeds, and practical tips.
+
 ## UART
 
-A UART (Universal Asynchronous Receiver/Transmitter) is a simple device used to send and receive data in a serial format. This means it sends information one bit at a time, rather than sending multiple bits at once. It is found in many microcontrollers and computers because it is easy to use and does not require many wires.
-
+A UART (Universal Asynchronous Receiver/Transmitter) sends and receives serial data one bit at a time over two data lines without a shared clock.
 
 UART topology:
 ![UART](../images/uart.png)
 
-With UART, the sender and receiver do not share a special clock line. Instead, both sides must agree on a speed called the baud rate. This speed decides how many bits per second they will send or receive. If both sides use the same speed, data moves from one device to the other without confusion.
+Key characteristics:
+- Asynchronous: No clock line. Both ends must agree on the baud rate (bits per second).
+- Signals: TX (transmit), RX (receive). Optional flow control lines RTS/CTS may be present.
+- Frame format: start bit, 5–9 data bits (commonly 8), optional parity (even/odd/none), and one or two stop bits. Example: 8N1 = 8 data bits, no parity, 1 stop bit.
+- Voltage levels: Commonly TTL/CMOS (e.g., 3.3 V or 5 V) on microcontrollers; classic RS‑232 levels are higher and inverted and require a level shifter (e.g., MAX232).
+- Typical speeds: 9,600; 57,600; 115,200 baud; many MCUs support higher.
 
-A UART usually has two main lines for data: TX (transmit) and RX (receive). When one device transmits through TX, the other device reads the signal on its RX pin. To avoid errors, UART systems often include extra settings such as start bits, stop bits, and parity bits. These help confirm that each bit is received in the correct order.
-
-Although UART is slower than some other communication methods, it is very popular. It requires few pins, is easy to set up, and works well for many simple and medium-speed data transfers.
+With UART, reliable communication requires matching configuration on both ends (baud rate, data bits, parity, stop bits). Parity can detect single‑bit errors but not correct them.
 
 UART timing:
 ![UART](../images/uart_timing.png)
 
-image source: https://vanhunteradams.com/Protocols/UART/UART.html
+Image source: https://vanhunteradams.com/Protocols/UART/UART.html
 
 ## I2C
 
-I2C (Inter-Integrated Circuit) is a simple method for digital devices to talk to each other using just two wires. One wire is called SDA, which carries data. The other wire is called SCL, which provides the clock signal. In I2C, devices use this clock signal to stay in sync, so they can send and receive data at the right time.
+I2C (Inter‑Integrated Circuit) is a synchronous two‑wire bus intended for short‑range, on‑board communication.
 
 I2C topology:
 ![I2C](../images/i2c.png)
 
-I2C follows a master-slave setup. The master device generates the clock signal and decides when to start or stop a communication. It also chooses which slave device to talk to by using an address. Each slave device listens for its address, then responds when asked.
+Key characteristics:
+- Wires: SDA (data) and SCL (clock). Lines are open‑drain/open‑collector and require pull‑up resistors.
+- Roles: Master and slave; multi‑master is supported by the spec but less common in simple designs.
+- Addressing: 7‑bit (typical). Devices respond to their address; no separate chip‑select lines.
+- Speeds: Standard (100 kHz), Fast (400 kHz), Fast Mode Plus (1 MHz), High‑Speed (3.4 MHz). Effective throughput is lower due to protocol overhead and clock stretching.
+- Electrical: Keep bus traces short; choose appropriate pull‑up values based on capacitance and desired rise time.
 
-Because I2C only needs two wires, it is a good choice when you want to connect multiple sensors or peripherals without adding many extra pins. It is also fairly easy to set different speeds, so you can adjust it for your needs. Common speeds are known as Standard Mode (up to 100 kHz) and Fast Mode (up to 400 kHz).
-
-I2C is often found in microcontroller projects, temperature sensors, and various other small components. It helps keep connections simple and allows many devices to share the same two wires for data transfer.
+Because I2C uses only two wires shared by many devices (and GND), it’s ideal for connecting multiple sensors or peripherals at modest speeds.
 
 I2C timing:
 ![I2C Timing](../images/i2c_timing.png)
 
-image source: https://www.youtube.com/watch?v=CAvawEcxoPU
+Image source: https://www.youtube.com/watch?v=CAvawEcxoPU
 
 ## SPI
 
-SPI (Serial Peripheral Interface) is a simple and fast way for digital devices to communicate using at least four main lines. The first line is SCLK (serial clock), which sets the timing for data transfers. MOSI (master out, slave in) is used by the master device to send data out to the slave. MISO (master in, slave out) is used by the slave device to send data back to the master. Finally, SS (slave select) or CS (chip select) is used by the master to choose which slave device to talk to.
+SPI (Serial Peripheral Interface) is a fast, full‑duplex serial bus commonly used for sensors, displays, and memory devices.
 
 SPI topology:
 ![SPI](../images/spi.png)
 
-In an SPI setup, the master is in charge of generating the clock signal and deciding when data is sent or received. Data shifts on MOSI and MISO with each clock pulse, allowing both devices to exchange information at the same time. SPI does not use addresses like I2C, so each slave device normally has its own SS line. This can mean extra wiring if you have many devices.
+Key characteristics:
+- Wires: SCLK (clock), MOSI (master out, slave in), MISO (master in, slave out), and one CS/SS (chip select) per slave.
+- Full‑duplex: Data can be transmitted and received simultaneously.
+- Modes: Defined by clock polarity (CPOL) and clock phase (CPHA); four modes (0–3). Master and slave must use the same mode and bit order (MSB‑first is common).
+- Speed: Often several MHz to tens of MHz depending on hardware and wiring quality.
+- Topology: One CS line per device is simplest. Daisy‑chain is possible with some devices but less common.
 
-SPI can run at higher speeds than many other serial interfaces, often reaching several megahertz or more. This makes it good for applications where you need fast data transfers, such as reading data from a sensor or writing to a display. Because it is straightforward and efficient, SPI is frequently used in microcontrollers, sensors, memory chips, and other peripherals that require rapid, reliable communication.
+SPI does not use addresses; the master selects a single slave by asserting its CS line.
 
 SPI timing:
 ![SPI Timing](../images/spi_timing.png)
 
-imabe source: https://www.youtube.com/watch?v=0nVNwozXsIc 
+Image source: https://www.youtube.com/watch?v=0nVNwozXsIc
 
 ## CAN
 
-CAN (Controller Area Network) is a communication system originally designed for vehicles, allowing different parts of a car—like the engine, brakes, and airbags—to talk with each other in a reliable way. It uses two main wires, often called CAN High and CAN Low, which together form a robust bus. Unlike protocols that need a separate line for every device, CAN allows multiple nodes to share the same pair of wires.
+CAN (Controller Area Network) is a robust, differential multi‑drop bus designed for reliability in noisy environments (originally automotive, now used widely in industry and robotics).
 
 CAN topology:
 ![CAN](../images/can.png)
 
-In a CAN network, any node can send a message whenever the bus is free. Each message has an identifier that shows its priority. If two nodes try to send messages at the same time, the node with the higher-priority message keeps sending, and the lower-priority message waits, ensuring important signals go first. This makes CAN useful in safety-critical systems.
+Key characteristics:
+- Physical layer: Two wires (CAN‑H, CAN‑L) with 120 Ω terminations at both ends of the main bus. Keep stubs short to reduce reflections.
+- Arbitration: Messages have identifiers (11‑bit standard, 29‑bit extended). Non‑destructive arbitration ensures that the highest‑priority (lowest ID) message wins if multiple nodes transmit simultaneously.
+- Frames and reliability: Frames contain SOF, arbitration field (ID), control/DLC, data (0–8 bytes for Classical CAN), CRC, ACK, and EOF. Strong error detection, automatic retransmission, and error confinement.
+- Bit rates: Classical CAN up to 1 Mbit/s on short buses. CAN‑FD increases data field (up to 64 bytes) and allows higher data‑phase bit rates (e.g., 2–5 Mbit/s) on capable hardware.
 
-CAN also includes error detection features. For example, if a node reads back a wrong bit, it flags an error and can resend the message. Because of its high reliability and simplicity, CAN is widely used not only in automobiles but also in industrial equipment, medical devices, and other areas that need dependable data sharing.
+Because of its priority‑based arbitration and error handling, CAN is well‑suited for safety‑critical or distributed control systems.
 
 CAN data frame:
 ![CAN Frame](../images/can_frame.png)
 
-image source: https://en.wikipedia.org
+Image source: https://en.wikipedia.org/wiki/CAN_bus
+
+## When to Use Which
+- UART: Point‑to‑point links, simple device logs, GPS modules, Bluetooth modules; low pin count, modest speed.
+- I2C: Many low/medium‑speed peripherals on the same PCB, minimal wiring; requires pull‑ups; address management needed.
+- SPI: High‑speed peripheral access (displays, flash memory, camera); more pins but excellent throughput and timing control.
+- CAN: Robust multi‑drop networking with priorities and error handling across meters of cable; ideal for vehicles and industrial robots.
+
+## Resources
+- UART overview: https://vanhunteradams.com/Protocols/UART/UART.html
+- I2C specification (NXP user manual): https://www.nxp.com/docs/en/user-guide/UM10204.pdf
+- SPI basics (Motorola/NXP app notes): https://www.nxp.com/docs/en/application-note/AN2910.pdf
+- CAN bus (Wikipedia, overview): https://en.wikipedia.org/wiki/CAN_bus
+- CAN‑FD (Bosch spec summary): https://www.bosch-semiconductors.com/ip-modules/can-fd/
