@@ -87,8 +87,6 @@ int main() {
 }
 ```
 
-Note: Arguments are passed by value by default. To pass references, use std::ref().
-
 ### Detaching Threads
  - `t.detach()` makes the thread run independently; the main thread does not wait for it.
  - Use with caution: A detached thread can lead to tricky bugs if you rely on shared data in it.
@@ -100,7 +98,6 @@ Note: Arguments are passed by value by default. To pass references, use std::ref
 To avoid data races, you typically protect shared data with a mutex. Only one thread can lock a mutex at a time.
 
 ```c++
-`
 // Example 4: Using std::mutex and std::lock_guard
 #include <iostream>
 #include <thread>
@@ -154,6 +151,7 @@ Important Points:
 #include <mutex>
 #include <condition_variable>
 #include <queue>
+#include <chrono>
 
 std::mutex mtx;
 std::condition_variable cv;
@@ -316,3 +314,10 @@ int main() {
  - Understand memory model
    - C++ has a well-defined memory model for atomic operations and synchronization.
 
+
+## Resources
+- C++ reference for threads: https://en.cppreference.com/w/cpp/thread
+- C++ reference for mutexes and locks: https://en.cppreference.com/w/cpp/thread/mutex
+- Condition variables: https://en.cppreference.com/w/cpp/thread/condition_variable
+- Atomics and memory order: https://en.cppreference.com/w/cpp/atomic
+- ThreadSanitizer (data race detector): https://github.com/google/sanitizers/wiki/ThreadSanitizer

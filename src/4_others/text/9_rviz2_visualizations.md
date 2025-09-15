@@ -1,3 +1,3 @@
 # RViz2 Visualizations
 
-explain how render in rviz
+Lorem Ipsum

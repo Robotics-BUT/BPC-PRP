@@ -1,105 +1,111 @@
 # CMake
 
-[CMake](https://cmake.org/) is a set of tools that simplifies the compilation of projects and libraries in a way that makes them independent of the operating system and compiler. It works by using a unified configuration file, `CMakeLists.txt`, to generate a Makefile for UNIX-like systems or MSVC workspaces for Windows.
+CMake is a cross-platform build system generator. You describe your project in plain text files named `CMakeLists.txt`, and CMake generates native build files for your platform, such as Makefiles (Unix), Ninja files, or Visual Studio solutions (Windows).
 
-A major advantage of CMake is its dependency management. Applications can define the libraries they depend on, and CMake checks if these libraries are available and, importantly, if they meet the required version. Another significant benefit is the ability to create both executable files and libraries using a single, simple configuration in the `CMakeLists.txt` file.
-
-One way to look at CMake is as another programming language - there are variables, functions, conditions and loops.
-The way in which CMake is developed is emphatizing on using targets, because of that most function will begin by `target_` and the first argument will be target.
-For some of them there is equivalent without it. These function are global and set the parameters, include directories etc. for the file.
+Key ideas:
+- Target-based: Modern CMake focuses on targets. You create targets (executables or libraries) and attach properties to them (include directories, compile features, linked libraries, compile definitions, etc.). Most modern commands start with `target_...` and take the target name as the first argument.
+- Dependency management: `find_package()` locates external dependencies (optionally checking versions/components), and you link them to your targets.
 
 
 ## Basic example
-Made up C++ project stucture:
+A small C++ project structure:
 ```
 MyProject/
-    include/
-        movement/
-            move.hpp
-            turn.hpp
-        talk.hpp
-    src/
-        movement/
-            move.cpp
-            turn.cpp
-        talk.cpp
-        main.cpp
-    CMakeLists.txt
+  include/
+    movement/
+      move.hpp
+      turn.hpp
+    talk.hpp
+  src/
+    movement/
+      move.cpp
+      turn.cpp
+    talk.cpp
+    main.cpp
+  CMakeLists.txt
 ```
-CMakeLists.txt:
+Minimal `CMakeLists.txt`:
 ```cmake
 cmake_minimum_required(VERSION 3.15)
 
 project(MyProject VERSION 1.0
-                  DESCRIPTION "Very nice project"
-                  LANGUAGES CXX)
-set(CXX_STANDARD 17) # Can also set custom variables
+        DESCRIPTION "Very nice project"
+        LANGUAGES CXX)
 
-add_executable(MyProject src/main.cpp src/talk.cpp src/movement/move.cpp src/movement/turn.cpp)
-target_include_directories(MyProject include)
+# Prefer target-specific settings in modern CMake. If you want a global default:
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+add_executable(MyProject
+  src/main.cpp
+  src/talk.cpp
+  src/movement/move.cpp
+  src/movement/turn.cpp
+)
+
+# Tell the target where to find headers under include/
+# Use PUBLIC to propagate include paths to dependents (if this were a library).
+target_include_directories(MyProject PUBLIC ${CMAKE_SOURCE_DIR}/include)
 ```
 
-Lets take a look at the file:
-```
-cmake_minimum_required(VERSION 3.15)
-```
-First line tells cmake minimu required version for running the script.
+Explanation:
+- `cmake_minimum_required(VERSION 3.15)` sets the minimum CMake version that can process this project.
+- `project(...)` defines project metadata. It does not implicitly create a target; you still need `add_executable()` or `add_library()`.
+- C++ standard: Using `set(CMAKE_CXX_STANDARD 17)` defines a project-wide default. Alternatively, you can set features per-target with `target_compile_features(MyProject PUBLIC cxx_std_17)`.
+- `add_executable(MyProject ...)` declares the build target and lists its source files. Header files need not be listed; they are discovered by the compiler via include paths.
+- `target_include_directories(MyProject PUBLIC include)` associates include paths with the target. Visibility keywords: PRIVATE (only this target), PUBLIC (this target and its dependents), INTERFACE (only dependents).
 
+### Build the example
+Common out-of-source build workflow:
+```bash
+# from the project root (MyProject/)
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release   # configure
+cmake --build build --config Release             # build
+./build/MyProject                                # run the executable (Unix-like)
 ```
-project(MyProject VERSION 1.0
-                  DESCRIPTION "Very nice project"
-                  LANGUAGES CXX)
+For debugging builds (e.g., with gdb):
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build --config Debug
 ```
-Function `project` have one mandatory argument name of the project. Other arguments are optional. `VERSION` sets multiple cmake variables like PROJECT_VERSION. Default `LANGUAGE` is `C CXX`. The function does not create target `MyProject` which we will use in other functions.
+Note: On multi-config generators (e.g., Visual Studio), specify `--config Debug` when building and running.
 
-```
-set(CXX_STANDARD 17)
-```
-This function call to set variable `CXX_STANDARD`.  This is the simplest way to set C++ standard, but it will set C++ standard globally to whole project. The others ways have little bit more flexibility.
-
-
-```
-add_executable(MyProject src/main.cpp src/talk.cpp src/movement/move.cpp src/movement/turn.cpp)
-```
-Function target - executable, first argument is the name of target, others argument are all source files in the project. Header files can by also included, but by cmake they are ignored for compilation.
-```
-target_include_directories(MyProject include)
-```
-Functions add include directories to target. Any other argument is assumed to be folder with header file.
-
-### Build basic example project
-To run the project:
-```shell
-cd MyProject
-mkdir build     #create folder build
-cd build
-cmake ..        #run cmake
-make            #run make - build project
-./MyCoolProject #run executable
-```
-For debuging (eg. `gdb`) add variable `CMAKE_BUILD_TYPE` with value `Debug` - When variable is not specified value used last time is run, if its first run value used is `Release`
-```
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-```
 
 ## Including libraries
-This example assumes you have installed the library and it's only used to show bare basics, many external libraries have examples how to use and include them.
+As a simple example with OpenCV. This assumes OpenCV is installed and discoverable by CMake.
 ```cmake
 cmake_minimum_required(VERSION 3.15)
-project(MyProject)
+project(MyProject LANGUAGES CXX)
 
-find_package( OpenCV REQUIRED ) #find library in the system path if not found cmake will fail
+# Optionally request specific components and/or versions
+find_package(OpenCV REQUIRED COMPONENTS core imgproc highgui)
 
 add_executable(MyProject main.cpp)
 
-target_include_directories(MyProject ${OpenCV_INCLUDE_DIRS}) #adds include folders to target
-
-target_link_libraries(MyProject ${OpenCV_LIBS}) #Link library to target
+# Link libraries target-based; include paths typically come via the imported target
+# but if you rely on variables, you can still use them.
+target_link_libraries(MyProject PRIVATE ${OpenCV_LIBS})
+# If needed (older packages), add include dirs explicitly
+if(OpenCV_INCLUDE_DIRS)
+  target_include_directories(MyProject PRIVATE ${OpenCV_INCLUDE_DIRS})
+endif()
+```
+Prefer packages that provide imported CMake targets (e.g., `OpenCV::opencv_core`, etc.) and link to those instead of raw variables when available:
+```cmake
+# Example when imported targets are available
+# target_link_libraries(MyProject PRIVATE opencv_core opencv_imgproc opencv_highgui)
 ```
 
 
-
+## Common target commands (cheat sheet)
+- `add_executable(name sources...)` / `add_library(name [STATIC|SHARED|INTERFACE] sources...)`
+- `target_link_libraries(tgt PRIVATE|PUBLIC|INTERFACE libs...)`
+- `target_include_directories(tgt PRIVATE|PUBLIC|INTERFACE dirs...)`
+- `target_compile_definitions(tgt PRIVATE|PUBLIC|INTERFACE MACRO=VALUE ...)`
+- `target_compile_features(tgt PRIVATE|PUBLIC cxx_std_17 ...)`
 
 
 ## Resources
-[An Introduction to Modern CMake](https://cliutils.gitlab.io/modern-cmake/README.html)
+- Modern CMake guide: https://cliutils.gitlab.io/modern-cmake/README.html
+- CMake official documentation: https://cmake.org/cmake/help/latest/
