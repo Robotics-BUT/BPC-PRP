@@ -145,45 +145,46 @@
                     <main>
                         <h1 id="final-exam---maze-escape"><a class="header" href="#final-exam---maze-escape">Final Exam - Maze Escape</a></h1>
 <p>Responsible: Ing. Adam Ligocki, Ph.D.</p>
-<p>The final exam is organized as a competition. Each team has 3 attempts to escape the maze with their robot, using the robot's full sensor capabilities. The score for the exam is based on the best of the three attempts.</p>
+<p>The final exam is a competition. Each team has up to 3 attempts to escape the maze using the robot’s sensors. The final score is based on the best attempt.</p>
 <ul>
-<li>The robot starts inside the maze, in the center of the starting cell.</li>
-<li>There is only one optimal escape path from the maze.</li>
+<li>The robot starts in the center of the starting cell.</li>
+<li>There is one optimal escape path.</li>
 <li>The maze contains no loops.</li>
 <li>There are 3 randomly placed minotaurs and 1 treasure.
 <ul>
-<li>Each encounter with a minotaur results in a 30 seconds penalty.</li>
-<li>Finding the treasure reduces the final time by 30 seconds.</li>
+<li>Each minotaur encounter adds a 30 s penalty.</li>
+<li>Finding the treasure subtracts 30 s from the final time.</li>
 </ul>
 </li>
-<li>The maze consists of 8x8 cells, with each cell measuring 40x40 cm. Black lines on the floor mark the boundaries between cells.</li>
-<li>ArUco tags will be placed on the maze ground, providing hints about the escape route, the presence of minotaurs, or the path to the treasure.</li>
+<li>The maze consists of 8 × 8 cells; each cell is 0.40 × 0.40 m. Black tape on the floor marks the boundaries between cells.</li>
+<li>ArUco tags are placed on the floor and provide hints about the escape route, minotaurs, or treasure.</li>
 </ul>
-<p>In total for final exam the team can earn up to 50 points</p>
+<h2 id="scoring"><a class="header" href="#scoring">Scoring</a></h2>
+<p>In total, a team can earn up to 50 points:</p>
 <ul>
-<li>Maze escape up to 40 points
+<li>Maze escape: up to 40 points.
 <ul>
-<li>The formula for calculating the score is: <code>y=min(max(kx+q),0,40)</code></li>
+<li>Score is calculated as <code>y = min(max(kx + q, 0), 40)</code>.</li>
 </ul>
 </li>
-<li>Git and project documentation quality gives up to 10 points</li>
+<li>Git and project documentation quality: up to 10 points.</li>
 </ul>
-<h2 id="attempt-rules"><a class="header" href="#attempt-rules">Attempt Rules</a></h2>
+<h2 id="attempt-rules"><a class="header" href="#attempt-rules">Attempt rules</a></h2>
 <ul>
 <li>Teams have at least 45 minutes between attempts to modify their program.</li>
-<li>The code used during the competition must be uploaded to Git by 11:59 PM on the same day.</li>
-<li>The competition code must not contain specific information about the maze (e.g., paths, minotaur locations, etc.). Pre-known information, such as cell size, may be included.</li>
-<li>Wall touching not allowed</li>
+<li>The competition code must be uploaded to Git by 23:59 on the same day.</li>
+<li>The competition code must not contain specific information about the maze (e.g., paths, minotaur locations). Pre‑known constants (e.g., cell size) may be included.</li>
+<li>Do not touch the walls.</li>
 </ul>
-<h2 id="maze-example"><a class="header" href="#maze-example">Maze Example</a></h2>
+<h2 id="maze-example"><a class="header" href="#maze-example">Maze example</a></h2>
 <ul>
-<li>Walls - red lines</li>
-<li>Escape path - green line</li>
-<li>Start - green cell</li>
-<li>Treasure (bonus) - blue cell</li>
-<li>Minotaur (penalty) - red cell</li>
+<li>Walls: red lines</li>
+<li>Escape path: green line</li>
+<li>Start: green cell</li>
+<li>Treasure (bonus): blue cell</li>
+<li>Minotaur (penalty): red cell</li>
 </ul>
-<p><img src="../images/maze.png" alt="Maze" /></p>
+<p><img src="../images/maze.png" alt="Maze example with walls, path, start, treasure, and minotaurs" /></p>
 
                     </main>
 

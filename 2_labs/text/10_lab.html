@@ -145,7 +145,7 @@
                     <main>
                         <h1 id="lab-10--orientation-aware-corridor-navigation"><a class="header" href="#lab-10--orientation-aware-corridor-navigation">Lab 10 – Orientation-Aware Corridor Navigation</a></h1>
 <p><strong>Responsible:</strong> Ing. Petr Šopák</p>
-<h3 id="learning-objectives"><a class="header" href="#learning-objectives">Learning Objectives</a></h3>
+<h2 id="learning-objectives"><a class="header" href="#learning-objectives">Learning objectives</a></h2>
 <p><strong>1) Understanding robot orientation using IMU (MPU6050)</strong></p>
 <ul>
 <li>Interpreting raw gyroscope data</li>
@@ -163,7 +163,7 @@
 </ul>
 <h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
 <p>In <strong>Lab 9</strong>, you implemented a basic reactive controller that allowed the robot to follow straight corridors using range sensors such as LiDAR or ultrasonic. However, this approach assumes that the path is straight and cannot handle corners or sharp turns.</p>
-<p>In this lab, you will enhance that behavior by enabling your robot to detect and turn into new corridor directions (e.g., 90° left or right turns). To accomplish this, you will use an <strong>Inertial Measurement Unit (IMU)</strong> — specifically the <strong>MPU6050</strong> (<a href="https://www.alldatasheet.com/datasheet-pdf/pdf/1132807/TDK/MPU-6050.html#:%7E:text=Part%20#:%20MPU-6050.%20Download.%20File%20Size:%20905Kbytes.%20Page:,MotionTracking%20Device%20with%20DMP%20(MPU-6050/-6000).%20Manufacturer:%20TDK%20Electronics.">LINK</a>) — to estimate the robot's yaw (rotation around the vertical axis).</p>
+<p>In this lab, you will enhance that behavior by enabling your robot to detect and turn into new corridor directions (e.g., 90° left or right turns). To accomplish this, you will use an <strong>Inertial Measurement Unit (IMU)</strong> — specifically the <strong>MPU‑6050</strong> (<a href="https://www.alldatasheet.com/datasheet-pdf/pdf/1132807/TDK/MPU-6050.html#:%7E:text=Part%20#:%20MPU-6050.%20Download.%20File%20Size:%20905Kbytes.%20Page:,MotionTracking%20Device%20with%20DMP%20(MPU-6050/-6000).%20Manufacturer:%20TDK%20Electronics.">MPU‑6050 datasheet</a>) — to estimate the robot's yaw (rotation around the vertical axis).</p>
 <p>The robot will:</p>
 <ul>
 <li>Follow the corridor as before</li>
@@ -172,7 +172,7 @@
 <li>Resume forward motion</li>
 </ul>
 <p>To implement this, you will also develop a simple <strong>finite state machine</strong> with at least two states: <em>CORRIDOR_FOLLOWING</em> and <em>TURNING</em>.</p>
-<h2 id="imu-and-orientation-estimation-approx-70-minutes"><a class="header" href="#imu-and-orientation-estimation-approx-70-minutes">IMU and Orientation Estimation (Approx. 70 minutes)</a></h2>
+<h2 id="imu-and-orientation-estimation-approx-70-minutes"><a class="header" href="#imu-and-orientation-estimation-approx-70-minutes">IMU and orientation estimation (Approx. 70 minutes)</a></h2>
 <p>The MPU6050 sensor provides raw data from a gyroscope and accelerometer. Unlike more advanced IMUs, it does not provide direct orientation estimates such as yaw, pitch, or roll.</p>
 <p>To estimate yaw (rotation angle), you will:</p>
 <ol>
@@ -192,7 +192,7 @@
 </ul>
 </li>
 </ol>
-<pre><code class="language-cpp">yaw += (gyro_z - offset) * dt;
+<pre><code class="language-c++">yaw += (gyro_z - offset) * dt;
 </code></pre>
 <h3 id="practical-integration-tip"><a class="header" href="#practical-integration-tip">Practical Integration Tip</a></h3>
 <p>In this lab, you are required to implement the yaw integration yourself. No sensor fusion libraries will be used. Keep in mind that this method is sensitive to drift, so proper calibration is critical.</p>
@@ -225,7 +225,7 @@
 <ol>
 <li><strong>Manual Rotation test</strong>
 <ul>
-<li>Calibrate the IMU and after store the current yaw</li>
+<li>Calibrate the IMU and store the current yaw</li>
 <li>Pick up or gently rotate the robot by approximately 90° (by hand)</li>
 <li>The robot should detect the yaw error:
 <pre><code class="language-c++">float yaw_error = yaw_ref - current_yaw;
@@ -254,7 +254,7 @@ motor_node-&gt;set_motor_speed(127 - correction, 127 + correction);
 <p>Example of <code>imu_node.hpp</code>:</p>
 <pre><code class="language-c++">#include &lt;rclcpp/rclcpp.hpp&gt;
 #include &lt;sensor_msgs/msg/imu.hpp&gt;
-#include &quot;solution/algorithms/planar_imu_integrator.hpp&quot;
+#include &quot;algorithms/planar_imu_integrator.hpp&quot;
 
 namespace nodes {
 
@@ -268,13 +268,13 @@ namespace nodes {
         ImuNode();
         ~ImuNode() override = default;
 
-        // Set the IMU Mode
-        void setMode(const ImuNodeMode setMode)
+        // Set the IMU mode
+        void setMode(ImuNodeMode mode);
 
-        // Get the current IMU Mode
+        // Get the current IMU mode
         ImuNodeMode getMode();
 
-        // Get the results after Integration
+        // Get the results after integration
         auto getIntegratedResults();
 
         // Reset the class
@@ -326,7 +326,7 @@ namespace algorithms {
     };
 }
 </code></pre>
-<h2 id="state-machine-for-corridor-navigation-approx-70-minutes"><a class="header" href="#state-machine-for-corridor-navigation-approx-70-minutes">State Machine for Corridor Navigation (Approx. 70 minutes)</a></h2>
+<h2 id="state-machine-for-corridor-navigation-approx-70-minutes"><a class="header" href="#state-machine-for-corridor-navigation-approx-70-minutes">State machine for corridor navigation (Approx. 70 minutes)</a></h2>
 <p>If you have implemented the IMU, you are now ready to <strong>extend your corridor-following behavior</strong>. In this lab, you will implement a simple <strong>state machine</strong> to structure the robot's behavior during navigation. Instead of relying on a single control strategy, your robot will dynamically switch between multiple modes:</p>
 <ul>
 <li><strong>CALIBRATION</strong> – the robot stays still and computes IMU offset before navigation begins</li>
@@ -334,11 +334,11 @@ namespace algorithms {
 <li><strong>TURNING</strong> – the robot rotates in place using the IMU until a 90° turn is completed</li>
 <li><em>(Later additions:)</em> <strong>INTERSECTION_HANDLING</strong>, <strong>DEAD_END_HANDLING</strong>, etc.</li>
 </ul>
-<p>This modular architecture will make your logic easier to extend in future — for example, adding states <strong>INTERSECTION_HANDLING</strong> (dvě či tři cesty), <strong>DEAD_END_HANDLING</strong> (slepá ulička) and more...</p>
-<p id="state_machine" align="center">
-  <img src="../images/lab_10_state_machine.png" alt="alt text" width="400" height="200">
+<p>This modular architecture will make your logic easier to extend in future — for example, adding states <strong>INTERSECTION_HANDLING</strong> (two or three paths), <strong>DEAD_END_HANDLING</strong> (dead end).</p>
+<p id="state_machine">
+  <img src="../images/lab_10_state_machine.png" alt="Corridor navigation state machine" width="400" height="200">
 </p>
-<p align="center">
+<p>
     <em> Figure 1: Example state diagram for corridor-following behavior </em>
 </p>
 <blockquote>
@@ -379,7 +379,7 @@ namespace algorithms {
 <li>In the <code>CORRIDOR_FOLLOWING</code> state:
 <ul>
 <li>Use side range sensor data to stay centered between walls.</li>
-<li><strong>Monitor the front sensor</strong>: if the front distance falls below a threshold (e.g., &lt; 10 cm) and one side is open, detect a corner</li>
+<li><strong>Monitor the front sensor</strong>: if the front distance falls below a threshold (e.g., &lt; 0.10 m) and one side is open, detect a corner</li>
 <li>Based on which side is open, decide the direction to turn (left or right)</li>
 <li>Switch to the <code>TURNING</code> state</li>
 </ul>
