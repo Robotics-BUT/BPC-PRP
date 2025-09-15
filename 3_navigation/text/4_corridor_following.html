@@ -157,8 +157,9 @@
 <h3 id="2d-lidar"><a class="header" href="#2d-lidar">2D LIDAR</a></h3>
 <p>A 2D LIDAR scans the environment by emitting laser beams and measuring distances to objects. For a 360-degree LIDAR:</p>
 <ul>
-<li>Distance Data: Provides distances to nearby obstacles in all directions.</li>
-<li>Angle Data: Maps each distance reading to a specific angle.</li>
+<li>Distance data: Provides distances to nearby obstacles in all directions.</li>
+<li>Angle data: Maps each distance reading to a specific angle.</li>
+<li>Angle units in examples: degrees [°], 0–360 (0° forward).</li>
 </ul>
 <h3 id="rectangular-grid-and-corridors"><a class="header" href="#rectangular-grid-and-corridors">Rectangular Grid and Corridors</a></h3>
 <p>Corridors on a rectangular grid are linear paths with walls on either side. Key features:</p>
@@ -194,7 +195,7 @@
 <h3 id="error-calculation"><a class="header" href="#error-calculation">Error Calculation</a></h3>
 <ul>
 <li>Define Error: The lateral distance between the robot’s position and the center line.</li>
-<li>Angle Deviation: If wall orientation is estimated use it to estimate the angular alignment of the robot relative to the corridor.</li>
+<li>Angle deviation: If wall orientation is available, use it to estimate the robot’s angular alignment relative to the corridor.</li>
 <li>Combined Error: A weighted sum of lateral and angular errors.</li>
 </ul>
 <h3 id="control-algorithm"><a class="header" href="#control-algorithm">Control Algorithm</a></h3>

@@ -2484,8 +2484,8 @@ ID = 2 -&gt; right           ID = 12 -&gt; right
 <li>Wheel linear speeds <code>v_L</code>, <code>v_R</code> are positive when rolling forward.</li>
 </ul>
 <h2 id="wheel-velocities"><a class="header" href="#wheel-velocities">Wheel Velocities</a></h2>
-<p>Left wheel angular velocity: <code>ωL</code>
-Right wheel angular velocity: <code>ωR</code></p>
+<p>Left wheel angular velocity: <code>ω_L</code>
+Right wheel angular velocity: <code>ω_R</code></p>
 <p>The linear velocities of the wheels are (v_L = r·ω_L, v_R = r·ω_R):</p>
 <p><img src="3_navigation/text/../images/dif_chass_vl_vr.png" alt="wheel linear velocities"/></p>
 <h2 id="forward-kinematics"><a class="header" href="#forward-kinematics">Forward Kinematics</a></h2>
@@ -2693,7 +2693,7 @@ Set parameters as:</p>
 <p>Error Calculation:</p>
 <ul>
 <li>Define error as the difference between sensor readings, e.g., ε = S₁ - S₂.</li>
-<li>Use sensor output characteristics to determinate how far is S1 and S2 from the line center and estimate most probable position of the robot with respect to the line center.</li>
+<li>Use sensor output characteristics to determine how far S1 and S2 are from the line center and estimate the most probable robot position relative to the line center.</li>
 </ul>
 <p>Control Formula:</p>
 <ul>
@@ -2788,8 +2788,9 @@ void loop() {
 <h3 id="2d-lidar"><a class="header" href="#2d-lidar">2D LIDAR</a></h3>
 <p>A 2D LIDAR scans the environment by emitting laser beams and measuring distances to objects. For a 360-degree LIDAR:</p>
 <ul>
-<li>Distance Data: Provides distances to nearby obstacles in all directions.</li>
-<li>Angle Data: Maps each distance reading to a specific angle.</li>
+<li>Distance data: Provides distances to nearby obstacles in all directions.</li>
+<li>Angle data: Maps each distance reading to a specific angle.</li>
+<li>Angle units in examples: degrees [°], 0–360 (0° forward).</li>
 </ul>
 <h3 id="rectangular-grid-and-corridors"><a class="header" href="#rectangular-grid-and-corridors">Rectangular Grid and Corridors</a></h3>
 <p>Corridors on a rectangular grid are linear paths with walls on either side. Key features:</p>
@@ -2825,7 +2826,7 @@ void loop() {
 <h3 id="error-calculation"><a class="header" href="#error-calculation">Error Calculation</a></h3>
 <ul>
 <li>Define Error: The lateral distance between the robot’s position and the center line.</li>
-<li>Angle Deviation: If wall orientation is estimated use it to estimate the angular alignment of the robot relative to the corridor.</li>
+<li>Angle deviation: If wall orientation is available, use it to estimate the robot’s angular alignment relative to the corridor.</li>
 <li>Combined Error: A weighted sum of lateral and angular errors.</li>
 </ul>
 <h3 id="control-algorithm"><a class="header" href="#control-algorithm">Control Algorithm</a></h3>
