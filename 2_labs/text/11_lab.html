@@ -160,14 +160,14 @@
 </ul>
 <h2 id="requirement"><a class="header" href="#requirement">Requirement</a></h2>
 <p>For this lab, you need to have the <code>image transport compressed package</code> installed:</p>
-<pre><code class="language-shell">sudo apt update
+<pre><code class="language-bash">sudo apt update
 sudo apt install ros-humble-image-transport-plugins -y
 </code></pre>
 <p>To check all available transport plugins, run:</p>
-<pre><code class="language-shell">ros2 run image_transport list
+<pre><code class="language-bash">ros2 run image_transport list
 </code></pre>
 <p>You should see an output similar to:</p>
-<pre><code class="language-shell">Declared transports:
+<pre><code class="language-bash">Declared transports:
 image_transport/compressed
 image_transport/compressedDepth
 image_transport/raw
@@ -270,10 +270,10 @@ Details:
 <h2 id="symbolic-navigation-logic-approx-40-minutes"><a class="header" href="#symbolic-navigation-logic-approx-40-minutes">Symbolic Navigation Logic (Approx. 40 minutes)</a></h2>
 <p>In the second part of the lab, you will design logic that interprets the detected ArUco markers as instructions for maze navigation. Some markers indicate directions that lead to the exit, while others point toward the treasure. Your robot must recognize and remember these instructions, and then apply them later at decision points.</p>
 <p>As illustrated in the figure 1, each instruction obtained from an ArUco marker is <strong>always intended for the next upcoming intersection</strong>. The robot must remember the marker’s content and apply it at the first junction it encounters after reading the marker.</p>
-<p id="state_machine" align="center">
+<p id="state_machine">
   <img src="../images/lab11_maze_example.png" alt="alt text" width="450" height="600">
 </p>
-<p align="center">
+<p>
     <em> Figure 1: Example of decision-making using ArUco markers in a maze </em>
 </p>
 <hr />

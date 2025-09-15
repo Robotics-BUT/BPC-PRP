@@ -247,7 +247,7 @@ Responsible: Ing. Jakub Minařík</li>
 <ul>
 <li>Introduction to laboratory</li>
 <li>Linux installation</li>
-<li>Linuc Command Line Interface (CLI)</li>
+<li>Linux Command Line Interface (CLI)</li>
 </ul>
 <p>Responsible: Ing. Jakub Minařík</p>
 <h3 id="lab-2---c-cmake--ide"><a class="header" href="#lab-2---c-cmake--ide">Lab 2 - C++, CMake &amp; IDE</a></h3>
@@ -267,7 +267,7 @@ Responsible: Ing. Jakub Minařík</li>
 <p>Responsible: Ing. Jakub Minařík</p>
 <h3 id="lab-4---data-capture--visualization-ros"><a class="header" href="#lab-4---data-capture--visualization-ros">Lab 4 - Data Capture &amp; Visualization (ROS)</a></h3>
 <ul>
-<li>ROS2 in CLI</li>
+<li>ROS 2 in CLI</li>
 <li>Simple Node, Publisher, Subscriber</li>
 <li>RViz, Data Visualization</li>
 </ul>
@@ -327,53 +327,49 @@ Responsible: Ing. Jakub Minařík</li>
 <p>Responsible: Ing. Adam Ligocki, Ph.D.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-1---laboratory-introduction--linux-1"><a class="header" href="#lab-1---laboratory-introduction--linux-1">Lab 1 - Laboratory Introduction &amp; Linux</a></h1>
 <p>Responsible: Ing. Jakub Minařík</p>
-<p>This lab is going to make a brief introduction onto the environment that will be used for development and testing through the entire BPC-PRP course.</p>
-<p>The following 3 chapters will take you through the installation and setup of the basic environment and you will practice the Linux CLI</p>
+<p>This lab briefly introduces the environment used for development and testing throughout the BPC-PRP course.</p>
+<p>The following 3 chapters will take you through installing and setting up the basic environment, and you will practice the Linux CLI.</p>
 <h2 id="linux-1h"><a class="header" href="#linux-1h">Linux (1h)</a></h2>
 <h3 id="installation-optional"><a class="header" href="#installation-optional">Installation (optional)</a></h3>
-<p>To Install the Linux, please follow the <a href="2_labs/text/../../4_others/text/1_linux.html">Linux</a> chapter.</p>
+<p>To install Linux, please follow the <a href="2_labs/text/../../4_others/text/1_linux.html">Linux</a> chapter.</p>
 <h3 id="exercise"><a class="header" href="#exercise">Exercise</a></h3>
 <ul>
-<li>Get familiar with the system's GUI.</li>
-<li>Open the command line and try navigating the file system.</li>
-<li>Practice your CLI skills. Commands overview in <a href="2_labs/text/../../4_others/text/1_linux.html">Linux</a> chapter.
+<li>Explore the system GUI.</li>
+<li>Open a terminal and navigate the file system.</li>
+<li>Practice basic CLI commands (see the Linux chapter):
 <ul>
-<li>check you current working directory <code>pwd</code></li>
-<li>create directory <code>mkdir</code></li>
-<li>enter created directory <code>cd</code></li>
-<li>create file <code>touch</code></li>
-<li>list directory content <code>ls</code></li>
-<li>rename file <code>mv</code></li>
-<li>copy file <code>cp</code></li>
-<li>remove file <code>rm</code></li>
-<li>create and remove directory <code>mkdir</code> and <code>rm</code></li>
-<li>...</li>
+<li>Check the current directory: <code>pwd</code></li>
+<li>Create a directory: <code>mkdir &lt;dir&gt;</code></li>
+<li>Enter a directory: <code>cd &lt;dir&gt;</code></li>
+<li>Create a file: <code>touch &lt;file&gt;</code></li>
+<li>List directory contents: <code>ls -la</code></li>
+<li>Rename or move a file: <code>mv &lt;old&gt; &lt;new&gt;</code></li>
+<li>Copy a file: <code>cp &lt;src&gt; &lt;dst&gt;</code></li>
+<li>Remove a file: <code>rm &lt;file&gt;</code></li>
+<li>Create/remove a directory: <code>mkdir &lt;dir&gt;</code>, <code>rm -r &lt;dir&gt;</code></li>
 </ul>
 </li>
-<li>try some text editor <code>nano</code>, <code>vim</code></li>
+<li>Try a text editor: <code>nano</code> or <code>vim</code></li>
 </ul>
 <details> <summary>I installed vim and accidentally opened it. What now?</summary>
-You can exit vim with the following sequence: press ESC, release it, then hold LSHIFT and press Z twice.
-For those interested, a tutorial on using vim can be found here.
+You can exit Vim with: press Esc, then hold Shift and press Z twice (Shift+Z+Z).
+For a quick introduction, see Vim basics: https://www.vim.org/docs.php
 </details>
-<p>More details about the Linux is going to be introduced during the course</p>
-<h2 id="ros2-30-min"><a class="header" href="#ros2-30-min">ROS2 (30 min)</a></h2>
-<p>The ROS 2 (Robot Operating System 2) framework is a modern, open-source platform for developing robotic systems. It builds on the success of the original ROS while addressing the limitations of its predecessor, particularly in scalability, security, and real-time performance. Designed for a wide range of robotic applications, ROS 2 is suitable for research, education, and industrial use.</p>
-<p>Key features of ROS 2 include a distributed architecture for modular development, enabling nodes (individual processes) to communicate efficiently. It employs the Data Distribution Service (DDS) middleware standard, providing robust and flexible communication mechanisms, including publish/subscribe and service/request paradigms.</p>
-<p>ROS 2 supports multiple platforms, such as Linux, Windows, and macOS, making it versatile for diverse hardware and software ecosystems. It integrates well with modern tools and languages, offering Python and C++ APIs, among others. Real-time capabilities are significantly improved, ensuring precise control and response in time-critical robotic systems.</p>
-<p>The framework includes a rich ecosystem of libraries and tools, such as Gazebo for simulation, RViz for visualization, and Nav2 for navigation. Its modular design encourages collaboration and code reuse, fostering an active global community. With ROS 2, developers can create scalable, reliable, and innovative robotics applications tailored to real-world challenges.</p>
-<p>For installation and commands overview, please follow the chapter: <a href="2_labs/text/../../4_others/text/6_ros_2.html">Robotic Operating System</a>.</p>
-<h2 id="clion-sdk-15-min"><a class="header" href="#clion-sdk-15-min">CLion SDK (15 min)</a></h2>
+<p>More details about Linux will be introduced during the course.</p>
+<h2 id="ros-2-30-min"><a class="header" href="#ros-2-30-min">ROS 2 (30 min)</a></h2>
+<p>ROS 2 (Robot Operating System 2) is a modern open‑source framework for building robotic systems. It uses DDS for communication (publish/subscribe, services) and runs on Linux, Windows, and macOS. In this course you will use Python or C++ APIs, RViz for visualization, and Gazebo for simulation.</p>
+<p>For installation and basic commands, see the ROS 2 chapter: <a href="2_labs/text/../../4_others/text/6_ros_2.html">ROS 2</a>.</p>
+<h2 id="clion-ide-15-min"><a class="header" href="#clion-ide-15-min">CLion IDE (15 min)</a></h2>
 <h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
 <p>Install CLion using the Snap package manager:</p>
-<pre><code class="language-shell">sudo snap install --classic clion
+<pre><code class="language-bash">sudo snap install --classic clion
 </code></pre>
-<p>Alternatively, download the CLion IDE from the <a href="https://www.jetbrains.com/clion/">official website</a> and get familiar with it (see <a href="2_labs/text/../chap_1_software/text/clion.html">CLion IDE</a>). By registering with your school email, you can obtain a free software license.</p>
+<p>Alternatively, download CLion from the <a href="https://www.jetbrains.com/clion/">official website</a> and get familiar with it (see <a href="2_labs/text/../../4_others/text/4_clion.html">CLion IDE</a>). By registering with your school email, you can obtain a free student license.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-2---c-cmake--ide-1"><a class="header" href="#lab-2---c-cmake--ide-1">Lab 2 - C++, CMake &amp; IDE</a></h1>
 <p>Responsible: Ing. Adam Ligocki, Ph.D.</p>
 <p>If you are not familiar with Linux CLI commands, please follow the <a href="2_labs/text/../../4_others/text/1_linux.html">Linux</a> chapter.</p>
 <h2 id="cli-compilation-30-min"><a class="header" href="#cli-compilation-30-min">CLI Compilation (30 min)</a></h2>
-<p>This exercise will show you how to write and compile the most basic c++ project in Linux OS.</p>
+<p>This exercise shows how to write and compile a basic C++ program on Linux.</p>
 <p>In your home directory create a project folder and enter it.</p>
 <p>Write a simple program into the <code>main.cpp</code> file.</p>
 <pre><code class="language-c++">#include &lt;iostream&gt;
@@ -391,43 +387,43 @@ int main() {
     return 0;
 }
 </code></pre>
-<p>Save file and compile it using the <code>gcc</code> call (<a href="https://gcc.gnu.org/">GCC</a> a C/C++ compiler). </p>
-<pre><code class="language-shell">g++ -o my_cool_program main.cpp
+<p>Save the file and compile it using g++ (the GCC C++ compiler):</p>
+<pre><code class="language-bash">g++ -o my_cool_program main.cpp
 </code></pre>
-<p>And run binary</p>
-<pre><code class="language-shell">./my_cool_program
+<p>Then run the binary:</p>
+<pre><code class="language-bash">./my_cool_program
 </code></pre>
-<p>There are other alternatives, like <a href="https://clang.llvm.org/">CLang</a>, <a href="https://llvm.org/">LLVM</a>, and many <a href="https://en.wikipedia.org/wiki/List_of_compilers#C++_compilers">others</a></p>
+<p>There are other alternatives, like <a href="https://clang.llvm.org/">Clang</a>, <a href="https://llvm.org/">LLVM</a>, and many <a href="https://en.wikipedia.org/wiki/List_of_compilers#C++_compilers">others</a>.</p>
 <h3 id="challenge-1"><a class="header" href="#challenge-1">Challenge 1</a></h3>
 <ul>
-<li>In your project folder, create and <code>include</code> folder</li>
-<li>in the <code>include</code> folder create and <code>lib.hpp</code> file and write some function into it</li>
-<li>use the function from <code>lib.hpp</code> in the <code>main.cpp</code></li>
-<li>compile and run program (tip: use <code>-I &lt;folder&gt;</code> argument for <code>gcc</code> to specify folder with header files)</li>
+<li>In your project folder, create an <code>include</code> folder.</li>
+<li>In the <code>include</code> folder, create a <code>lib.hpp</code> file and write a simple function in it.</li>
+<li>Use the function from <code>lib.hpp</code> in <code>main.cpp</code>.</li>
+<li>Compile and run the program (tip: use <code>-I &lt;folder&gt;</code> with g++ to specify the header search path).</li>
 </ul>
 <h3 id="challenge-2"><a class="header" href="#challenge-2">Challenge 2</a></h3>
 <ul>
 <li>
-<p>in the projet folder create the <code>lib.cpp</code></p>
+<p>In the project folder, create <code>lib.cpp</code>.</p>
 </li>
 <li>
-<p>move the function implementation from <code>lib.hpp</code> to <code>lib.cpp</code>; keep function declaration in <code>lib.hpp</code></p>
+<p>Move the function implementation from <code>lib.hpp</code> to <code>lib.cpp</code>; keep the function declaration in <code>lib.hpp</code>.</p>
 </li>
 <li>
-<p>compile and run program (tip: you have to compile both <code>main.cpp</code> and <code>lib.cpp</code>)</p>
+<p>Compile and run the program (tip: you have to compile both <code>main.cpp</code> and <code>lib.cpp</code>).</p>
 </li>
 <li>
-<p>helper: <code>gcc -o &lt;output_binary&gt; &lt;source_1.cpp source_2.cpp ...&gt; -I &lt;folder_with_headers&gt;</code></p>
+<p>Helper: <code>g++ -o &lt;output_binary&gt; &lt;source_1.cpp source_2.cpp ...&gt; -I &lt;folder_with_headers&gt;</code></p>
 </li>
 <li>
-<p>Discuss the difference between preprocessing code, compiling code and linking objects.</p>
+<p>Discuss the difference between preprocessing, compiling, and linking.</p>
 </li>
 <li>
 <p>Delete project folder</p>
 </li>
 </ul>
 <h2 id="cmake-project-30-min"><a class="header" href="#cmake-project-30-min">CMake Project (30 min)</a></h2>
-<p>Before reading following text, please get familiar with <a href="2_labs/text/../../4_others/text/7_cmake.html">CMake</a>.</p>
+<p>Before continuing, get familiar with <a href="2_labs/text/../../4_others/text/7_cmake.html">CMake</a>.</p>
 <p>Now let's create a similar project, but using <code>CMake</code>.</p>
 <ul>
 <li>Determine your current location in the file system.</li>
@@ -442,8 +438,8 @@ int main() {
  \--src
 </code></pre>
 <ul>
-<li>Using any text editor (like <code>nano</code> or <code>vim</code>) to create the following files: <code>main.cpp</code>, <code>lib.cpp</code>, <code>lib.hpp</code>, and <code>CMakeLists.txt</code> in your <code>home directory</code>. </li>
-<li>Move (do not copy) the <code>main.cpp</code> adn <code>lib.cpp</code> files into the <code>src</code> subdirectory.</li>
+<li>Using any text editor (like <code>nano</code> or <code>vim</code>), create the following files in the project root: <code>main.cpp</code>, <code>lib.cpp</code>, <code>lib.hpp</code>, and <code>CMakeLists.txt</code>.</li>
+<li>Move (do not copy) the <code>main.cpp</code> and <code>lib.cpp</code> files into the <code>src</code> subdirectory.</li>
 <li>Move the <code>lib.hpp</code> file into the <code>include/MyProject</code> subdirectory.</li>
 <li>Move the <code>CMakeLists.txt</code> file into the root of the project folder.</li>
 </ul>
@@ -460,8 +456,8 @@ int main() {
    
 </code></pre>
 <ul>
-<li>Using text editor fill the <code>main.cpp</code>, <code>lib.cpp</code> and <code>lib.hpp</code> files with required code.</li>
-<li>Using the text editor fill the <code>CMakeLists.txt</code></li>
+<li>Using a text editor, fill the <code>main.cpp</code>, <code>lib.cpp</code>, and <code>lib.hpp</code> files with the required code.</li>
+<li>Using a text editor, fill the <code>CMakeLists.txt</code> file.</li>
 </ul>
 <pre><code class="language-cmake">cmake_minimum_required(VERSION 3.10)
 project(MyProject)
@@ -469,30 +465,30 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(include/)
 add_executable(my_program src/main.cpp src/lib.cpp)
 </code></pre>
-<p>Now try co compile project. In the project folder follows:</p>
-<pre><code class="language-shell">cd my_project_dir  # go to your project directoyr
-mkdir build  # create build folder
-cd build   # enter the build folder
-cmake ..   # call cmake and search for CMakeLists.txt in the folder above
-make    # build program
-./&lt;binary_name&gt;   # run program
+<p>Now compile the project. From the project folder, run:</p>
+<pre><code class="language-bash">cd my_project_dir  # go to your project directory
+mkdir -p build     # create build folder
+cd build           # enter the build folder
+cmake ..           # configure; looks for CMakeLists.txt one level up
+make               # build program
+./my_program       # run program
 </code></pre>
-<p>Optional: try to compile program manualy.</p>
-<pre><code class="language-shell">g++ &lt;source1 source2 source3 ...&gt; -I &lt;include_directory&gt; -o &lt;output_binary&gt;
+<p>Optional: Try to compile the program manually.</p>
+<pre><code class="language-bash">g++ &lt;source1 source2 source3 ...&gt; -I &lt;include_directory&gt; -o &lt;output_binary&gt;
 </code></pre>
 <ul>
 <li>Delete project folder </li>
 </ul>
 <h2 id="clion-ide-30-min"><a class="header" href="#clion-ide-30-min">CLion IDE (30 min)</a></h2>
-<p>Create a same project using the CLion IDE. </p>
-<p>To learn how to control CLion, please take a look on <a href="2_labs/text/../../4_others/text/4_clion.html">tutorial</a> or <a href="https://www.jetbrains.com/help/clion/clion-quick-start-guide.html#code-assistance">official doc</a>.</p>
+<p>Create the same project using the CLion IDE.</p>
+<p>To learn how to control CLion, please take a look at the <a href="2_labs/text/../../4_others/text/4_clion.html">tutorial</a> or the <a href="https://www.jetbrains.com/help/clion/clion-quick-start-guide.html#code-assistance">official docs</a>.</p>
 <h2 id="unit-tests-gtest-30-min"><a class="header" href="#unit-tests-gtest-30-min">Unit Tests, GTest (30 min)</a></h2>
-<p>The unit tests are an effective way of developing software. It is called test-oriented-development. First we define the required functionality, than we write a tests that covers requirements and finally we implement the algorithms. When the tests are passing, it means we fulfilled requirements.</p>
-<p>In the same time, if we work on large scale projects where many people cooperates and many changes are done, the unit tests allows us to trace the potential bugs that might be introduced with changes. It is called Continuous Integration (CI). </p>
-<p>There are many frameworks that helps implement testing. In this course we are going to use the GTest by Google as it is one of the most common tool in this field.</p>
+<p>Unit tests are an effective way to develop software. Often called test‑driven development, the idea is: define the required functionality, write tests that cover the requirements, and then implement the code. When tests pass, the requirements are met.</p>
+<p>On larger projects with many contributors and frequent changes, unit tests help catch regressions early. This supports Continuous Integration (CI).</p>
+<p>There are many testing frameworks. In this course we will use GoogleTest (GTest), a common and well‑supported choice for C++.</p>
 <h3 id="gtest-installation"><a class="header" href="#gtest-installation">GTest Installation</a></h3>
 <p>If there is no GTest installed on the system follow these instructions.</p>
-<pre><code class="language-shell"># install necessary packages 
+<pre><code class="language-bash"># install necessary packages 
 sudo apt update
 sudo apt install cmake build-essential libgtest-dev
 
@@ -504,10 +500,10 @@ sudo make
 # install libs into system
 sudo cp lib/*.a /usr/lib
 </code></pre>
-<p>Take a look if the libraries are in the system</p>
-<pre><code class="language-shell">ls /usr/lib | grep gtest
+<p>Verify the libraries are in the system:</p>
+<pre><code class="language-bash">ls /usr/lib | grep gtest
 
-# you shoul see:
+# you should see:
 # libgtest.a
 # libgtest_main.a
 </code></pre>
@@ -523,6 +519,7 @@ sudo cp lib/*.a /usr/lib
 <pre><code class="language-cmake">cmake_minimum_required(VERSION 3.10)
 
 find_package(GTest REQUIRED)
+include(GoogleTest)
 enable_testing()
 
 add_executable(my_test my_test.cpp)
@@ -532,17 +529,18 @@ gtest_discover_tests(my_test)
 <p>Create <code>my_test.cpp</code> file.</p>
 <pre><code class="language-c++">#include &lt;gtest/gtest.h&gt;
 
+// Simple addition function for demonstration.
 float add(float a, float b) {
     return a + b;
 }
 
-TEST(test, test_should_pass) {
-    EXPECT_EQ(add(5.0f, 10.0), 15.0);
-    EXPECT_NE(add(5.0f, 10.0), 0.0);
+TEST(AdditionTest, AddsPositiveNumbers) {
+    EXPECT_FLOAT_EQ(add(5.0f, 10.0f), 15.0f);
+    EXPECT_FLOAT_EQ(add(0.0f, 0.0f), 0.0f);
 }
 
-TEST(test, test_should_fail) {
-    EXPECT_EQ(add(10.0f, 10.0), 20.0);
+TEST(AdditionTest, AddsEqualNumbers) {
+    EXPECT_FLOAT_EQ(add(10.0f, 10.0f), 20.0f);
 }
 
 int main(int argc, char** argv) {
@@ -550,25 +548,25 @@ int main(int argc, char** argv) {
     return RUN_ALL_TESTS();
 }
 </code></pre>
-<p>In the bottom of the CLion open console and run</p>
-<pre><code class="language-shell">mkdir build &amp;&amp; cd build
+<p>In CLion, open the bottom console and run:</p>
+<pre><code class="language-bash">mkdir build &amp;&amp; cd build
 cmake ..
 make
 cd test
 ctest
 </code></pre>
-<p>You should see the test evaluation.</p>
-<p>You can also evaluate tests in directly in the CLion by reloading the CMake and the test will be available as an executable on the top of the window.</p>
+<p>You should see the test output.</p>
+<p>You can also run tests directly in CLion by reloading CMake; the test target will appear as an executable at the top of the window.</p>
 <p><img src="2_labs/text/../images/clion_tests.png" alt="CLion Ctest" /></p>
-<h2 id="c-trainig-2h"><a class="header" href="#c-trainig-2h">C++ Trainig (2h)</a></h2>
-<p>Take a look on <a href="2_labs/text/../../4_others/text/2_cpp.html">basic c++ tutorial</a> and more advanced <a href="2_labs/text/../../4_others/text/8_multithreading.html">multithreading tutorial</a>.</p>
+<h2 id="c-training-2h"><a class="header" href="#c-training-2h">C++ Training (2h)</a></h2>
+<p>Take a look at the <a href="2_labs/text/../../4_others/text/2_cpp.html">basic C++ tutorial</a> and the more advanced <a href="2_labs/text/../../4_others/text/8_multithreading.html">multithreading tutorial</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-3---git--c-project-template-1"><a class="header" href="#lab-3---git--c-project-template-1">Lab 3 - Git &amp; C++ Project Template</a></h1>
 <p>Responsible: Ing. Jakub Minařík</p>
 <h2 id="git-1h-30min"><a class="header" href="#git-1h-30min">Git (1h 30min)</a></h2>
-<p>First, read the <a href="2_labs/text/../../4_others/text/3_git.html">Git Tutorial</a> chapter to get familiar with the workflow and commands</p>
+<p>First, read the <a href="2_labs/text/../../4_others/text/3_git.html">Git tutorial</a> to get familiar with the workflow and commands.</p>
 <h3 id="exercise-1"><a class="header" href="#exercise-1">Exercise</a></h3>
 <h3 id="sign-on"><a class="header" href="#sign-on">Sign On</a></h3>
-<p>Select any of the following free Git Services and register for it</p>
+<p>Select one of the following free Git services and register.</p>
 <ul>
 <li><a href="https://github.com/">GitHub</a></li>
 <li><a href="https://about.gitlab.com/">GitLab</a></li>
@@ -578,13 +576,13 @@ ctest
 <p>The instructors will have access to all your repositories, including their history, and can monitor your progress, including who, when, and how frequently commits were made.</p>
 <p>Create a repository on the server to maintain your code throughout the course.</p>
 <hr />
-<h3 id="cloning-repository-in-labs"><a class="header" href="#cloning-repository-in-labs">Cloning repository in labs</a></h3>
+<h3 id="cloning-the-repository-in-the-lab"><a class="header" href="#cloning-the-repository-in-the-lab">Cloning the repository in the lab</a></h3>
 <h4 id="https---github-token"><a class="header" href="#https---github-token">HTTPS - GitHub Token</a></h4>
 <p>When cloning a repository via HTTPS, you cannot push changes using your username and password. Instead, you must use a generated GitHub token.</p>
 <p>To generate a token, go to <strong>Profile picture (top-right corner)</strong> &gt; <strong>Settings</strong> &gt; <strong>Developer Settings</strong> &gt; <strong>Personal Access Tokens</strong> &gt; <strong>Tokens (classic)</strong> or click <a href="https://github.com/settings/tokens">here</a>. Your generated token will be shown only once, after which you can use it as a password when pushing changes via HTTPS until the token expires.</p>
 <h4 id="ssh---setting-a-different-key"><a class="header" href="#ssh---setting-a-different-key">SSH - Setting a Different Key</a></h4>
-<p>You can generate an SSH key using the <code>ssh-keygen</code> command. It will prompt you in a single input for both the location and name of your key, followed by a passphrase. For use in a laboratory set a passphrase. The default location where the system recognizes the keys is <code>~/.ssh</code>.</p>
-<p>When cloning a repository via SSH in labs, you may encounter a problem with Git using the wrong SSH key.<br />
+<p>You can generate an SSH key using the <code>ssh-keygen</code> command. It will prompt you for the file location/name and then for a passphrase. For lab use, set a passphrase. The default location is <code>~/.ssh</code>.</p>
+<p>When cloning a repository via SSH in the lab, you may encounter a problem with Git using the wrong SSH key.<br />
 You'll need to configure Git to use your generated key:</p>
 <pre><code class="language-bash">git config core.sshCommand &quot;ssh -i ~/.ssh/&lt;your_key&gt;&quot;
 </code></pre>
@@ -617,10 +615,11 @@ Go to <strong>Profile picture (top-right corner)</strong> &gt; <strong>Settings<
 <p>Now it is time to create your main project for this course.</p>
 <ol>
 <li>Create a project on the web page of your Git service.</li>
-<li>Clone project to the local</li>
+<li>Clone the project to your local machine.</li>
 <li>Create the following project structure</li>
 </ol>
-<pre><code class="language-/bpc-prp-project-team-x"> |--docs
+<pre><code>/bpc-prp-project-team-x
+ |--docs
  | \--placeholder
  |--README.md
  |--CMakeLists.txt
@@ -636,12 +635,12 @@ Go to <strong>Profile picture (top-right corner)</strong> &gt; <strong>Settings<
 <li>Fill all required files</li>
 </ol>
 <ul>
-<li>README.md is a brief description and how-to-use your project.</li>
-<li>folder <code>docs</code> will be used later. Now just create file <code>placeholder</code>. </li>
-<li>Write some basic code into the <code>cpp</code> adn <code>hpp</code> files.</li>
-<li>Fill the <code>.gitignore</code> file. It is used to inform <code>git</code> to ignore some files, folders or extensions, not to commit it into the repository.</li>
+<li>README.md: a brief description and how to use your project.</li>
+<li>The <code>docs</code> folder will be used later. For now, just create a file named <code>placeholder</code>.</li>
+<li>Write some basic code into the <code>cpp</code> and <code>hpp</code> files.</li>
+<li>Fill the <code>.gitignore</code> file to keep build artifacts and IDE files out of the repository.</li>
 </ul>
-<pre><code class="language-.gitignore"># Ignore build directories
+<pre><code class="language-gitignore"># Ignore build directories
 /build/
 /cmake-build-debug/
 /cmake-build-release/
@@ -657,12 +656,11 @@ Makefile
 *.iml
 </code></pre>
 <ol start="5">
-<li></li>
 <li>Commit and push your project to the server and share it with other members of the team.</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-4---data-capture--visualization-ros-1"><a class="header" href="#lab-4---data-capture--visualization-ros-1">Lab 4 - Data Capture &amp; Visualization (ROS)</a></h1>
 <p><strong>Responsible:</strong> Ing. Petr Šopák</p>
-<h3 id="learning-objectives"><a class="header" href="#learning-objectives">Learning Objectives</a></h3>
+<h2 id="learning-objectives"><a class="header" href="#learning-objectives">Learning objectives</a></h2>
 <p><strong>1) Fundamentals of ROS 2</strong></p>
 <ul>
 <li>Setting Up a <strong>ROS 2 workspace</strong> (optional)</li>
@@ -670,14 +668,14 @@ Makefile
 <li>Exploring essential <strong>ROS 2 CLI commands</strong></li>
 <li>Utilizing <strong>visualization tools</strong> - <code>rqt_plot</code> and <code>rqt_graph</code></li>
 </ul>
-<p><strong>2) Implementing Basic Behaviour for BPC-PRP robots</strong></p>
+<p><strong>2) Implementing Basic Behavior for BPC-PRP robots</strong></p>
 <ul>
 <li>Establishing <strong>connection to the robots</strong></li>
 <li>Implementing <strong>IO node</strong> - Reading button inputs and controlling LEDs</li>
 </ul>
 <p><strong>BONUS: Advanced Visualizations</strong></p>
 <ul>
-<li>Using <code>RViz</code> for graphical representation</li>
+<li>Using RViz2 for graphical representation</li>
 <li>Creating basic graphical objects and defining their behavior</li>
 </ul>
 <blockquote>
@@ -687,12 +685,12 @@ Makefile
 <h3 id="setting-up-a-ros-workspace-5-min---optional"><a class="header" href="#setting-up-a-ros-workspace-5-min---optional">Setting Up a ROS Workspace (5 min) - optional</a></h3>
 <p>Last week, you cloned a basic template that we will gradually extend with additional functionalities. The first step is to establish communication between the existing project and <strong>ROS 2</strong>.</p>
 <p>There are many ways to set up a ROS project, but typically, a <a href="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html"><strong>ROS workspace</strong></a> is created, which is a structured directory for managing multiple packages. However, for this course, we <em>do not need a full ROS workspace</em>, as we will be working with only one package. Let’s review the commands from <a href="https://github.com/Robotics-BUT/BPC-PRP/blob/master/src/2_labs/text/1_lab.md"><strong>Lab 1</strong></a>. Using the CLI, create a workspace folder structured as follows:</p>
-<pre><code class="language-shell">mkdir -p ~/ros_w/src
+<pre><code class="language-bash">mkdir -p ~/ros_w/src
 cd ~/ros_w
 </code></pre>
 <p>Next, copy the folders from previous labs into the <code>src</code> directory or re-clone the repository from Git (<a href="https://github.com/Robotics-BUT/BPC-PRP/blob/master/src/2_labs/text/3_lab.md"><strong>Lab 3</strong></a>). You can rename the template to something like <strong>&quot;ros_package&quot;</strong>, but this is optional.
 Finally, you need to <strong>compile the package</strong> and set up the environment:</p>
-<pre><code class="language-shell">colcon build
+<pre><code class="language-bash">colcon build
 source install/setup.bash
 </code></pre>
 <blockquote>
@@ -706,13 +704,13 @@ source install/setup.bash
 <li>Other resources required for running ROS functionalities.</li>
 </ul>
 <p>After (or before) setting up the workspace, <strong>always remember</strong> to source your environment before using ROS:</p>
-<pre><code class="language-shell">source ~/ros_w/install/setup.bash
+<pre><code class="language-bash">source ~/ros_w/install/setup.bash
 </code></pre>
 <p>or add sourcing to your shell startup script</p>
-<pre><code class="language-shell">echo &quot;source /opt/ros/&lt;distro&gt;/setup.bash&quot; &gt;&gt; ~/.bashrc
+<pre><code class="language-bash">echo &quot;source /opt/ros/&lt;distro&gt;/setup.bash&quot; &gt;&gt; ~/.bashrc
 </code></pre>
 </blockquote>
-<h1 id="creating-a-custom-node-55-min"><a class="header" href="#creating-a-custom-node-55-min">Creating a custom node (55 min)</a></h1>
+<h2 id="creating-a-custom-node-55-min"><a class="header" href="#creating-a-custom-node-55-min">Creating a custom node (55 min)</a></h2>
 <p>In this section, we will create a <strong>ROS 2 node</strong> that will <strong>publish</strong> and <strong>receive data</strong> (<a href="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Cpp-Publisher-And-Subscriber.html">info</a>). We will then visualize the data accordingly.</p>
 <p><strong>Required Tools:</strong></p>
 <ul>
@@ -723,17 +721,17 @@ source install/setup.bash
 <ol>
 <li>
 <p>Open a terminal and set the ROS_DOMAIN_ID to match the ID on your computer’s case:</p>
-<pre><code class="language-shell">export ROS_DOMAIN_ID=&lt;robot_ID&gt;
+<pre><code class="language-bash">export ROS_DOMAIN_ID=&lt;robot_ID&gt;
 </code></pre>
 <p>This change is temporary and applies <strong>only to the current terminal session</strong>. If you want to make it permanent, you need to update your configuration file:</p>
-<pre><code class="language-shell">echo &quot;export ROS_DOMAIN_ID=&lt;robot_ID&gt;&quot; &gt;&gt; ~/.bashrc
+<pre><code class="language-bash">echo &quot;export ROS_DOMAIN_ID=&lt;robot_ID&gt;&quot; &gt;&gt; ~/.bashrc
 source ~/.bashrc
 </code></pre>
-<p>Check the <code>~/.bashrc</code> content using. The <code>~/.bashrc</code> is a script that runs every time the new bash session (cli) is opened and it is used to setup bash environment.</p>
-<pre><code>cat ~/.bashrc
+<p>Check the contents of <code>~/.bashrc</code>. The file runs at the start of each new Bash session and sets up your environment.</p>
+<pre><code class="language-bash">cat ~/.bashrc
 </code></pre>
 <p>To <strong>verify the domain ID</strong>, use:</p>
-<pre><code class="language-shell">echo $ROS_DOMAIN_ID
+<pre><code class="language-bash">echo $ROS_DOMAIN_ID
 </code></pre>
 <blockquote>
 <p>If there are any issues with the .bashrc file, please let me know.</p>
@@ -746,9 +744,9 @@ source ~/.bashrc
 <p>Ensure that the <strong>IDE is launched from a terminal where the ROS environment is sourced</strong></p>
 </li>
 </ol>
-<pre><code class="language-shell">source /opt/ros/&lt;distro&gt;/setup.bash  # We are using the Humble distribution
+<pre><code class="language-bash">source /opt/ros/&lt;distro&gt;/setup.bash  # We are using the Humble distribution
 </code></pre>
-<ol start="3">
+<ol start="4">
 <li>Write the following code in <code>main.cpp</code>:</li>
 </ol>
 <pre><code class="language-c++">#include &lt;rclcpp/rclcpp.hpp&gt;
@@ -781,8 +779,8 @@ int main(int argc, char* argv[]) {
 }
 </code></pre>
 <ol start="4">
-<li>Create a <strong>header file</strong> in the <code>include</code> directury to ensure the code runs properly.</li>
-<li>Adds the following code tot he header file:</li>
+<li>Create a header file in the <code>include</code> directory to ensure the code runs properly.</li>
+<li>Add the following code to the header file:</li>
 </ol>
 <pre><code class="language-c++">
 #pragma once
@@ -790,6 +788,7 @@ int main(int argc, char* argv[]) {
 #include &lt;iostream&gt;
 #include &lt;rclcpp/rclcpp.hpp&gt;
 #include &lt;std_msgs/msg/float32.hpp&gt;
+#include &lt;chrono&gt;
 
 class RosExampleClass {
 public:
@@ -845,7 +844,7 @@ private:
 
 </code></pre>
 <p>At this point, you can <strong>compile and run</strong> your project. Alternatively, you can use the CLI:</p>
-<pre><code class="language-shell">colcon build --packages-select &lt;package_name&gt;
+<pre><code class="language-bash">colcon build --packages-select &lt;package_name&gt;
 source install/setup.bash
 ros2 run &lt;package_name&gt; &lt;executable_file&gt;
 </code></pre>
@@ -857,27 +856,27 @@ ros2 run &lt;package_name&gt; &lt;executable_file&gt;
 <li><strong>Observe the program’s output</strong> in the terminal.</li>
 </ul>
 <hr />
-<p><strong>How to Check Published data</strong></p>
+<p><strong>How to check published data</strong></p>
 <p>There are two main ways to analyze and visualize data in ROS 2 - using <strong>CLI commands</strong> in the terminal or <strong>ROS visualization tools</strong>. </p>
 <p><strong>1) Inspecting Published Data via CLI</strong></p>
 <p>In a new terminal (Don't forget to <strong>source the ROS environment!</strong>), you can inspect the data published to a specific topic:</p>
-<pre><code class="language-shell">ros2 topic echo &lt;topic_name&gt;
+<pre><code class="language-bash">ros2 topic echo &lt;topic_name&gt;
 </code></pre>
 <p>If you are unsure about the topic name, you can list all available topics:</p>
-<pre><code class="language-shell">ros2 topic list
+<pre><code class="language-bash">ros2 topic list
 </code></pre>
 <blockquote>
 <p>Similar commands exist for <strong>nodes, services, and actions</strong> – refer to the <a href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools.html">documentation</a> for more details.</p>
 </blockquote>
 <p><strong>2) Using ROS Visualization Tools</strong></p>
 <p>ROS 2 offers built-in tools for graphical visualization of data and system architecture. <strong>Real-Time Data Visualization</strong> - <code>rqt_plot</code> - allows you to <strong>graphically plot topic values</strong> in real-time:</p>
-<pre><code class="language-shell">ros2 run rqt_plot rqt_plot
+<pre><code class="language-bash">ros2 run rqt_plot rqt_plot
 </code></pre>
 <blockquote>
 <p>In the GUI, enter <code>/&lt;topic_name&gt;/data</code> into the <strong>input field</strong>, click <strong>+</strong>, and configure the <strong>X and Y axes</strong> accordingly.</p>
 </blockquote>
 <p><strong>System Architecture Visualization</strong> - <code>rqt_graph</code> - displays the <strong>ROS 2 node connections and data flow</strong> within the system:</p>
-<pre><code class="language-shell">rqt_graph
+<pre><code class="language-bash">rqt_graph
 </code></pre>
 <blockquote>
 <p>When the system's architecture changes, simply refresh the visualization by clicking the <strong>refresh button</strong>.</p>
@@ -886,17 +885,17 @@ ros2 run &lt;package_name&gt; &lt;executable_file&gt;
 <p><strong>TASK 2</strong></p>
 <p>Modify or extend the code to <strong>publish sine wave (or other mathematical function) values</strong>.</p>
 <p><strong>Don't forget to check the results using ROS 2 tools</strong></p>
-<p><em>(Hint: Include the <cmath> library for the mathemtical functions like <code>std::sin</code>)</em></p>
+<p><em>(Hint: Include the <cmath> library for mathematical functions like <code>std::sin</code>)</em></p>
 <p><strong>(Bonus for fast finishers)</strong>: Modify the code so that each node publishes different data, such as two distinct mathematical functions.</p>
 <hr />
-<h2 id="implementing-basic-behaviour-for-bpc-prp-robots-1-hour"><a class="header" href="#implementing-basic-behaviour-for-bpc-prp-robots-1-hour">Implementing Basic Behaviour for BPC-PRP robots (1 hour)</a></h2>
+<h2 id="implementing-basic-behavior-for-bpc-prp-robots-1-h"><a class="header" href="#implementing-basic-behavior-for-bpc-prp-robots-1-h">Implementing Basic Behavior for BPC-PRP robots (1 h)</a></h2>
 <p>In this section, we will get familiar with the PRP robot, <strong>learn how to connect to it, explore potential issues, and then write a basic input-output node for handling buttons and LEDs</strong>. Finally, we will experiment with these components.</p>
 <h3 id="connecting-to-the-robot"><a class="header" href="#connecting-to-the-robot">Connecting to the Robot</a></h3>
 <p>The robot operates as an independent unit, meaning it <strong>has its own computing system</strong> (Raspberry Pi) running Ubuntu with an already installed ROS 2 program. <em>Our goal is to connect to the robot and send instructions to control its behavior.</em></p>
 <ol>
 <li>First, power on the robot and connect to it using SSH. Ensure that you are on the same network as the robot.</li>
 </ol>
-<pre><code class="language-shell">   ssh robot@prp-&lt;color&gt;
+<pre><code class="language-bash">   ssh robot@prp-&lt;color&gt;
 </code></pre>
 <blockquote>
 <p>The password will be written on the classroom board.
@@ -908,7 +907,7 @@ The robot may take about a minute to boot up. Please <strong>wait before attempt
 <ul>
 <li>examine the system architecture to understand which ROS 2 nodes are running on the robot and what topics they publish or subscribe to.</li>
 <li>Additionally, check the important environment variables using:
-<pre><code class="language-shell">env | grep ROS
+<pre><code class="language-bash">env | grep ROS
 </code></pre>
 </li>
 </ul>
@@ -918,31 +917,31 @@ The robot may take about a minute to boot up. Please <strong>wait before attempt
 <ol start="3">
 <li>
 <p><em>(if it is necessary)</em> Open a new terminal <strong>on your local machine</strong> (not on the robot) and change the <code>ROS_DOMAIN_ID</code> to match the robot’s domain:</p>
-<pre><code class="language-shell">export ROS_DOMAIN_ID=&lt;robot_ID&gt;
+<pre><code class="language-bash">export ROS_DOMAIN_ID=&lt;robot_ID&gt;
 </code></pre>
 <p>This change is temporary and applies <strong>only to the current terminal session</strong>. If you want to make it permanent, you need to update your configuration file:</p>
-<pre><code class="language-shell">echo &quot;export ROS_DOMAIN_ID=&lt;robot_ID&gt;&quot; &gt;&gt; ~/.bashrc
+<pre><code class="language-bash">echo &quot;export ROS_DOMAIN_ID=&lt;robot_ID&gt;&quot; &gt;&gt; ~/.bashrc
 source ~/.bashrc
 </code></pre>
 <p>Alternatively, you can change it by modifying the .bashrc file:</p>
 <ol>
 <li>Open the ~/.bashrc file in an editor, for example, using nano:</li>
 </ol>
-<pre><code class="language-shell">nano ~/.bashrc
+<pre><code class="language-bash">nano ~/.bashrc
 </code></pre>
 <ol start="2">
 <li>Add/modify the following line at the end of the file:</li>
 </ol>
-<pre><code class="language-shell">export ROS_DOMAIN_ID=&lt;your_ID&gt;
+<pre><code class="language-bash">export ROS_DOMAIN_ID=&lt;your_ID&gt;
 </code></pre>
 <ol start="3">
 <li>Save the changes and close the editor (in nano, press CTRL+X, then Y to confirm saving, and Enter to finalize).</li>
 <li>To apply the changes, run the following command:</li>
 </ol>
-<pre><code class="language-shell">source ~/.bashrc
+<pre><code class="language-bash">source ~/.bashrc
 </code></pre>
 <p>To <strong>verify the domain ID</strong>, use:</p>
-<pre><code class="language-shell">echo $ROS_DOMAIN_ID
+<pre><code class="language-bash">echo $ROS_DOMAIN_ID
 </code></pre>
 </li>
 <li>
@@ -973,7 +972,7 @@ source ~/.bashrc
 <ol start="4">
 <li>First, gather <strong>information about the published topic</strong> for buttons (<code>/bpc_prp_robot/buttons</code>). Determine the <strong>message type</strong> and its <strong>structure</strong> using the following <a href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html#ros2-topic-info">commands</a>:</li>
 </ol>
-<pre><code class="language-shell">ros2 topic type &lt;topic_name&gt; # Get the type of the message
+<pre><code class="language-bash">ros2 topic type &lt;topic_name&gt; # Get the type of the message
 ros2 interface show &lt;type_of_msg&gt; # Show the structure of the message
 </code></pre>
 <blockquote>
@@ -985,7 +984,8 @@ ros2 interface show &lt;type_of_msg&gt; # Show the structure of the message
 <pre><code class="language-c++">#pragma once
 
 #include &lt;iostream&gt;
- 
+#include &lt;string&gt;
+
 static const int MAIN_LOOP_PERIOD_MS = 50;
  
 namespace Topic {
@@ -1018,7 +1018,7 @@ namespace nodes {
          // Destructor (default)
          ~IoNode() override = default;
 
-         // Function to retireve the last pressed button value
+         // Function to retrieve the last pressed button value
          int get_button_pressed() const;
  
      private:
@@ -1061,7 +1061,7 @@ namespace {
 <p>Hints: - The robot subscribes to a topic for controlling LEDs.
 - Find out which message type is used for controlling LEDs.
 - Use the CLI to <a href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Topics/Understanding-ROS2-Topics.html#ros2-topic-pub">publish test messages</a> and analyze their effect:</p>
-<pre><code class="language-shell">ros2 topic pub &lt;led_topic&gt; &lt;message_type&gt; &lt;message_data&gt;
+<pre><code class="language-bash">ros2 topic pub &lt;led_topic&gt; &lt;message_type&gt; &lt;message_data&gt;
 </code></pre>
 </blockquote>
 </li>
@@ -1078,7 +1078,7 @@ namespace {
 <h1 id="bonus-advanced-visualizations-30-min"><a class="header" href="#bonus-advanced-visualizations-30-min">BONUS: Advanced Visualizations (30 min)</a></h1>
 <p><strong>Required Tools:</strong> <code>rviz2</code></p>
 <p>Official documentation: <a href="https://docs.ros.org/en/humble/Tutorials/Intermediate/RViz/RViz-User-Guide/RViz-User-Guide.html">RViz2</a>.</p>
-<p>In this section, we will learn how to create <strong>visualizations in ROS 2</strong> using <code>RViz</code>. You should refer to the <a href="https://wiki.ros.org/rviz"><strong>official RViz documentation</strong></a> and the <a href="https://wiki.ros.org/rviz/DisplayTypes/Marker"><strong>marker tutorial</strong></a> to get a deeper understanding.</p>
+<p>In this section, we will learn how to create visualizations in ROS 2 using RViz2. You should refer to the <a href="https://wiki.ros.org/rviz">official RViz documentation</a> and the <a href="https://wiki.ros.org/rviz/DisplayTypes/Marker">marker tutorial</a> to get a deeper understanding.</p>
 <p>ROS 2 provides <strong>visualization messages</strong> via the <a href="https://wiki.ros.org/visualization_msgs"><code>visualization_msgs</code></a> package. These messages allow <strong>rendering of various geometric shapes, arrows, lines, polylines, point clouds, text, and mesh grids.</strong></p>
 <p>Our objective will be to implement a <strong>class that visualizes a floating cube in 3D space</strong> while displaying its real-time position next to it.</p>
 <ol>
@@ -1088,11 +1088,13 @@ namespace {
 
  #include &lt;iostream&gt;
  #include &lt;memory&gt;
- #include &lt;rclcpp/rclcpp.hpp&gt;
- #include &lt;visualization_msgs/msg/marker_array.hpp&gt;prp_project
+ #include &lt;string&gt;
+ #include &lt;chrono&gt;
  #include &lt;cmath&gt;
  #include &lt;iomanip&gt;
  #include &lt;sstream&gt;
+ #include &lt;rclcpp/rclcpp.hpp&gt;
+ #include &lt;visualization_msgs/msg/marker_array.hpp&gt;
  
  #define FORMAT std::fixed &lt;&lt; std::setw(5) &lt;&lt; std::showpos &lt;&lt; std::setprecision(2)
  
@@ -1235,14 +1237,14 @@ namespace {
 </code></pre>
 </li>
 <li>
-<p>Build and run your project. Then open <code>Rviz</code></p>
-<pre><code class="language-shell">rviz2
+<p>Build and run your project. Then open RViz2</p>
+<pre><code class="language-bash">rviz2
 </code></pre>
 </li>
 <li>
 <p>Add the Visualization Topic</p>
 <ol>
-<li>In <code>RViz</code>, go to <code>Add</code> → <code>By Topic</code></li>
+<li>In RViz2, go to Add → By Topic</li>
 <li>Locate the created topic <code>rviz_topic</code></li>
 <li>Select <code>MarkerArray</code> to display the cube and text</li>
 </ol>
@@ -1251,11 +1253,11 @@ namespace {
 <hr />
 <p><strong>TASK BONUS</strong>: </p>
 <ol>
-<li>Check the Code and <code>RViz</code> Features</li>
-<li>Experiment with modifying the code to explore different visualization features. </li>
+<li>Check the code and RViz2 features</li>
+<li>Experiment with modifying the code to explore different visualization features.</li>
 </ol>
 <blockquote>
-<p>The goal of this task is to familiarize yourself with RViz. RViz will be used in future exercises, e.g., visualizing LiDAR data.</p>
+<p>The goal of this task is to familiarize yourself with RViz2. RViz2 will be used in future exercises, e.g., visualizing LiDAR data.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-5---motor-kinematics--gamepad-1"><a class="header" href="#lab-5---motor-kinematics--gamepad-1">Lab 5 - Motor, Kinematics &amp; Gamepad</a></h1>
 <p>Responsible: Ing. Jakub Minařík</p>
@@ -1317,7 +1319,7 @@ namespace {
 <li>Inicialize SDL2 - <code>SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER)</code></li>
 <li>Find if joystick/gamepad is connected - <code>SDL_NumJoysticks()</code></li>
 <li>Create gamepad object - <code>SDL_GameControllerOpen(0)</code></li>
-<li>Poll events in time loop - made using ROS2 timer
+<li>Poll events in a time loop — made using a ROS 2 timer
 <ul>
 <li>Create event object - <code>SDL_Event</code></li>
 <li>Poll events - <code>SDL_PollEvent()</code></li>
@@ -2243,14 +2245,14 @@ namespace algorithms {
 </ul>
 <h2 id="requirement"><a class="header" href="#requirement">Requirement</a></h2>
 <p>For this lab, you need to have the <code>image transport compressed package</code> installed:</p>
-<pre><code class="language-shell">sudo apt update
+<pre><code class="language-bash">sudo apt update
 sudo apt install ros-humble-image-transport-plugins -y
 </code></pre>
 <p>To check all available transport plugins, run:</p>
-<pre><code class="language-shell">ros2 run image_transport list
+<pre><code class="language-bash">ros2 run image_transport list
 </code></pre>
 <p>You should see an output similar to:</p>
-<pre><code class="language-shell">Declared transports:
+<pre><code class="language-bash">Declared transports:
 image_transport/compressed
 image_transport/compressedDepth
 image_transport/raw
@@ -2353,10 +2355,10 @@ Details:
 <h2 id="symbolic-navigation-logic-approx-40-minutes"><a class="header" href="#symbolic-navigation-logic-approx-40-minutes">Symbolic Navigation Logic (Approx. 40 minutes)</a></h2>
 <p>In the second part of the lab, you will design logic that interprets the detected ArUco markers as instructions for maze navigation. Some markers indicate directions that lead to the exit, while others point toward the treasure. Your robot must recognize and remember these instructions, and then apply them later at decision points.</p>
 <p>As illustrated in the figure 1, each instruction obtained from an ArUco marker is <strong>always intended for the next upcoming intersection</strong>. The robot must remember the marker’s content and apply it at the first junction it encounters after reading the marker.</p>
-<p id="state_machine" align="center">
+<p id="state_machine">
   <img src="2_labs/text/../images/lab11_maze_example.png" alt="alt text" width="450" height="600">
 </p>
-<p align="center">
+<p>
     <em> Figure 1: Example of decision-making using ArUco markers in a maze </em>
 </p>
 <hr />

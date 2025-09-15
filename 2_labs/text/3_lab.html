@@ -146,10 +146,10 @@
                         <h1 id="lab-3---git--c-project-template"><a class="header" href="#lab-3---git--c-project-template">Lab 3 - Git &amp; C++ Project Template</a></h1>
 <p>Responsible: Ing. Jakub Minařík</p>
 <h2 id="git-1h-30min"><a class="header" href="#git-1h-30min">Git (1h 30min)</a></h2>
-<p>First, read the <a href="../../4_others/text/3_git.html">Git Tutorial</a> chapter to get familiar with the workflow and commands</p>
+<p>First, read the <a href="../../4_others/text/3_git.html">Git tutorial</a> to get familiar with the workflow and commands.</p>
 <h3 id="exercise"><a class="header" href="#exercise">Exercise</a></h3>
 <h3 id="sign-on"><a class="header" href="#sign-on">Sign On</a></h3>
-<p>Select any of the following free Git Services and register for it</p>
+<p>Select one of the following free Git services and register.</p>
 <ul>
 <li><a href="https://github.com/">GitHub</a></li>
 <li><a href="https://about.gitlab.com/">GitLab</a></li>
@@ -159,13 +159,13 @@
 <p>The instructors will have access to all your repositories, including their history, and can monitor your progress, including who, when, and how frequently commits were made.</p>
 <p>Create a repository on the server to maintain your code throughout the course.</p>
 <hr />
-<h3 id="cloning-repository-in-labs"><a class="header" href="#cloning-repository-in-labs">Cloning repository in labs</a></h3>
+<h3 id="cloning-the-repository-in-the-lab"><a class="header" href="#cloning-the-repository-in-the-lab">Cloning the repository in the lab</a></h3>
 <h4 id="https---github-token"><a class="header" href="#https---github-token">HTTPS - GitHub Token</a></h4>
 <p>When cloning a repository via HTTPS, you cannot push changes using your username and password. Instead, you must use a generated GitHub token.</p>
 <p>To generate a token, go to <strong>Profile picture (top-right corner)</strong> &gt; <strong>Settings</strong> &gt; <strong>Developer Settings</strong> &gt; <strong>Personal Access Tokens</strong> &gt; <strong>Tokens (classic)</strong> or click <a href="https://github.com/settings/tokens">here</a>. Your generated token will be shown only once, after which you can use it as a password when pushing changes via HTTPS until the token expires.</p>
 <h4 id="ssh---setting-a-different-key"><a class="header" href="#ssh---setting-a-different-key">SSH - Setting a Different Key</a></h4>
-<p>You can generate an SSH key using the <code>ssh-keygen</code> command. It will prompt you in a single input for both the location and name of your key, followed by a passphrase. For use in a laboratory set a passphrase. The default location where the system recognizes the keys is <code>~/.ssh</code>.</p>
-<p>When cloning a repository via SSH in labs, you may encounter a problem with Git using the wrong SSH key.<br />
+<p>You can generate an SSH key using the <code>ssh-keygen</code> command. It will prompt you for the file location/name and then for a passphrase. For lab use, set a passphrase. The default location is <code>~/.ssh</code>.</p>
+<p>When cloning a repository via SSH in the lab, you may encounter a problem with Git using the wrong SSH key.<br />
 You'll need to configure Git to use your generated key:</p>
 <pre><code class="language-bash">git config core.sshCommand &quot;ssh -i ~/.ssh/&lt;your_key&gt;&quot;
 </code></pre>
@@ -198,10 +198,11 @@ Go to <strong>Profile picture (top-right corner)</strong> &gt; <strong>Settings<
 <p>Now it is time to create your main project for this course.</p>
 <ol>
 <li>Create a project on the web page of your Git service.</li>
-<li>Clone project to the local</li>
+<li>Clone the project to your local machine.</li>
 <li>Create the following project structure</li>
 </ol>
-<pre><code class="language-/bpc-prp-project-team-x"> |--docs
+<pre><code>/bpc-prp-project-team-x
+ |--docs
  | \--placeholder
  |--README.md
  |--CMakeLists.txt
@@ -217,12 +218,12 @@ Go to <strong>Profile picture (top-right corner)</strong> &gt; <strong>Settings<
 <li>Fill all required files</li>
 </ol>
 <ul>
-<li>README.md is a brief description and how-to-use your project.</li>
-<li>folder <code>docs</code> will be used later. Now just create file <code>placeholder</code>. </li>
-<li>Write some basic code into the <code>cpp</code> adn <code>hpp</code> files.</li>
-<li>Fill the <code>.gitignore</code> file. It is used to inform <code>git</code> to ignore some files, folders or extensions, not to commit it into the repository.</li>
+<li>README.md: a brief description and how to use your project.</li>
+<li>The <code>docs</code> folder will be used later. For now, just create a file named <code>placeholder</code>.</li>
+<li>Write some basic code into the <code>cpp</code> and <code>hpp</code> files.</li>
+<li>Fill the <code>.gitignore</code> file to keep build artifacts and IDE files out of the repository.</li>
 </ul>
-<pre><code class="language-.gitignore"># Ignore build directories
+<pre><code class="language-gitignore"># Ignore build directories
 /build/
 /cmake-build-debug/
 /cmake-build-release/
@@ -238,7 +239,6 @@ Makefile
 *.iml
 </code></pre>
 <ol start="5">
-<li></li>
 <li>Commit and push your project to the server and share it with other members of the team.</li>
 </ol>
 
