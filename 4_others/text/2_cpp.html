@@ -168,7 +168,7 @@ int main() {
 <p>What is the purpose of a constructor in a class?</p>
 </li>
 <li>
-<p>Explain the difference between the <code>pointer</code> and <code>reference</code>.</p>
+<p>Explain the difference between a pointer and a reference.</p>
 </li>
 <li>
 <p>What will be the output of the following code?</p>
@@ -186,7 +186,7 @@ int main() {
 </code></pre>
 <ol start="7">
 <li>
-<p>In your onw words, explain what is the Standard Template Library (STL).</p>
+<p>In your own words, explain what the Standard Template Library (STL) is.</p>
 </li>
 <li>
 <p>What will be the output of the following code?</p>
@@ -216,10 +216,10 @@ int main() {
 </code></pre>
 <ol start="9">
 <li>
-<p>Explain difference between <code>std::array&lt;T, N&gt;</code> and <code>std::vector&lt;T&gt;</code>.</p>
+<p>Explain the difference between <code>std::array&lt;T, N&gt;</code> and <code>std::vector&lt;T&gt;</code>.</p>
 </li>
 <li>
-<p>Explain the output of following Lambda-function based code.</p>
+<p>Explain the output of the following lambda-based code.</p>
 </li>
 </ol>
 <pre><code class="language-c++">#include &lt;iostream&gt;
@@ -233,7 +233,7 @@ int main() {
 </code></pre>
 <h2 id="revisiting-fundamentals"><a class="header" href="#revisiting-fundamentals">Revisiting Fundamentals</a></h2>
 <h3 id="functions-and-pointers"><a class="header" href="#functions-and-pointers">Functions and Pointers</a></h3>
-<p>Functions are the building blocks of C++ programs, and pointers are fundamental for memory management. Let’s revisit these concepts with an example.&quot;</p>
+<p>Functions are the building blocks of C++ programs, and pointers are fundamental for memory management. Let’s revisit these concepts with an example.</p>
 <pre><code class="language-c++">#include &lt;iostream&gt;
 void swap(int* a, int* b) {
     int temp = *a;
@@ -295,22 +295,23 @@ int main() {
 </code></pre>
 <p>Discussion Points:</p>
 <ul>
-<li>What is the purpose of the private keyword?</li>
-<li>How does the const qualifier ensure safety in display()?</li>
+<li>What is the purpose of the <code>private</code> keyword?</li>
+<li>How does the <code>const</code> qualifier ensure safety in <code>display()</code>?</li>
 </ul>
 <h3 id="modern-c-features"><a class="header" href="#modern-c-features">Modern C++ Features</a></h3>
 <p>Raw pointers are error-prone. Smart pointers, introduced in C++11, simplify memory management.</p>
-<p><code>std::unique_ptr</code>: </p>
+<p><code>std::unique_ptr</code>:</p>
 <ul>
-<li>Exclusive ownership: only one std::unique_ptr can point to a resource at a time.</li>
+<li>Exclusive ownership: only one <code>std::unique_ptr</code> can point to a resource at a time.</li>
 </ul>
 <pre><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;memory&gt;
+#include &lt;string&gt;
 
 class MyClass {
 public:
-    MyClass(std::string name) : name_{name} { std::cout &lt;&lt; &quot;Constructor called &quot; + name_ &lt;&lt; std::endl; }
-    ~MyClass() { std::cout &lt;&lt; &quot;Destructor called &quot; + name_ &lt;&lt; std::endl; }
+    explicit MyClass(std::string name) : name_{std::move(name)} { std::cout &lt;&lt; &quot;Constructor called &quot; &lt;&lt; name_ &lt;&lt; std::endl; }
+    ~MyClass() { std::cout &lt;&lt; &quot;Destructor called &quot; &lt;&lt; name_ &lt;&lt; std::endl; }
 private:
     std::string name_;
 };
@@ -325,10 +326,10 @@ int main() {
     return 0;
 }
 </code></pre>
-<p><code>std::shared_ptr</code>: </p>
+<p><code>std::shared_ptr</code>:</p>
 <ul>
-<li>Shared ownership: multiple std::shared_ptr can point to the same resource.</li>
-<li>Reference counting: the resource is deleted when the last std::shared_ptr goes out of scope.</li>
+<li>Shared ownership: multiple <code>std::shared_ptr</code> can point to the same resource.</li>
+<li>Reference counting: the resource is deleted when the last <code>std::shared_ptr</code> goes out of scope.</li>
 </ul>
 <pre><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;memory&gt;
@@ -344,7 +345,7 @@ int main() {
     std::cout &lt;&lt; &quot;Use count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; std::endl;
 
     {
-        std::shared_ptr&lt;MyClass&gt; sp2 = sp1; 
+        std::shared_ptr&lt;MyClass&gt; sp2 = sp1;
         std::cout &lt;&lt; &quot;Use count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; std::endl;
     }
 
@@ -355,7 +356,7 @@ int main() {
 <p><code>std::weak_ptr</code></p>
 <ul>
 <li>Weak reference: does not affect the reference count of the shared resource.</li>
-<li>Desn't increase the reference count.</li>
+<li>Doesn’t increase the reference count.</li>
 <li>Used to prevent circular references in shared ownership.</li>
 </ul>
 <pre><code class="language-c++">#include &lt;iostream&gt;
@@ -366,17 +367,17 @@ class NodeB; // forward declaration
 class NodeA {
 public:
     std::shared_ptr&lt;NodeB&gt; strong_ptr; // Strong reference to NodeB
-    std::weak_ptr&lt;NodeB&gt; weak_ptr; // Strong reference to NodeA
-    NodeA() { std::cout &lt;&lt; &quot;NodeStrong constructor\n&quot;; }
-    ~NodeA() {  std::cout &lt;&lt; &quot;NodeStrong destructor\n&quot;;  }
+    std::weak_ptr&lt;NodeB&gt; weak_ptr;     // Weak reference to NodeB
+    NodeA() { std::cout &lt;&lt; &quot;NodeA constructor\n&quot;; }
+    ~NodeA() { std::cout &lt;&lt; &quot;NodeA destructor\n&quot;; }
 };
 
 class NodeB {
 public:
     std::shared_ptr&lt;NodeA&gt; strong_ptr; // Strong reference to NodeA
-    std::weak_ptr&lt;NodeA&gt; weak_ptr; // Strong reference to NodeA
-    NodeB() { std::cout &lt;&lt; &quot;NodeWeak constructor&quot; &lt;&lt; std::endl; }
-    ~NodeB() { std::cout &lt;&lt; &quot;NodeWeak destructor\n&quot;; }
+    std::weak_ptr&lt;NodeA&gt; weak_ptr;     // Weak reference to NodeA
+    NodeB() { std::cout &lt;&lt; &quot;NodeB constructor\n&quot;; }
+    ~NodeB() { std::cout &lt;&lt; &quot;NodeB destructor\n&quot;; }
 };
 
 int main() {
@@ -400,7 +401,7 @@ int main() {
         auto a = std::make_shared&lt;NodeA&gt;();
         auto b = std::make_shared&lt;NodeB&gt;();
         a-&gt;strong_ptr = b; // NodeA has a strong reference to b
-        b-&gt;weak_ptr = a; // NodeB has a weak reference to a
+        b-&gt;weak_ptr = a;   // NodeB has a weak reference to a
         std::cout &lt;&lt; &quot;Exiting second scope...&quot; &lt;&lt; std::endl;
     }
     
@@ -409,23 +410,23 @@ int main() {
 </code></pre>
 <p>Discussion Points:</p>
 <ul>
-<li>What happens when the std::unique_ptr goes out of scope?</li>
-<li>Compare std::shared_ptr and std::unique_ptr.</li>
-<li>When should you use std::weak_ptr?</li>
-<li>Should we use raw pointers in modern C++? ... No we should not!</li>
+<li>What happens when the <code>std::unique_ptr</code> goes out of scope?</li>
+<li>Compare <code>std::shared_ptr</code> and <code>std::unique_ptr</code>.</li>
+<li>When should you use <code>std::weak_ptr</code>?</li>
+<li>Should we use raw pointers in modern C++? — Generally, no.</li>
 </ul>
-<h3 id="functions-as-object"><a class="header" href="#functions-as-object">Functions as Object</a></h3>
+<h3 id="functions-as-objects"><a class="header" href="#functions-as-objects">Functions as Objects</a></h3>
 <h3 id="lambda-functions"><a class="header" href="#lambda-functions">Lambda Functions</a></h3>
-<p>Lambda functions (also called lambda expressions) in C++ are unnamed (anonymous) functions that you can define inline. They were introduced in C++11 to make it easier to create small, concise functions, especially for use with the Standard Template Library (STL) algorithms or as callbacks. Unlike regular functions, they can capture variables from their surrounding scope. This is incredibly useful for passing context to a function on-the-fly.</p>
+<p>Lambda functions (also called lambda expressions) in C++ are unnamed (anonymous) functions that you can define inline. They were introduced in C++11 to make it easier to create small, concise functions, especially for use with the Standard Template Library (STL) algorithms or as callbacks. Unlike regular functions, they can capture variables from their surrounding scope. This is incredibly useful for passing context to a function on the fly.</p>
 <p>Syntax:</p>
 <pre><code class="language-c++">[ capture_list ] ( parameter_list ) -&gt; return_type {
     // function body
 }
 </code></pre>
 <ul>
-<li>capture_list: Specifies which variables from the enclosing scope are available inside the lambda and how they are captured (by value, by reference, etc.).</li>
+<li>capture_list: Which variables from the enclosing scope are available inside the lambda and how they are captured (by value, by reference, etc.).</li>
 <li>parameter_list: The parameters the lambda accepts (similar to a function’s parameter list).</li>
-<li>return_type: Often omitted because it can be deduced by the compiler, but can be specified explicitly using -&gt; return_type.</li>
+<li>return_type: Often omitted because it can be deduced by the compiler, but can be specified explicitly using <code>-&gt; return_type</code>.</li>
 <li>function body: The code that executes when the lambda is called.</li>
 </ul>
 <p>Example of lambda function usage:</p>
@@ -446,7 +447,7 @@ int main() {
 </code></pre>
 <p>Discussion Points:</p>
 <ul>
-<li>How does the lambda function work in std::sort?</li>
+<li>How does the lambda function work in <code>std::sort</code>?</li>
 <li>When should you use lambdas over named functions?</li>
 </ul>
 <pre><code class="language-c++">#include &lt;iostream&gt;
@@ -461,21 +462,22 @@ int main() {
         std::cout &lt;&lt; val &lt;&lt; &quot; &quot;;
     };
 
-    // Capture everything by value (copy
-    std::for_each(values.begin(), values.end(), [=](int val)  {
-        // modifies copy of 'val', not `val` itself
-        val += offset;
-        // offset += 1; // error: 'offset' cannot be modified. Can use [=]() mutable {...} to modify
+    // Capture everything by value (copy)
+    std::for_each(values.begin(), values.end(), [=](int val) {
+        // Modifies a copy of 'val', not the element itself
+        int tmp = val + offset;
+        (void)tmp; // suppress unused-variable warning in this snippet
+        // offset += 1; // error: 'offset' cannot be modified; use [=]() mutable { ... } to allow modification
     });
     std::for_each(values.begin(), values.end(), printValue);
 
     // Capture everything by reference
-    std::for_each(values.begin(), values.end(), [&amp;](int &amp;val) {
-        val += offset; // modifies 'val' directly in the vector via reference
-         offset += 1;
+    std::for_each(values.begin(), values.end(), [&amp;](int&amp; val) {
+        val += offset;   // modifies 'val' directly in the vector via reference
+        offset += 1;
     });
     std::for_each(values.begin(), values.end(), printValue);
-    
+
     std::cout &lt;&lt; std::endl;
     return 0;
 }
@@ -502,8 +504,8 @@ int main() {
 <h3 id="coding-challenge"><a class="header" href="#coding-challenge">Coding Challenge</a></h3>
 <p>Task: Create a simple program to manage student records, including adding and displaying students.</p>
 <ul>
-<li>Use a Student class with properties for name, age, and grades.</li>
-<li>Store students in a std::vector.</li>
+<li>Use a <code>Student</code> class with properties for name, age, and grades.</li>
+<li>Store students in a <code>std::vector</code>.</li>
 <li>Implement a menu-driven program for user interaction.</li>
 </ul>
 <pre><code class="language-c++">#include &lt;iostream&gt;

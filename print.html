@@ -3103,120 +3103,126 @@ while True:
 <p>Lorem Ipsum</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="linux"><a class="header" href="#linux">Linux</a></h1>
 <h2 id="installation-1"><a class="header" href="#installation-1">Installation</a></h2>
-<p>To install Linux Ubuntu, please follow the <a href="https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview">official documentation</a>.</p>
+<p>To install Ubuntu Linux, follow the official documentation: https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview</p>
 <h3 id="virtualbox-installation-vb"><a class="header" href="#virtualbox-installation-vb">VirtualBox Installation (VB)</a></h3>
-<p>In case you have no physical computer available for clean Linux installation nor the possibility for a dual boot, consider installing the Linux into the virtual machine.</p>
-<p>The VirtualBox is and example of the virtual machine engine that allows you to run Linux on a different host system.</p>
-<p>Install VirtualBox following the instructions for your respective operating system.</p>
-<p>Steps for <a href="https://www.virtualbox.org/wiki/Downloads">Windows a Mac</a>.</p>
-<p>For Linux, the installation process depends on your distribution and package management system. On Debian, use the command sudo apt install virtualbox. After installation, you can launch VirtualBox either from the terminal by typing virtualbox or by clicking its icon in the list of installed programs.</p>
-<p>To install the Ubuntu Linux into the virtual machine, please follow the <a href="https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview">official documentation</a></p>
+<p>If you don’t have a spare machine for a clean Linux installation or cannot dual boot, consider installing Linux in a virtual machine.</p>
+<p>VirtualBox is an example of a virtual machine hypervisor that allows you to run Linux on a different host OS.</p>
+<p>Install VirtualBox following the instructions for your operating system:</p>
+<ul>
+<li>Windows and macOS: https://www.virtualbox.org/wiki/Downloads</li>
+<li>Linux: the process depends on your distribution and package manager. For Debian/Ubuntu:
+<ul>
+<li>In a terminal: <code>sudo apt install virtualbox</code></li>
+<li>Launch VirtualBox by running <code>virtualbox</code> or from your applications menu.</li>
+</ul>
+</li>
+</ul>
+<p>To install Ubuntu inside the virtual machine, follow: https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview</p>
 <h2 id="cli-command-line-interface"><a class="header" href="#cli-command-line-interface">CLI (Command Line Interface)</a></h2>
-<p>Consider this chapter as a guide for working in the Linux operating system.</p>
-<p>You don't need to memorize all the commands and their parameters, but you should be familiar with them and able to look up their </p>
-<p>For more details, please find the detail <a href="https://assets.ubuntu.com/v1/2950553c-OpenStack%20cheat%20sheet%20-%20revised%20v3.pdf?_gl=1*112oq19*_gcl_au*MTE5NjAyMjU0Ni4xNzM1OTQyNzI4&amp;_ga=2.153041082.2070240710.1735942727-373166696.1735942726">cheat sheet</a> at official web site</p>
+<p>Consider this chapter a quick guide for working with the Linux terminal.</p>
+<p>You don’t need to memorize every command and parameter; be familiar with the basics and know how to look up usage when needed.</p>
+<p>Helpful cheat sheet: https://assets.ubuntu.com/v1/2950553c-OpenStack%20cheat%20sheet%20-%20revised%20v3.pdf</p>
 <h3 id="command"><a class="header" href="#command">Command</a></h3>
 <p>Explanation of function</p>
 <pre><code>Example usage      ...      Explanation
 </code></pre>
-<h3 id="ls---list"><a class="header" href="#ls---list">ls - (list)</a></h3>
-<p>Displays all files and directories (a directory is also a type of file) in the current point of the file system.</p>
-<pre><code>ls
-ls -la      ...      lists all files, including hidden ones, and provides detailed information
+<h3 id="ls--list"><a class="header" href="#ls--list">ls — list</a></h3>
+<p>Displays files and directories in the current location.</p>
+<pre><code class="language-bash">ls
+ls -la      # lists all files, including hidden ones, with details
 </code></pre>
-<h3 id="cd---change-directory"><a class="header" href="#cd---change-directory">cd - (change directory)</a></h3>
+<h3 id="cd--change-directory"><a class="header" href="#cd--change-directory">cd — change directory</a></h3>
 <p>Changes the current directory.</p>
-<pre><code>cd my_directory      ...      moves into the directory named &quot;my_directory&quot;
-cd ~                 ...      returns to the home directory (referred to as &quot;home&quot; in Linux)
-cd ..                ...      moves up one directory level
-cd /                 ...      returns to the root of the file system (called &quot;root&quot; in Linux)
-cd ../my_folder      ...      moves up one directory level and then into the &quot;my_folder&quot; directory
-cd .                 ...      stays in the current directory. Essentially does nothing, illustrating the use of &quot;.&quot; for the current directory.
+<pre><code class="language-bash">cd my_directory      # moves into the directory named &quot;my_directory&quot;
+cd ~                 # goes to your home directory
+cd ..                # moves up one directory level
+cd /                 # goes to the filesystem root
+cd ../my_folder      # up one level, then into &quot;my_folder&quot;
+cd .                 # stays in the current directory (&quot;.&quot; means current directory)
 </code></pre>
-<h3 id="pwd---print-working-directory"><a class="header" href="#pwd---print-working-directory">pwd - print working directory</a></h3>
-<p>Displays the current position in the file system.</p>
-<pre><code>pwd
+<h3 id="pwd--print-working-directory"><a class="header" href="#pwd--print-working-directory">pwd — print working directory</a></h3>
+<p>Shows the current directory path.</p>
+<pre><code class="language-bash">pwd
 </code></pre>
-<h3 id="mkdir---make-directory"><a class="header" href="#mkdir---make-directory">mkdir - (make directory)</a></h3>
+<h3 id="mkdir--make-directory"><a class="header" href="#mkdir--make-directory">mkdir — make directory</a></h3>
 <p>Creates a new directory.</p>
-<pre><code>mkdir my_folder      ...      creates a new directory named &quot;my_folder&quot;
+<pre><code class="language-bash">mkdir my_folder      # creates a directory named &quot;my_folder&quot;
 </code></pre>
-<h3 id="cp---copy"><a class="header" href="#cp---copy">cp - (copy</a></h3>
-<p>Copies a file.</p>
-<pre><code>cp source_file destination_file                    ...      creates a new copy of &quot;source_file&quot; named &quot;destination_file&quot;
-cp ../secret.txt secret_folder/supersecret.txt      ...      takes the &quot;secret.txt&quot; file located one directory up and copies it to the &quot;secret_folder&quot;. The copy will be named &quot;supersecret.txt&quot;.
+<h3 id="cp--copy"><a class="header" href="#cp--copy">cp — copy</a></h3>
+<p>Copies files.</p>
+<pre><code class="language-bash">cp source_file destination_file             # creates a copy of &quot;source_file&quot; named &quot;destination_file&quot;
+cp ../secret.txt secret_folder/supersecret.txt  # copies &quot;secret.txt&quot; from the parent directory to &quot;secret_folder&quot; as &quot;supersecret.txt&quot;
 </code></pre>
-<h3 id="mv---move"><a class="header" href="#mv---move">mv - (move)</a></h3>
-<p>Originally used for moving files, but is now primarily used to rename files.</p>
-<pre><code>mv old_name.txt new_name.html      ...      renames the file &quot;old_name.txt&quot; to &quot;new_name.html&quot;
+<h3 id="mv--move-rename"><a class="header" href="#mv--move-rename">mv — move (rename)</a></h3>
+<p>Originally moved files; today also commonly used to rename files.</p>
+<pre><code class="language-bash">mv old_name.txt new_name.html      # renames &quot;old_name.txt&quot; to &quot;new_name.html&quot;
 </code></pre>
-<h3 id="rm---remove"><a class="header" href="#rm---remove">rm - (remove)</a></h3>
-<p>Deletes a file or directory.</p>
-<pre><code>rm old_file.txt      ...      deletes the file &quot;old_file.txt&quot;
-rm -r my_folder      ...      deletes a directory. The recursive modifier (-r) must always be used to delete a directory, as it specifies that the directory's contents should also be deleted.
+<h3 id="rm--remove"><a class="header" href="#rm--remove">rm — remove</a></h3>
+<p>Deletes files or directories.</p>
+<pre><code class="language-bash">rm old_file.txt      # deletes the file &quot;old_file.txt&quot;
+rm -r my_folder      # deletes a directory and its contents (recursive)
 </code></pre>
-<h3 id="chmod---change-mode"><a class="header" href="#chmod---change-mode">chmod - (change mode)</a></h3>
+<h3 id="chmod--change-mode"><a class="header" href="#chmod--change-mode">chmod — change mode</a></h3>
 <p>Changes file access permissions.</p>
-<pre><code>chmod 777 /dev/ttyUSB0      ...      grants all users access to USB port 0. For details on file system permissions, see [7].
+<pre><code class="language-bash">chmod 777 /dev/ttyUSB0      # grants all users access to USB port 0 (example)
 </code></pre>
-<h3 id="sudo"><a class="header" href="#sudo">sudo</a></h3>
-<p>A meta command. Operations executed with this command are performed with administrator privileges. Commonly used for modifying system files.</p>
-<pre><code>sudo mkdir /etc/config      ...      creates a &quot;config&quot; directory in the system folder &quot;/etc&quot;.
-sudo rm -r /                ...      recursively deletes the root directory (essentially wipes the entire disk, including the OS).
+<h3 id="sudo--run-as-administrator"><a class="header" href="#sudo--run-as-administrator">sudo — run as administrator</a></h3>
+<p>Executes a command with administrator (root) privileges. Commonly used to modify system files.</p>
+<pre><code class="language-bash">sudo mkdir /etc/config      # creates a &quot;config&quot; directory in &quot;/etc&quot;
+sudo rm -r /                # DANGEROUS: recursively deletes the root directory (destroys the system)
 </code></pre>
-<h3 id="cat---concatenate-files-to-standard-output"><a class="header" href="#cat---concatenate-files-to-standard-output">cat - (Concatenate FILE(s) to standard output)</a></h3>
-<p>Displays the contents of a file in the terminal.</p>
-<pre><code>cat ~/my_config_file.txt      ...      prints the contents of the specified file in the terminal
+<h3 id="cat--concatenate-files-to-standard-output"><a class="header" href="#cat--concatenate-files-to-standard-output">cat — Concatenate file(s) to standard output</a></h3>
+<p>Prints file contents to the terminal.</p>
+<pre><code class="language-bash">cat ~/my_config_file.txt
 </code></pre>
-<h3 id="man---manual-referenční-manuál-operačního-systému"><a class="header" href="#man---manual-referenční-manuál-operačního-systému">man - (manual) referenční manuál operačního systému</a></h3>
-<p>Quick help if you forget how to use a specific program.</p>
-<pre><code>man ls      ...      prints the manual for the &quot;ls&quot; program in the terminal
+<h3 id="man--manual"><a class="header" href="#man--manual">man — manual</a></h3>
+<p>Displays the manual for a program.</p>
+<pre><code class="language-bash">man ls
 </code></pre>
 <h3 id="linux-distributions"><a class="header" href="#linux-distributions">Linux Distributions</a></h3>
-<p>When we talk about Linux, we refer to the kernel of the operating system, which is managed by an authority (its creator, Linus Torvalds) that ensures the integrity of all code integrated into the OS kernel.</p>
-<p>Above the operating system kernel lies an additional layer of package management systems, graphical interfaces, and other supporting software. A &quot;distribution&quot; in Linux refers to a bundle of these supporting software components, provided and guaranteed by a specific legal entity (commercial company, organization, etc.).</p>
-<p>Commonly used distributions:</p>
+<p>Linux refers to the operating system kernel, maintained by Linus Torvalds and community contributors.</p>
+<p>Above the kernel is a layer of package management, desktop environments, and supporting software. A Linux “distribution” bundles these components and is provided by a specific organization or vendor.</p>
+<p>Common distributions:</p>
 <ul>
-<li>Debian - The most widespread Linux distribution.</li>
-<li>Ubuntu - A derivative of Debian. The most popular distribution for home workstations.</li>
-<li>Mint - A derivative of Ubuntu. Its GUI is similar to Windows.</li>
-<li>RaspberryOS (formerly Raspbian) - A Debian derivative for Raspberry Pi.</li>
-<li>Arch Linux - A distribution aimed at advanced users, offering great freedom in system configuration.</li>
-<li>Fedora - An alternative to Debian.</li>
-<li>ElementaryOS - A minimalist and fast distribution. Suitable for low-performance computers.</li>
-<li>... and many more.</li>
+<li>Debian — Very widespread.</li>
+<li>Ubuntu — Based on Debian; popular for desktops.</li>
+<li>Linux Mint — Based on Ubuntu; Windows-like GUI.</li>
+<li>Raspberry Pi OS (formerly Raspbian) — Debian-based for Raspberry Pi.</li>
+<li>Arch Linux — For advanced users; highly customizable.</li>
+<li>Fedora — A popular alternative to Debian-based systems.</li>
+<li>elementary OS — Minimalist and fast; good for low-spec machines.</li>
+<li>…and many more.</li>
 </ul>
 <h2 id="essential-programs"><a class="header" href="#essential-programs">Essential Programs</a></h2>
 <h3 id="apt"><a class="header" href="#apt">apt</a></h3>
-<p>This is Debian's package management system. On Linux, we typically install programs by downloading them from a public repository, which is usually a verified and secure server.</p>
-<p>You always need administrative privileges to install programs.</p>
-<p>Example of installing Git:</p>
-<pre><code>sudo apt update
+<p>Debian/Ubuntu package manager. Software is installed from trusted repositories.</p>
+<p>Administrator privileges are required to install software.</p>
+<p>Example: install Git</p>
+<pre><code class="language-bash">sudo apt update
 sudo apt install git
 </code></pre>
-<p>This means: &quot;With administrative privileges, run the apt program to update repository records&quot; and &quot;With administrative privileges, run the apt program to install Git.&quot;</p>
 <h3 id="nano"><a class="header" href="#nano">nano</a></h3>
-<p>A text editor similar to Notepad.</p>
+<p>A simple text editor similar to Notepad.</p>
 <ul>
-<li>Ctrl + X - Exits the program. It will ask if you want to save changes.</li>
+<li>Ctrl+X — Exit (prompts to save changes)</li>
 </ul>
 <h3 id="vim"><a class="header" href="#vim">vim</a></h3>
-<p>A professional text editor. However, its operation is somewhat complex and requires an understanding of several principles. Working with vim is significantly faster than with nano. Before using it, it is recommended to go through any &quot;vim noob tutorial&quot; on YouTube.</p>
-<p>If you accidentally open vim, you can close it with the key combination <strong>Shift + Z + Z</strong> (hold Shift and press 'Z' twice).</p>
+<p>A powerful text editor with a steeper learning curve. It can be much faster than nano once learned. Consider a beginner tutorial before using.</p>
+<p>If you open vim by accident, exit with Shift+Z+Z (hold Shift and press Z twice).</p>
 <h3 id="mc"><a class="header" href="#mc">mc</a></h3>
-<p><strong>Midnight Commander</strong> - A graphical interface for navigating the file system, resembling MS-DOS.</p>
+<p>Midnight Commander — a text-based file manager reminiscent of MS-DOS.</p>
 <ul>
-<li>Exits with the <strong>F10</strong> key.</li>
+<li>F10 — Exit</li>
 </ul>
 <h3 id="curl"><a class="header" href="#curl">curl</a></h3>
-<p>A command-line tool for transferring data using various protocols. Curl is often used for HTTP communication, installing programs, or downloading files.</p>
+<p>Command-line tool for transferring data over various protocols. Often used for HTTP requests or downloads.</p>
 <h3 id="wget"><a class="header" href="#wget">wget</a></h3>
-<p>A program for downloading files from the internet.
-Example of downloading the latest WordPress release:</p>
-<pre><code>wget https://wordpress.org/latest.zip
+<p>Downloads files from the internet.
+Example: download the latest WordPress release</p>
+<pre><code class="language-bash">wget https://wordpress.org/latest.zip
 </code></pre>
 <h2 id="final-words"><a class="header" href="#final-words">Final Words</a></h2>
-<p>If you're new to Linux, don't be afraid to experiment. Ideally, install the system in VirtualBox and create a backup of the virtual disk. If you manage to mess up the system, simply restore the backup and continue working.</p>
+<p>If you’re new to Linux, don’t be afraid to experiment. Ideally, use a VirtualBox VM and create a snapshot/backup. If you break the system, restore the snapshot and continue working.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="c"><a class="header" href="#c">C++</a></h1>
 <h2 id="warmup-quiz"><a class="header" href="#warmup-quiz">Warmup Quiz</a></h2>
 <ol>
@@ -3242,7 +3248,7 @@ int main() {
 <p>What is the purpose of a constructor in a class?</p>
 </li>
 <li>
-<p>Explain the difference between the <code>pointer</code> and <code>reference</code>.</p>
+<p>Explain the difference between a pointer and a reference.</p>
 </li>
 <li>
 <p>What will be the output of the following code?</p>
@@ -3260,7 +3266,7 @@ int main() {
 </code></pre>
 <ol start="7">
 <li>
-<p>In your onw words, explain what is the Standard Template Library (STL).</p>
+<p>In your own words, explain what the Standard Template Library (STL) is.</p>
 </li>
 <li>
 <p>What will be the output of the following code?</p>
@@ -3290,10 +3296,10 @@ int main() {
 </code></pre>
 <ol start="9">
 <li>
-<p>Explain difference between <code>std::array&lt;T, N&gt;</code> and <code>std::vector&lt;T&gt;</code>.</p>
+<p>Explain the difference between <code>std::array&lt;T, N&gt;</code> and <code>std::vector&lt;T&gt;</code>.</p>
 </li>
 <li>
-<p>Explain the output of following Lambda-function based code.</p>
+<p>Explain the output of the following lambda-based code.</p>
 </li>
 </ol>
 <pre><code class="language-c++">#include &lt;iostream&gt;
@@ -3307,7 +3313,7 @@ int main() {
 </code></pre>
 <h2 id="revisiting-fundamentals"><a class="header" href="#revisiting-fundamentals">Revisiting Fundamentals</a></h2>
 <h3 id="functions-and-pointers"><a class="header" href="#functions-and-pointers">Functions and Pointers</a></h3>
-<p>Functions are the building blocks of C++ programs, and pointers are fundamental for memory management. Let’s revisit these concepts with an example.&quot;</p>
+<p>Functions are the building blocks of C++ programs, and pointers are fundamental for memory management. Let’s revisit these concepts with an example.</p>
 <pre><code class="language-c++">#include &lt;iostream&gt;
 void swap(int* a, int* b) {
     int temp = *a;
@@ -3369,22 +3375,23 @@ int main() {
 </code></pre>
 <p>Discussion Points:</p>
 <ul>
-<li>What is the purpose of the private keyword?</li>
-<li>How does the const qualifier ensure safety in display()?</li>
+<li>What is the purpose of the <code>private</code> keyword?</li>
+<li>How does the <code>const</code> qualifier ensure safety in <code>display()</code>?</li>
 </ul>
 <h3 id="modern-c-features"><a class="header" href="#modern-c-features">Modern C++ Features</a></h3>
 <p>Raw pointers are error-prone. Smart pointers, introduced in C++11, simplify memory management.</p>
-<p><code>std::unique_ptr</code>: </p>
+<p><code>std::unique_ptr</code>:</p>
 <ul>
-<li>Exclusive ownership: only one std::unique_ptr can point to a resource at a time.</li>
+<li>Exclusive ownership: only one <code>std::unique_ptr</code> can point to a resource at a time.</li>
 </ul>
 <pre><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;memory&gt;
+#include &lt;string&gt;
 
 class MyClass {
 public:
-    MyClass(std::string name) : name_{name} { std::cout &lt;&lt; &quot;Constructor called &quot; + name_ &lt;&lt; std::endl; }
-    ~MyClass() { std::cout &lt;&lt; &quot;Destructor called &quot; + name_ &lt;&lt; std::endl; }
+    explicit MyClass(std::string name) : name_{std::move(name)} { std::cout &lt;&lt; &quot;Constructor called &quot; &lt;&lt; name_ &lt;&lt; std::endl; }
+    ~MyClass() { std::cout &lt;&lt; &quot;Destructor called &quot; &lt;&lt; name_ &lt;&lt; std::endl; }
 private:
     std::string name_;
 };
@@ -3399,10 +3406,10 @@ int main() {
     return 0;
 }
 </code></pre>
-<p><code>std::shared_ptr</code>: </p>
+<p><code>std::shared_ptr</code>:</p>
 <ul>
-<li>Shared ownership: multiple std::shared_ptr can point to the same resource.</li>
-<li>Reference counting: the resource is deleted when the last std::shared_ptr goes out of scope.</li>
+<li>Shared ownership: multiple <code>std::shared_ptr</code> can point to the same resource.</li>
+<li>Reference counting: the resource is deleted when the last <code>std::shared_ptr</code> goes out of scope.</li>
 </ul>
 <pre><code class="language-c++">#include &lt;iostream&gt;
 #include &lt;memory&gt;
@@ -3418,7 +3425,7 @@ int main() {
     std::cout &lt;&lt; &quot;Use count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; std::endl;
 
     {
-        std::shared_ptr&lt;MyClass&gt; sp2 = sp1; 
+        std::shared_ptr&lt;MyClass&gt; sp2 = sp1;
         std::cout &lt;&lt; &quot;Use count: &quot; &lt;&lt; sp1.use_count() &lt;&lt; std::endl;
     }
 
@@ -3429,7 +3436,7 @@ int main() {
 <p><code>std::weak_ptr</code></p>
 <ul>
 <li>Weak reference: does not affect the reference count of the shared resource.</li>
-<li>Desn't increase the reference count.</li>
+<li>Doesn’t increase the reference count.</li>
 <li>Used to prevent circular references in shared ownership.</li>
 </ul>
 <pre><code class="language-c++">#include &lt;iostream&gt;
@@ -3440,17 +3447,17 @@ class NodeB; // forward declaration
 class NodeA {
 public:
     std::shared_ptr&lt;NodeB&gt; strong_ptr; // Strong reference to NodeB
-    std::weak_ptr&lt;NodeB&gt; weak_ptr; // Strong reference to NodeA
-    NodeA() { std::cout &lt;&lt; &quot;NodeStrong constructor\n&quot;; }
-    ~NodeA() {  std::cout &lt;&lt; &quot;NodeStrong destructor\n&quot;;  }
+    std::weak_ptr&lt;NodeB&gt; weak_ptr;     // Weak reference to NodeB
+    NodeA() { std::cout &lt;&lt; &quot;NodeA constructor\n&quot;; }
+    ~NodeA() { std::cout &lt;&lt; &quot;NodeA destructor\n&quot;; }
 };
 
 class NodeB {
 public:
     std::shared_ptr&lt;NodeA&gt; strong_ptr; // Strong reference to NodeA
-    std::weak_ptr&lt;NodeA&gt; weak_ptr; // Strong reference to NodeA
-    NodeB() { std::cout &lt;&lt; &quot;NodeWeak constructor&quot; &lt;&lt; std::endl; }
-    ~NodeB() { std::cout &lt;&lt; &quot;NodeWeak destructor\n&quot;; }
+    std::weak_ptr&lt;NodeA&gt; weak_ptr;     // Weak reference to NodeA
+    NodeB() { std::cout &lt;&lt; &quot;NodeB constructor\n&quot;; }
+    ~NodeB() { std::cout &lt;&lt; &quot;NodeB destructor\n&quot;; }
 };
 
 int main() {
@@ -3474,7 +3481,7 @@ int main() {
         auto a = std::make_shared&lt;NodeA&gt;();
         auto b = std::make_shared&lt;NodeB&gt;();
         a-&gt;strong_ptr = b; // NodeA has a strong reference to b
-        b-&gt;weak_ptr = a; // NodeB has a weak reference to a
+        b-&gt;weak_ptr = a;   // NodeB has a weak reference to a
         std::cout &lt;&lt; &quot;Exiting second scope...&quot; &lt;&lt; std::endl;
     }
     
@@ -3483,23 +3490,23 @@ int main() {
 </code></pre>
 <p>Discussion Points:</p>
 <ul>
-<li>What happens when the std::unique_ptr goes out of scope?</li>
-<li>Compare std::shared_ptr and std::unique_ptr.</li>
-<li>When should you use std::weak_ptr?</li>
-<li>Should we use raw pointers in modern C++? ... No we should not!</li>
+<li>What happens when the <code>std::unique_ptr</code> goes out of scope?</li>
+<li>Compare <code>std::shared_ptr</code> and <code>std::unique_ptr</code>.</li>
+<li>When should you use <code>std::weak_ptr</code>?</li>
+<li>Should we use raw pointers in modern C++? — Generally, no.</li>
 </ul>
-<h3 id="functions-as-object"><a class="header" href="#functions-as-object">Functions as Object</a></h3>
+<h3 id="functions-as-objects"><a class="header" href="#functions-as-objects">Functions as Objects</a></h3>
 <h3 id="lambda-functions"><a class="header" href="#lambda-functions">Lambda Functions</a></h3>
-<p>Lambda functions (also called lambda expressions) in C++ are unnamed (anonymous) functions that you can define inline. They were introduced in C++11 to make it easier to create small, concise functions, especially for use with the Standard Template Library (STL) algorithms or as callbacks. Unlike regular functions, they can capture variables from their surrounding scope. This is incredibly useful for passing context to a function on-the-fly.</p>
+<p>Lambda functions (also called lambda expressions) in C++ are unnamed (anonymous) functions that you can define inline. They were introduced in C++11 to make it easier to create small, concise functions, especially for use with the Standard Template Library (STL) algorithms or as callbacks. Unlike regular functions, they can capture variables from their surrounding scope. This is incredibly useful for passing context to a function on the fly.</p>
 <p>Syntax:</p>
 <pre><code class="language-c++">[ capture_list ] ( parameter_list ) -&gt; return_type {
     // function body
 }
 </code></pre>
 <ul>
-<li>capture_list: Specifies which variables from the enclosing scope are available inside the lambda and how they are captured (by value, by reference, etc.).</li>
+<li>capture_list: Which variables from the enclosing scope are available inside the lambda and how they are captured (by value, by reference, etc.).</li>
 <li>parameter_list: The parameters the lambda accepts (similar to a function’s parameter list).</li>
-<li>return_type: Often omitted because it can be deduced by the compiler, but can be specified explicitly using -&gt; return_type.</li>
+<li>return_type: Often omitted because it can be deduced by the compiler, but can be specified explicitly using <code>-&gt; return_type</code>.</li>
 <li>function body: The code that executes when the lambda is called.</li>
 </ul>
 <p>Example of lambda function usage:</p>
@@ -3520,7 +3527,7 @@ int main() {
 </code></pre>
 <p>Discussion Points:</p>
 <ul>
-<li>How does the lambda function work in std::sort?</li>
+<li>How does the lambda function work in <code>std::sort</code>?</li>
 <li>When should you use lambdas over named functions?</li>
 </ul>
 <pre><code class="language-c++">#include &lt;iostream&gt;
@@ -3535,21 +3542,22 @@ int main() {
         std::cout &lt;&lt; val &lt;&lt; &quot; &quot;;
     };
 
-    // Capture everything by value (copy
-    std::for_each(values.begin(), values.end(), [=](int val)  {
-        // modifies copy of 'val', not `val` itself
-        val += offset;
-        // offset += 1; // error: 'offset' cannot be modified. Can use [=]() mutable {...} to modify
+    // Capture everything by value (copy)
+    std::for_each(values.begin(), values.end(), [=](int val) {
+        // Modifies a copy of 'val', not the element itself
+        int tmp = val + offset;
+        (void)tmp; // suppress unused-variable warning in this snippet
+        // offset += 1; // error: 'offset' cannot be modified; use [=]() mutable { ... } to allow modification
     });
     std::for_each(values.begin(), values.end(), printValue);
 
     // Capture everything by reference
-    std::for_each(values.begin(), values.end(), [&amp;](int &amp;val) {
-        val += offset; // modifies 'val' directly in the vector via reference
-         offset += 1;
+    std::for_each(values.begin(), values.end(), [&amp;](int&amp; val) {
+        val += offset;   // modifies 'val' directly in the vector via reference
+        offset += 1;
     });
     std::for_each(values.begin(), values.end(), printValue);
-    
+
     std::cout &lt;&lt; std::endl;
     return 0;
 }
@@ -3576,8 +3584,8 @@ int main() {
 <h3 id="coding-challenge"><a class="header" href="#coding-challenge">Coding Challenge</a></h3>
 <p>Task: Create a simple program to manage student records, including adding and displaying students.</p>
 <ul>
-<li>Use a Student class with properties for name, age, and grades.</li>
-<li>Store students in a std::vector.</li>
+<li>Use a <code>Student</code> class with properties for name, age, and grades.</li>
+<li>Store students in a <code>std::vector</code>.</li>
 <li>Implement a menu-driven program for user interaction.</li>
 </ul>
 <pre><code class="language-c++">#include &lt;iostream&gt;
@@ -3849,44 +3857,42 @@ Choose the desired version, remove the conflict markers, and save the file. The 
 </ol>
 <h2 id="other-resources"><a class="header" href="#other-resources">Other Resources</a></h2>
 <ul>
-<li><a href="https://education.github.com/git-cheat-sheet-education.pdf">Git Cheat Sheet</a></li>
-<li><a href="https://atlassian.com">Atlassian Tutorial</a></li>
-<li><a href="https://git.com">Official Documentation</a></li>
-<li><a href="https://ohshitgit.com/">Helpful Advisor</a></li>
+<li>Git Cheat Sheet: https://education.github.com/git-cheat-sheet-education.pdf</li>
+<li>Atlassian Git Tutorials: https://www.atlassian.com/git/tutorials</li>
+<li>Official Git Documentation: https://git-scm.com/doc</li>
+<li>Oh Shit, Git!? A helpful guide: https://ohshitgit.com/</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="clion"><a class="header" href="#clion">CLion</a></h1>
-<p>CLion is a program made by JetBrains that helps people write and test code. It is similar to other coding programs like Eclipse or NetBeans but is faster, easier to use, and looks more modern.</p>
-<p>Because CLion is part of the JetBrains family, users can add extra tools and languages by installing plugins. It also has built-in support for Git, which helps with managing code changes.</p>
-<p>This guide explains how to use CLion for the BPC-PRP course. It starts with a short introduction to CMake, a tool used to build programs. Then, it explains how to install CLion, create a simple &quot;Hello World&quot; program, and run it.</p>
-<p>The examples in this guide use CLion version 2024.3.3, so some steps might be different in newer versions.</p>
+<p>CLion is a JetBrains IDE for writing, building, running, and debugging C/C++ code. It provides an intuitive UI, modern tooling, and tight integration with CMake and version control systems like Git.</p>
+<p>This guide explains how to use CLion for the BPC-PRP course. It covers installation, creating a simple “Hello, World!” program, and getting familiar with the IDE layout. Screenshots are from CLion 2024.3.3; newer versions may look slightly different.</p>
 <h2 id="clion-installation"><a class="header" href="#clion-installation">CLion Installation</a></h2>
-<p>There are two ways to install CLion</p>
+<p>You can install CLion in two ways:</p>
 <ul>
-<li><code>sudo snap install clion --classic</code> in command line</li>
-<li>download software from https://www.jetbrains.com/clion/.</li>
+<li>Using Snap (Linux): <code>sudo snap install clion --classic</code></li>
+<li>Download from JetBrains: https://www.jetbrains.com/clion/</li>
 </ul>
-<p>Students can use the full version for free while they are studying. Just request the student licence at the web.</p>
+<p>Students can use the full version for free while studying. Request a student license here: https://www.jetbrains.com/community/education/</p>
 <h2 id="hello-world-project"><a class="header" href="#hello-world-project">Hello World Project</a></h2>
-<p>Let's make a simple Hello World project to learn how to create a project, use the CLion environment, and develop on a local computer.</p>
-<p>When you open CLion, you will see a welcome screen with a list of your recent projects. To start a new project, click the &quot;New Project&quot; button.</p>
+<p>Let’s create a simple Hello World project to learn how to create a project and run it locally.</p>
+<p>When you open CLion, the Welcome screen lists your recent projects. Click “New Project”.</p>
 <p><img src="4_others/text/../images/clion_welcome.png" alt="Welcome screen" /></p>
-<p>After clicking &quot;New Project&quot;, a window will open where you can set up your project. Here, you can choose where to save the project and select the C++ language standard. For this guide, we will use C++17.</p>
+<p>After clicking “New Project”, a dialog appears where you configure the project. Choose the project location and the C++ standard (use C++17 for this course).</p>
 <p><img src="4_others/text/../images/clion_new_project.png" alt="Creating a project" /></p>
-<p>After clicking &quot;Create,&quot; CLion will open the development environment, where you can start working on your project. The interface will look similar to the image below.</p>
+<p>After clicking “Create”, CLion opens the IDE where you can start working.</p>
 <p><img src="4_others/text/../images/clion_home.png" alt="IDE" /></p>
-<p>Let's take a closer look at the different parts of the screen and what they do.</p>
+<p>Key areas of the UI:</p>
 <ul>
-<li>On the left, there is project overview pane</li>
-<li>In the center there is the source code editor</li>
-<li>Above the source code, there is a debug/release picker, program picker and build, run and bebug buttons.</li>
-<li>Icons on the left bottom are CMake, Services, Terminal, Problems and Version Control.</li>
+<li>Left: Project tool window (project files)</li>
+<li>Center: Editor (source code)</li>
+<li>Top toolbar: Build configuration (Debug/Release), target selector, and Build/Run/Debug buttons</li>
+<li>Bottom tool windows: CMake, Services, Terminal, Problems, Version Control</li>
 </ul>
-<p>When the program starts, the console window appears, displaying the program's output. This is where you can see messages from your code, such as the &quot;Hello, World!&quot; text printed by your program. If there are any errors, they will also appear here, helping you debug your code.</p>
+<p>When your program runs, the Run tool window shows the output. This is where you’ll see messages like “Hello, World!” and any runtime errors to help with debugging.</p>
 <p><img src="4_others/text/../images/clion_program_terminal.png" alt="Program console" /></p>
-<p>If porogram debug started, the debug console and related controls appears.</p>
+<p>When you start a debug session, the Debug tool window and controls appear.</p>
 <p><img src="4_others/text/../images/clion_debug.png" alt="IDE description" /></p>
 <h2 id="integrated-tutorial"><a class="header" href="#integrated-tutorial">Integrated Tutorial</a></h2>
-<p>The current CLion version contains the onboarding tutorial. Follow it to learn more.</p>
+<p>Recent CLion versions include an onboarding tutorial. Follow it to learn more about navigation, refactoring, debugging, and testing.</p>
 <p><img src="4_others/text/../images/clion_tutorial.png" alt="CLion Tutorial" /></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="multithreading"><a class="header" href="#multithreading">Multithreading</a></h1>
 <h2 id="motivation"><a class="header" href="#motivation">Motivation</a></h2>

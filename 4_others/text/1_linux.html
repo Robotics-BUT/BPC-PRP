@@ -145,120 +145,126 @@
                     <main>
                         <h1 id="linux"><a class="header" href="#linux">Linux</a></h1>
 <h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
-<p>To install Linux Ubuntu, please follow the <a href="https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview">official documentation</a>.</p>
+<p>To install Ubuntu Linux, follow the official documentation: https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview</p>
 <h3 id="virtualbox-installation-vb"><a class="header" href="#virtualbox-installation-vb">VirtualBox Installation (VB)</a></h3>
-<p>In case you have no physical computer available for clean Linux installation nor the possibility for a dual boot, consider installing the Linux into the virtual machine.</p>
-<p>The VirtualBox is and example of the virtual machine engine that allows you to run Linux on a different host system.</p>
-<p>Install VirtualBox following the instructions for your respective operating system.</p>
-<p>Steps for <a href="https://www.virtualbox.org/wiki/Downloads">Windows a Mac</a>.</p>
-<p>For Linux, the installation process depends on your distribution and package management system. On Debian, use the command sudo apt install virtualbox. After installation, you can launch VirtualBox either from the terminal by typing virtualbox or by clicking its icon in the list of installed programs.</p>
-<p>To install the Ubuntu Linux into the virtual machine, please follow the <a href="https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview">official documentation</a></p>
+<p>If you don’t have a spare machine for a clean Linux installation or cannot dual boot, consider installing Linux in a virtual machine.</p>
+<p>VirtualBox is an example of a virtual machine hypervisor that allows you to run Linux on a different host OS.</p>
+<p>Install VirtualBox following the instructions for your operating system:</p>
+<ul>
+<li>Windows and macOS: https://www.virtualbox.org/wiki/Downloads</li>
+<li>Linux: the process depends on your distribution and package manager. For Debian/Ubuntu:
+<ul>
+<li>In a terminal: <code>sudo apt install virtualbox</code></li>
+<li>Launch VirtualBox by running <code>virtualbox</code> or from your applications menu.</li>
+</ul>
+</li>
+</ul>
+<p>To install Ubuntu inside the virtual machine, follow: https://ubuntu.com/tutorials/how-to-run-ubuntu-desktop-on-a-virtual-machine-using-virtualbox#1-overview</p>
 <h2 id="cli-command-line-interface"><a class="header" href="#cli-command-line-interface">CLI (Command Line Interface)</a></h2>
-<p>Consider this chapter as a guide for working in the Linux operating system.</p>
-<p>You don't need to memorize all the commands and their parameters, but you should be familiar with them and able to look up their </p>
-<p>For more details, please find the detail <a href="https://assets.ubuntu.com/v1/2950553c-OpenStack%20cheat%20sheet%20-%20revised%20v3.pdf?_gl=1*112oq19*_gcl_au*MTE5NjAyMjU0Ni4xNzM1OTQyNzI4&amp;_ga=2.153041082.2070240710.1735942727-373166696.1735942726">cheat sheet</a> at official web site</p>
+<p>Consider this chapter a quick guide for working with the Linux terminal.</p>
+<p>You don’t need to memorize every command and parameter; be familiar with the basics and know how to look up usage when needed.</p>
+<p>Helpful cheat sheet: https://assets.ubuntu.com/v1/2950553c-OpenStack%20cheat%20sheet%20-%20revised%20v3.pdf</p>
 <h3 id="command"><a class="header" href="#command">Command</a></h3>
 <p>Explanation of function</p>
 <pre><code>Example usage      ...      Explanation
 </code></pre>
-<h3 id="ls---list"><a class="header" href="#ls---list">ls - (list)</a></h3>
-<p>Displays all files and directories (a directory is also a type of file) in the current point of the file system.</p>
-<pre><code>ls
-ls -la      ...      lists all files, including hidden ones, and provides detailed information
+<h3 id="ls--list"><a class="header" href="#ls--list">ls — list</a></h3>
+<p>Displays files and directories in the current location.</p>
+<pre><code class="language-bash">ls
+ls -la      # lists all files, including hidden ones, with details
 </code></pre>
-<h3 id="cd---change-directory"><a class="header" href="#cd---change-directory">cd - (change directory)</a></h3>
+<h3 id="cd--change-directory"><a class="header" href="#cd--change-directory">cd — change directory</a></h3>
 <p>Changes the current directory.</p>
-<pre><code>cd my_directory      ...      moves into the directory named &quot;my_directory&quot;
-cd ~                 ...      returns to the home directory (referred to as &quot;home&quot; in Linux)
-cd ..                ...      moves up one directory level
-cd /                 ...      returns to the root of the file system (called &quot;root&quot; in Linux)
-cd ../my_folder      ...      moves up one directory level and then into the &quot;my_folder&quot; directory
-cd .                 ...      stays in the current directory. Essentially does nothing, illustrating the use of &quot;.&quot; for the current directory.
+<pre><code class="language-bash">cd my_directory      # moves into the directory named &quot;my_directory&quot;
+cd ~                 # goes to your home directory
+cd ..                # moves up one directory level
+cd /                 # goes to the filesystem root
+cd ../my_folder      # up one level, then into &quot;my_folder&quot;
+cd .                 # stays in the current directory (&quot;.&quot; means current directory)
 </code></pre>
-<h3 id="pwd---print-working-directory"><a class="header" href="#pwd---print-working-directory">pwd - print working directory</a></h3>
-<p>Displays the current position in the file system.</p>
-<pre><code>pwd
+<h3 id="pwd--print-working-directory"><a class="header" href="#pwd--print-working-directory">pwd — print working directory</a></h3>
+<p>Shows the current directory path.</p>
+<pre><code class="language-bash">pwd
 </code></pre>
-<h3 id="mkdir---make-directory"><a class="header" href="#mkdir---make-directory">mkdir - (make directory)</a></h3>
+<h3 id="mkdir--make-directory"><a class="header" href="#mkdir--make-directory">mkdir — make directory</a></h3>
 <p>Creates a new directory.</p>
-<pre><code>mkdir my_folder      ...      creates a new directory named &quot;my_folder&quot;
+<pre><code class="language-bash">mkdir my_folder      # creates a directory named &quot;my_folder&quot;
 </code></pre>
-<h3 id="cp---copy"><a class="header" href="#cp---copy">cp - (copy</a></h3>
-<p>Copies a file.</p>
-<pre><code>cp source_file destination_file                    ...      creates a new copy of &quot;source_file&quot; named &quot;destination_file&quot;
-cp ../secret.txt secret_folder/supersecret.txt      ...      takes the &quot;secret.txt&quot; file located one directory up and copies it to the &quot;secret_folder&quot;. The copy will be named &quot;supersecret.txt&quot;.
+<h3 id="cp--copy"><a class="header" href="#cp--copy">cp — copy</a></h3>
+<p>Copies files.</p>
+<pre><code class="language-bash">cp source_file destination_file             # creates a copy of &quot;source_file&quot; named &quot;destination_file&quot;
+cp ../secret.txt secret_folder/supersecret.txt  # copies &quot;secret.txt&quot; from the parent directory to &quot;secret_folder&quot; as &quot;supersecret.txt&quot;
 </code></pre>
-<h3 id="mv---move"><a class="header" href="#mv---move">mv - (move)</a></h3>
-<p>Originally used for moving files, but is now primarily used to rename files.</p>
-<pre><code>mv old_name.txt new_name.html      ...      renames the file &quot;old_name.txt&quot; to &quot;new_name.html&quot;
+<h3 id="mv--move-rename"><a class="header" href="#mv--move-rename">mv — move (rename)</a></h3>
+<p>Originally moved files; today also commonly used to rename files.</p>
+<pre><code class="language-bash">mv old_name.txt new_name.html      # renames &quot;old_name.txt&quot; to &quot;new_name.html&quot;
 </code></pre>
-<h3 id="rm---remove"><a class="header" href="#rm---remove">rm - (remove)</a></h3>
-<p>Deletes a file or directory.</p>
-<pre><code>rm old_file.txt      ...      deletes the file &quot;old_file.txt&quot;
-rm -r my_folder      ...      deletes a directory. The recursive modifier (-r) must always be used to delete a directory, as it specifies that the directory's contents should also be deleted.
+<h3 id="rm--remove"><a class="header" href="#rm--remove">rm — remove</a></h3>
+<p>Deletes files or directories.</p>
+<pre><code class="language-bash">rm old_file.txt      # deletes the file &quot;old_file.txt&quot;
+rm -r my_folder      # deletes a directory and its contents (recursive)
 </code></pre>
-<h3 id="chmod---change-mode"><a class="header" href="#chmod---change-mode">chmod - (change mode)</a></h3>
+<h3 id="chmod--change-mode"><a class="header" href="#chmod--change-mode">chmod — change mode</a></h3>
 <p>Changes file access permissions.</p>
-<pre><code>chmod 777 /dev/ttyUSB0      ...      grants all users access to USB port 0. For details on file system permissions, see [7].
+<pre><code class="language-bash">chmod 777 /dev/ttyUSB0      # grants all users access to USB port 0 (example)
 </code></pre>
-<h3 id="sudo"><a class="header" href="#sudo">sudo</a></h3>
-<p>A meta command. Operations executed with this command are performed with administrator privileges. Commonly used for modifying system files.</p>
-<pre><code>sudo mkdir /etc/config      ...      creates a &quot;config&quot; directory in the system folder &quot;/etc&quot;.
-sudo rm -r /                ...      recursively deletes the root directory (essentially wipes the entire disk, including the OS).
+<h3 id="sudo--run-as-administrator"><a class="header" href="#sudo--run-as-administrator">sudo — run as administrator</a></h3>
+<p>Executes a command with administrator (root) privileges. Commonly used to modify system files.</p>
+<pre><code class="language-bash">sudo mkdir /etc/config      # creates a &quot;config&quot; directory in &quot;/etc&quot;
+sudo rm -r /                # DANGEROUS: recursively deletes the root directory (destroys the system)
 </code></pre>
-<h3 id="cat---concatenate-files-to-standard-output"><a class="header" href="#cat---concatenate-files-to-standard-output">cat - (Concatenate FILE(s) to standard output)</a></h3>
-<p>Displays the contents of a file in the terminal.</p>
-<pre><code>cat ~/my_config_file.txt      ...      prints the contents of the specified file in the terminal
+<h3 id="cat--concatenate-files-to-standard-output"><a class="header" href="#cat--concatenate-files-to-standard-output">cat — Concatenate file(s) to standard output</a></h3>
+<p>Prints file contents to the terminal.</p>
+<pre><code class="language-bash">cat ~/my_config_file.txt
 </code></pre>
-<h3 id="man---manual-referenční-manuál-operačního-systému"><a class="header" href="#man---manual-referenční-manuál-operačního-systému">man - (manual) referenční manuál operačního systému</a></h3>
-<p>Quick help if you forget how to use a specific program.</p>
-<pre><code>man ls      ...      prints the manual for the &quot;ls&quot; program in the terminal
+<h3 id="man--manual"><a class="header" href="#man--manual">man — manual</a></h3>
+<p>Displays the manual for a program.</p>
+<pre><code class="language-bash">man ls
 </code></pre>
 <h3 id="linux-distributions"><a class="header" href="#linux-distributions">Linux Distributions</a></h3>
-<p>When we talk about Linux, we refer to the kernel of the operating system, which is managed by an authority (its creator, Linus Torvalds) that ensures the integrity of all code integrated into the OS kernel.</p>
-<p>Above the operating system kernel lies an additional layer of package management systems, graphical interfaces, and other supporting software. A &quot;distribution&quot; in Linux refers to a bundle of these supporting software components, provided and guaranteed by a specific legal entity (commercial company, organization, etc.).</p>
-<p>Commonly used distributions:</p>
+<p>Linux refers to the operating system kernel, maintained by Linus Torvalds and community contributors.</p>
+<p>Above the kernel is a layer of package management, desktop environments, and supporting software. A Linux “distribution” bundles these components and is provided by a specific organization or vendor.</p>
+<p>Common distributions:</p>
 <ul>
-<li>Debian - The most widespread Linux distribution.</li>
-<li>Ubuntu - A derivative of Debian. The most popular distribution for home workstations.</li>
-<li>Mint - A derivative of Ubuntu. Its GUI is similar to Windows.</li>
-<li>RaspberryOS (formerly Raspbian) - A Debian derivative for Raspberry Pi.</li>
-<li>Arch Linux - A distribution aimed at advanced users, offering great freedom in system configuration.</li>
-<li>Fedora - An alternative to Debian.</li>
-<li>ElementaryOS - A minimalist and fast distribution. Suitable for low-performance computers.</li>
-<li>... and many more.</li>
+<li>Debian — Very widespread.</li>
+<li>Ubuntu — Based on Debian; popular for desktops.</li>
+<li>Linux Mint — Based on Ubuntu; Windows-like GUI.</li>
+<li>Raspberry Pi OS (formerly Raspbian) — Debian-based for Raspberry Pi.</li>
+<li>Arch Linux — For advanced users; highly customizable.</li>
+<li>Fedora — A popular alternative to Debian-based systems.</li>
+<li>elementary OS — Minimalist and fast; good for low-spec machines.</li>
+<li>…and many more.</li>
 </ul>
 <h2 id="essential-programs"><a class="header" href="#essential-programs">Essential Programs</a></h2>
 <h3 id="apt"><a class="header" href="#apt">apt</a></h3>
-<p>This is Debian's package management system. On Linux, we typically install programs by downloading them from a public repository, which is usually a verified and secure server.</p>
-<p>You always need administrative privileges to install programs.</p>
-<p>Example of installing Git:</p>
-<pre><code>sudo apt update
+<p>Debian/Ubuntu package manager. Software is installed from trusted repositories.</p>
+<p>Administrator privileges are required to install software.</p>
+<p>Example: install Git</p>
+<pre><code class="language-bash">sudo apt update
 sudo apt install git
 </code></pre>
-<p>This means: &quot;With administrative privileges, run the apt program to update repository records&quot; and &quot;With administrative privileges, run the apt program to install Git.&quot;</p>
 <h3 id="nano"><a class="header" href="#nano">nano</a></h3>
-<p>A text editor similar to Notepad.</p>
+<p>A simple text editor similar to Notepad.</p>
 <ul>
-<li>Ctrl + X - Exits the program. It will ask if you want to save changes.</li>
+<li>Ctrl+X — Exit (prompts to save changes)</li>
 </ul>
 <h3 id="vim"><a class="header" href="#vim">vim</a></h3>
-<p>A professional text editor. However, its operation is somewhat complex and requires an understanding of several principles. Working with vim is significantly faster than with nano. Before using it, it is recommended to go through any &quot;vim noob tutorial&quot; on YouTube.</p>
-<p>If you accidentally open vim, you can close it with the key combination <strong>Shift + Z + Z</strong> (hold Shift and press 'Z' twice).</p>
+<p>A powerful text editor with a steeper learning curve. It can be much faster than nano once learned. Consider a beginner tutorial before using.</p>
+<p>If you open vim by accident, exit with Shift+Z+Z (hold Shift and press Z twice).</p>
 <h3 id="mc"><a class="header" href="#mc">mc</a></h3>
-<p><strong>Midnight Commander</strong> - A graphical interface for navigating the file system, resembling MS-DOS.</p>
+<p>Midnight Commander — a text-based file manager reminiscent of MS-DOS.</p>
 <ul>
-<li>Exits with the <strong>F10</strong> key.</li>
+<li>F10 — Exit</li>
 </ul>
 <h3 id="curl"><a class="header" href="#curl">curl</a></h3>
-<p>A command-line tool for transferring data using various protocols. Curl is often used for HTTP communication, installing programs, or downloading files.</p>
+<p>Command-line tool for transferring data over various protocols. Often used for HTTP requests or downloads.</p>
 <h3 id="wget"><a class="header" href="#wget">wget</a></h3>
-<p>A program for downloading files from the internet.
-Example of downloading the latest WordPress release:</p>
-<pre><code>wget https://wordpress.org/latest.zip
+<p>Downloads files from the internet.
+Example: download the latest WordPress release</p>
+<pre><code class="language-bash">wget https://wordpress.org/latest.zip
 </code></pre>
 <h2 id="final-words"><a class="header" href="#final-words">Final Words</a></h2>
-<p>If you're new to Linux, don't be afraid to experiment. Ideally, install the system in VirtualBox and create a backup of the virtual disk. If you manage to mess up the system, simply restore the backup and continue working.</p>
+<p>If you’re new to Linux, don’t be afraid to experiment. Ideally, use a VirtualBox VM and create a snapshot/backup. If you break the system, restore the snapshot and continue working.</p>
 
                     </main>
 
