@@ -1,0 +1,9 @@
+[server]
+port = 8080
+debug = true
+
+[auth]
+user = "admin"
+
+[controller]
+gains = [1.0, 0.5, 0.1]
