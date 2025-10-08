@@ -12,3 +12,7 @@ Please follow the given materials:
  - Petr Šopák
  - Jakub Minařík
  - ...
+
+## Acknowledgments
+
+This work was created with the support of project RP182401001 under the PPSŘ 2025 program.
