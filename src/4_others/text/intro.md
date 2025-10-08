@@ -1,3 +1,1 @@
-# Others Intro
-
-Lorem Ipsum
+# Others

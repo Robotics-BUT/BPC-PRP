@@ -31,8 +31,6 @@
     - [Git](4_others/text/3_git.md)
     - [CLion](4_others/text/4_clion.md)
     - [Multithreading](4_others/text/8_multithreading.md)
-    - [RViz2 Visualizations](4_others/text/9_rviz2_visualizations.md)
     - [Coordinate Systems](4_others/text/10_coordinate_system.md)
     - [Communication Buses](4_others/text/11_communication_buses.md)
     - [Ubuntu Environment](4_others/text/12_ubuntu_environment.md)
-<!---   - [Visual Code](4_others/text/5_visual_code.md) -->
