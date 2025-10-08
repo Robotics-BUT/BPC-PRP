@@ -10,4 +10,5 @@ title = "BPC-PRP - Practical Robotics and Computer Vision"
 enable = true
 
 [output.pdf]
+optional = true
 
