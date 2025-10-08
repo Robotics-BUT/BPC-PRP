@@ -1,1 +1,0 @@
-# Programovaci jazyk C++
