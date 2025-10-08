@@ -4,3 +4,10 @@ language = "en"
 multilingual = false
 src = "src"
 title = "BPC-PRP - Practical Robotics and Computer Vision"
+
+[output.html]
+[output.html.print]
+enable = true
+
+[output.pdf]
+
