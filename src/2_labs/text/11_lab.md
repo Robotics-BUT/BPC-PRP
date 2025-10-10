@@ -53,6 +53,7 @@ The robot’s goal is to **detect the markers, interpret their meaning, and use 
 In the first part of the lab, you will implement a ROS 2 node (`CameraNode`) that subscribes to a camera image stream, converts the received image into OpenCV format, and detects ArUco markers.
 
 You are provided with a partial implementation of the `ArucoDetector` class. Your task is to complete this class and integrate it into your ROS node.
+
 ----------------------------------------------------------------------------------------------
 **TASK 1 – Camera Subscription and Marker Detection**
 
@@ -128,12 +129,12 @@ In the second part of the lab, you will design logic that interprets the detecte
 
 As illustrated in Figure 1, each instruction obtained from an ArUco marker is **always intended for the next upcoming intersection**. The robot must remember the marker’s content and apply it at the first junction it encounters after reading the marker.
 
-<p id="state_machine">
+<p id="state_machine"  align="center">
   <img src="../images/lab11_maze_example.png" alt="Maze with ArUco hints and decision points" width="450" height="600">
-</p>
-<p>
+</p align="center">
+<p align="center">
     <em> Figure 1: Example of decision-making using ArUco markers in a maze.</em>
-</p>
+</p align="center">
 
 ----------------------------------------------------------------------------------------------
 **TASK 2 - Maze Logic and Decision Making**
