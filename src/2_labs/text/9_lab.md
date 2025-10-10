@@ -148,9 +148,9 @@ Use your chosen sensor (LiDAR or ultrasonic) to detect whether an object is too 
 
 *Corridor following* allows the robot to stay centered between two walls by adjusting its heading based on distance measurements from both sides. In this task, you will use your sensor data (e.g. LiDAR or ultrasonic) to calculate the lateral error (difference between left and right distances) and correct the robot’s trajectory using proportional control.
 
-<p id="bangDiagram" >
+<p id="bangDiagram" align="center">
   <img src="../images/corridor_following.png" alt="Corridor following flowchart and behavior" width="620" height="410">
-</p>
+</p align="center">
 <p>
     <em> Figure 1: Corridor following behavior. a) <strong>Flowchart</strong> of the corridor following algorithm; b) Robot behavior based on the computed lateral error <code>e</code>. </em>
 </p>
