@@ -169,8 +169,10 @@ int main(int argc, char **argv) {
     return RUN_ALL_TESTS();
 }
 ```
+
 ## Kinematics Header Example
-Only example of header - types needs to be corrected. Instead of structures you can use for example `std::pair`. Funtion working with coordinates are working with differences.
+Only example of header - types need to be corrected. Instead of structures you can use, for example `std::pair`. Function working with coordinates is working with differences.
+
 ```c++
  struct RobotSpeed{
   float v; //linear
@@ -201,16 +203,16 @@ class Kinematics{
 ```
 
 ## Be Aware of Parallel Programming
-When a variable is accessed by multiple threads—such as in the case of an encoder node, where a callback writes the encoder’s value to a variable while another thread reads it—you must use std::mutex or std::atomic to ensure thread safety. More about parallel computing in [Multithreading](../../4_others/text/8_multithreading.md).
+When a variable is accessed by multiple threads—such as in the case of an encoder node, where a callback writes the encoder’s value to a variable while another thread reads it—you must use `std::mutex` or `std::atomic` to ensure thread safety. More about parallel computing in [Multithreading](../../4_others/text/8_multithreading.md).
 
 ### Atomic variables
 Atomic variables are thread save, but only simple types such as int, float. 
-Name is from atomic operation/instruction - this type of instruction cannot be interrupted when executed, so its blocks the memory until done and other threads are waiting.
+Name is from atomic operation/instruction - this type of instruction cannot be interrupted when executed, so it blocks the memory until done and other threads are waiting.
 ```c++
 std::atomic<int> atomic_int;
 ```
 ### Mutex
-Mutex can be used to safely modify complex data structures such as std::vector or std::map.
+Mutex can be used to safely modify complex data structures such as `std::vector` or `std::map`.
 A mutex works by locking a resource when a thread accesses it and unlocking it after the operation is complete. Other threads attempting to access the resource must wait until the mutex is released.
 ```c++
 std::mutex mtx;
