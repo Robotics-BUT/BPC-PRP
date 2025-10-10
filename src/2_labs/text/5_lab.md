@@ -103,7 +103,6 @@ TEST(KinematicsTest, BackwardPositiveAngularVelocitySI) {
     EXPECT_NEAR(result.l, expected_l, ERROR);
     EXPECT_NEAR(result.r, expected_r, ERROR);
 }
-```
 
 TEST(KinematicsTest, ForwardZeroWheelSpeedSI) {
     constexpr float wheel_l = 0;
