@@ -181,12 +181,12 @@ If you have implemented the IMU, you are now ready to **extend your corridor-fol
 
 This modular architecture will make your logic easier to extend in future — for example, adding states **INTERSECTION_HANDLING** (two or three paths), **DEAD_END_HANDLING** (dead end).
 
-<p id="state_machine">
+<p id="state_machine" align="center">
   <img src="../images/lab_10_state_machine.png" alt="Corridor navigation state machine" width="400" height="200">
-</p>
-<p>
+</p align="center">
+<p align="center">
     <em> Figure 1: Example state diagram for corridor-following behavior </em>
-</p>
+</p align="center">
 
 > **Notes:**
 > - The structure below is just an example. You are free to design your own solution — **don’t feel limited by this template!**
