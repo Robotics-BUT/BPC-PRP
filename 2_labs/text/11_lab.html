@@ -182,7 +182,8 @@ Details:
 <p>The robot’s goal is to <strong>detect the markers, interpret their meaning, and use this information later</strong> when making decisions in the maze. This symbolic memory allows the robot to act in a more informed and efficient way, rather than relying solely on reactive behaviors.</p>
 <h2 id="camera-and-marker-detection-approx-50-minutes"><a class="header" href="#camera-and-marker-detection-approx-50-minutes">Camera and Marker Detection (Approx. 50 minutes)</a></h2>
 <p>In the first part of the lab, you will implement a ROS 2 node (<code>CameraNode</code>) that subscribes to a camera image stream, converts the received image into OpenCV format, and detects ArUco markers.</p>
-<h2 id="you-are-provided-with-a-partial-implementation-of-the-arucodetector-class-your-task-is-to-complete-this-class-and-integrate-it-into-your-ros-node"><a class="header" href="#you-are-provided-with-a-partial-implementation-of-the-arucodetector-class-your-task-is-to-complete-this-class-and-integrate-it-into-your-ros-node">You are provided with a partial implementation of the <code>ArucoDetector</code> class. Your task is to complete this class and integrate it into your ROS node.</a></h2>
+<p>You are provided with a partial implementation of the <code>ArucoDetector</code> class. Your task is to complete this class and integrate it into your ROS node.</p>
+<hr />
 <p><strong>TASK 1 – Camera Subscription and Marker Detection</strong></p>
 <ol>
 <li>Create a new ROS 2 node - <code>camera_node</code>
@@ -270,12 +271,12 @@ Details:
 <h2 id="symbolic-navigation-logic-approx-40-minutes"><a class="header" href="#symbolic-navigation-logic-approx-40-minutes">Symbolic Navigation Logic (Approx. 40 minutes)</a></h2>
 <p>In the second part of the lab, you will design logic that interprets the detected ArUco markers as instructions for maze navigation. Some markers indicate directions that lead to the exit, while others point toward the treasure. Your robot must recognize and remember these instructions, and then apply them later at decision points.</p>
 <p>As illustrated in Figure 1, each instruction obtained from an ArUco marker is <strong>always intended for the next upcoming intersection</strong>. The robot must remember the marker’s content and apply it at the first junction it encounters after reading the marker.</p>
-<p id="state_machine">
+<p id="state_machine"  align="center">
   <img src="../images/lab11_maze_example.png" alt="Maze with ArUco hints and decision points" width="450" height="600">
-</p>
-<p>
+</p align="center">
+<p align="center">
     <em> Figure 1: Example of decision-making using ArUco markers in a maze.</em>
-</p>
+</p align="center">
 <hr />
 <p><strong>TASK 2 - Maze Logic and Decision Making</strong></p>
 <ol>
