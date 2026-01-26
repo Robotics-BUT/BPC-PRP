@@ -427,66 +427,70 @@ In this course, ROS 2 will be used later for:</p>
 <li><del>simulation (Gazebo).</del></li>
 </ul>
 <p>For installation and basic commands, see the ROS 2 chapter: <a href="2_labs/text/../../4_others/text/6_ros_2.html">ROS 2</a>.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="lab-2---c-cmake--ide-1"><a class="header" href="#lab-2---c-cmake--ide-1">Lab 2 - C++, CMake &amp; IDE</a></h1>
-<p>Responsible: Ing. Adam Ligocki, Ph.D.</p>
-<p>If you are not familiar with Linux CLI commands, please follow the <a href="2_labs/text/../../4_others/text/1_linux.html">Linux</a> chapter.</p>
-<h2 id="cli-compilation-30-min"><a class="header" href="#cli-compilation-30-min">CLI Compilation (30 min)</a></h2>
-<p>This exercise shows how to write and compile a basic C++ program on Linux.</p>
-<p>In your home directory create a project folder and enter it.</p>
-<p>Write a simple program into the <code>main.cpp</code> file.</p>
-<pre><code class="language-c++">#include &lt;iostream&gt;
-
-#define A 5
-
-int sum(int a, int b) {
-    return a + b;
-}
-
-int main() {
-    std::cout &lt;&lt; &quot;My Cool CLI Compiled Program&quot; &lt;&lt; std::endl;
-    int b = 10;
-    std::cout &lt;&lt; &quot;Sum result: &quot; &lt;&lt; sum(A, b) &lt;&lt; std::endl;
-    return 0;
-}
-</code></pre>
-<p>Save the file and compile it using g++ (the GCC C++ compiler):</p>
-<pre><code class="language-bash">g++ -o my_cool_program main.cpp
-</code></pre>
-<p>Then run the binary:</p>
-<pre><code class="language-bash">./my_cool_program
-</code></pre>
-<p>There are other alternatives, like <a href="https://clang.llvm.org/">Clang</a>, <a href="https://llvm.org/">LLVM</a>, and many <a href="https://en.wikipedia.org/wiki/List_of_compilers#C++_compilers">others</a>.</p>
-<h3 id="challenge-1"><a class="header" href="#challenge-1">Challenge 1</a></h3>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="lab-2---project-workflow-git-cmake--team-project"><a class="header" href="#lab-2---project-workflow-git-cmake--team-project">Lab 2 - Project Workflow: Git, CMake &amp; Team Project</a></h1>
+<p>Responsible: Ing. Petr Šopák</p>
+<p>This laboratory introduces the <strong>software development workflow</strong> used in the rest of the <strong>BPC-PRP</strong> course.<br />
+You will learn how to manage source code using Git, how C++ projects are structured, and how to build them using CMake.</p>
+<p>The project created in this lab will serve as a <strong>base project for subsequent laboratories</strong>.</p>
+<p>By the end of this lab, you should be able to:</p>
 <ul>
-<li>In your project folder, create an <code>include</code> folder.</li>
-<li>In the <code>include</code> folder, create a <code>lib.hpp</code> file and write a simple function in it.</li>
-<li>Use the function from <code>lib.hpp</code> in <code>main.cpp</code>.</li>
-<li>Compile and run the program (tip: use <code>-I &lt;folder&gt;</code> with g++ to specify the header search path).</li>
+<li>use Git for version control and teamwork,</li>
+<li>clone, commit, push, pull, and resolve merge conflicts,</li>
+<li>understand the structure of a C++ project,</li>
+<li>build a project using CMake,</li>
+<li>work with a shared repository in a team.</li>
 </ul>
-<h3 id="challenge-2"><a class="header" href="#challenge-2">Challenge 2</a></h3>
+<h2 id="git-basics--team-workflow--75-min"><a class="header" href="#git-basics--team-workflow--75-min">Git Basics &amp; Team Workflow (≈ 75 min)</a></h2>
+<p>Before starting, read the <a href="2_labs/text/../../4_others/text/3_git.html">Git tutorial</a>.</p>
+<h3 id="sign-up"><a class="header" href="#sign-up">Sign-up</a></h3>
+<p>Register on <strong>one</strong> of the following Git services:</p>
+<ul>
+<li><a href="https://github.com/">GitHub</a></li>
+<li><a href="https://about.gitlab.com/">GitLab</a></li>
+<li><a href="https://bitbucket.org/product/">Bitbucket</a></li>
+</ul>
+<p>This server will serve as your <strong>&quot;origin&quot;</strong> (remote repository) for the rest of the <strong>BPC-PRP</strong> course.</p>
+<p>The instructors will have access to all your repositories, including their history, and can monitor your progress, including who, when, and how frequently commits were made.</p>
+<p>Create a repository on the server to maintain your code throughout the course.</p>
+<hr />
+<h3 id="cloning-the-repository"><a class="header" href="#cloning-the-repository">Cloning the Repository</a></h3>
+<h4 id="https---github-token"><a class="header" href="#https---github-token">HTTPS - GitHub Token</a></h4>
+<p>When cloning a repository via <em>HTTPS</em>, you cannot push changes using your username and password. Instead, you must use a generated GitHub token.</p>
+<p>To generate a token, go to <strong>Profile picture (top-right corner)</strong> &gt; <strong>Settings</strong> &gt; <strong>Developer Settings</strong> &gt; <strong>Personal Access Tokens</strong> &gt; <strong>Tokens (classic)</strong> or click <a href="https://github.com/settings/tokens">here</a>. Your generated token will be shown only once, after which you can use it as a password when pushing changes via HTTPS until the token expires.</p>
+<h4 id="ssh---setting-a-different-key"><a class="header" href="#ssh---setting-a-different-key">SSH - Setting a Different Key</a></h4>
+<p>You can generate an SSH key using the <code>ssh-keygen</code> command. It will prompt you for the file location/name and then for a passphrase. For lab use, set a passphrase. The default location is <code>~/.ssh</code>.</p>
+<p>When cloning a repository via SSH in the lab, you may encounter a problem with Git using the wrong SSH key.<br />
+You'll need to configure Git to use your generated key:</p>
+<pre><code class="language-bash">git config core.sshCommand &quot;ssh -i ~/.ssh/&lt;your_key&gt;&quot;
+</code></pre>
+<p>In this command, <code>&lt;your_key&gt;</code> refers to the private part of your generated key.</p>
+<p>On GitHub, you can add the <strong>public</strong> part of your key to either a specific repository or your entire account.</p>
 <ul>
 <li>
-<p>In the project folder, create <code>lib.cpp</code>.</p>
+<p><strong>To add a key to a project (repository level):</strong><br />
+Go to <strong>Project</strong> &gt; <strong>Settings</strong> &gt; <strong>Deploy keys</strong> &gt; <strong>Add deploy key</strong>, then check <strong>Allow write access</strong> if needed.</p>
 </li>
 <li>
-<p>Move the function implementation from <code>lib.hpp</code> to <code>lib.cpp</code>; keep the function declaration in <code>lib.hpp</code>.</p>
-</li>
-<li>
-<p>Compile and run the program (tip: you have to compile both <code>main.cpp</code> and <code>lib.cpp</code>).</p>
-</li>
-<li>
-<p>Helper: <code>g++ -o &lt;output_binary&gt; &lt;source_1.cpp source_2.cpp ...&gt; -I &lt;folder_with_headers&gt;</code></p>
-</li>
-<li>
-<p>Discuss the difference between preprocessing, compiling, and linking.</p>
-</li>
-<li>
-<p>Delete project folder</p>
+<p><strong>To add a key to your GitHub account (global access):</strong><br />
+Go to <strong>Profile picture (top-right corner)</strong> &gt; <strong>Settings</strong> &gt; <strong>SSH and GPG keys</strong> &gt; <strong>New SSH key</strong>.</p>
 </li>
 </ul>
-<h2 id="cmake-project-30-min"><a class="header" href="#cmake-project-30-min">CMake Project (30 min)</a></h2>
+<h3 id="team-task"><a class="header" href="#team-task">Team Task</a></h3>
+<p>As a team, complete the following steps:</p>
+<ol>
+<li>One team member creates a repository on the server.</li>
+<li>All team members clone the repository to their local machines.</li>
+<li>One team member creates a &quot;Hello, World!&quot; program locally, commits it, and pushes it to the origin.</li>
+<li>The rest of the team pulls the changes to their local repositories.</li>
+<li>Two team members intentionally create a conflict by modifying the same line of code simultaneously and attempting to push their changes to the server. The second member to push will receive an error from Git indicating a conflict.</li>
+<li>The team member who encounters the conflict resolves it and pushes the corrected version to the origin.</li>
+<li>All team members pull the updated version of the repository. Each member then creates their own <code>.h</code> file containing a function that prints their name. Everyone pushes their changes to the server.</li>
+<li>One team member pulls the newly created <code>.h</code> files and modifies the &quot;Hello, World!&quot; program to use all the newly created code. The changes are then pushed to the origin.</li>
+<li>All team members pull the latest state of the repository.</li>
+</ol>
+<h2 id="project-structure--cmake--60-min"><a class="header" href="#project-structure--cmake--60-min">Project Structure &amp; CMake (≈ 60 min)</a></h2>
 <p>Before continuing, get familiar with <a href="2_labs/text/../../4_others/text/7_cmake.html">CMake</a>.</p>
-<p>Now let's create a similar project, but using <code>CMake</code>.</p>
+<p>Now let's create a similar project from last lab, but using <code>CMake</code>.</p>
 <ul>
 <li>Determine your current location in the file system.</li>
 <li>Switch to your home directory.</li>
@@ -541,7 +545,7 @@ make               # build program
 <ul>
 <li>Delete project folder </li>
 </ul>
-<h2 id="clion-ide-30-min"><a class="header" href="#clion-ide-30-min">CLion IDE (30 min)</a></h2>
+<h3 id="bonus-task"><a class="header" href="#bonus-task">BONUS TASK</a></h3>
 <p>Create the same project using the CLion IDE.</p>
 <p>To learn how to control CLion, please take a look at the <a href="2_labs/text/../../4_others/text/4_clion.html">tutorial</a> or the <a href="https://www.jetbrains.com/help/clion/clion-quick-start-guide.html#code-assistance">official docs</a>.</p>
 <h2 id="unit-tests-gtest-30-min"><a class="header" href="#unit-tests-gtest-30-min">Unit Tests, GTest (30 min)</a></h2>
@@ -639,10 +643,10 @@ ctest
 <p>Create a repository on the server to maintain your code throughout the course.</p>
 <hr />
 <h3 id="cloning-the-repository-in-the-lab"><a class="header" href="#cloning-the-repository-in-the-lab">Cloning the repository in the lab</a></h3>
-<h4 id="https---github-token"><a class="header" href="#https---github-token">HTTPS - GitHub Token</a></h4>
+<h4 id="https---github-token-1"><a class="header" href="#https---github-token-1">HTTPS - GitHub Token</a></h4>
 <p>When cloning a repository via HTTPS, you cannot push changes using your username and password. Instead, you must use a generated GitHub token.</p>
 <p>To generate a token, go to <strong>Profile picture (top-right corner)</strong> &gt; <strong>Settings</strong> &gt; <strong>Developer Settings</strong> &gt; <strong>Personal Access Tokens</strong> &gt; <strong>Tokens (classic)</strong> or click <a href="https://github.com/settings/tokens">here</a>. Your generated token will be shown only once, after which you can use it as a password when pushing changes via HTTPS until the token expires.</p>
-<h4 id="ssh---setting-a-different-key"><a class="header" href="#ssh---setting-a-different-key">SSH - Setting a Different Key</a></h4>
+<h4 id="ssh---setting-a-different-key-1"><a class="header" href="#ssh---setting-a-different-key-1">SSH - Setting a Different Key</a></h4>
 <p>You can generate an SSH key using the <code>ssh-keygen</code> command. It will prompt you for the file location/name and then for a passphrase. For lab use, set a passphrase. The default location is <code>~/.ssh</code>.</p>
 <p>When cloning a repository via SSH in the lab, you may encounter a problem with Git using the wrong SSH key.<br />
 You'll need to configure Git to use your generated key:</p>
