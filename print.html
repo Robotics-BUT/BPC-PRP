@@ -365,7 +365,7 @@ You can exit Vim with: press <kbd>Esc</kbd>, then hold <kbd>Shift</kbd> and pres
 <p>More Info: https://www.vim.org/docs.php</p>
 </details>
 <p>More details about Linux will be introduced during the course.</p>
-<h2 id="first-c-program--cli-compilation--45-min"><a class="header" href="#first-c-program--cli-compilation--45-min">First C++ Program – CLI Compilation (≈ 45 min)</a></h2>
+<h2 id="first-c-program--cli-compilation--60-min"><a class="header" href="#first-c-program--cli-compilation--60-min">First C++ Program – CLI Compilation (≈ 60 min)</a></h2>
 <p>Create a new project folder in your home directory and enter it.</p>
 <p>Create a file <code>main.cpp</code> with the following content:</p>
 <pre><code class="language-c++">#include &lt;iostream&gt;
@@ -389,12 +389,22 @@ int main() {
 <p>Run the compiled binary:</p>
 <pre><code class="language-bash">./my_program
 </code></pre>
-<h3 id="optional-challenges"><a class="header" href="#optional-challenges">Optional challenges</a></h3>
-<ul>
-<li>Create an <code>include</code> directory and move the function declaration to a header file.</li>
-<li>Split the program into multiple source files.</li>
-<li>Compile the program by specifying multiple source files and include paths.</li>
-</ul>
+<p>There are other alternatives, like <a href="https://clang.llvm.org/">Clang</a>, <a href="https://llvm.org/">LLVM</a>, and many <a href="https://en.wikipedia.org/wiki/List_of_compilers#C++_compilers">others</a>.</p>
+<h3 id="task-1"><a class="header" href="#task-1">TASK 1</a></h3>
+<ol>
+<li>In your project folder, create an <code>include</code> folder.</li>
+<li>In the <code>include</code> folder, create a <code>lib.hpp</code> file and write a simple function in it.</li>
+<li>Use the function from <code>lib.hpp</code> in <code>main.cpp</code>.</li>
+<li>Compile and run the program (tip: use <code>-I &lt;folder&gt;</code> with g++ to specify the header search path).</li>
+</ol>
+<h3 id="task-2"><a class="header" href="#task-2">TASK 2</a></h3>
+<ol>
+<li>In the project folder, create <code>lib.cpp</code>.</li>
+<li>Move the function implementation from <code>lib.hpp</code> to <code>lib.cpp</code>; keep the function declaration in <code>lib.hpp</code>.</li>
+<li>Compile and run the program (tip: you have to compile both <code>main.cpp</code> and <code>lib.cpp</code>).</li>
+<li>Helper: <code>g++ -o &lt;output_binary&gt; &lt;source_1.cpp source_2.cpp ...&gt; -I &lt;folder_with_headers&gt;</code></li>
+<li>Discuss the difference between preprocessing, compiling, and linking.</li>
+</ol>
 <h2 id="ide-overview--clion--15-min"><a class="header" href="#ide-overview--clion--15-min">IDE Overview – CLion (≈ 15 min)</a></h2>
 <h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
 <p>Install CLion using the Snap package manager:</p>
@@ -402,7 +412,7 @@ int main() {
 </code></pre>
 <p>Alternatively, download CLion from the <a href="https://www.jetbrains.com/clion/">official website</a> and get familiar with it (see <a href="2_labs/text/../../4_others/text/4_clion.html">CLion IDE</a>). By registering with your school email, you can obtain a free student license.</p>
 <p>To learn how to control CLion, please take a look at the <a href="2_labs/text/../../4_others/text/4_clion.html">tutorial</a> or the <a href="https://www.jetbrains.com/help/clion/clion-quick-start-guide.html#code-assistance">official docs</a>.</p>
-<h3 id="task"><a class="header" href="#task">TASK</a></h3>
+<h3 id="task-3"><a class="header" href="#task-3">TASK 3</a></h3>
 <ol>
 <li>Learn how to control CLion</li>
 <li>Open the previously created C++ program (main.cpp) in CLion.</li>
