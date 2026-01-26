@@ -1,12 +1,18 @@
-# Lab 1 - Laboratory Introduction & Linux
+# Lab 1 - Development Environment & First C++ Program
 
-Responsible: Ing. Jakub Minařík
+Responsible: Ing. Petr Šopák
 
-This lab briefly introduces the environment used for development and testing throughout the BPC-PRP course.
+This laboratory introduces the basic development environment used throughout the **BPC-PRP** course.
 
-The following 3 chapters will take you through installing and setting up the basic environment, and you will practice the Linux CLI.
+The goal is to get familiar with Linux, command-line tools, and to compile and run a simple C++ program.
 
-## Linux (1h)
+By the end of this lab, you should be able to:
+; - navigate the Linux file system using the CLI,
+  - create and edit source files,
+  - compile and run a basic C++ program,
+  - understand the role of an IDE and ROS 2 in this course.
+
+## Linux & Command Line Basics (≈ 60 min)
 
 ### Installation (optional)
 
@@ -29,19 +35,54 @@ To install Linux, please follow the [Linux](../../4_others/text/1_linux.md) chap
 - Try a text editor: `nano` or `vim`
 
 <details> <summary>I installed vim and accidentally opened it. What now?</summary>
-You can exit Vim with: press Esc, then hold Shift and press Z twice (Shift+Z+Z).
-For a quick introduction, see Vim basics: https://www.vim.org/docs.php
+You can exit Vim with: press <kbd>Esc</kbd>, then hold <kbd>Shift</kbd> and press <kbd>Z</kbd> twice (<kbd>Shift</kbd>+<kbd>Z</kbd>+<kbd>Z</kbd>).
+  
+More Info: https://www.vim.org/docs.php
 </details>
 
 More details about Linux will be introduced during the course.
 
-## ROS 2 (30 min)
+## First C++ Program – CLI Compilation (≈ 45 min)
 
-ROS 2 (Robot Operating System 2) is a modern open‑source framework for building robotic systems. It uses DDS for communication (publish/subscribe, services) and runs on Linux, Windows, and macOS. In this course you will use Python or C++ APIs, RViz for visualization, and Gazebo for simulation.
+Create a new project folder in your home directory and enter it.
 
-For installation and basic commands, see the ROS 2 chapter: [ROS 2](../../4_others/text/6_ros_2.md).
+Create a file `main.cpp` with the following content:
 
-## CLion IDE (15 min)
+```c++
+#include <iostream>
+
+#define A 5
+
+int sum(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    std::cout << "My first C++ program" << std::endl;
+    int b = 10;
+    std::cout << "Sum result: " << sum(A, b) << std::endl;
+    return 0;
+}
+```
+
+Compile the program using the **GCC compiler**:
+
+```bash
+g++ -o my_program main.cpp
+```
+
+Run the compiled binary:
+
+```bash
+./my_program
+```
+
+### Optional challenges
+- Create an `include` directory and move the function declaration to a header file.
+- Split the program into multiple source files.
+- Compile the program by specifying multiple source files and include paths.
+
+## IDE Overview – CLion (≈ 15 min)
 
 ### Installation
 
@@ -52,3 +93,13 @@ sudo snap install --classic clion
 ```
 
 Alternatively, download CLion from the [official website](https://www.jetbrains.com/clion/) and get familiar with it (see [CLion IDE](../../4_others/text/4_clion.md)). By registering with your school email, you can obtain a free student license.
+
+## ROS 2 – Course Context (≈ 15 min)
+
+ROS 2 (Robot Operating System 2) is a framework for building robotic systems.
+In this course, ROS 2 will be used later for:
+  - communication between software components,
+  - visualization (RViz, rqt),
+  - ~~simulation (Gazebo).~~
+
+For installation and basic commands, see the ROS 2 chapter: [ROS 2](../../4_others/text/6_ros_2.md).
