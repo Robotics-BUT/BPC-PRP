@@ -42,7 +42,7 @@ More Info: https://www.vim.org/docs.php
 
 More details about Linux will be introduced during the course.
 
-## First C++ Program – CLI Compilation (≈ 45 min)
+## First C++ Program – CLI Compilation (≈ 60 min)
 
 Create a new project folder in your home directory and enter it.
 
@@ -77,10 +77,22 @@ Run the compiled binary:
 ./my_program
 ```
 
-### Optional challenges
-- Create an `include` directory and move the function declaration to a header file.
-- Split the program into multiple source files.
-- Compile the program by specifying multiple source files and include paths.
+There are other alternatives, like [Clang](https://clang.llvm.org/), [LLVM](https://llvm.org/), and many [others](https://en.wikipedia.org/wiki/List_of_compilers#C++_compilers).
+
+### TASK 1
+
+ 1) In your project folder, create an `include` folder.
+ 2) In the `include` folder, create a `lib.hpp` file and write a simple function in it.
+ 3) Use the function from `lib.hpp` in `main.cpp`.
+ 4) Compile and run the program (tip: use `-I <folder>` with g++ to specify the header search path).
+
+### TASK 2
+ 
+ 1) In the project folder, create `lib.cpp`.
+ 2) Move the function implementation from `lib.hpp` to `lib.cpp`; keep the function declaration in `lib.hpp`.
+ 3) Compile and run the program (tip: you have to compile both `main.cpp` and `lib.cpp`).
+ 4) Helper: `g++ -o <output_binary> <source_1.cpp source_2.cpp ...> -I <folder_with_headers>`
+ 5) Discuss the difference between preprocessing, compiling, and linking.
 
 ## IDE Overview – CLion (≈ 15 min)
 
@@ -96,7 +108,7 @@ Alternatively, download CLion from the [official website](https://www.jetbrains.
 
 To learn how to control CLion, please take a look at the [tutorial](../../4_others/text/4_clion.md) or the [official docs](https://www.jetbrains.com/help/clion/clion-quick-start-guide.html#code-assistance).
 
-### TASK
+### TASK 3
 1) Learn how to control CLion
 2) Open the previously created C++ program (main.cpp) in CLion.
 3) Build and run the program using the IDE controls.
