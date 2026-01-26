@@ -1,69 +1,84 @@
-# Lab 2 - C++, CMake & IDE
+# Lab 2 - Project Workflow: Git, CMake & Team Project
 
-Responsible: Ing. Adam Ligocki, Ph.D.
+Responsible: Ing. Petr Šopák
 
+This laboratory introduces the **software development workflow** used in the rest of the **BPC-PRP** course.  
+You will learn how to manage source code using Git, how C++ projects are structured, and how to build them using CMake.
 
-If you are not familiar with Linux CLI commands, please follow the [Linux](../../4_others/text/1_linux.md) chapter.
+The project created in this lab will serve as a **base project for subsequent laboratories**.
 
-## CLI Compilation (30 min)
+By the end of this lab, you should be able to:
+- use Git for version control and teamwork,
+- clone, commit, push, pull, and resolve merge conflicts,
+- understand the structure of a C++ project,
+- build a project using CMake,
+- work with a shared repository in a team.
 
-This exercise shows how to write and compile a basic C++ program on Linux.
+## Git Basics & Team Workflow (≈ 75 min)
 
-In your home directory create a project folder and enter it.
+Before starting, read the [Git tutorial](../../4_others/text/3_git.md).
 
-Write a simple program into the `main.cpp` file.
+### Sign-up
 
-```c++
-#include <iostream>
+Register on **one** of the following Git services:
+ - [GitHub](https://github.com/)
+ - [GitLab](https://about.gitlab.com/)
+ - [Bitbucket](https://bitbucket.org/product/)
 
-#define A 5
+This server will serve as your **"origin"** (remote repository) for the rest of the **BPC-PRP** course.
 
-int sum(int a, int b) {
-    return a + b;
-}
+The instructors will have access to all your repositories, including their history, and can monitor your progress, including who, when, and how frequently commits were made.
 
-int main() {
-    std::cout << "My Cool CLI Compiled Program" << std::endl;
-    int b = 10;
-    std::cout << "Sum result: " << sum(A, b) << std::endl;
-    return 0;
-}
-```
+Create a repository on the server to maintain your code throughout the course.
 
-Save the file and compile it using g++ (the GCC C++ compiler):
+---
+
+### Cloning the Repository
+
+#### HTTPS - GitHub Token  
+
+When cloning a repository via *HTTPS*, you cannot push changes using your username and password. Instead, you must use a generated GitHub token.  
+
+To generate a token, go to **Profile picture (top-right corner)** > **Settings** > **Developer Settings** > **Personal Access Tokens** > **Tokens (classic)** or click [here](https://github.com/settings/tokens). Your generated token will be shown only once, after which you can use it as a password when pushing changes via HTTPS until the token expires.  
+
+#### SSH - Setting a Different Key  
+
+You can generate an SSH key using the `ssh-keygen` command. It will prompt you for the file location/name and then for a passphrase. For lab use, set a passphrase. The default location is `~/.ssh`.  
+
+When cloning a repository via SSH in the lab, you may encounter a problem with Git using the wrong SSH key.  
+You'll need to configure Git to use your generated key:  
 ```bash
-g++ -o my_cool_program main.cpp
+git config core.sshCommand "ssh -i ~/.ssh/<your_key>"
 ```
+In this command, `<your_key>` refers to the private part of your generated key.  
 
-Then run the binary:
-```bash
-./my_cool_program
-```
+On GitHub, you can add the **public** part of your key to either a specific repository or your entire account.  
 
-There are other alternatives, like [Clang](https://clang.llvm.org/), [LLVM](https://llvm.org/), and many [others](https://en.wikipedia.org/wiki/List_of_compilers#C++_compilers).
+- **To add a key to a project (repository level):**  
+  Go to **Project** > **Settings** > **Deploy keys** > **Add deploy key**, then check **Allow write access** if needed.  
 
-### Challenge 1 
+- **To add a key to your GitHub account (global access):**  
+  Go to **Profile picture (top-right corner)** > **Settings** > **SSH and GPG keys** > **New SSH key**.  
 
- - In your project folder, create an `include` folder.
- - In the `include` folder, create a `lib.hpp` file and write a simple function in it.
- - Use the function from `lib.hpp` in `main.cpp`.
- - Compile and run the program (tip: use `-I <folder>` with g++ to specify the header search path).
+### Team Task
 
-### Challenge 2
- 
- - In the project folder, create `lib.cpp`.
- - Move the function implementation from `lib.hpp` to `lib.cpp`; keep the function declaration in `lib.hpp`.
- - Compile and run the program (tip: you have to compile both `main.cpp` and `lib.cpp`).
- - Helper: `g++ -o <output_binary> <source_1.cpp source_2.cpp ...> -I <folder_with_headers>`
- - Discuss the difference between preprocessing, compiling, and linking.
+As a team, complete the following steps:
 
- - Delete project folder
+1. One team member creates a repository on the server.
+2. All team members clone the repository to their local machines.
+3. One team member creates a "Hello, World!" program locally, commits it, and pushes it to the origin.
+4. The rest of the team pulls the changes to their local repositories.
+5. Two team members intentionally create a conflict by modifying the same line of code simultaneously and attempting to push their changes to the server. The second member to push will receive an error from Git indicating a conflict.
+6. The team member who encounters the conflict resolves it and pushes the corrected version to the origin.
+7. All team members pull the updated version of the repository. Each member then creates their own `.h` file containing a function that prints their name. Everyone pushes their changes to the server.
+8. One team member pulls the newly created `.h` files and modifies the "Hello, World!" program to use all the newly created code. The changes are then pushed to the origin.
+9. All team members pull the latest state of the repository.
 
-## CMake Project (30 min)
+## Project Structure & CMake (≈ 60 min)
 
 Before continuing, get familiar with [CMake](../../4_others/text/7_cmake.md).
 
-Now let's create a similar project, but using `CMake`.
+Now let's create a similar project from last lab, but using `CMake`.
 
  - Determine your current location in the file system.
  - Switch to your home directory.
@@ -128,7 +143,7 @@ g++ <source1 source2 source3 ...> -I <include_directory> -o <output_binary>
 
  - Delete project folder 
 
-## CLion IDE (30 min)
+### BONUS TASK
 
 Create the same project using the CLion IDE.
 
