@@ -327,11 +327,18 @@ Responsible: Ing. Jakub Minařík</li>
 <li>Good Luck!</li>
 </ul>
 <p>Responsible: Ing. Adam Ligocki, Ph.D.</p>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="lab-1---laboratory-introduction--linux-1"><a class="header" href="#lab-1---laboratory-introduction--linux-1">Lab 1 - Laboratory Introduction &amp; Linux</a></h1>
-<p>Responsible: Ing. Jakub Minařík</p>
-<p>This lab briefly introduces the environment used for development and testing throughout the BPC-PRP course.</p>
-<p>The following 3 chapters will take you through installing and setting up the basic environment, and you will practice the Linux CLI.</p>
-<h2 id="linux-1h"><a class="header" href="#linux-1h">Linux (1h)</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="lab-1---development-environment--first-c-program"><a class="header" href="#lab-1---development-environment--first-c-program">Lab 1 - Development Environment &amp; First C++ Program</a></h1>
+<p>Responsible: Ing. Petr Šopák</p>
+<p>This laboratory introduces the basic development environment used throughout the <strong>BPC-PRP</strong> course.</p>
+<p>The goal is to get familiar with Linux, command-line tools, and to compile and run a simple C++ program.</p>
+<p>By the end of this lab, you should be able to:
+; - navigate the Linux file system using the CLI,</p>
+<ul>
+<li>create and edit source files,</li>
+<li>compile and run a basic C++ program,</li>
+<li>understand the role of an IDE and ROS 2 in this course.</li>
+</ul>
+<h2 id="linux--command-line-basics--60-min"><a class="header" href="#linux--command-line-basics--60-min">Linux &amp; Command Line Basics (≈ 60 min)</a></h2>
 <h3 id="installation-optional"><a class="header" href="#installation-optional">Installation (optional)</a></h3>
 <p>To install Linux, please follow the <a href="2_labs/text/../../4_others/text/1_linux.html">Linux</a> chapter.</p>
 <h3 id="exercise"><a class="header" href="#exercise">Exercise</a></h3>
@@ -354,19 +361,55 @@ Responsible: Ing. Jakub Minařík</li>
 <li>Try a text editor: <code>nano</code> or <code>vim</code></li>
 </ul>
 <details> <summary>I installed vim and accidentally opened it. What now?</summary>
-You can exit Vim with: press Esc, then hold Shift and press Z twice (Shift+Z+Z).
-For a quick introduction, see Vim basics: https://www.vim.org/docs.php
+You can exit Vim with: press <kbd>Esc</kbd>, then hold <kbd>Shift</kbd> and press <kbd>Z</kbd> twice (<kbd>Shift</kbd>+<kbd>Z</kbd>+<kbd>Z</kbd>).
+<p>More Info: https://www.vim.org/docs.php</p>
 </details>
 <p>More details about Linux will be introduced during the course.</p>
-<h2 id="ros-2-30-min"><a class="header" href="#ros-2-30-min">ROS 2 (30 min)</a></h2>
-<p>ROS 2 (Robot Operating System 2) is a modern open‑source framework for building robotic systems. It uses DDS for communication (publish/subscribe, services) and runs on Linux, Windows, and macOS. In this course you will use Python or C++ APIs, RViz for visualization, and Gazebo for simulation.</p>
-<p>For installation and basic commands, see the ROS 2 chapter: <a href="2_labs/text/../../4_others/text/6_ros_2.html">ROS 2</a>.</p>
-<h2 id="clion-ide-15-min"><a class="header" href="#clion-ide-15-min">CLion IDE (15 min)</a></h2>
+<h2 id="first-c-program--cli-compilation--45-min"><a class="header" href="#first-c-program--cli-compilation--45-min">First C++ Program – CLI Compilation (≈ 45 min)</a></h2>
+<p>Create a new project folder in your home directory and enter it.</p>
+<p>Create a file <code>main.cpp</code> with the following content:</p>
+<pre><code class="language-c++">#include &lt;iostream&gt;
+
+#define A 5
+
+int sum(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    std::cout &lt;&lt; &quot;My first C++ program&quot; &lt;&lt; std::endl;
+    int b = 10;
+    std::cout &lt;&lt; &quot;Sum result: &quot; &lt;&lt; sum(A, b) &lt;&lt; std::endl;
+    return 0;
+}
+</code></pre>
+<p>Compile the program using the <strong>GCC compiler</strong>:</p>
+<pre><code class="language-bash">g++ -o my_program main.cpp
+</code></pre>
+<p>Run the compiled binary:</p>
+<pre><code class="language-bash">./my_program
+</code></pre>
+<h3 id="optional-challenges"><a class="header" href="#optional-challenges">Optional challenges</a></h3>
+<ul>
+<li>Create an <code>include</code> directory and move the function declaration to a header file.</li>
+<li>Split the program into multiple source files.</li>
+<li>Compile the program by specifying multiple source files and include paths.</li>
+</ul>
+<h2 id="ide-overview--clion--15-min"><a class="header" href="#ide-overview--clion--15-min">IDE Overview – CLion (≈ 15 min)</a></h2>
 <h3 id="installation"><a class="header" href="#installation">Installation</a></h3>
 <p>Install CLion using the Snap package manager:</p>
 <pre><code class="language-bash">sudo snap install --classic clion
 </code></pre>
 <p>Alternatively, download CLion from the <a href="https://www.jetbrains.com/clion/">official website</a> and get familiar with it (see <a href="2_labs/text/../../4_others/text/4_clion.html">CLion IDE</a>). By registering with your school email, you can obtain a free student license.</p>
+<h2 id="ros-2--course-context--15-min"><a class="header" href="#ros-2--course-context--15-min">ROS 2 – Course Context (≈ 15 min)</a></h2>
+<p>ROS 2 (Robot Operating System 2) is a framework for building robotic systems.
+In this course, ROS 2 will be used later for:</p>
+<ul>
+<li>communication between software components,</li>
+<li>visualization (RViz, rqt),</li>
+<li><del>simulation (Gazebo).</del></li>
+</ul>
+<p>For installation and basic commands, see the ROS 2 chapter: <a href="2_labs/text/../../4_others/text/6_ros_2.html">ROS 2</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-2---c-cmake--ide-1"><a class="header" href="#lab-2---c-cmake--ide-1">Lab 2 - C++, CMake &amp; IDE</a></h1>
 <p>Responsible: Ing. Adam Ligocki, Ph.D.</p>
 <p>If you are not familiar with Linux CLI commands, please follow the <a href="2_labs/text/../../4_others/text/1_linux.html">Linux</a> chapter.</p>
