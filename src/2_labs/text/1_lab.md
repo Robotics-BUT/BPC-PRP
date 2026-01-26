@@ -7,7 +7,7 @@ This laboratory introduces the basic development environment used throughout the
 The goal is to get familiar with Linux, command-line tools, and to compile and run a simple C++ program.
 
 By the end of this lab, you should be able to:
-; - navigate the Linux file system using the CLI,
+  - navigate the Linux file system using the CLI,
   - create and edit source files,
   - compile and run a basic C++ program,
   - understand the role of an IDE and ROS 2 in this course.
@@ -65,7 +65,7 @@ int main() {
 }
 ```
 
-Compile the program using the **GCC compiler**:
+Compile the program using **g++ (GCC C++ compiler)**:
 
 ```bash
 g++ -o my_program main.cpp
@@ -93,6 +93,13 @@ sudo snap install --classic clion
 ```
 
 Alternatively, download CLion from the [official website](https://www.jetbrains.com/clion/) and get familiar with it (see [CLion IDE](../../4_others/text/4_clion.md)). By registering with your school email, you can obtain a free student license.
+
+To learn how to control CLion, please take a look at the [tutorial](../../4_others/text/4_clion.md) or the [official docs](https://www.jetbrains.com/help/clion/clion-quick-start-guide.html#code-assistance).
+
+### TASK
+1) Learn how to control CLion
+2) Open the previously created C++ program (main.cpp) in CLion.
+3) Build and run the program using the IDE controls.
 
 ## ROS 2 – Course Context (≈ 15 min)
 
