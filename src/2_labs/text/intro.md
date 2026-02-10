@@ -2,75 +2,77 @@
 
 ## Overview
 
-### Lab 1 - Laboratory Introduction & Linux
+### Lab 1 - Development Environment & First C++ Program
  - Introduction to laboratory
- - Linux installation
  - Linux Command Line Interface (CLI)
-
-Responsible: Ing. Jakub Minařík
-
-### Lab 2 - C++, CMake & IDE
  - C++ Review
  - CLI compilation
+ - CLion and ROS 2 introduction
+
+Responsible: Ing. Petr Šopák
+
+### Lab 2 - Project Workflow: Git, CMake & Team Project
+ - Git Basics and workflow
  - Simple CMake project
  - Unit tests
-
-Responsible: Ing. Adam Ligocki, Ph.D.
-
-### Lab 3 - Git & C++ Project Template
- - Git Basics and workflow
  - Online repository
  - Course project template
 
-Responsible: Ing. Jakub Minařík
+Responsible: Ing. Petr Šopák
 
-### Lab 4 - Data Capture & Visualization (ROS)
+### Lab 3 - Data Capture & Visualization (ROS)
  - ROS 2 in CLI
  - Simple Node, Publisher, Subscriber
  - RViz, Data Visualization
 
 Responsible: Ing. Petr Šopák
 
-### Lab 5 - Motor, Kinematics & Gamepad
+### Lab 4 - Motor, Kinematics & Gamepad
  - Motor Control
  - Forward and Inverse Kinematics
  - Gamepad
 
 Responsible: Ing. Jakub Minařík
 
-### Lab 6 - Line Estimation
+### Lab 5 - Line Estimation
  - Line Sensor Usage
  - Line Position Estimation
  - Line Sensor Calibration
 
 Responsible: Ing. Adam Ligocki, Ph.D.
 
-### Lab 7 - Line Following & PID
+### Lab 6 - Line Following & PID
  - Line Following Control Loop Implementation
 
 Responsible: Ing. Petr Šopák
 
-### Lab 8 - Midterm Test (Line Following)
+### Lab 7 - Midterm Test (Line Following)
  - Good Luck
 
 Responsible: Ing. Adam Ligocki, Ph.D.
 
-### Lab 9 - LiDAR
+### Lab 8 - LiDAR
  - Understanding LiDAR data
  - LiDAR Data Filtration
  - Corridor Following Algorithm
 
 Responsible: Ing. Petr Šopák
 
-### Lab 10 - Inertial Measurement Unit (IMU)
+### Lab 9 - Inertial Measurement Unit (IMU)
  - Understanding IMU Data
  - Orientation Estimation Using IMU
 
 Responsible: Ing. Petr Šopák
 
-### Lab 11 - Camera Data Processing
+### Lab 10 - Camera Data Processing
  - Understanding Camera Data
  - ArUco Detection Library
+
+Responsible: Ing. Petr Šopák
+
+### Lab 11 - Individual work
+ - Individual work
+ - Consultation
 
 Responsible: Ing. Petr Šopák
 

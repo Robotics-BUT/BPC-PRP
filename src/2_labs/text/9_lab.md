@@ -1,4 +1,4 @@
-# Lab 9 - Obstacle Detection & Corridor Following
+# Lab 8 - Obstacle Detection & Corridor Following
 
 **Responsible:** Ing. Petr Šopák
 

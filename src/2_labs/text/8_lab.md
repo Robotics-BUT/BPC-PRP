@@ -1,4 +1,4 @@
-# Lab 8 - Midterm Test (Line Following)
+# Lab 7 - Midterm Test (Line Following)
 
 Responsible: Ing. Adam Ligocki, Ph.D.
 

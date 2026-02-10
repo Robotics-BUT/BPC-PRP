@@ -1,4 +1,4 @@
-# Lab 10 – Orientation-Aware Corridor Navigation
+# Lab 9 – Orientation-Aware Corridor Navigation
 
 **Responsible:** Ing. Petr Šopák
 

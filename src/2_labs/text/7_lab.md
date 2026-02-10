@@ -1,4 +1,4 @@
-# Lab 7 - Line Following & PID
+# Lab 6 - Line Following & PID
 
 **Responsible:** Ing. Petr Šopák
 

@@ -1,4 +1,4 @@
-# Lab 6 - Line Estimation
+# Lab 5 - Line Estimation
 
 Responsible: Ing. Adam Ligocki, Ph.D.
 

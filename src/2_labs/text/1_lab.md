@@ -121,4 +121,4 @@ In this course, ROS 2 will be used later for:
   - visualization (RViz, rqt),
   - ~~simulation (Gazebo).~~
 
-For installation and basic commands, see the ROS 2 chapter: [ROS 2](../../4_others/text/6_ros_2.md).
+For installation and basic commands, see the ROS 2 chapter: [ROS 2](https://docs.ros.org/en/humble/index.html).

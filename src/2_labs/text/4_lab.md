@@ -1,4 +1,4 @@
-# Lab 4 - Data Capture & Visualization (ROS)
+# Lab 3 - Data Capture & Visualization (ROS)
 
 **Responsible:** Ing. Petr Šopák
 

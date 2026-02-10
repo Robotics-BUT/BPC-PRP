@@ -1,4 +1,4 @@
-# Lab 5 - Motor, Kinematics & Gamepad
+# Lab 4 - Motor, Kinematics & Gamepad
 
 Responsible: Ing. Jakub Minařík
 

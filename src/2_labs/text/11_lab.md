@@ -1,4 +1,4 @@
-# Lab 11 - Visual Navigation Using ArUco Markers
+# Lab 10 - Visual Navigation Using ArUco Markers
 
 Responsible: Ing. Petr Šopák
 
