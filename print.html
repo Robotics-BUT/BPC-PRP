@@ -1340,8 +1340,8 @@ TEST(KinematicsTest, BackwardPositiveLinearVelocitySI) {
 }
 
 TEST(KinematicsTest, BackwardPositiveAngularVelocitySI) {
-    constexpr float linear = 1.0f;
-    constexpr float angular = 0.0f;
+    constexpr float linear = 0.0f;
+    constexpr float angular = 1.0f;
     constexpr float expected_l = -(0.5f * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
     constexpr float expected_r = +(0.5f * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
 
@@ -1749,13 +1749,13 @@ $$</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-7---midterm-test-line-following-1"><a class="header" href="#lab-7---midterm-test-line-following-1">Lab 7 - Midterm Test (Line Following)</a></h1>
 <p>Responsible: Ing. Adam Ligocki, Ph.D.</p>
 <p>Up to 50 points can be earned through two practical demonstrations during the semester.</p>
-<p>Week 8 — Line following (25 points)</p>
-<p>Week 12 — Corridor following (25 points)</p>
+<p>Week 7 — Line following (20 points)</p>
+<p>Week 12 — Corridor following (20 points)</p>
 <h2 id="line-following-rules"><a class="header" href="#line-following-rules">Line following rules</a></h2>
 <p>There are 3 tracks:</p>
 <ul>
 <li>Straight line (5 points)</li>
-<li>Simple loop (10 points)</li>
+<li>Simple loop (5 points)</li>
 <li>Complex loop (10 points)</li>
 </ul>
 <p>To pass a track, the robot must follow the full length of the line.</p>
@@ -2365,8 +2365,8 @@ ID = 2 -&gt; right           ID = 12 -&gt; right
 <div style="break-before: page; page-break-before: always;"></div><h1 id="lab-12---midterm-test-corridor-following-1"><a class="header" href="#lab-12---midterm-test-corridor-following-1">Lab 12 - Midterm Test (Corridor Following)</a></h1>
 <p>Responsible: Ing. Adam Ligocki, Ph.D.</p>
 <p>Up to 50 points can be earned through two practical demonstrations during the semester.</p>
-<p>Week 8 — Line following (25 points)</p>
-<p>Week 12 — Corridor following (25 points)</p>
+<p>Week 7 — Line following (20 points)</p>
+<p>Week 12 — Corridor following (20 points)</p>
 <h2 id="corridor-following-rules"><a class="header" href="#corridor-following-rules">Corridor following rules</a></h2>
 <p>There are 3 tracks:</p>
 <ul>

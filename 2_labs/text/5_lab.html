@@ -253,8 +253,8 @@ TEST(KinematicsTest, BackwardPositiveLinearVelocitySI) {
 }
 
 TEST(KinematicsTest, BackwardPositiveAngularVelocitySI) {
-    constexpr float linear = 1.0f;
-    constexpr float angular = 0.0f;
+    constexpr float linear = 0.0f;
+    constexpr float angular = 1.0f;
     constexpr float expected_l = -(0.5f * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
     constexpr float expected_r = +(0.5f * WHEEL_BASE) / WHEEL_CIRCUMFERENCE * (2 * M_PI);
 
