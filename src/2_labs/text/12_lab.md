@@ -4,9 +4,9 @@ Responsible: Ing. Adam Ligocki, Ph.D.
 
 Up to 50 points can be earned through two practical demonstrations during the semester.
 
-Week 8 — Line following (25 points)
+Week 7 — Line following (20 points)
 
-Week 12 — Corridor following (25 points)
+Week 12 — Corridor following (20 points)
 
 ## Corridor following rules
 

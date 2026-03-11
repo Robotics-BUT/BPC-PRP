@@ -4,15 +4,15 @@ Responsible: Ing. Adam Ligocki, Ph.D.
 
 Up to 50 points can be earned through two practical demonstrations during the semester.
 
-Week 8 — Line following (25 points)
+Week 7 — Line following (20 points)
 
-Week 12 — Corridor following (25 points)
+Week 12 — Corridor following (20 points)
 
 ## Line following rules
 
 There are 3 tracks:
 - Straight line (5 points)
-- Simple loop (10 points)
+- Simple loop (5 points)
 - Complex loop (10 points)
 
 To pass a track, the robot must follow the full length of the line.
