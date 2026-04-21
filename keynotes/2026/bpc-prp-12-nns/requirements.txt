@@ -1,0 +1,21 @@
+# Required for the in-class demos
+torch>=2.2
+torchvision>=0.17
+onnx>=1.16
+onnxscript>=0.1
+onnxruntime>=1.17
+numpy
+matplotlib
+pandas
+streamlit>=1.30
+requests
+transformers>=4.45
+accelerate>=0.30
+
+# Optional — only if you switch the LLM parser to a cloud/local LLM.
+# anthropic>=0.40
+# transformers>=4.44
+# accelerate
+
+# Optional — speech-to-text
+# openai-whisper
