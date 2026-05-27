@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Lab 10 - Camera Data Processing - BPC-PRP - Practical Robotics and Computer Vision</title>
+        <title>Lab 11 - Visual Navigation Using ArUco Markers - BPC-PRP - Practical Robotics and Computer Vision</title>
                 
 
         <!-- Custom HTML head -->
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../title-page.html">Introduction</a></li><li class="chapter-item expanded "><a href="../../1_lectures/text/intro.html"><strong aria-hidden="true">1.</strong> Lectures</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/intro.html"><strong aria-hidden="true">2.</strong> Labs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../2_labs/text/1_lab.html"><strong aria-hidden="true">2.1.</strong> Lab 1 - Development Environment &amp; First C++ Program</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/2_lab.html"><strong aria-hidden="true">2.2.</strong> Lab 2 - Project Workflow: Git, CMake &amp; Team Project</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/4_lab.html"><strong aria-hidden="true">2.3.</strong> Lab 3 - Data Capture &amp; Visualization (ROS)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/5_lab.html"><strong aria-hidden="true">2.4.</strong> Lab 4 - Motor, Kinematics &amp; Gamepad</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/6_lab.html"><strong aria-hidden="true">2.5.</strong> Lab 5 - Line Estimation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/7_lab.html"><strong aria-hidden="true">2.6.</strong> Lab 6 - Line Following &amp; PID</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/8_lab.html"><strong aria-hidden="true">2.7.</strong> Lab 7 - Exam (Line Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/9_lab.html"><strong aria-hidden="true">2.8.</strong> Lab 8 - Obstacle Detection &amp; Corridor Following</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/10_lab.html"><strong aria-hidden="true">2.9.</strong> Lab 9 - Orientation-Aware Corridor Navigation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/11_lab.html" class="active"><strong aria-hidden="true">2.10.</strong> Lab 10 - Camera Data Processing</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/12_lab.html"><strong aria-hidden="true">2.11.</strong> Lab 12 - Exam (Corridor Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/13_exam.html"><strong aria-hidden="true">2.12.</strong> Main Exam - Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../3_navigation/text/intro.html"><strong aria-hidden="true">3.</strong> Robotic Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../3_navigation/text/1_differential_chassis.html"><strong aria-hidden="true">3.1.</strong> Differential Chassis</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/2_pid.html"><strong aria-hidden="true">3.2.</strong> PID</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/3_line_following.html"><strong aria-hidden="true">3.3.</strong> Line Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/4_corridor_following.html"><strong aria-hidden="true">3.4.</strong> Corridor Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/5_imu.html"><strong aria-hidden="true">3.5.</strong> IMU</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/6_maze_escape.html"><strong aria-hidden="true">3.6.</strong> Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../4_others/text/intro.html"><strong aria-hidden="true">4.</strong> Others</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../4_others/text/1_linux.html"><strong aria-hidden="true">4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../../4_others/text/2_cpp.html"><strong aria-hidden="true">4.2.</strong> C++</a></li><li class="chapter-item expanded "><a href="../../4_others/text/7_cmake.html"><strong aria-hidden="true">4.3.</strong> CMake</a></li><li class="chapter-item expanded "><a href="../../4_others/text/3_git.html"><strong aria-hidden="true">4.4.</strong> Git</a></li><li class="chapter-item expanded "><a href="../../4_others/text/4_clion.html"><strong aria-hidden="true">4.5.</strong> CLion</a></li><li class="chapter-item expanded "><a href="../../4_others/text/8_multithreading.html"><strong aria-hidden="true">4.6.</strong> Multithreading</a></li><li class="chapter-item expanded "><a href="../../4_others/text/10_coordinate_system.html"><strong aria-hidden="true">4.7.</strong> Coordinate Systems</a></li><li class="chapter-item expanded "><a href="../../4_others/text/11_communication_buses.html"><strong aria-hidden="true">4.8.</strong> Communication Buses</a></li><li class="chapter-item expanded "><a href="../../4_others/text/12_ubuntu_environment.html"><strong aria-hidden="true">4.9.</strong> Ubuntu Environment</a></li></ol></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../title-page.html">Introduction</a></li><li class="chapter-item expanded "><a href="../../1_lectures/text/intro.html"><strong aria-hidden="true">1.</strong> Lectures</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/intro.html"><strong aria-hidden="true">2.</strong> Labs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../2_labs/text/1_lab.html"><strong aria-hidden="true">2.1.</strong> Lab 1 - Development Environment &amp; First C++ Program</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/2_lab.html"><strong aria-hidden="true">2.2.</strong> Lab 2 - Project Workflow: Git, CMake &amp; Team Project</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/3_lab.html"><strong aria-hidden="true">2.3.</strong> Lab 3 - Git &amp; C++ Project Template</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/4_lab.html"><strong aria-hidden="true">2.4.</strong> Lab 4 - Data Capture &amp; Visualization (ROS)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/5_lab.html"><strong aria-hidden="true">2.5.</strong> Lab 5 - Motor, Kinematics &amp; Gamepad</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/6_lab.html"><strong aria-hidden="true">2.6.</strong> Lab 6 - Line Estimation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/7_lab.html"><strong aria-hidden="true">2.7.</strong> Lab 7 - Line Following &amp; PID</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/8_lab.html"><strong aria-hidden="true">2.8.</strong> Lab 8 - Midterm Test (Line Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/9_lab.html"><strong aria-hidden="true">2.9.</strong> Lab 9 - Obstacle Detection &amp; Corridor Following</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/10_lab.html"><strong aria-hidden="true">2.10.</strong> Lab 10 - Orientation-Aware Corridor Navigation</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/11_lab.html" class="active"><strong aria-hidden="true">2.11.</strong> Lab 11 - Visual Navigation Using ArUco Markers</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/12_lab.html"><strong aria-hidden="true">2.12.</strong> Lab 12 - Midterm Test (Corridor Following)</a></li><li class="chapter-item expanded "><a href="../../2_labs/text/13_exam.html"><strong aria-hidden="true">2.13.</strong> Main Exam - Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../3_navigation/text/intro.html"><strong aria-hidden="true">3.</strong> Robotic Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../3_navigation/text/1_differential_chassis.html"><strong aria-hidden="true">3.1.</strong> Differential Chassis</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/2_pid.html"><strong aria-hidden="true">3.2.</strong> PID</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/3_line_following.html"><strong aria-hidden="true">3.3.</strong> Line Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/4_corridor_following.html"><strong aria-hidden="true">3.4.</strong> Corridor Following</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/5_imu.html"><strong aria-hidden="true">3.5.</strong> IMU</a></li><li class="chapter-item expanded "><a href="../../3_navigation/text/6_maze_escape.html"><strong aria-hidden="true">3.6.</strong> Maze Escape</a></li></ol></li><li class="chapter-item expanded "><a href="../../4_others/text/intro.html"><strong aria-hidden="true">4.</strong> Others</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../4_others/text/1_linux.html"><strong aria-hidden="true">4.1.</strong> Linux</a></li><li class="chapter-item expanded "><a href="../../4_others/text/2_cpp.html"><strong aria-hidden="true">4.2.</strong> C++</a></li><li class="chapter-item expanded "><a href="../../4_others/text/7_cmake.html"><strong aria-hidden="true">4.3.</strong> CMake</a></li><li class="chapter-item expanded "><a href="../../4_others/text/3_git.html"><strong aria-hidden="true">4.4.</strong> Git</a></li><li class="chapter-item expanded "><a href="../../4_others/text/4_clion.html"><strong aria-hidden="true">4.5.</strong> CLion</a></li><li class="chapter-item expanded "><a href="../../4_others/text/8_multithreading.html"><strong aria-hidden="true">4.6.</strong> Multithreading</a></li><li class="chapter-item expanded "><a href="../../4_others/text/10_coordinate_system.html"><strong aria-hidden="true">4.7.</strong> Coordinate Systems</a></li><li class="chapter-item expanded "><a href="../../4_others/text/11_communication_buses.html"><strong aria-hidden="true">4.8.</strong> Communication Buses</a></li><li class="chapter-item expanded "><a href="../../4_others/text/12_ubuntu_environment.html"><strong aria-hidden="true">4.9.</strong> Ubuntu Environment</a></li></ol></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -143,8 +143,11 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="lab-10---visual-navigation-using-aruco-markers"><a class="header" href="#lab-10---visual-navigation-using-aruco-markers">Lab 10 - Visual Navigation Using ArUco Markers</a></h1>
+                        <h1 id="lab-11---visual-navigation-using-aruco-markers"><a class="header" href="#lab-11---visual-navigation-using-aruco-markers">Lab 11 - Visual Navigation Using ArUco Markers</a></h1>
 <p>Responsible: Ing. Petr Šopák</p>
+<blockquote>
+<p><strong>Robot required.</strong> This lab needs the Fenrir robot.</p>
+</blockquote>
 <h2 id="learning-objectives"><a class="header" href="#learning-objectives">Learning objectives</a></h2>
 <p><strong>1) Camera-based detection of visual markers</strong></p>
 <ul>
@@ -188,9 +191,9 @@ Details:
 <ol>
 <li>Create a new ROS 2 node - <code>camera_node</code>
 <ul>
-<li>Subscribe to a camera image topic (<code>/bpc_prp_robot/camera/compressed</code>) using <code>sensor_msgs/msg/compressed_image.hpp</code></li>
-<li>In the callback, decode the incoming compressed image message using <code>cv::imdecode</code> to obtain a <code>cv::Mat</code> in <code>BGR</code> format (equivalent to <code>bgr8</code>)</li>
-<li>Check if the decoded image is valid (not empty) before processing</li>
+<li>Subscribe to the camera image topic (<code>/bpc_prp_robot/camera</code>) using <code>sensor_msgs/msg/image.hpp</code></li>
+<li>In the callback, convert the incoming <code>sensor_msgs::msg::Image</code> message to a <code>cv::Mat</code> in <code>bgr8</code> format using <code>cv_bridge</code> (<code>cv_bridge::toCvCopy(msg, &quot;bgr8&quot;)-&gt;image</code>)</li>
+<li>Check that the resulting image is valid (not empty) before processing</li>
 </ul>
 </li>
 <li><strong>Detect ArUco markers in the image</strong>:
@@ -261,7 +264,7 @@ Details:
 <li>View the image in <strong>rqt_image_view</strong> or <strong>RViz</strong> for debugging</li>
 </ul>
 <blockquote>
-<p><strong>RViz2 tip:</strong> Add → By Topic → Image, then set Image Topic (in Displays) to <code>/bpc_prp_robot/camera/compressed</code></p>
+<p><strong>RViz2 tip:</strong> Add → By Topic → Image, then set Image Topic (in Displays) to <code>/bpc_prp_robot/camera</code></p>
 </blockquote>
 <ul>
 <li>(Optional) Overlay detected markers on the image using <code>cv::aruco::drawDetectedMarkers</code> before publishing</li>
@@ -304,6 +307,38 @@ ID = 2 -&gt; right           ID = 12 -&gt; right
 </li>
 <li>Test your logic and outputs</li>
 </ol>
+<h2 id="deliverables"><a class="header" href="#deliverables">Deliverables</a></h2>
+<p>The functions below are <strong>graded exercises</strong>. Each is the contract the lab
+evaluates against. The reference implementations are intentionally kept
+teacher-only — the in-page code stubs (<code>// TODO</code>) are the starting point.</p>
+<h3 id="algorithmsarucodetectordetectcvmat-frame"><a class="header" href="#algorithmsarucodetectordetectcvmat-frame"><code>algorithms::ArucoDetector::detect(cv::Mat frame)</code></a></h3>
+<ul>
+<li>Run <code>cv::aruco::detectMarkers</code> against the input image using the
+pre-initialized dictionary (<code>DICT_4X4_50</code>).</li>
+<li>For each detected marker, emplace one <code>Aruco{id, corners}</code> into the result
+vector.</li>
+<li>Return an empty vector when no markers are seen.</li>
+<li>Do not crash on empty / corrupt input; return an empty vector instead.</li>
+</ul>
+<h3 id="cameranode-in-nodescamera_nodehppcpp"><a class="header" href="#cameranode-in-nodescamera_nodehppcpp"><code>CameraNode</code> (in <code>nodes/camera_node.{hpp,cpp}</code>)</a></h3>
+<ul>
+<li>Subscribe to <code>/bpc_prp_robot/camera</code> (<code>sensor_msgs/Image</code>).</li>
+<li>Convert each message with <code>cv_bridge::toCvCopy(msg, &quot;bgr8&quot;)</code>.</li>
+<li>Call <code>ArucoDetector::detect</code> and store the latest result + the latest image.</li>
+<li>Optionally republish an annotated image via <code>image_transport::Publisher</code>.</li>
+</ul>
+<h3 id="maze-decision-logic-in-the-maze-loop"><a class="header" href="#maze-decision-logic-in-the-maze-loop">Maze decision logic (in the maze loop)</a></h3>
+<ul>
+<li>Map marker IDs to symbolic instructions per the table in TASK 2 (IDs <code>0–2</code>
+for the escape path, <code>10–12</code> for the treasure path).</li>
+<li>On detection, store both the ID and which path it belongs to.</li>
+<li>At each intersection, apply the most recently stored instruction once, then
+clear it.</li>
+<li>Document which path (escape vs treasure) your solution prioritizes.</li>
+</ul>
+<p><strong>Submission:</strong> your <code>solution</code> package builds and runs; a demo shows the
+robot reading markers, taking the indicated turn at the next intersection,
+and correctly preferring the chosen path.</p>
 <h2 id="final-note"><a class="header" href="#final-note">Final note</a></h2>
 <p>This is the last lab in the course. We hope it helped you better understand the connection between perception, memory, and decision-making in robotics. You’ve now completed a full pipeline—from reading sensor data to interpreting symbolic cues and applying them in complex navigation tasks.</p>
 <p>Good luck with your upcoming <strong>exam and final evaluation</strong>. Stay curious, keep experimenting, and don’t be afraid to challenge your solutions. We’ll be happy to see if you decide to join another course from our <strong>Robotics group</strong> in the future.</p>
